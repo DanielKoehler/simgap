@@ -10,7 +10,7 @@ package net.sf.qagesa;
  *
  * Created on 7 August 2006, 18.07 by Giovanni Novelli
  *
- * $Id: UPDATE.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id: MAIN.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
 
@@ -23,7 +23,7 @@ import net.sf.qagesa.ui.UserInterface;
  * 
  * @author Giovanni Novelli
  */
-public class UPDATE {
+public class MAIN {
 	public static void main(String[] args) {
 		boolean swing = false;
 		if (args.length > 0) {
@@ -67,7 +67,7 @@ public class UPDATE {
 			System.out.println("Unwanted errors happen");
 		}
                 
-        	      UPDATE.simulate(numUsers,numRequests,false,whichMeasure,1,0.95,swing);
+        	      MAIN.simulate(numUsers,numRequests,false,whichMeasure,1,0.95,swing);
 		}
 	}
 
