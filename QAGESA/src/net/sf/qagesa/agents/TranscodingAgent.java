@@ -28,17 +28,13 @@ import junit.framework.Assert;
 
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.predicates.Predicate;
-import net.sf.gap.constants.AgentStates;
 import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.util.EntitiesCounter;
 
-import net.sf.qagesa.agents.services.impl.MuMService;
 import net.sf.qagesa.constants.QAGESATags;
 import net.sf.qagesa.grid.components.QAGESAGridElement;
 import net.sf.qagesa.messages.ChunkReply;
 import net.sf.qagesa.messages.ChunkRequest;
-import net.sf.qagesa.messages.ReFPlayReply;
-import net.sf.qagesa.messages.ReFPlayRequest;
 import net.sf.qagesa.messages.TranscodeReply;
 import net.sf.qagesa.messages.TranscodeRequest;
 import net.sf.qagesa.multimedia.Chunk;

@@ -21,7 +21,6 @@ import net.sf.gap.messages.Message;
 import net.sf.gap.messages.Reply;
 
 import net.sf.qagesa.agents.services.impl.mum.GEList;
-import net.sf.qagesa.agents.services.impl.mum.MuMRepository;
 
 /**
  * 
