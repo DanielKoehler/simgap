@@ -24,10 +24,8 @@
 package net.sf.gap.agents;
 
 import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
 import gridsim.datagrid.DataGridUser;
 import gridsim.util.SimReport;
-import net.sf.gap.GAP;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
@@ -38,219 +36,210 @@ import net.sf.gap.grid.factories.LinkFactory;
 import net.sf.gap.util.EntitiesCounter;
 
 public abstract class AbstractAgent extends DataGridUser {
-        private boolean traceFlag;
 
-	private SimReport report_;
+    private boolean traceFlag;
+    private SimReport report_;
+    private int entityType;
+    private int agentSizeInBytes;
+    private int agentState;
+    private int resourceID;
+    protected GridElement gridElement;
+    private AgentPlatform agentPlatform;
+    private int AID;
+    private AgentHistory agentHistory;
 
-	private int entityType;
+    public AbstractAgent(GridElement ge, String name, int agentSizeInBytes,
+            boolean trace_flag) throws Exception {
+        super(name, LinkFactory.getAgentLink(name));
+        this.setGridElement(ge);
+        this.setAgentPlatform(this.getGridElement().getAgentPlatform());
+        this.setResourceID(this.getGridElement().get_id());
+        this.setEntityType(EntityTypes.AGENT_ZOMBIE);
+        this.setAgentState(AgentStates.ZOMBIE);
+        this.setAID(EntityTypes.NOBODY);
 
-	private int agentSizeInBytes;
+        EntitiesCounter.create("AID");
+    }
 
-	private int agentState;
-
-	private int resourceID;
-
-	protected GridElement gridElement;
-
-	private AgentPlatform agentPlatform;
-
-	private int AID;
-
-	private AgentHistory agentHistory;
-
-	public AbstractAgent(GridElement ge, String name, int agentSizeInBytes,
-			boolean trace_flag) throws Exception {
-		super(name, LinkFactory.getAgentLink(name));
-		this.setGridElement(ge);
-		this.setAgentPlatform(this.getGridElement().getAgentPlatform());
-		this.setResourceID(this.getGridElement().get_id());
-		this.setEntityType(EntityTypes.AGENT_ZOMBIE);
-		this.setAgentState(AgentStates.ZOMBIE);
-		this.setAID(EntityTypes.NOBODY);
-
-                EntitiesCounter.create("AID");
-	}
-
-	public void initialize() throws Exception { // Agen's Initialization
-                // creates a report file
-		if (this.isTraceFlag() == true) {
-			this.setReport_(new SimReport(this.get_name()));
-		}
-		this.setAgentHistory(new AgentHistory());
+    public void initialize() throws Exception { // Agen's Initialization
+        // creates a report file
+        if (this.isTraceFlag() == true) {
+            this.setReport_(new SimReport(this.get_name()));
         }
+        this.setAgentHistory(new AgentHistory());
+    }
 
-	abstract protected void dispose(); // Agent's Disposal
+    abstract protected void dispose(); // Agent's Disposal
 
-	abstract protected void manageLifecycle(Sim_event ev);
+    abstract protected void manageLifecycle(Sim_event ev);
 
-	abstract protected void manageMigration(Sim_event ev);
+    abstract protected void manageMigration(Sim_event ev);
 
-	abstract public void processOtherEvent(Sim_event ev);
+    abstract public void processOtherEvent(Sim_event ev);
 
-	/**
-	 * @param ev
-	 *            Sim_event to be processed
-	 */
-	public void processEvent(Sim_event ev) {
-		switch (ev.get_tag()) {
-		case Tags.AGENT_RUN_REQ:
-		case Tags.AGENT_KILL_REQ:
-		case Tags.AGENT_KILLAWAIT_REQ:
-		case Tags.AGENT_PAUSE_REQ:
-		case Tags.AGENT_RESUME_REQ:
-			this.manageLifecycle(ev);
-			break;
+    /**
+     * @param ev
+     *            Sim_event to be processed
+     */
+    public void processEvent(Sim_event ev) {
+        switch (ev.get_tag()) {
+            case Tags.AGENT_RUN_REQ:
+            case Tags.AGENT_KILL_REQ:
+            case Tags.AGENT_KILLAWAIT_REQ:
+            case Tags.AGENT_PAUSE_REQ:
+            case Tags.AGENT_RESUME_REQ:
+                this.manageLifecycle(ev);
+                break;
 
-		case Tags.AGENT_MOVE_REQ:
-			this.manageMigration(ev);
-			break;
+            case Tags.AGENT_MOVE_REQ:
+                this.manageMigration(ev);
+                break;
 
-		default:
-			break;
-		}
-	}
+            default:
+                break;
+        }
+    }
 
-	protected void processEvents() {
-		Sim_event ev = new Sim_event();
+    protected void processEvents() {
+        Sim_event ev = new Sim_event();
 
-		super.sim_get_next(ev);
-		this.processEvent(ev);
-	}
+        super.sim_get_next(ev);
+        this.processEvent(ev);
+    }
 
-	/**
-	 * Assigns an AID to agent
-	 * 
-	 * @return assigned AID
-	 */
-	protected int assignAID() {
-		int newAID = EntitiesCounter.inc("AID");
-		this.setAID(newAID);
-		return newAID;
-	}
+    /**
+     * Assigns an AID to agent
+     * 
+     * @return assigned AID
+     */
+    protected int assignAID() {
+        int newAID = EntitiesCounter.inc("AID");
+        this.setAID(newAID);
+        return newAID;
+    }
 
-	/**
-	 * detach AID from agent
-	 */
-	protected void detachAID() {
-		this.setAID(EntityTypes.NOBODY);
-	}
+    /**
+     * detach AID from agent
+     */
+    protected void detachAID() {
+        this.setAID(EntityTypes.NOBODY);
+    }
 
-	/**
-	 * Gets agent platform
-	 * 
-	 * 
-	 * @return
-	 * @see AgentPlatform
-	 */
-	protected AgentPlatform getAgentPlatform() {
-		return this.agentPlatform;
-	}
+    /**
+     * Gets agent platform
+     * 
+     * 
+     * @return
+     * @see AgentPlatform
+     */
+    protected AgentPlatform getAgentPlatform() {
+        return this.agentPlatform;
+    }
 
-	/**
-	 * @return agent size in bytes
-	 */
-	protected int getAgentSizeInBytes() {
-		return this.agentSizeInBytes;
-	}
+    /**
+     * @return agent size in bytes
+     */
+    protected int getAgentSizeInBytes() {
+        return this.agentSizeInBytes;
+    }
 
-	/**
-	 * @return agent state
-	 */
-	protected int getAgentState() {
-		return this.agentState;
-	}
+    /**
+     * @return agent state
+     */
+    protected int getAgentState() {
+        return this.agentState;
+    }
 
-	/**
-	 * @return agent entity type
-	 */
-	protected int getEntityType() {
-		return this.entityType;
-	}
+    /**
+     * @return agent entity type
+     */
+    protected int getEntityType() {
+        return this.entityType;
+    }
 
-	/**
-	 * @return agent report
-	 */
-	protected SimReport getReport_() {
-		return this.report_;
-	}
+    /**
+     * @return agent report
+     */
+    protected SimReport getReport_() {
+        return this.report_;
+    }
 
-	/**
-	 * @return agent grid element
-	 */
-	protected int getResourceID() {
-		return this.resourceID;
-	}
+    /**
+     * @return agent grid element
+     */
+    protected int getResourceID() {
+        return this.resourceID;
+    }
 
-	protected void setAgentPlatform(AgentPlatform agentPlatform) {
-		this.agentPlatform = agentPlatform;
-	}
+    protected void setAgentPlatform(AgentPlatform agentPlatform) {
+        this.agentPlatform = agentPlatform;
+    }
 
-	protected void setAgentSizeInBytes(int agentSizeInBytes) {
-		this.agentSizeInBytes = agentSizeInBytes;
-	}
+    protected void setAgentSizeInBytes(int agentSizeInBytes) {
+        this.agentSizeInBytes = agentSizeInBytes;
+    }
 
-	protected void setAgentState(int agentState) {
-		this.agentState = agentState;
-	}
+    protected void setAgentState(int agentState) {
+        this.agentState = agentState;
+    }
 
-	protected void setEntityType(int entityType) {
-		this.entityType = entityType;
-	}
+    protected void setEntityType(int entityType) {
+        this.entityType = entityType;
+    }
 
-	protected void setReport_(SimReport report_) {
-		this.report_ = report_;
-	}
+    protected void setReport_(SimReport report_) {
+        this.report_ = report_;
+    }
 
-	protected void setResourceID(int resourceID) {
-		this.resourceID = resourceID;
-	}
+    protected void setResourceID(int resourceID) {
+        this.resourceID = resourceID;
+    }
 
-	/**
-	 * Prints out the given message into stdout. In addition, writes it into a
-	 * file.
-	 * 
-	 * @param msg
-	 *            a message
-	 */
-	protected void write(String msg) {
-		System.out.println(msg);
-		if (this.report_ != null) {
-			this.report_.write(msg);
-		}
-	}
+    /**
+     * Prints out the given message into stdout. In addition, writes it into a
+     * file.
+     * 
+     * @param msg
+     *            a message
+     */
+    protected void write(String msg) {
+        System.out.println(msg);
+        if (this.report_ != null) {
+            this.report_.write(msg);
+        }
+    }
 
-	protected void setGridElement(GridElement gridElement) {
-		this.gridElement = gridElement;
-	}
+    protected void setGridElement(GridElement gridElement) {
+        this.gridElement = gridElement;
+    }
 
-	protected int getAID() {
-		return this.AID;
-	}
+    protected int getAID() {
+        return this.AID;
+    }
 
-	protected void setAID(int AID) {
-		this.AID = AID;
-	}
+    protected void setAID(int AID) {
+        this.AID = AID;
+    }
 
-	protected AgentHistory getAgentHistory() {
-		return this.agentHistory;
-	}
+    protected AgentHistory getAgentHistory() {
+        return this.agentHistory;
+    }
 
-	protected void setAgentHistory(AgentHistory agentHistory) {
-		this.agentHistory = agentHistory;
-	}
+    protected void setAgentHistory(AgentHistory agentHistory) {
+        this.agentHistory = agentHistory;
+    }
 
-	protected GridElement getGridElement() {
-		return gridElement;
-	}
+    protected GridElement getGridElement() {
+        return gridElement;
+    }
 
-	protected void writeHistory() {
-		int ne = this.getAgentHistory().size();
-		for (int i = 0; i < ne; i++) {
-			String msg = this.getAgentHistory().get(i)
-					.toString(this.get_name());
-			this.getReport_().write(msg);
-		}
-	}
+    protected void writeHistory() {
+        int ne = this.getAgentHistory().size();
+        for (int i = 0; i < ne; i++) {
+            String msg = this.getAgentHistory().get(i).toString(this.get_name());
+            this.getReport_().write(msg);
+        }
+    }
 
     public boolean isTraceFlag() {
         return traceFlag;
@@ -259,5 +248,4 @@ public abstract class AbstractAgent extends DataGridUser {
     public void setTraceFlag(boolean traceFlag) {
         this.traceFlag = traceFlag;
     }
-
 }
