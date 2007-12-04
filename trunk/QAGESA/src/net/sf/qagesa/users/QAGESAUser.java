@@ -16,7 +16,6 @@
 package net.sf.qagesa.users;
 
 import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
 import gridsim.GridSim;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
@@ -26,10 +25,8 @@ import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
 import net.sf.gap.users.AbstractUser;
-import net.sf.qagesa.messages.ChunkRequest;
 import net.sf.qagesa.messages.MuMSearchReply;
 import net.sf.qagesa.messages.MuMSearchRequest;
-import net.sf.qagesa.messages.ReFPlayRequest;
 import net.sf.qagesa.constants.QAGESATags;
 
 /**

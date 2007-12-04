@@ -23,7 +23,6 @@ import gridsim.GridSim;
 import java.util.Calendar;
 
 import net.sf.qagesa.QAGESA;
-import net.sf.qagesa.constants.QAGESATags;
 import net.sf.qagesa.stats.QAGESAStat;
 import net.sf.qagesa.grid.VirtualOrganization;
 import net.sf.gap.simulation.AbstractSimulation;
