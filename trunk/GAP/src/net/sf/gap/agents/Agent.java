@@ -46,6 +46,7 @@ public abstract class Agent extends AbstractAgent {
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
+    @Override
 	public void initialize() throws Exception { // Agen's Initialization
             super.initialize();
         }
@@ -160,7 +161,7 @@ public abstract class Agent extends AbstractAgent {
 				this.setAgentSizeInBytes(0);
 				this.detachAID();
 				AgentHistoryEntry agentHistoryEntry = new AgentHistoryEntry(
-						super.clock(), this.get_name(), this.getAgentState(),
+						AbstractAgent.clock(), this.get_name(), this.getAgentState(),
 						this.get_id(), this.getAID(), this.getEntityType(),
 						this.getResourceID());
 				this.getAgentHistory().add(agentHistoryEntry);
@@ -277,7 +278,7 @@ public abstract class Agent extends AbstractAgent {
 				this.setAID(agentRequest.getDst_AID());
 			}
 
-			agentHistoryEntry = new AgentHistoryEntry(super.clock(), this
+			agentHistoryEntry = new AgentHistoryEntry(AbstractAgent.clock(), this
 					.get_name(), this.getAgentState(), this.get_id(), this
 					.getAID(), this.getEntityType(), this.getResourceID());
 			if (agentRequest.getDst_AID() != EntityTypes.NOBODY) {
@@ -302,7 +303,7 @@ public abstract class Agent extends AbstractAgent {
 			Assert.assertEquals(this.getAID() == EntityTypes.NOBODY, false);
 			this.detachAID();
 
-			agentHistoryEntry = new AgentHistoryEntry(super.clock(), this
+			agentHistoryEntry = new AgentHistoryEntry(AbstractAgent.clock(), this
 					.get_name(), this.getAgentState(), this.get_id(), this
 					.getAID(), this.getEntityType(), this.getResourceID());
 			this.getAgentHistory().add(agentHistoryEntry);
@@ -403,11 +404,11 @@ public abstract class Agent extends AbstractAgent {
 		String msg = String
 				.format(
 						"%1$f %2$d %3$s --> AM_%4$s::REQUEST %6$s (%7$s AID %9$d) %5$s AM_%8$s",
-						evsend_time, reqrepID, this.get_name(), super
+						evsend_time, reqrepID, this.get_name(), AbstractAgent
 								.getEntityName(request.getDst_resID()),
 						EntityTypes.toString(request.getDst_entityType()), Tags
-								.toString(tag), super.getEntityName(request
-								.getDst_agentID()), super.getEntityName(request
+								.toString(tag), AbstractAgent.getEntityName(request
+								.getDst_agentID()), AbstractAgent.getEntityName(request
 								.getDst_moveToresID()), request.getDst_AID());
 		this.write(msg);
 
@@ -426,12 +427,12 @@ public abstract class Agent extends AbstractAgent {
 						"%1$f %2$d %3$s <-- AM_%4$s::%7$s %8$s (%6$s AID %10$d) %5$s AM_%9$s",
 						evrecv_time, 
                                                 reqrepID,
-                                                this.get_name(), super
+                                                this.get_name(), AbstractAgent
 								.getEntityName(agentReply.getRequest()
 										.getDst_resID()), EntityTypes
-								.toString(agentType), super
+								.toString(agentType), AbstractAgent
 								.getEntityName(request.getDst_agentID()),
-						agentReply.isOk(), Tags.toString(tag), super
+						agentReply.isOk(), Tags.toString(tag), AbstractAgent
 								.getEntityName(request.getDst_moveToresID()),
 						request.getDst_AID());
 		this.write(msg);
@@ -479,9 +480,9 @@ public abstract class Agent extends AbstractAgent {
 						"%1$f %2$d %3$s --> DFService::REQUEST %6$s (%7$s AID %8$d) %4$s AM_%5$s",
 						evsend_time, reqrepID, this.get_name(), EntityTypes
 								.toString(originalRequest.getDst_entityType()),
-						super.getEntityName(originalRequest.getDst_resID()),
+						AbstractAgent.getEntityName(originalRequest.getDst_resID()),
 						Tags.toString(dftag),
-						super.getEntityName(originalRequest.getDst_agentID()),
+						AbstractAgent.getEntityName(originalRequest.getDst_agentID()),
 						agentRequest.getDst_AID());
 		this.write(msg);
 
@@ -498,9 +499,9 @@ public abstract class Agent extends AbstractAgent {
 						"%1$f %2$d %3$s <-- DFService::DFSERVICE_ACK %6$s (%7$s AID %8$d) %4$s AM_%5$s",
 						evrecv_time, reqrepID, this.get_name(), EntityTypes
 								.toString(originalRequest.getDst_entityType()),
-						super.getEntityName(originalRequest.getDst_resID()),
+						AbstractAgent.getEntityName(originalRequest.getDst_resID()),
 						Tags.toString(dftag),
-						super.getEntityName(originalRequest.getDst_agentID()),
+						AbstractAgent.getEntityName(originalRequest.getDst_agentID()),
 						originalRequest.getDst_AID());
 		this.write(msg);
 	}

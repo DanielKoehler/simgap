@@ -77,6 +77,7 @@ public abstract class GridAgent extends Agent {
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
+    @Override
 	public void initialize() throws Exception { // Agen's Initialization
             super.initialize();
 	    this.setGapGridlets(new Gridlets());
