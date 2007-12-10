@@ -29,19 +29,38 @@ public class QAGESA extends GAP {
 
 	/** Creates a new instance of QAGESA */
 	public QAGESA() {
-		super();
+		super(true);
 	}
 
+	/** 
+         * Creates a new instance of QAGESA indicating preference about graphing
+         */
+	public QAGESA(boolean aGraphing) {
+		super(aGraphing);
+	}
+
+	/** 
+         * Starts simulation
+         */
 	public static void startSimulation() {
 		System.out.println("Starting QAGESA Simulation ");
 		GAP.startSimulation();
 	}
 
+	/** 
+         * Stops simulation
+         */
 	public static void stopSimulation() {
 		System.out.println("Stopping QAGESA Simulation ");
 		GAP.stopSimulation();
 	}
 
+	/** 
+         * Initializes simulation's time parameters
+         * @param platformStart Platform's start time
+         * @param start         Simulation's start time
+         * @param end           Simulation's end time
+         */
 	public static void initialize(double platformStart, double start, double end) {
 		GAP.setPlatformStartTime(platformStart);
 		GAP.setStartTime(start);
