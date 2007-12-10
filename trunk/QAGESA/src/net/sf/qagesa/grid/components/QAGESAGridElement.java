@@ -70,7 +70,6 @@ public class QAGESAGridElement extends GridElement {
 			break;
 
 		case QAGESATags.CACHE_CHUNKS_REQ:
-			// TODO QAGESATags.CACHE_CHUNKS_REQ
                     TranscodeRequest cacheRequest = TranscodeRequest.get_data(ev);
                     ChunksSequence transcodedSequence = cacheRequest.getSequence();
                     String md5 = transcodedSequence.getMessageDigest();

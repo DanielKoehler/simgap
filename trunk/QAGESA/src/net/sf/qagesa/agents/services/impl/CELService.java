@@ -60,7 +60,6 @@ public class CELService extends GISService {
 
 	@Override
 	public void processOtherEvent(Sim_event ev) {
-		// TODO Auto-generated method stub
 		switch (ev.get_tag()) {
 		case QAGESATags.CEL_SEARCH_REQ:
 			this.processGIS();

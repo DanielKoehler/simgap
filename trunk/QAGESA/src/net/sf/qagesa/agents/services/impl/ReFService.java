@@ -310,7 +310,6 @@ public class ReFService extends PlatformService {
     
     @Override
     public void processOtherEvent(Sim_event ev) {
-        // TODO Auto-generated method stub
         switch (ev.get_tag()) {
             case QAGESATags.REF_PLAY_REQ:
                 this.processPlayRequest(ev);
