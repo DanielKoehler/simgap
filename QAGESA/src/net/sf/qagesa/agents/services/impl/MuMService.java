@@ -94,7 +94,6 @@ public class MuMService extends PlatformService {
 	public void processOtherEvent(Sim_event ev) {
 		switch (ev.get_tag()) {
 		case QAGESATags.CEL_SEARCH_REP:
-			// TODO QAGESATags.CEL_SEARCH_REP
 			break;
 
                 case QAGESATags.MUM_SEARCH_REQ:
