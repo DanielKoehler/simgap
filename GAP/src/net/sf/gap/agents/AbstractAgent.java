@@ -35,6 +35,11 @@ import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.grid.factories.LinkFactory;
 import net.sf.gap.util.EntitiesCounter;
 
+/**
+ * This abstract class is responsible for simulating agent's basic behaviour.
+ * 
+ * @author Giovanni Novelli
+ */
 public abstract class AbstractAgent extends DataGridUser {
     /**
      * Boolean flag used to enable(true)/disable(false) entity's tracing
@@ -83,6 +88,14 @@ public abstract class AbstractAgent extends DataGridUser {
      */
     private AgentHistory agentHistory;
 
+    /**
+     * AbstractAgent constructor
+     * @param ge GridElement associated to an agent
+     * @param name Agent's name
+     * @param agentSizeInBytes Agent's transfer size in bytes
+     * @param trace_flag Flag used to enable(true)/disable(false) tracing
+     * @throws java.lang.Exception 
+     */
     public AbstractAgent(GridElement ge, String name, int agentSizeInBytes,
             boolean trace_flag) throws Exception {
         super(name, LinkFactory.getAgentLink(name));
@@ -98,7 +111,11 @@ public abstract class AbstractAgent extends DataGridUser {
         EntitiesCounter.create("AID");
     }
 
-    public void initialize() throws Exception { // Agen's Initialization
+    /**
+     * Agent's initialization
+     * @throws java.lang.Exception
+     */
+    public void initialize() throws Exception { 
         // creates a report file
         if (this.isTraceFlag() == true) {
             this.setReport_(new SimReport(this.get_name()));
@@ -106,17 +123,31 @@ public abstract class AbstractAgent extends DataGridUser {
         this.setAgentHistory(new AgentHistory());
     }
 
-    abstract protected void dispose(); // Agent's Disposal
+    /**
+     * Agent's disposal
+     */
+    abstract protected void dispose();
 
+    /**
+     * Manages agent's lifecycle
+     * @param ev Event triggering agent's lifecycle transitions
+     */
     abstract protected void manageLifecycle(Sim_event ev);
 
+    /**
+     * Manages agent's migration
+     * @param ev Event triggering agent's migration
+     */
     abstract protected void manageMigration(Sim_event ev);
 
+    /**
+     * Method used to extend agent's behaviour
+     * @param ev Event triggering agent's actions
+     */
     abstract public void processOtherEvent(Sim_event ev);
 
     /**
-     * @param ev
-     *            Sim_event to be processed
+     * @param ev Sim_event to be processed
      */
     public void processEvent(Sim_event ev) {
         switch (ev.get_tag()) {
@@ -137,6 +168,9 @@ public abstract class AbstractAgent extends DataGridUser {
         }
     }
 
+    /**
+     * Method used to process all events received by an agent
+     */
     protected void processEvents() {
         Sim_event ev = new Sim_event();
 
@@ -156,7 +190,7 @@ public abstract class AbstractAgent extends DataGridUser {
     }
 
     /**
-     * detach AID from agent
+     * Detach AID from agent
      */
     protected void detachAID() {
         this.setAID(EntityTypes.NOBODY);
@@ -208,26 +242,50 @@ public abstract class AbstractAgent extends DataGridUser {
         return this.resourceID;
     }
 
+    /**
+     * 
+     * @param agentPlatform
+     */
     protected void setAgentPlatform(AgentPlatform agentPlatform) {
         this.agentPlatform = agentPlatform;
     }
-
+    
+    /**
+     * 
+     * @param agentSizeInBytes
+     */
     protected void setAgentSizeInBytes(int agentSizeInBytes) {
         this.agentSizeInBytes = agentSizeInBytes;
     }
 
+    /**
+     * 
+     * @param agentState
+     */
     protected void setAgentState(int agentState) {
         this.agentState = agentState;
     }
 
+    /**
+     * 
+     * @param entityType
+     */
     protected void setEntityType(int entityType) {
         this.entityType = entityType;
     }
-
+    
+    /**
+     * 
+     * @param report_
+     */
     protected void setReport_(SimReport report_) {
         this.report_ = report_;
     }
 
+    /**
+     * 
+     * @param resourceID
+     */
     protected void setResourceID(int resourceID) {
         this.resourceID = resourceID;
     }
@@ -246,30 +304,57 @@ public abstract class AbstractAgent extends DataGridUser {
         }
     }
 
+    /**
+     * 
+     * @param gridElement
+     */
     protected void setGridElement(GridElement gridElement) {
         this.gridElement = gridElement;
     }
 
+    /**
+     * 
+     * @return AID
+     */
     protected int getAID() {
         return this.AID;
     }
 
+    /**
+     * 
+     * @param AID
+     */
     protected void setAID(int AID) {
         this.AID = AID;
     }
 
+    /**
+     * 
+     * @return Agent's History
+     */
     protected AgentHistory getAgentHistory() {
         return this.agentHistory;
     }
 
+    /**
+     * 
+     * @param agentHistory
+     */
     protected void setAgentHistory(AgentHistory agentHistory) {
         this.agentHistory = agentHistory;
     }
 
+    /**
+     * 
+     * @return agent's GridElement
+     */
     protected GridElement getGridElement() {
         return gridElement;
     }
 
+    /**
+     * Writes history to standard output
+     */
     protected void writeHistory() {
         int ne = this.getAgentHistory().size();
         for (int i = 0; i < ne; i++) {
@@ -278,10 +363,18 @@ public abstract class AbstractAgent extends DataGridUser {
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean isTraceFlag() {
         return traceFlag;
     }
 
+    /**
+     * 
+     * @param traceFlag
+     */
     public void setTraceFlag(boolean traceFlag) {
         this.traceFlag = traceFlag;
     }
