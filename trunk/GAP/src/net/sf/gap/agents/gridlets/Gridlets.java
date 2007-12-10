@@ -30,7 +30,7 @@ import net.sf.gap.messages.impl.GridletRequest;
 import net.sf.gap.messages.impl.AgentRequest;
 
 /**
- * 
+ * @TODO Fix Gridlets lists as queues and vectors when needed
  * @author Giovanni Novelli
  */
 public class Gridlets {

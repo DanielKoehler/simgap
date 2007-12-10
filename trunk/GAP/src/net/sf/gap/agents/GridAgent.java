@@ -77,14 +77,18 @@ public abstract class GridAgent extends Agent {
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
+        /**
+         * Agent's Initialization
+         * @throws java.lang.Exception
+         */
     @Override
-	public void initialize() throws Exception { // Agen's Initialization
+	public void initialize() throws Exception { 
             super.initialize();
 	    this.setGapGridlets(new Gridlets());
         }
 
 	/**
-	 * The core method that handles communications among GridSim entities.
+	 * The core method that handles communications among entities
 	 */
 	@Override
 	public void body() {
@@ -155,6 +159,11 @@ public abstract class GridAgent extends Agent {
 		}
 	}
 
+        /**
+         * @TODO Gridlets management to be fixed!!!!!
+         * @TODO Comments to be completed
+         * @param ev
+         */
 	@Override
 	protected void manageGridlets(Sim_event ev) {
 		GridletRequest gridletRequest = null;
@@ -263,6 +272,14 @@ public abstract class GridAgent extends Agent {
 		}
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends ACK/NACK about presence of gridlets in an agent
+         * @param ev
+         * @param agentRequest
+         * @param flag
+         */
 	private void sendHASGRIDLETSACKNACK(Sim_event ev,
 			AgentRequest agentRequest, boolean flag) {
 		AgentReply agentReply = null;
@@ -278,6 +295,15 @@ public abstract class GridAgent extends Agent {
 				new IO_data(agentReply, SIZE, replyToID));
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends ACK/NACK related to gridlets in an agent
+         * @param ev
+         * @param gridletRequest
+         * @param flag
+         * @param gridlet
+         */
 	private void sendSTATUSACKNACK(Sim_event ev, GridletRequest gridletRequest,
 			boolean flag, Gridlet gridlet) {
 		GridletReply gridletReply = null;
@@ -294,16 +320,39 @@ public abstract class GridAgent extends Agent {
 						replyToID));
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * Sends ACK related to gridlets in an agent
+         * @param ev
+         * @param gridletRequest
+         * @param gridlet
+         */
 	private void sendSTATUSACK(Sim_event ev, GridletRequest gridletRequest,
 			Gridlet gridlet) {
 		this.sendSTATUSACKNACK(ev, gridletRequest, true, gridlet);
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends NACK related to gridlets in an agent
+         * @param ev
+         * @param gridletRequest
+         * @param gridlet
+         */
 	private void sendSTATUSNACK(Sim_event ev, GridletRequest gridletRequest,
 			Gridlet gridlet) {
 		this.sendSTATUSACKNACK(ev, gridletRequest, false, gridlet);
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * @param ev
+         * @param gridletRequest
+         * @param flag
+         * @param gridlet
+         */
 	private void sendACKNACK(Sim_event ev, GridletRequest gridletRequest,
 			boolean flag, Gridlet gridlet) {
 		GridletReply gridletReply = null;
@@ -320,19 +369,47 @@ public abstract class GridAgent extends Agent {
 						replyToID));
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends ACK related to gridlets presence in an agent
+         * @param ev
+         * @param agentRequest
+         */
 	private void sendHASGRIDLETSACK(Sim_event ev, AgentRequest agentRequest) {
 		this.sendHASGRIDLETSACKNACK(ev, agentRequest, true);
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends NACK related to gridlets presence in an agent
+         * @param ev
+         * @param agentRequest
+         */
 	private void sendHASGRIDLETSNACK(Sim_event ev, AgentRequest agentRequest) {
 		this.sendHASGRIDLETSACKNACK(ev, agentRequest, false);
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends ACK related to gridlets in an agent
+         * @param ev
+         * @param agentRequest
+         */
 	private void sendACK(Sim_event ev, GridletRequest gridletRequest,
 			Gridlet gridlet) {
 		this.sendACKNACK(ev, gridletRequest, true, gridlet);
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * Sends NACK related to gridlets in an agent
+         * @param ev
+         * @param agentRequest
+         */
 	private void sendNACK(Sim_event ev, GridletRequest gridletRequest,
 			Gridlet gridlet) {
 		this.sendACKNACK(ev, gridletRequest, false, gridlet);
@@ -351,11 +428,21 @@ public abstract class GridAgent extends Agent {
 		return this.getGapGridlets().hasGridlets();
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * @param agentRequest
+         */
 	@Override
 	protected void onWaitingGridlets(AgentRequest agentRequest) {
 		this.getGapGridlets().onWaitingGridlets(agentRequest);
 	}
 
+        /**
+         * @TODO Fix semanthics
+         * @TODO Comments to be completed
+         * @param agentRequest
+         */
 	@Override
 	protected void offWaitingGridlets() {
 		this.getGapGridlets().offWaitingGridlets();
