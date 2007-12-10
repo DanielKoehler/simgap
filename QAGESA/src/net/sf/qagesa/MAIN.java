@@ -1,5 +1,8 @@
-package net.sf.qagesa;
 /*
+ ****************************************************************************************
+ * Copyright © Giovanni Novelli                                             
+ * All Rights Reserved.                                                                 
+ ****************************************************************************************
  *
  * Title:        QAGESA Simulator 
  * Description:  QAGESA (QoS Aware Grid Enabled Streaming Architecture) Simulator
@@ -13,6 +16,8 @@ package net.sf.qagesa;
  * $Id: MAIN.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
+
+package net.sf.qagesa;
 
 import net.sf.qagesa.grid.VirtualOrganization;
 import net.sf.qagesa.simulation.impl.Simulation;
