@@ -1,4 +1,8 @@
 /*
+ ****************************************************************************************
+ * Copyright © Giovanni Novelli                                             
+ * All Rights Reserved.                                                                 
+ ****************************************************************************************
  *
  * Title:        QAGESA Simulator
  * Description:  QAGESA (QoS Aware Grid Enabled Streaming Architecture) Simulator
