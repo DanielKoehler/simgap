@@ -36,22 +36,59 @@ import net.sf.gap.grid.factories.LinkFactory;
 import net.sf.gap.util.EntitiesCounter;
 
 public abstract class AbstractAgent extends DataGridUser {
-
+    /**
+     * Boolean flag used to enable(true)/disable(false) entity's tracing
+     */
     private boolean traceFlag;
+    /**
+     * Used for SimJava's reporting
+     */
     private SimReport report_;
+    /**
+     * Used to identify entity's type
+     */
     private int entityType;
+    /**
+     * Used to quantify agent's transfer size in bytes
+     */
     private int agentSizeInBytes;
+    /**
+     * Used to track agent's state
+     */
     private int agentState;
+    /**
+     * Used to map agent to a resource (Grid Element) with a SimJava's ID
+     */
     private int resourceID;
+    /**
+     * Used to map agent to a Grid Element with a reference to an istance of
+     * GridElement class
+     */
     protected GridElement gridElement;
+    /**
+     * Used to map agent to a specific Agent Platform
+     * Useful to have multiple Agent Platforms running in a simulation
+     * Needed by an agent to refer to the correct SimJava's ID
+     * for communications with its Agent Platform
+     */
     private AgentPlatform agentPlatform;
+    /**
+     * Unique Agent ID which follows agent through its whole lifecycle in a
+     * simulation and is independent from agent's localization
+     */
     private int AID;
+    /**
+     * Agent's History useful to track agent's state, entity type and 
+     * localizations through a whole simulation
+     */
     private AgentHistory agentHistory;
 
     public AbstractAgent(GridElement ge, String name, int agentSizeInBytes,
             boolean trace_flag) throws Exception {
         super(name, LinkFactory.getAgentLink(name));
+        this.setTraceFlag(trace_flag);
         this.setGridElement(ge);
+        this.setAgentSizeInBytes(agentSizeInBytes);
         this.setAgentPlatform(this.getGridElement().getAgentPlatform());
         this.setResourceID(this.getGridElement().get_id());
         this.setEntityType(EntityTypes.AGENT_ZOMBIE);
