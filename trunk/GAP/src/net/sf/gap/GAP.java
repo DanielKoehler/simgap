@@ -21,8 +21,9 @@
  *
  *****************************************************************************************
  */
-
 package net.sf.gap;
+
+import org.junit.Assert;
 
 import eduni.simjava.Sim_system;
 
@@ -38,92 +39,120 @@ import gridsim.GridSim;
  *
  */
 public abstract class GAP {
-	public static final int NOWHERE = -1;
 
-	/**
-	 * Used for no resource ID associated to an agent (its AID isn't alive or
-	 * never lived)
-	 */
+    /**
+     * Used for no resource ID associated to an agent (its AID isn't alive or
+     * never lived)
+     */
+    public static final int NOWHERE = -1;
+    /**
+     * Platform's Start Time
+     */
+    private static double platformStartTime;
+    /**
+     * Simulation's Start Time
+     */
+    private static double startTime;
+    /**
+     * Simulation's End Time
+     */
+    private static double endTime;
+    /**
+     * Flag about generating Graphs
+     */
+    private static boolean graphing;
 
-	private static double platformStartTime;
+    protected static boolean isGraphing() {
+        return graphing;
+    }
 
-	private static double startTime;
+    protected static void setGraphing(boolean aGraphing) {
+        graphing = aGraphing;
+    }
 
-	private static double endTime;
+    /**
+     * Creates a new instance of GAP
+     */
+    public GAP() {
+        GAP.setGraphing(true);
+    }
 
-	/**
-	 * Creates a new instance of GAP
-	 */
-	public GAP() {
-	}
+    /**
+     * Creates a new instance of GAP indicating preference about graphing
+     */
+    public GAP(boolean aGraphing) { 
+        GAP.setGraphing(aGraphing);
+    }
 
-	/**
-	 * Static initialization
-	 */
-	static {
-		GAP.setPlatformStartTime(100.0);
-		GAP.setStartTime(200.0);
-		GAP.setEndTime(500.0);
-	}
+    /**
+     * Static initialization
+     */
+    static {
+        GAP.setPlatformStartTime(100.0);
+        GAP.setStartTime(200.0);
+        GAP.setEndTime(500.0);
+        Assert.assertFalse(GAP.getPlatformStartTime() > GAP.getStartTime());
+        Assert.assertFalse(GAP.getStartTime() > GAP.getEndTime());
+    }
 
-	protected static void startSimulation() {
-                Sim_system.generate_graphs(true);
-                GridSim.startGridSimulation();
-	}
+    protected static void startSimulation() {
+        Sim_system.generate_graphs(GAP.isGraphing());
+        GridSim.startGridSimulation();
+    }
 
-	protected static void stopSimulation() {
-		GridSim.stopGridSimulation();
-	}
+    protected static void stopSimulation() {
+        GridSim.stopGridSimulation();
+    }
 
-	/**
-	 * @return true if a GAP simulation is running
-	 */
-	public static final boolean isRunning() {
-		return (GridSim.clock() < GAP.getEndTime());
-	}
+    /**
+     * @return true if a GAP simulation is running
+     */
+    public static final boolean isRunning() {
+        return (GridSim.clock() < GAP.getEndTime());
+    }
 
-	/**
-	 * @return GAP Simulation start time
-	 */
-	public static final double getStartTime() {
-		return startTime;
-	}
+    /**
+     * @return GAP Simulation start time
+     */
+    public static final double getStartTime() {
+        return startTime;
+    }
 
-	/**
-	 * @param aStartTime
-	 *            sets GAP Simulation start time
-	 */
-	public static final void setStartTime(double aStartTime) {
-		startTime = aStartTime;
-	}
+    /**
+     * @param aStartTime
+     *            sets GAP Simulation start time
+     */
+    public static final void setStartTime(double aStartTime) {
+        startTime = aStartTime;
+    }
 
-	/**
-	 * @return GAP Simulation end time
-	 */
-	public static final double getEndTime() {
-		return endTime;
-	}
+    /**
+     * @return GAP Simulation end time
+     */
+    public static final double getEndTime() {
+        return endTime;
+    }
 
-	/**
-	 * @param aEndTime
-	 *            sets GAP Simulation end time
-	 */
-	public static final void setEndTime(double aEndTime) {
-		endTime = aEndTime;
-	}
+    /**
+     * @param aEndTime
+     *            sets GAP Simulation end time
+     */
+    public static final void setEndTime(double aEndTime) {
+        endTime = aEndTime;
+    }
 
-	/**
-	 * @return GAP Simulation platform start time
-	 */
-	public static double getPlatformStartTime() {
-		return platformStartTime;
-	}
+    /**
+     * @return GAP Simulation platform start time
+     */
+    public static double getPlatformStartTime() {
+        return platformStartTime;
+    }
 
-	/**
-	 * @param aPlatformStartTime
-	 *            sets GAP Simulation platform start time
-	 */
-	public static void setPlatformStartTime(double aPlatformStartTime) {
-		platformStartTime = aPlatformStartTime;
-	}
+    /**
+     * @param aPlatformStartTime
+     *            sets GAP Simulation platform start time
+     */
+    public static void setPlatformStartTime(double aPlatformStartTime) {
+        platformStartTime = aPlatformStartTime;
+    }
 }
