@@ -441,7 +441,6 @@ public abstract class GridAgent extends Agent {
         /**
          * @TODO Fix semanthics
          * @TODO Comments to be completed
-         * @param agentRequest
          */
 	@Override
 	protected void offWaitingGridlets() {
