@@ -39,29 +39,60 @@ import gridsim.GridSim;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
 
+/**
+ * This class is responsible for simulating agent's basic behaviour.
+ * 
+ * @author Giovanni Novelli
+ */
 public abstract class Agent extends AbstractAgent {
 
+        /**
+         * Agent constructor
+         * @param ge GridElement associated to an agent
+         * @param name Agent's name
+         * @param agentSizeInBytes Agent's transfer size in bytes
+         * @param trace_flag Flag used to enable(true)/disable(false) tracing
+         * @throws java.lang.Exception 
+         */
 	public Agent(GridElement ge, String name, int agentSizeInBytes,
 			boolean trace_flag) throws Exception {
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
+        /**
+         * Agent's Initialization
+         * @throws java.lang.Exception
+         */
     @Override
-	public void initialize() throws Exception { // Agen's Initialization
+	public void initialize() throws Exception { 
             super.initialize();
         }
         
+        /**
+         * @TODO Fix method's semanthics
+         * @return true if there are gridlets carried by agent, false otherwise
+         */
 	abstract protected boolean hasGridlets();
 
+        /**
+         * @TODO Fix method's semanthics
+         * @param agentRequest
+         */
 	abstract protected void onWaitingGridlets(AgentRequest agentRequest);
 
+        /**
+         * @TODO Fix method's semanthics
+         */
 	abstract protected void offWaitingGridlets();
 
+        /**
+         * @TODO Fix method's semanthics
+         * @param ev
+         */
 	abstract protected void manageGridlets(Sim_event ev);
 
 	/**
-	 * @param ev
-	 *            Sim_event to be processed by any child class
+	 * @param ev Sim_event to be processed by any child class
 	 */
 	@Override
 	abstract public void processOtherEvent(Sim_event ev);
@@ -73,10 +104,11 @@ public abstract class Agent extends AbstractAgent {
 	 * according to permitted transition table:
 	 * <p>
 	 * <ul>
-	 * <li> agent's activation ZOMBIE-->RUNNING
-	 * <li> agent's killing RUNNING-->ZOMBIE
-	 * <li> agent's pausing RUNNING-->PAUSED
-	 * <li> agent's resuming PAUSED-->RUNNING <ul/>
+	 * <li> agent's activation  ZOMBIE-->RUNNING
+	 * <li> agent's killing     RUNNING-->ZOMBIE
+	 * <li> agent's pausing     RUNNING-->PAUSED
+	 * <li> agent's resuming    PAUSED-->RUNNING 
+         * <ul/>
 	 * <p>
 	 * Notifies the Directory Facilitator on the GridAgent Platform about state
 	 * transition
@@ -85,29 +117,46 @@ public abstract class Agent extends AbstractAgent {
 	 * originator of it.
 	 * 
 	 * 
-	 * @param ev
-	 *            Sim_event containing the request
+	 * @param ev Sim_event containing the request
 	 * @see eduni.simjava.Sim_event
 	 * @see net.p2pgrid.gap.agents.messages.AgentRequest
 	 */
 	@Override
 	protected void manageLifecycle(Sim_event ev) {
 		AgentRequest agentRequest = AgentRequest.get_data(ev);
+
+                // If this agent has gridlets and has received a KILL request
+                // then send a NACK and do nothing
 		if (this.hasGridlets() && ev.get_tag() == Tags.AGENT_KILL_REQ) {
 			this.sendNACK(ev, agentRequest);
+                
+                // If this agent has gridlets and has received a delayed
+                // KILL request then
 		} else if (this.hasGridlets()
 				&& ev.get_tag() == Tags.AGENT_KILLAWAIT_REQ) {
+                        // if agent's state is congruent with the request
 			if (this.isGoodState(ev)) {
+                                // update agent's internals
 				this.update(ev, agentRequest);
+                                // notify DF about agent's state change
 				this.notifyDF(ev, agentRequest);
+                                // wait until the end of current gridlets
 				this.onWaitingGridlets(agentRequest);
 			}
+                // otherwise, if this agent has NOT gridlets then
 		} else {
+                        // if agent's state is congruent with the request
 			if (this.isGoodState(ev)) {
+                                // update agent's internals
 				this.update(ev, agentRequest);
+                                // notify DF about agent's state change
 				this.notifyDF(ev, agentRequest);
+                                // send ACK
 				this.sendACK(ev, agentRequest);
+                        // otherwise, if agent's state is NOT congruent with the
+                        // request
 			} else {
+                                // send NACK
 				this.sendNACK(ev, agentRequest);
 			}
 		}
@@ -147,8 +196,7 @@ public abstract class Agent extends AbstractAgent {
 						.getZombieAgents().contains(this.get_id()), false);
 
 				/*
-				 * @TODO Fix it This is a TRICK Missing message exchange with
-				 * GridElement
+				 * @TODO Fix it This is a TRICK Missing message exchange with GridElement
 				 */
 				this.gridElement.getLocalDirectory().update(agentRequest,
 						Tags.AGENT_MOVE_REQ);
