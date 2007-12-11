@@ -348,63 +348,122 @@ public abstract class Agent extends AbstractAgent {
     private void update(Sim_event ev, AgentRequest agentRequest) {
         AgentHistoryEntry agentHistoryEntry = null;
         switch (ev.get_tag()) {
+            // Agent has received a RUN request
             case Tags.AGENT_RUN_REQ:
+                // Checks that current agent's state is ZOMBIE
                 Assert.assertEquals(this.getAgentState(), AgentStates.ZOMBIE);
+                // Sets new agent's state to RUNNING
                 this.setAgentState(AgentStates.RUNNING);
-
+                // Updates agent's entity type
                 this.setEntityType(agentRequest.getDst_entityType());
+                // Updates agent's transfer size
                 this.setAgentSizeInBytes(agentRequest.getDst_agentSize());
-
+                // Checks that new agent has NOT yet an AID
                 Assert.assertEquals(this.getAID() == EntityTypes.NOBODY, true);
+                // if the new agent has NOT yet an AID
                 if (agentRequest.getDst_AID() == EntityTypes.NOBODY) {
+                    // assigns a new AID 
                     this.assignAID();
+                // otherwise, if the new agent has an old AID from a migration
                 } else {
+                    // Sets agent's AID to the AID in 
+                    // agentRequest's destination AID
                     this.setAID(agentRequest.getDst_AID());
                 }
 
-                agentHistoryEntry = new AgentHistoryEntry(AbstractAgent.clock(), this.get_name(), this.getAgentState(), this.get_id(), this.getAID(), this.getEntityType(), this.getResourceID());
+                // Update agent's history with the following information:
+                // - current simulation's clock
+                // - new agent's name
+                // - new agent's state
+                // - new agent's ID
+                // - new agent's AID
+                // - new agent's entity type
+                // - new agent's resource ID
+                agentHistoryEntry = 
+                        new AgentHistoryEntry(
+                        AbstractAgent.clock(), 
+                        this.get_name(), 
+                        this.getAgentState(), 
+                        this.get_id(), 
+                        this.getAID(), 
+                        this.getEntityType(), 
+                        this.getResourceID());
+                // if agent is NOT really new (AID!=NOBODY) but the result
+                // of a migration of an existing agent
                 if (agentRequest.getDst_AID() != EntityTypes.NOBODY) {
-                    this.getAgentHistory().addAll(
-                            agentRequest.getSrc_agentHistory());
+                    // carry with migrated agent its old agent's history
+                    this.getAgentHistory().addAll(agentRequest.getSrc_agentHistory());
                 }
+                // Updates agent's history with the new history entry
                 this.getAgentHistory().add(agentHistoryEntry);
-
+                // Updates agentRequest with current agent's AID
                 agentRequest.setDst_AID(this.getAID());
                 break;
+            // Agent has received a KILL request
             case Tags.AGENT_KILL_REQ:
+            // Agent has received a delayed KILL request
             case Tags.AGENT_KILLAWAIT_REQ:
+                // Checks that current agent's state is RUNNING
                 Assert.assertEquals(this.getAgentState(), AgentStates.RUNNING);
+                // Sets agent's state to ZOMBIE
                 this.setAgentState(AgentStates.ZOMBIE);
-
-                Assert.assertEquals(
-                        this.getEntityType() == EntityTypes.AGENT_ZOMBIE, false);
+                // Checks that agent's entity type is NOT AGENT_ZOMBIE before
+                // fulfilling current KILL request
+                Assert.assertEquals(this.getEntityType() == EntityTypes.AGENT_ZOMBIE, 
+                                    false);
+                // Sets agent's entity type to AGENT_ZOMBIE
                 this.setEntityType(EntityTypes.AGENT_ZOMBIE);
-
+                // Resets agent's transfer size to 0 bytes
                 this.setAgentSizeInBytes(0);
-
+                // Checks that agent had an AID before fulfilling 
+                // current KILL request
                 Assert.assertEquals(this.getAID() == EntityTypes.NOBODY, false);
+                // Detach AID from agent
                 this.detachAID();
 
-                agentHistoryEntry = new AgentHistoryEntry(AbstractAgent.clock(), this.get_name(), this.getAgentState(), this.get_id(), this.getAID(), this.getEntityType(), this.getResourceID());
+                // Update agent's history with the following information:
+                // - current simulation's clock
+                // - agent's name
+                // - agent's state
+                // - agent's ID
+                // - agent's AID
+                // - agent's entity type
+                // - agent's resource ID
+                agentHistoryEntry = 
+                        new AgentHistoryEntry(
+                        AbstractAgent.clock(), 
+                        this.get_name(), 
+                        this.getAgentState(), 
+                        this.get_id(), 
+                        this.getAID(), 
+                        this.getEntityType(), 
+                        this.getResourceID());
+                // Updates agent's history with the new history entry
                 this.getAgentHistory().add(agentHistoryEntry);
+                // Sets agent's AID to NOBODY
                 agentRequest.setDst_AID(EntityTypes.NOBODY);
                 break;
+            // Agent has received a PAUSE request
             case Tags.AGENT_PAUSE_REQ:
+                // Checks that agent's state is RUNNING
                 Assert.assertEquals(this.getAgentState(), AgentStates.RUNNING);
+                // Sets agent's state to PAUSED
                 this.setAgentState(AgentStates.PAUSED);
                 break;
+            // Agent has received a RESUME request
             case Tags.AGENT_RESUME_REQ:
+                // Checks that agent's state is PAUSED
                 Assert.assertEquals(this.getAgentState(), AgentStates.PAUSED);
+                // Sets agent's state to RUNNING
                 this.setAgentState(AgentStates.RUNNING);
                 break;
-
             default:
                 break;
         }
     }
 
     /**
-     * Notify DF service about request
+     * Notify DF service about agent's request
      * 
      * @param ev
      *            event received
