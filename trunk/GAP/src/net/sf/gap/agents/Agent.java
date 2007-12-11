@@ -135,6 +135,9 @@ public abstract class Agent extends AbstractAgent {
                 // notify DF about agent's state change
                 this.notifyDF(ev, agentRequest);
                 // wait until the end of current gridlets
+                // Waiting current gridlets is done at last because agent
+                // won't be available anyway as delayed KILL keeps same
+                // semanthics of KILL even if with greater latency
                 this.onWaitingGridlets(agentRequest);
             }
         // otherwise, if this agent has NOT gridlets then
@@ -472,17 +475,26 @@ public abstract class Agent extends AbstractAgent {
      */
     private void notifyDF(Sim_event ev, AgentRequest agentRequest) {
         switch (ev.get_tag()) {
+            // Agent has received a RUN request
             case Tags.AGENT_RUN_REQ:
+                // Notifies DF to REGISTER agent
                 this.notifyDFService(agentRequest, Tags.DF_REGISTER_REQ);
                 break;
+            // Agent has received a KILL request
             case Tags.AGENT_KILL_REQ:
-            case Tags.AGENT_KILLAWAIT_REQ:
+             // Agent has received a delayed KILL request
+             case Tags.AGENT_KILLAWAIT_REQ:
+                // Notifies DF to DEREGISTER agent
                 this.notifyDFService(agentRequest, Tags.DF_DEREGISTER_REQ);
                 break;
+            // Agent has received a PAUSE request
             case Tags.AGENT_PAUSE_REQ:
+                // Notifies DF to PAUSE agent
                 this.notifyDFService(agentRequest, Tags.DF_PAUSED_REQ);
                 break;
+            // Agent has received a RESUME request
             case Tags.AGENT_RESUME_REQ:
+                // Notifies DF to RESUME agent
                 this.notifyDFService(agentRequest, Tags.DF_RESUMED_REQ);
                 break;
             default:
@@ -490,36 +502,86 @@ public abstract class Agent extends AbstractAgent {
         }
     }
 
+    /**
+     * This method is responsible for all submissions of new or
+     * migrated agents
+     * 
+     * @param agentRequest an instance of AgentRequest class specifying parameters of new or migrated agent
+     * @return an instance of AgentReply class
+     */
     protected AgentReply runAgent(AgentRequest agentRequest) {
-        AgentReply agentReply = this.requestToAgent(agentRequest,
+        AgentReply agentReply = 
+                this.requestToAgent(
+                agentRequest,
                 Tags.AGENT_RUN_REQ);
         return agentReply;
     }
 
+    /**
+     * This method is responsible to send a PAUSE request to an existing agent
+     * 
+     * @param agentRequest an instance of AgentRequest class specifying parameters the agent to pause
+     * @return an instance of AgentReply class
+     */
     protected AgentReply pauseAgent(AgentRequest agentRequest) {
         return this.requestToAgent(agentRequest, Tags.AGENT_PAUSE_REQ);
     }
 
+    /**
+     * This method is responsible to send a RESUME request to an existing agent
+     * 
+     * @param agentRequest an instance of AgentRequest class specifying parameters the agent to resume
+     * @return an instance of AgentReply class
+     */
     protected AgentReply resumeAgent(AgentRequest agentRequest) {
         return this.requestToAgent(agentRequest, Tags.AGENT_RESUME_REQ);
     }
 
+    /**
+     * This method is responsible to send a KILL request to an existing agent
+     * 
+     * @param agentRequest an instance of AgentRequest class specifying parameters the agent to kill
+     * @return an instance of AgentReply class
+     */
     protected AgentReply killAgent(AgentRequest agentRequest) {
         return this.requestToAgent(agentRequest, Tags.AGENT_KILL_REQ);
     }
 
+    /**
+     * This method is responsible to send a delayed KILL request to an existing agent
+     * 
+     * @param agentRequest an instance of AgentRequest class specifying parameters the agent to kill while waiting for its gridlets
+     * @return an instance of AgentReply class
+     */
     protected AgentReply killWaitAgent(AgentRequest agentRequest) {
         return this.requestToAgent(agentRequest, Tags.AGENT_KILLAWAIT_REQ);
     }
 
+    /**
+     * This method is responsible to send a MOVE request to an existing agent
+     * 
+     * @param agentRequest an instance of AgentRequest class specifying parameters the agent to move
+     * @param moveToResourceID the destination resource ID for the migration
+     * @return an instance of AgentReply class
+     */
     protected AgentReply moveAgent(AgentRequest agentRequest,
             int moveToResourceID) {
         agentRequest.setDst_moveToresID(moveToResourceID);
         return this.requestToAgent(agentRequest, Tags.AGENT_MOVE_REQ);
     }
 
+    /**
+     * This method is responsible to send any request related to agents lifecycle to an existing agent
+     * Allowed requests: RUN, PAUSE, RESUME, KILL, delayed KILL, MOVE
+     * 
+     * @param request an instance of AgentRequest specifying parameters for any request related to agent's lifecycle
+     * @param tag the tag specifying the requested action
+     * @return an instance of AgentReply class
+     */
     private AgentReply requestToAgent(AgentRequest request, int tag) {
+        // Unique request ID
         int requestID = request.getRequestID();
+        // Unique conversation (request/reply) ID
         int reqrepID = request.getReqrepID();
         double evsend_time = 0;
         int agentType = request.getDst_entityType();
@@ -527,11 +589,13 @@ public abstract class Agent extends AbstractAgent {
         if (tag == Tags.AGENT_RUN_REQ) {
             SIZE = request.getDst_agentSize();
         } else {
+            //@TODO tune fixed SIZE for messages between agents 
             SIZE = 500;
         }
         if ((tag == Tags.AGENT_RUN_REQ) || (tag == Tags.AGENT_KILL_REQ) || (tag == Tags.AGENT_KILLAWAIT_REQ) || (tag == Tags.AGENT_PAUSE_REQ) || (tag == Tags.AGENT_RESUME_REQ)) {
             super.send(super.output, GridSimTags.SCHEDULE_NOW, tag,
                     new IO_data(request, SIZE, request.getDst_resID()));
+        //@TODO verify possible alternative tags 
         } else {
             super.send(super.output, GridSimTags.SCHEDULE_NOW, tag,
                     new IO_data(request, SIZE, request.getDst_agentID()));
