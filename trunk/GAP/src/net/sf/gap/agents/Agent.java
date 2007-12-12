@@ -734,7 +734,8 @@ public abstract class Agent extends AbstractAgent {
     }
 
     /**
-     * This methos is responsible for sending ACK/NACKS
+     * This methos is responsible for sending ACK/NACK
+     * through requesting agent's Agent Middleware
      * 
      * @param ev received event
      * @param agentRequest agent's request
@@ -749,7 +750,7 @@ public abstract class Agent extends AbstractAgent {
             AgentRequest agentRequest,
             boolean flag) 
     {
-        AgentReply agentReply = null;
+        AgentReply agentReply;
 
         int SIZE = 500;
 
@@ -760,6 +761,16 @@ public abstract class Agent extends AbstractAgent {
                 new IO_data(agentReply, SIZE, replyToID));
     }
 
+    /**
+     * This methos is responsible for sending ACK 
+     * through requesting agent's Agent Middleware
+     * 
+     * @param ev
+     * @param agentRequest
+     * 
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     */
     protected void sendACK(
             Sim_event ev, 
             AgentRequest agentRequest) 
@@ -767,6 +778,16 @@ public abstract class Agent extends AbstractAgent {
         this.sendACKNACK(ev, agentRequest, true);
     }
 
+    /**
+     * This methos is responsible for sending NACK 
+     * through requesting agent's resource ID (its agent middleware)
+     * 
+     * @param ev
+     * @param agentRequest
+     * 
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     */
     private void sendNACK(
             Sim_event ev, 
             AgentRequest agentRequest) 
@@ -774,22 +795,48 @@ public abstract class Agent extends AbstractAgent {
         this.sendACKNACK(ev, agentRequest, false);
     }
 
+    /**
+     * This method is responsible for syncronously notifying to DF service
+     * which is located on Agent Platform, all agent's requests related to:
+     * - REGISTER
+     * - DEREGISTER
+     * - PAUSE
+     * - RESUME
+     * 
+     * @param originalRequest
+     * @param dftag
+     * 
+     * @see eduni.simjava.Sim_type_p
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
+     */
     private void notifyDFService(
             AgentRequest originalRequest, 
             int dftag) 
     {
-        AgentRequest agentRequest = null;
-        AgentReply agentReply = null;
+        AgentRequest agentRequest;
+        AgentReply agentReply;
+        
         int SIZE = 500;
-        agentRequest = new AgentRequest(originalRequest.getSrc_ID(),
-                originalRequest.getSrc_resID(), originalRequest.getSrc_agentHistory(), originalRequest.getDst_resID(),
-                this.get_id(), this.getEntityType(),
-                this.getAgentSizeInBytes(), originalRequest.getDst_resID(),
+        
+        agentRequest = new AgentRequest(
+                originalRequest.getSrc_ID(),
+                originalRequest.getSrc_resID(), 
+                originalRequest.getSrc_agentHistory(), 
+                originalRequest.getDst_resID(),
+                this.get_id(), 
+                this.getEntityType(),
+                this.getAgentSizeInBytes(), 
+                originalRequest.getDst_resID(),
                 originalRequest.getDst_AID());
+        
         int requestID = agentRequest.getRequestID();
         int reqrepID = agentRequest.getReqrepID();
+        
         super.send(this.output, GridSimTags.SCHEDULE_NOW, dftag, new IO_data(
                 agentRequest, SIZE, this.getAgentPlatform().get_id()));
+        
         double evsend_time = GridSim.clock();
         String msg = String.format(
                 "%1$f %2$d %3$s --> DFService::REQUEST %6$s (%7$s AID %8$d) %4$s AM_%5$s",
