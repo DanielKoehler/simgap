@@ -51,31 +51,39 @@ import gridsim.IO_data;
  * @author Giovanni Novelli
  */
 public abstract class GridAgent extends Agent {
+        /**
+         * This field keeps track of information related to
+         * gridlets management
+         */
 	protected Gridlets gapGridlets;
 
 	/**
-	 * Creates a new instance of GridAgent
+	 * Creates a new instance of GridAgent class
 	 * 
-	 * 
-	 * @param name
-	 *            agent names
-	 * @param agentSizeInBytes
-	 *            agent size in bytes
-	 * @param trace_flag
-	 *            trace flag for GridSim
+	 * @param name agent name
+	 * @param agentSizeInBytes agent size in bytes
+	 * @param trace_flag trace flag for GridSim
 	 * @throws Exception
 	 */
-	public GridAgent(GridElement ge, String name, int agentSizeInBytes,
-			boolean trace_flag) throws Exception {
+	public GridAgent(
+                GridElement ge, 
+                String name, 
+                int agentSizeInBytes,
+		boolean trace_flag) 
+                throws Exception 
+        {
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
         /**
          * Agent's Initialization
+         * 
          * @throws java.lang.Exception
          */
     @Override
-	public void initialize() throws Exception { 
+	public void initialize() 
+        throws Exception 
+    { 
             super.initialize();
 	    this.setGapGridlets(new Gridlets());
         }
@@ -85,13 +93,11 @@ public abstract class GridAgent extends Agent {
 	 */
 	@Override
 	public void body() {
-		// wait for a little while for about 3 seconds.
-		// This to give a time for GridResource entities to registerAgent their
-		// services to GIS (GridInformationService) entity.
+		// Wait for a little while for about 3 seconds.
+		// This to give a time for GridResource entities to 
+                // registerAgent their services to GIS 
+                // (GridInformationService) entity.
 		super.gridSimHold(GAP.getStartTime());
-
-		// Initialized Agent
-		// this.initialize();
 
 		Sim_event ev = new Sim_event();
 		while (GAP.isRunning()) {
@@ -119,14 +125,19 @@ public abstract class GridAgent extends Agent {
 
         
         /**
-	 * @param ev
-	 *            Sim_event to be processed
+         * Processes single event related to:
+         * - gridlets management
+         * - replying to requests related to the presence of gridlets
+         * - other
+         * 
+	 * @param ev Sim_event to be processed
 	 */
 	@Override
 	public void processEvent(Sim_event ev) {
 		super.processEvent(ev);
 
 		switch (ev.get_tag()) {
+                // Gridlets Management
 		case GridSimTags.GRIDLET_PAUSE:
 		case GridSimTags.GRIDLET_CANCEL:
 		case GridSimTags.GRIDLET_STATUS:
@@ -136,6 +147,7 @@ public abstract class GridAgent extends Agent {
 			this.manageGridlets(ev);
 			break;
 
+                // Replying to requests related to the presence of gridlets
 		case Tags.HASGRIDLETS_REQUEST:
 		case Tags.HASGRIDLETS_REPLY:
 			AgentRequest agentRequest = AgentRequest.get_data(ev);
@@ -146,6 +158,7 @@ public abstract class GridAgent extends Agent {
 			}
 			break;
 
+                // other
 		default:
 			this.processOtherEvent(ev);
 			break;
@@ -159,13 +172,17 @@ public abstract class GridAgent extends Agent {
          */
 	@Override
 	protected void manageGridlets(Sim_event ev) {
-		GridletRequest gridletRequest = null;
-		GridletReply gridletReply = null;
+                Gridlet gridlet;
+                
+		GridletRequest gridletRequest;
+		GridletReply gridletReply;
+        
+                gridletRequest = GridletRequest.get_data(ev);
 		switch (ev.get_tag()) {
 
+                // Cancels a Gridlet submitted in the GridResource entity
 		case GridSimTags.GRIDLET_CANCEL:
-			gridletRequest = GridletRequest.get_data(ev);
-			Gridlet gridlet = gridletRequest.getGridlet();
+			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
 				Gridlet canceledGridlet = super.gridletCancel(gridlet, this
@@ -180,8 +197,12 @@ public abstract class GridAgent extends Agent {
 				this.sendNACK(ev, gridletRequest, gridlet);
 			}
 			break;
+                case GridSimTags.GRIDLET_MOVE:
+                    break;
+                case GridSimTags.GRIDLET_MOVE_ACK:
+                    break;
+                // Pauses a Gridlet submitted in the GridResource entity
 		case GridSimTags.GRIDLET_PAUSE:
-			gridletRequest = GridletRequest.get_data(ev);
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
@@ -198,40 +219,16 @@ public abstract class GridAgent extends Agent {
 				this.sendNACK(ev, gridletRequest, gridlet);
 			}
 			break;
-		case Tags.GRIDLET_STATUS_REQ:
-			gridletRequest = GridletRequest.get_data(ev);
-			gridlet = gridletRequest.getGridlet();
-			if (this.getAgentState() == AgentStates.RUNNING) {
-				gridlet.setUserID(this.get_id());
-				super.gridletStatus(gridlet, this.getResourceID());
-				this.sendSTATUSACK(ev, gridletRequest, gridlet);
-			} else {
-				this.sendSTATUSNACK(ev, gridletRequest, gridlet);
-			}
-			break;
-		case Tags.GRIDLET_SUBMIT_REQ:
-			gridletRequest = GridletRequest.get_data(ev);
-			gridlet = gridletRequest.getGridlet();
-			if (this.getAgentState() == AgentStates.RUNNING
-					&& !this.getGapGridlets().isWaitingGridlets()) {
-				gridlet.setUserID(this.get_id());
-				this.getGapGridlets().addRequest(gridletRequest);
-				boolean submitted = super.gridletSubmit(gridlet, this
-						.getResourceID(), GridSimTags.SCHEDULE_NOW, true);
-				if (submitted) {
-					this.getGapGridlets().addSubmitted(gridlet);
-					this.sendACK(ev, gridletRequest, gridlet);
-				} else {
-					System.out
-							.println("Problems in submission of last gridlet");
-					this.sendNACK(ev, gridletRequest, gridlet);
-				}
-			} else {
-				this.sendNACK(ev, gridletRequest, gridlet);
-			}
-			break;
+                case GridSimTags.GRIDLET_PAUSE_ACK:
+                    break;
+                case GridSimTags.GRIDLET_RESUME:
+                    break;
+                case GridSimTags.GRIDLET_RESUME_ACK:
+                    break;
+                //  Denotes the return of a Gridlet back to sender
 		case GridSimTags.GRIDLET_RETURN:
 			// Receiving gridlet back
+                        // @TODO Check this way to extract gridlet from event
 			gridlet = (Gridlet) ev.get_data();
 			String indent = "    ";
 			System.out.println();
@@ -252,8 +249,43 @@ public abstract class GridAgent extends Agent {
 								.getWaitingAgentRequest());
 			}
 			break;
-
-		case Tags.GRIDLET_SUBMIT_REP:
+                case GridSimTags.GRIDLET_STATUS:
+                    break;
+                case GridSimTags.GRIDLET_SUBMIT:
+                    break;
+                case GridSimTags.GRIDLET_SUBMIT_ACK:
+                    break;
+		case Tags.GRIDLET_STATUS_REQ:
+			gridlet = gridletRequest.getGridlet();
+			if (this.getAgentState() == AgentStates.RUNNING) {
+				gridlet.setUserID(this.get_id());
+				super.gridletStatus(gridlet, this.getResourceID());
+				this.sendSTATUSACK(ev, gridletRequest, gridlet);
+			} else {
+				this.sendSTATUSNACK(ev, gridletRequest, gridlet);
+			}
+			break;
+		case Tags.GRIDLET_SUBMIT_REQ:
+			gridlet = gridletRequest.getGridlet();
+			if (this.getAgentState() == AgentStates.RUNNING
+					&& !this.getGapGridlets().isWaitingGridlets()) {
+				gridlet.setUserID(this.get_id());
+				this.getGapGridlets().addRequest(gridletRequest);
+				boolean submitted = super.gridletSubmit(gridlet, this
+						.getResourceID(), GridSimTags.SCHEDULE_NOW, true);
+				if (submitted) {
+					this.getGapGridlets().addSubmitted(gridlet);
+					this.sendACK(ev, gridletRequest, gridlet);
+				} else {
+					System.out
+							.println("Problems in submission of last gridlet");
+					this.sendNACK(ev, gridletRequest, gridlet);
+				}
+			} else {
+				this.sendNACK(ev, gridletRequest, gridlet);
+			}
+			break;
+                case Tags.GRIDLET_SUBMIT_REP:
 			gridletReply = GridletReply.get_data(ev);
 			gridlet = gridletRequest.getGridlet();
 			this.getGapGridlets().getMapGR().remove(gridlet.getGridletID());
