@@ -52,9 +52,16 @@ public abstract class Agent extends AbstractAgent {
      * @param agentSizeInBytes Agent's transfer size in bytes
      * @param trace_flag Flag used to enable(true)/disable(false) tracing
      * @throws java.lang.Exception 
+     * 
+     * @see net.sf.gap.grid.components.GridElement
      */
-    public Agent(GridElement ge, String name, int agentSizeInBytes,
-            boolean trace_flag) throws Exception {
+    public Agent(
+            GridElement ge, 
+            String name, 
+            int agentSizeInBytes,
+            boolean trace_flag) 
+            throws Exception 
+    {
         super(ge, name, agentSizeInBytes, trace_flag);
     }
 
@@ -63,7 +70,8 @@ public abstract class Agent extends AbstractAgent {
      * @throws java.lang.Exception
      */
     @Override
-    public void initialize() throws Exception {
+    public void initialize() 
+            throws Exception {
         super.initialize();
     }
 
@@ -117,7 +125,8 @@ public abstract class Agent extends AbstractAgent {
      * @see net.p2pgrid.gap.agents.messages.AgentRequest
      */
     @Override
-    protected void manageLifecycle(Sim_event ev) {
+    protected void manageLifecycle(Sim_event ev) 
+    {
         AgentRequest agentRequest = AgentRequest.get_data(ev);
 
         // If this agent has gridlets and has received a KILL request
@@ -171,15 +180,17 @@ public abstract class Agent extends AbstractAgent {
      * <p>
      * Sends an ACK or a NACK about the success or failure of the request
      * 
-     * 
-     * 
      * @param ev Sim_event containing the request
+     * 
      * @see eduni.simjava.Sim_event
      * @see net.p2pgrid.gap.agents.messages.AgentRequest
      * @see net.p2pgrid.gap.agents.messages.AgentReply
+     * @see net.sf.gap.agents.history.AgentHistory
+     * @see net.sf.gap.agents.history.AgentHistoryEntry
      */
     @Override
-    protected void manageMigration(Sim_event ev) {
+    protected void manageMigration(Sim_event ev) 
+    {
         // Extracts AgentRequest from ev
         AgentRequest agentRequest = AgentRequest.get_data(ev);
         // if agent's state is congruent with the request
@@ -260,8 +271,11 @@ public abstract class Agent extends AbstractAgent {
      * @see net.p2pgrid.gap.agents.messages.AgentRequest
      * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    protected AgentReply submitAgent(int agentEntityType, int agentResourceID,
-            int SIZE) {
+    protected AgentReply submitAgent(
+            int agentEntityType, 
+            int agentResourceID,
+            int SIZE) 
+    {
         AgentRequest agentRequest = null;
         // Creates a new instance of AgentRequest where:
         // - actor ID is the ID of this agent
@@ -297,9 +311,15 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @see net.p2pgrid.gap.agents.messages.AgentRequest
      * @see net.p2pgrid.gap.agents.messages.AgentReply
+     * @see net.sf.gap.agents.history.AgentHistoryEntry
      */
-    private AgentReply submitAgent(int agentEntityType, int agentResourceID,
-            int SIZE, int AID, AgentHistory agentHistory) {
+    private AgentReply submitAgent(
+            int agentEntityType, 
+            int agentResourceID,
+            int SIZE, 
+            int AID, 
+            AgentHistory agentHistory) 
+    {
         AgentRequest agentRequest = null;
         agentRequest = new AgentRequest(this.get_id(), this.getResourceID(),
                 agentHistory, agentResourceID, -1, agentEntityType, SIZE,
@@ -312,8 +332,11 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @param ev event received
      * @return true if agent state is compatible with event received
+     * 
+     * @see eduni.simjava.Sim_event
      */
-    private boolean isGoodState(Sim_event ev) {
+    private boolean isGoodState(Sim_event ev) 
+    {
         int agentState = this.getAgentState();
         switch (ev.get_tag()) {
             // Allowed state's transitions
@@ -343,12 +366,18 @@ public abstract class Agent extends AbstractAgent {
     /**
      * Updates agent according to event received and embedded request
      * 
-     * @param ev
-     *            event received
-     * @param agentRequest
-     *            request embedded in such event
+     * @param ev event received
+     * @param agentRequest the request embedded in such event
+     * 
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.sf.gap.agents.history.AgentHistory
+     * @see net.sf.gap.agents.history.AgentHistoryEntry
      */
-    private void update(Sim_event ev, AgentRequest agentRequest) {
+    private void update(
+            Sim_event ev, 
+            AgentRequest agentRequest) 
+    {
         AgentHistoryEntry agentHistoryEntry = null;
         switch (ev.get_tag()) {
             // Agent has received a RUN request
@@ -468,12 +497,16 @@ public abstract class Agent extends AbstractAgent {
     /**
      * Notify DF service about agent's request
      * 
-     * @param ev
-     *            event received
-     * @param agentRequest
-     *            request embedded in such request
+     * @param ev event received
+     * @param agentRequest request embedded in such request
+     * 
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
      */
-    private void notifyDF(Sim_event ev, AgentRequest agentRequest) {
+    private void notifyDF(
+            Sim_event ev, 
+            AgentRequest agentRequest) 
+    {
         switch (ev.get_tag()) {
             // Agent has received a RUN request
             case Tags.AGENT_RUN_REQ:
@@ -508,8 +541,12 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @param agentRequest an instance of AgentRequest class specifying parameters of new or migrated agent
      * @return an instance of AgentReply class
+     *
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    protected AgentReply runAgent(AgentRequest agentRequest) {
+    protected AgentReply runAgent(AgentRequest agentRequest) 
+    {
         AgentReply agentReply = 
                 this.requestToAgent(
                 agentRequest,
@@ -522,6 +559,9 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @param agentRequest an instance of AgentRequest class specifying parameters the agent to pause
      * @return an instance of AgentReply class
+     * 
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
     protected AgentReply pauseAgent(AgentRequest agentRequest) {
         return this.requestToAgent(agentRequest, Tags.AGENT_PAUSE_REQ);
@@ -532,8 +572,12 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @param agentRequest an instance of AgentRequest class specifying parameters the agent to resume
      * @return an instance of AgentReply class
+     * 
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    protected AgentReply resumeAgent(AgentRequest agentRequest) {
+    protected AgentReply resumeAgent(AgentRequest agentRequest) 
+    {
         return this.requestToAgent(agentRequest, Tags.AGENT_RESUME_REQ);
     }
 
@@ -542,8 +586,12 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @param agentRequest an instance of AgentRequest class specifying parameters the agent to kill
      * @return an instance of AgentReply class
+     * 
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    protected AgentReply killAgent(AgentRequest agentRequest) {
+    protected AgentReply killAgent(AgentRequest agentRequest) 
+    {
         return this.requestToAgent(agentRequest, Tags.AGENT_KILL_REQ);
     }
 
@@ -552,8 +600,12 @@ public abstract class Agent extends AbstractAgent {
      * 
      * @param agentRequest an instance of AgentRequest class specifying parameters the agent to kill while waiting for its gridlets
      * @return an instance of AgentReply class
+     * 
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    protected AgentReply killWaitAgent(AgentRequest agentRequest) {
+    protected AgentReply killWaitAgent(AgentRequest agentRequest) 
+    {
         return this.requestToAgent(agentRequest, Tags.AGENT_KILLAWAIT_REQ);
     }
 
@@ -563,9 +615,14 @@ public abstract class Agent extends AbstractAgent {
      * @param agentRequest an instance of AgentRequest class specifying parameters the agent to move
      * @param moveToResourceID the destination resource ID for the migration
      * @return an instance of AgentReply class
+     * 
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    protected AgentReply moveAgent(AgentRequest agentRequest,
-            int moveToResourceID) {
+    protected AgentReply moveAgent(
+            AgentRequest agentRequest,
+            int moveToResourceID) 
+    {
         agentRequest.setDst_moveToresID(moveToResourceID);
         return this.requestToAgent(agentRequest, Tags.AGENT_MOVE_REQ);
     }
@@ -577,14 +634,27 @@ public abstract class Agent extends AbstractAgent {
      * @param request an instance of AgentRequest specifying parameters for any request related to agent's lifecycle
      * @param tag the tag specifying the requested action
      * @return an instance of AgentReply class
+     * 
+     * @see eduni.simjava.Sim_type_p
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
      */
-    private AgentReply requestToAgent(AgentRequest request, int tag) {
+    private AgentReply requestToAgent(
+            AgentRequest request, 
+            int tag) 
+    {
         // Unique request ID
         int requestID = request.getRequestID();
         // Unique conversation (request/reply) ID
         int reqrepID = request.getReqrepID();
-        double evsend_time = 0;
+        // Event send time
+        double evsend_time;
+        
+        // Destination agent's entity type
         int agentType = request.getDst_entityType();
+        
+        // Sets agent request transfer size
         int SIZE;
         if (tag == Tags.AGENT_RUN_REQ) {
             SIZE = request.getDst_agentSize();
@@ -592,31 +662,66 @@ public abstract class Agent extends AbstractAgent {
             //@TODO tune fixed SIZE for messages between agents 
             SIZE = 500;
         }
+
+        // if requested action is RUN, PAUSE, RESUME, KILL, delayed KILL
         if ((tag == Tags.AGENT_RUN_REQ) || (tag == Tags.AGENT_KILL_REQ) || (tag == Tags.AGENT_KILLAWAIT_REQ) || (tag == Tags.AGENT_PAUSE_REQ) || (tag == Tags.AGENT_RESUME_REQ)) {
+            // Sends agent's request to destination agent indirectly
+            // through its Grid Element resource ID that acts as
+            // Agent Middleware
+            // @TODO for a better SoC Agent Middleware should be separated from Grid Element in order to use GridSim entities without requiring a class like GridElement
             super.send(super.output, GridSimTags.SCHEDULE_NOW, tag,
                     new IO_data(request, SIZE, request.getDst_resID()));
-        //@TODO verify possible alternative tags 
         } else {
+            //@TODO verify possible alternative tags (should be only Tags.AGENT_MOVE_REQ, added an Assert for this goal
+            Assert.assertEquals(tag==Tags.AGENT_MOVE_REQ, true);
+            // Sends agent's request directly to destination agent
             super.send(super.output, GridSimTags.SCHEDULE_NOW, tag,
                     new IO_data(request, SIZE, request.getDst_agentID()));
         }
+        // Sets event's send time to current simulation's clock
         evsend_time = GridSim.clock();
+        // Prepares a message for simulation's output
+        // @TODO Note that an improvement of current GAP library should pass through a global revision of its simulation's output that, i.e., could rely upon existing libraries like log4j
         String msg = String.format(
                 "%1$f %2$d %3$s --> AM_%4$s::REQUEST %6$s (%7$s AID %9$d) %5$s AM_%8$s",
                 evsend_time, reqrepID, this.get_name(), AbstractAgent.getEntityName(request.getDst_resID()),
                 EntityTypes.toString(request.getDst_entityType()), Tags.toString(tag), AbstractAgent.getEntityName(request.getDst_agentID()), AbstractAgent.getEntityName(request.getDst_moveToresID()), request.getDst_AID());
         this.write(msg);
 
+        // This segment of the code is responsible for 
+        // - syncronously receiving the reply to the agent's request 
+        // - parsing such reply
+        // - return such reply as method's result
+        // Note: As a convention in GAP library all tags' replies have a value
+        // equal to tag's request value plus one
+        
+        // Create an instance of Sim_type_p class
+        // It's a predicate to select events with specific tags
+        // In this case the reply tag related to the request tag
         Sim_type_p ptag = new Sim_type_p(tag + 1);
+        // Creates a new instance of Sim_event class
         Sim_event ev = new Sim_event();
-        super.sim_get_next(ptag, ev); // only look for this type of ack
+        // Get the first event waiting in the entity's deferred queue
+        // or if there are none, wait for an event to arrive
+        // Event tag is that of related agent's reply that 
+        // the agent is syncronously waiting for
+        super.sim_get_next(ptag, ev); 
+        // Extracts an instance of AgentReply class from the received event
         AgentReply agentReply = AgentReply.get_data(ev);
 
+        // Checks that:
+        // - the request ID, encapsulated in agent's reply is the
+        //   same of that agent's request
+        // - the request tag, encapsulated in agent's reply is the
+        //   same of that agent's request
+        // - the reply tag is really associated to the request tag
         Assert.assertEquals(requestID, agentReply.getRequestID());
         Assert.assertEquals(tag, agentReply.getRequestTAG());
         Assert.assertEquals(ev.get_tag(), tag + 1);
 
+        // Sets event's receive time to current simulation's clock
         double evrecv_time = GridSim.clock();
+        // Prepares a message for simulation's output
         msg = String.format(
                 "%1$f %2$d %3$s <-- AM_%4$s::%7$s %8$s (%6$s AID %10$d) %5$s AM_%9$s",
                 evrecv_time,
@@ -628,8 +733,22 @@ public abstract class Agent extends AbstractAgent {
         return agentReply;
     }
 
-    private void sendACKNACK(Sim_event ev, AgentRequest agentRequest,
-            boolean flag) {
+    /**
+     * This methos is responsible for sending ACK/NACKS
+     * 
+     * @param ev received event
+     * @param agentRequest agent's request
+     * @param flag boolean flag indicating success or failure of the request
+     * 
+     * @see eduni.simjava.Sim_event
+     * @see net.p2pgrid.gap.agents.messages.AgentRequest
+     * @see net.p2pgrid.gap.agents.messages.AgentReply
+     */
+    private void sendACKNACK(
+            Sim_event ev, 
+            AgentRequest agentRequest,
+            boolean flag) 
+    {
         AgentReply agentReply = null;
 
         int SIZE = 500;
@@ -641,15 +760,24 @@ public abstract class Agent extends AbstractAgent {
                 new IO_data(agentReply, SIZE, replyToID));
     }
 
-    protected void sendACK(Sim_event ev, AgentRequest agentRequest) {
+    protected void sendACK(
+            Sim_event ev, 
+            AgentRequest agentRequest) 
+    {
         this.sendACKNACK(ev, agentRequest, true);
     }
 
-    private void sendNACK(Sim_event ev, AgentRequest agentRequest) {
+    private void sendNACK(
+            Sim_event ev, 
+            AgentRequest agentRequest) 
+    {
         this.sendACKNACK(ev, agentRequest, false);
     }
 
-    private void notifyDFService(AgentRequest originalRequest, int dftag) {
+    private void notifyDFService(
+            AgentRequest originalRequest, 
+            int dftag) 
+    {
         AgentRequest agentRequest = null;
         AgentReply agentReply = null;
         int SIZE = 500;
