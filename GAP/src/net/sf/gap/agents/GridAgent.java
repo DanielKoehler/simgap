@@ -41,18 +41,11 @@ import gridsim.Gridlet;
 import gridsim.IO_data;
 
 /**
- * This class is mainly responsible in simulating basic behaviour of agents in
- * relation to:
+ * This abstract class is mainly responsible in simulating basic behaviour 
+ * of agents in relation to:
  * <p>
  * <ul>
- * <li> GridAgent Platform (Directory Facilitator)
- * 
- * <li> GridAgent LifeCycle over Grid's CEs/SEs
- * 
- * <li> GridAgent's Mobility
- * 
  * <li> Gridlets submission and monitoring by agents
- * 
  * <ul/>
  * 
  * @author Giovanni Novelli
