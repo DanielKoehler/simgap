@@ -35,19 +35,44 @@ import net.sf.gap.messages.Request;
  * @author Giovanni Novelli
  */
 public class GridletRequest extends Request {
+        /**
+         * ID of destination agent that should fulfill the request
+         */
 	private int dst_agentID;
 
+        /**
+         * Resource ID of the Grid Element of the destination agent
+         */
 	private int dst_resID;
 
+        /**
+         * Gridlet encapsulated in the request
+         */
 	private Gridlet gridlet;
 
-	private Gridlet receivedGridlet; // Used in reply
+        /**
+         * Field used in reply for received gridlet
+         */
+	private Gridlet receivedGridlet; 
 
 	/**
 	 * Creates a new instance of GridletRequest
-	 */
-	public GridletRequest(int src_ID, int src_resID, int dst_agentID,
-			int dst_resID, Gridlet gridlet) {
+         * 
+         * @param src_ID ID of request submitter
+         * @param src_resID Resource ID of Grid Element of request submitter
+         * @param dst_agentID ID of destination agent
+         * @param dst_resID Resource ID of destination agent
+         * @param gridlet Gridlet encapsulated in the request
+         * 
+         * @see gridsim.Gridlet
+         */
+	public GridletRequest(
+                int src_ID, 
+                int src_resID, 
+                int dst_agentID,
+                int dst_resID, 
+                Gridlet gridlet) 
+        {
 		super(src_ID, src_resID);
 		this.setDst_agentID(dst_agentID);
 		this.setDst_resID(dst_resID);
@@ -80,8 +105,12 @@ public class GridletRequest extends Request {
 
 	@Override
 	public GridletRequest clone() {
-		return new GridletRequest(this.getSrc_ID(), this.getSrc_resID(), this
-				.getDst_agentID(), this.getDst_resID(), this.getGridlet());
+		return new GridletRequest(
+                        this.getSrc_ID(), 
+                        this.getSrc_resID(), 
+                        this.getDst_agentID(), 
+                        this.getDst_resID(), 
+                        this.getGridlet());
 	}
 
 	public static GridletRequest get_data(Sim_event ev) {
