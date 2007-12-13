@@ -86,6 +86,7 @@ public class RingsChain extends NetworkTopology {
         }
 
 	@Override
+    @SuppressWarnings("empty-statement")
 	public void create(boolean trace) throws Exception {
 		Uniform_int r = new Uniform_int("RingsChain");
                 int N = this.getNumRouters();

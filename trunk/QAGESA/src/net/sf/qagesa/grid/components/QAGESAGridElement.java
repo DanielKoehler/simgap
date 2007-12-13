@@ -29,12 +29,10 @@ import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
 
 import net.sf.gap.grid.components.GridElement;
-import net.sf.gap.messages.Message;
 
 import net.sf.qagesa.constants.QAGESATags;
 import net.sf.qagesa.messages.ChunkReply;
 import net.sf.qagesa.messages.ChunkRequest;
-import net.sf.qagesa.messages.TranscodeReply;
 import net.sf.qagesa.messages.TranscodeRequest;
 import net.sf.qagesa.multimedia.Chunk;
 import net.sf.qagesa.multimedia.ChunksSequence;
