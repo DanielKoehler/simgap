@@ -50,6 +50,17 @@ public interface IJobScheduler {
     public abstract boolean enque(Gridlet gridlet);
 
     /**
+     * Retrieves, but does not remove, a single gridlet and returns it. 
+     * This gridlet should be submitted to the Grid Element to which agent 
+     * is currently attached
+     *
+     * @return the gridlet to be submitted
+     * @pre $none
+     * @post $none
+     */
+    public abstract Gridlet peek();
+
+    /**
      * Removes a single gridlet and returns it. This gridlet should be submitted
      * to the Grid Element to which agent is currently attached
      *
