@@ -24,10 +24,11 @@
 
 package net.sf.gap.agents;
 
+import junit.framework.Assert;
 import net.sf.gap.GAP;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.agents.gridlets.Gridlets;
+import net.sf.gap.agents.gridlets.scheduling.RRScheduler;
 import net.sf.gap.messages.impl.GridletReply;
 import net.sf.gap.messages.impl.GridletRequest;
 import net.sf.gap.messages.impl.AgentReply;
@@ -35,7 +36,6 @@ import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.grid.components.GridElement;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
-import gridsim.GridSim;
 import gridsim.GridSimTags;
 import gridsim.Gridlet;
 import gridsim.IO_data;
@@ -52,10 +52,9 @@ import gridsim.IO_data;
  */
 public abstract class GridAgent extends Agent {
         /**
-         * This field keeps track of information related to
-         * gridlets management
+         * This field incorporates gridlets' scheduler
          */
-	protected Gridlets gapGridlets;
+	private RRScheduler scheduler;
 
 	/**
 	 * Creates a new instance of GridAgent class
@@ -85,7 +84,7 @@ public abstract class GridAgent extends Agent {
         throws Exception 
     { 
             super.initialize();
-	    this.setGapGridlets(new Gridlets());
+            this.setScheduler(new RRScheduler(this,16));
         }
 
 	/**
@@ -151,7 +150,7 @@ public abstract class GridAgent extends Agent {
 		case Tags.HASGRIDLETS_REQUEST:
 		case Tags.HASGRIDLETS_REPLY:
 			AgentRequest agentRequest = AgentRequest.get_data(ev);
-			if (this.getGapGridlets().hasGridlets()) {
+			if (this.getScheduler().hasGridlets()) {
 				this.sendHASGRIDLETSACK(ev, agentRequest);
 			} else {
 				this.sendHASGRIDLETSNACK(ev, agentRequest);
@@ -182,6 +181,8 @@ public abstract class GridAgent extends Agent {
 
                 // Cancels a Gridlet submitted in the GridResource entity
 		case GridSimTags.GRIDLET_CANCEL:
+                    Assert.fail();
+                    /*
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
@@ -196,13 +197,18 @@ public abstract class GridAgent extends Agent {
 			} else {
 				this.sendNACK(ev, gridletRequest, gridlet);
 			}
+                     */
 			break;
                 case GridSimTags.GRIDLET_MOVE:
+                    Assert.fail();
                     break;
                 case GridSimTags.GRIDLET_MOVE_ACK:
+                    Assert.fail();
                     break;
                 // Pauses a Gridlet submitted in the GridResource entity
 		case GridSimTags.GRIDLET_PAUSE:
+                    Assert.fail();
+                    /*
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
@@ -218,44 +224,35 @@ public abstract class GridAgent extends Agent {
 			} else {
 				this.sendNACK(ev, gridletRequest, gridlet);
 			}
+                     */
 			break;
                 case GridSimTags.GRIDLET_PAUSE_ACK:
+                    Assert.fail();
                     break;
                 case GridSimTags.GRIDLET_RESUME:
+                    Assert.fail();
                     break;
                 case GridSimTags.GRIDLET_RESUME_ACK:
+                    Assert.fail();
                     break;
                 //  Denotes the return of a Gridlet back to sender
 		case GridSimTags.GRIDLET_RETURN:
-			// Receiving gridlet back
-                        // @TODO Check this way to extract gridlet from event
-			gridlet = (Gridlet) ev.get_data();
-			String indent = "    ";
-			System.out.println();
-			System.out.println("========== OUTPUT ==========");
-			System.out.println("Gridlet ID" + indent + "STATUS");
-			System.out.print(indent + gridlet.getGridletID() + indent + indent);
-			if (gridlet.getGridletStatus() == Gridlet.SUCCESS) {
-				System.out.println("SUCCESS" + " " + GridSim.clock());
-				this.getGapGridlets().addSuccesses(gridlet);
-			}
-			gridletRequest = this.getGapGridlets().getMapGR().get(
-					gridlet.getGridletID());
-			if (!this.getGapGridlets().hasGridlets()
-					&& this.getGapGridlets().isWaitingGridlets()) {
-				this.getGapGridlets().offWaitingGridlets();
-				this
-						.sendACK(ev, this.getGapGridlets()
-								.getWaitingAgentRequest());
-			}
+                    Assert.fail();
+			Gridlet receivedGridlet = (Gridlet) ev.get_data();
+                        this.getScheduler().gridletReceive(receivedGridlet);
 			break;
                 case GridSimTags.GRIDLET_STATUS:
+                    Assert.fail();
                     break;
                 case GridSimTags.GRIDLET_SUBMIT:
+                    Assert.fail();
                     break;
                 case GridSimTags.GRIDLET_SUBMIT_ACK:
+                    Assert.fail();
                     break;
 		case Tags.GRIDLET_STATUS_REQ:
+                    Assert.fail();
+                    /*
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
@@ -264,21 +261,19 @@ public abstract class GridAgent extends Agent {
 			} else {
 				this.sendSTATUSNACK(ev, gridletRequest, gridlet);
 			}
+                     */
 			break;
 		case Tags.GRIDLET_SUBMIT_REQ:
+                    Assert.fail();
 			gridlet = gridletRequest.getGridlet();
-			if (this.getAgentState() == AgentStates.RUNNING
-					&& !this.getGapGridlets().isWaitingGridlets()) {
+			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
-				this.getGapGridlets().addRequest(gridletRequest);
-				boolean submitted = super.gridletSubmit(gridlet, this
-						.getResourceID(), GridSimTags.SCHEDULE_NOW, true);
+				this.getScheduler().getGridlets().addRequest(gridletRequest);
+                                boolean submitted = this.getScheduler().enque(gridlet);
 				if (submitted) {
-					this.getGapGridlets().addSubmitted(gridlet);
 					this.sendACK(ev, gridletRequest, gridlet);
 				} else {
-					System.out
-							.println("Problems in submission of last gridlet");
+					System.out.println("Problems in queueing of last gridlet on agent " + this.get_name());
 					this.sendNACK(ev, gridletRequest, gridlet);
 				}
 			} else {
@@ -286,11 +281,14 @@ public abstract class GridAgent extends Agent {
 			}
 			break;
                 case Tags.GRIDLET_SUBMIT_REP:
+                    Assert.fail();
+                    /*
 			gridletReply = GridletReply.get_data(ev);
 			gridlet = gridletRequest.getGridlet();
 			this.getGapGridlets().getMapGR().remove(gridlet.getGridletID());
 			System.out.println("Received back gridlet "
 					+ gridletReply.getReceivedGridlet());
+                     */
 			break;
 		default:
 			break;
@@ -440,17 +438,11 @@ public abstract class GridAgent extends Agent {
 		this.sendACKNACK(ev, gridletRequest, false, gridlet);
 	}
 
-	protected Gridlets getGapGridlets() {
-		return gapGridlets;
-	}
 
-	protected void setGapGridlets(Gridlets gapGridlets) {
-		this.gapGridlets = gapGridlets;
-	}
 
 	@Override
 	protected boolean hasGridlets() {
-		return this.getGapGridlets().hasGridlets();
+		return this.getScheduler().hasGridlets();
 	}
 
         /**
@@ -460,7 +452,7 @@ public abstract class GridAgent extends Agent {
          */
 	@Override
 	protected void onWaitingGridlets(AgentRequest agentRequest) {
-		this.getGapGridlets().onWaitingGridlets(agentRequest);
+		this.getScheduler().getGridlets().onWaitingGridlets(agentRequest);
 	}
 
         /**
@@ -469,7 +461,7 @@ public abstract class GridAgent extends Agent {
          */
 	@Override
 	protected void offWaitingGridlets() {
-		this.getGapGridlets().offWaitingGridlets();
+		this.getScheduler().getGridlets().offWaitingGridlets();
 	}
         
         /**
@@ -488,4 +480,12 @@ public abstract class GridAgent extends Agent {
         public Gridlet gridletReceive() {
             return super.gridletReceive();
         }
+
+    public RRScheduler getScheduler() {
+        return scheduler;
+    }
+
+    public void setScheduler(RRScheduler scheduler) {
+        this.scheduler = scheduler;
+    }
 }
