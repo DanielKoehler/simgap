@@ -29,5 +29,24 @@ package net.sf.gap.agents.gridlets.scheduling;
  * @author Giovanni Novelli
  */
 public abstract class AbstractScheduler {
+    /**
+     * Upper bound for queued gridlets
+     */
+    private int upperBound;
 
+    public AbstractScheduler() {
+        this.setUpperBound(1);
+    }
+
+    public AbstractScheduler(int anUpperBound) {
+        this.setUpperBound(anUpperBound);
+    }
+
+    protected int getUpperBound() {
+        return upperBound;
+    }
+
+    protected void setUpperBound(int upperBound) {
+        this.upperBound = upperBound;
+    }
 }

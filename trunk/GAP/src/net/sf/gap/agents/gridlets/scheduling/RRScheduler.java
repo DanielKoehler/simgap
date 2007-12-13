@@ -35,21 +35,17 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author Giovanni Novelli
  */
 public class RRScheduler extends AbstractScheduler implements IJobScheduler {
-    /**
-     * Upper bound for queued gridlets
-     */
-    private int upperBound;
     
     private LinkedBlockingQueue<Gridlet> queue;
 
     
     public RRScheduler() {
-        this.setUpperBound(1);
+        super();
         this.setQueue(new LinkedBlockingQueue<Gridlet>(this.getUpperBound()));
     }
     
     public RRScheduler(int anUpperBound) {
-        this.setUpperBound(anUpperBound);
+        super(anUpperBound);
         this.setQueue(new LinkedBlockingQueue<Gridlet>(this.getUpperBound()));
     }
     
@@ -76,14 +72,6 @@ public class RRScheduler extends AbstractScheduler implements IJobScheduler {
     public int size()
     {
         return this.getQueue().size();
-    }
-
-    private int getUpperBound() {
-        return upperBound;
-    }
-
-    private void setUpperBound(int upperBound) {
-        this.upperBound = upperBound;
     }
 
     private LinkedBlockingQueue<Gridlet> getQueue() {
