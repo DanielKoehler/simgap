@@ -481,10 +481,11 @@ public abstract class GridAgent extends Agent {
          */
         public boolean gridletSubmit(Gridlet gl) 
         {
-            return this.gridletSubmit(gl,this.getResourceID());
+            return super.gridletSubmit(gl,this.getResourceID());
         }
         
+    @Override
         public Gridlet gridletReceive() {
-            return this.gridletReceive();
+            return super.gridletReceive();
         }
 }
