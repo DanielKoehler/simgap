@@ -24,8 +24,9 @@
 
 package net.sf.gap.agents.gridlets.scheduling;
 
-import gridsim.Gridlet;
 import java.util.concurrent.LinkedBlockingQueue;
+import gridsim.Gridlet;
+import net.sf.gap.agents.GridAgent;
 
 
 /**
@@ -34,18 +35,20 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 
  * @author Giovanni Novelli
  */
-public class RRScheduler extends AbstractScheduler implements IJobScheduler {
+public class RRScheduler extends AbstractScheduler {
     
     private LinkedBlockingQueue<Gridlet> queue;
 
     
-    public RRScheduler() {
-        super();
+    public RRScheduler(GridAgent anAgent) {
+        super(anAgent);
         this.setQueue(new LinkedBlockingQueue<Gridlet>(this.getUpperBound()));
     }
     
-    public RRScheduler(int anUpperBound) {
-        super(anUpperBound);
+    public RRScheduler(
+            GridAgent anAgent, 
+            int anUpperBound) {
+        super(anAgent,anUpperBound);
         this.setQueue(new LinkedBlockingQueue<Gridlet>(this.getUpperBound()));
     }
     
@@ -57,6 +60,11 @@ public class RRScheduler extends AbstractScheduler implements IJobScheduler {
     public Gridlet deque()
     {
         return this.getQueue().poll();
+    }
+    
+    public Gridlet peek()
+    {
+        return this.getQueue().peek();
     }
     
     public boolean isEmpty()

@@ -471,4 +471,20 @@ public abstract class GridAgent extends Agent {
 	protected void offWaitingGridlets() {
 		this.getGapGridlets().offWaitingGridlets();
 	}
+        
+        /**
+         * Sends a Gridlet to the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the successful 
+         * of this method is by default off or false
+         * @param gl the gridlet submitted
+         * @return
+         */
+        public boolean gridletSubmit(Gridlet gl) 
+        {
+            return this.gridletSubmit(gl,this.getResourceID());
+        }
+        
+        public Gridlet gridletReceive() {
+            return this.gridletReceive();
+        }
 }
