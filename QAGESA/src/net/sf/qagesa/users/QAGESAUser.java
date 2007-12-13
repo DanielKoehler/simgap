@@ -53,8 +53,7 @@ public abstract class QAGESAUser extends AbstractUser {
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
-				QAGESATags.MUM_SEARCH_REQ, new IO_data(request, SIZE, super
-						.getEntityId("MuM")));
+				QAGESATags.MUM_SEARCH_REQ, new IO_data(request, SIZE, AbstractUser.getEntityId("MuM")));
 		evsend_time = GridSim.clock();
 		String msg = String.format(
 				"%1$f %2$d %3$s --> MuM MUM_SEARCH_REQUEST %4$s", evsend_time,
@@ -84,6 +83,7 @@ public abstract class QAGESAUser extends AbstractUser {
 		return reply;
 	}
 
+    @Override
 	protected GISReply requestToGIS() {
 		int SIZE = 500;
 		double evsend_time = 0;
@@ -91,7 +91,7 @@ public abstract class QAGESAUser extends AbstractUser {
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
-				QAGESATags.CEL_SEARCH_REQ, new IO_data(request, SIZE, super
+				QAGESATags.CEL_SEARCH_REQ, new IO_data(request, SIZE, AbstractUser
 						.getEntityId("CEL")));
 		evsend_time = GridSim.clock();
 		String msg = String.format("%1$f %2$d %3$s --> CEL CEL_SEARCH_REQUEST",

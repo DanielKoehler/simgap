@@ -42,6 +42,7 @@ public class QAGESAPlatform extends AgentPlatform {
 		super("QAGESA", trace);
 	}
 
+    @Override
         public void createServices() throws Exception {
             super.createServices();
             
@@ -49,6 +50,7 @@ public class QAGESAPlatform extends AgentPlatform {
             this.setServiceReF(new ReFService(this, false, 0.0, 0.0));
         }
         
+    @Override
         public void initialize() throws Exception {
             super.initialize();
             this.initPlatform();

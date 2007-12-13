@@ -126,7 +126,7 @@ public class MuMService extends PlatformService {
 	}
 
 	public void setTranscodingSet(TranscodingSet transcodingSet) {
-		this.transcodingSet = transcodingSet;
+		MuMService.transcodingSet = transcodingSet;
 	}
 
 	public MuMRepository getRepository() {
