@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * IJobsQueue.java
+ * IJobScheduler.java
  *
  * Created on 13 December 2007, 12.00 by Giovanni Novelli
  *
@@ -22,7 +22,7 @@
  *****************************************************************************************
  */
 
-package net.sf.gap.agents.gridlets;
+package net.sf.gap.agents.gridlets.scheduling;
 
 import gridsim.Gridlet;
 
@@ -34,7 +34,7 @@ import gridsim.Gridlet;
  * 
  * @see gridsim.Gridlet;
  */
-public interface IJobsQueue {
+public interface IJobScheduler {
     /**
      * This method enques a gridlet in this scheduler. If the implementing class
      * has queue management policies too, then it should return <b>true</b> if
@@ -69,6 +69,17 @@ public interface IJobsQueue {
      * @post $none
      */
     public abstract boolean isEmpty();
+
+    /**
+     * Determines whether the scheduler has reached an upper bound for gridlets 
+     * in its queue(s).
+     *
+     * @return <tt>true</tt> if queue is full, <tt>false</tt>
+     *         otherwise
+     * @pre $none
+     * @post $none
+     */
+    public abstract boolean isFull();
 
     /**
      * Determines the number of gridlets that are currently enqueued in this
