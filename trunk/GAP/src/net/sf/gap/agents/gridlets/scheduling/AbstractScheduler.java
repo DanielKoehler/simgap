@@ -50,6 +50,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
     public AbstractScheduler(GridAgent anAgent) {
         this.setUpperBound(1);
         this.setAgent(anAgent);
+        this.setGridlets(new Gridlets());
     }
 
     public AbstractScheduler(
@@ -57,6 +58,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
             int anUpperBound) {
         this.setUpperBound(anUpperBound);
         this.setAgent(anAgent);
+        this.setGridlets(new Gridlets());
     }
 
     protected int getUpperBound() {
@@ -127,34 +129,46 @@ public abstract class AbstractScheduler implements IJobScheduler {
         if (!this.getCurrentList().isEmpty()) {
             // gets the gridlet back from agent's Grid Element
             Gridlet receivedGridlet = this.getAgent().gridletReceive();
-            // if the received gridlet is NOT null
-            if (receivedGridlet != null) {
-                // Extract receveid gridlet's ID
-                int gridletID = receivedGridlet.getGridletID();
-                // Gets original gridlet from its ID
-                Gridlet gridlet = this.getGridlets().getMapGR().get(gridletID).getGridlet();
-                // If the gridlet extracted from gridlets tracking field 
-                // is NOT null
-                if (gridlet != null) {
-                    // Checks that the extracted gridlet is really on
-                    // current gridlets list
-                    if (this.getCurrentList().contains(gridlet)) {
-                        // Removes the gridlet from such list
-                        this.getCurrentList().remove(gridlet);
-                        // Tracks the received gridlet in the correct list
-                        // based on its return status
-                        switch (receivedGridlet.getGridletStatus()) {
-                            case Gridlet.SUCCESS:
-                                this.getGridlets().addSuccesses(receivedGridlet);
-                                break;
-                            case Gridlet.FAILED:
-                            case Gridlet.FAILED_RESOURCE_UNAVAILABLE:
-                                this.getGridlets().addFailures(receivedGridlet);
-                                break;
-                            default:
-                                break;
+            return this.gridletReceive(receivedGridlet);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * This method is responsible for managing 
+     * a gridlet received in some way (sync/asyng) back from Grid Element
+     * 
+     * @return the gridlet received by Grid Element or null
+     */
+    public Gridlet gridletReceive(Gridlet receivedGridlet) {
+        // if the received gridlet is NOT null
+        if (receivedGridlet != null) {
+            // Extract receveid gridlet's ID
+            int gridletID = receivedGridlet.getGridletID();
+            // Gets original gridlet from its ID
+            Gridlet gridlet = this.getGridlets().getMapGR().get(gridletID).getGridlet();
+            // If the gridlet extracted from gridlets tracking field 
+            // is NOT null
+            if (gridlet != null) {
+                // Checks that the extracted gridlet is really on
+                // current gridlets list
+                if (this.getCurrentList().contains(gridlet)) {
+                    // Removes the gridlet from such list
+                    this.getCurrentList().remove(gridlet);
+                    // Tracks the received gridlet in the correct list
+                    // based on its return status
+                    switch (receivedGridlet.getGridletStatus()) {
+                        case Gridlet.SUCCESS:
+                            this.getGridlets().addSuccesses(receivedGridlet);
+                            break;
+                        case Gridlet.FAILED:
+                        case Gridlet.FAILED_RESOURCE_UNAVAILABLE:
+                            this.getGridlets().addFailures(receivedGridlet);
+                            break;
+                        default:
+                            break;
                         }
-                    }
                 }
             }
             return receivedGridlet;
