@@ -125,12 +125,13 @@ public abstract class AbstractScheduler implements IJobScheduler {
          * of this method is by default off or false
          * 
          * @param gl the gridlet to be canceled
-         * @return canceled gridlet or null otherwise
+         * @return <tt>true</tt> if gridlet has been successfully canceled,
+         *         <tt>false</tt> otherwise
          */
     public Gridlet gridletCancel(Gridlet gl) {
         // If the gridlet has been previously submitted and has yet NOT returned
         if (this.getGridlets().getGridletSubmitted().contains(gl)) {
-            Gridlet canceledGridlet = this.gridletCancel(gl);
+            Gridlet canceledGridlet = this.getAgent().gridletCancel(gl);
             if (canceledGridlet.getGridletStatus()==Gridlet.CANCELED) {
                 this.getGridlets().addCanceled(canceledGridlet);
                 return canceledGridlet;
@@ -148,20 +149,21 @@ public abstract class AbstractScheduler implements IJobScheduler {
          * of this method is by default off or false
          * 
          * @param gl the gridlet to be paused
-         * @return paused gridlet or null otherwise
+         * @return <tt>true</tt> if gridlet has been successfully paused,
+         *         <tt>false</tt> otherwise
          */
-    public Gridlet gridletPause(Gridlet gl) {
+    public boolean gridletPause(Gridlet gl) {
         // If the gridlet has been previously submitted and has yet NOT returned
         if (this.getGridlets().getGridletSubmitted().contains(gl)) {
-            Gridlet pausedGridlet = this.gridletPause(gl);
-            if (pausedGridlet.getGridletStatus()==Gridlet.PAUSED) {
-                this.getGridlets().addPaused(pausedGridlet);
-                return pausedGridlet;
+            boolean paused = this.getAgent().gridletPause(gl);
+            if (paused) {
+                this.getGridlets().addPaused(gl);
+                return paused;
             } else {
-                return null;
+                return false;
             }
         } else {
-            return null;
+            return false;
         }
     }
     
@@ -171,20 +173,21 @@ public abstract class AbstractScheduler implements IJobScheduler {
          * of this method is by default off or false
          * 
          * @param gl the gridlet to be resumed
-         * @return resumed gridlet or null otherwise
+         * @return <tt>true</tt> if gridlet has been successfully resumed,
+         *         <tt>false</tt> otherwise
          */
-    public Gridlet gridletResume(Gridlet gl) {
+    public boolean gridletResume(Gridlet gl) {
         // If the gridlet has been previously submitted and has yet NOT returned
         if (this.getGridlets().getGridletSubmitted().contains(gl)) {
-            Gridlet resumedGridlet = this.gridletResume(gl);
-            if (resumedGridlet.getGridletStatus()==Gridlet.RESUMED) {
+            boolean resumed = this.getAgent().gridletResume(gl);
+            if (resumed) {
                 this.getGridlets().getGridletPaused().remove(gl);
-                return resumedGridlet;
+                return resumed;
             } else {
-                return null;
+                return false;
             }
         } else {
-            return null;
+            return false;
         }
     }
     
