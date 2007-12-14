@@ -174,7 +174,6 @@ public abstract class GridAgent extends Agent {
                 Gridlet gridlet;
                 
 		GridletRequest gridletRequest;
-		GridletReply gridletReply;
         
                 gridletRequest = GridletRequest.get_data(ev);
 		switch (ev.get_tag()) {
@@ -282,13 +281,6 @@ public abstract class GridAgent extends Agent {
 			break;
                 case Tags.GRIDLET_SUBMIT_REP:
                     Assert.fail();
-                    /*
-			gridletReply = GridletReply.get_data(ev);
-			gridlet = gridletRequest.getGridlet();
-			this.getGapGridlets().getMapGR().remove(gridlet.getGridletID());
-			System.out.println("Received back gridlet "
-					+ gridletReply.getReceivedGridlet());
-                     */
 			break;
 		default:
 			break;
@@ -466,21 +458,83 @@ public abstract class GridAgent extends Agent {
         
         /**
          * Sends a Gridlet to the Grid Element of this agent 
-         * without any delay. An acknowledgement to denote the successful 
+         * without any delay. An acknowledgement to denote the success
          * of this method is by default off or false
          * @param gl the gridlet submitted
-         * @return
+         * @return <tt>true</tt> for successful submission <tt>false</tt> otherwise
          */
         public boolean gridletSubmit(Gridlet gl) 
         {
             return super.gridletSubmit(gl,this.getResourceID());
         }
         
+        /**
+         * Syncronously receives a gridlet from Grid Element
+         * 
+         * @return <tt>true</tt> for successful receival <tt>false</tt> otherwise
+         */
     @Override
         public Gridlet gridletReceive() {
             return super.gridletReceive();
         }
 
+        /**
+         * Cancels a Gridlet on the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the success 
+         * of this method is by default off or false
+         * @param gl the gridlet to be canceled
+         * @return <tt>true</tt> for successful cancel <tt>false</tt> otherwise
+         */
+    public Gridlet gridletCancel(Gridlet gl) {
+        return super.gridletCancel(gl, this.getResourceID(), 0.0);
+    }
+    
+        /**
+         * Pauses a Gridlet on the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the success 
+         * of this method is by default off or false
+         * @param gl the gridlet to be paused
+         * @return <tt>true</tt> for successful pause <tt>false</tt> otherwise
+         */
+    public boolean gridletPause(Gridlet gl) {
+        return super.gridletPause(gl, this.getResourceID(), 0.0);
+    }
+    
+        /**
+         * Resumes a Gridlet on the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the success
+         * of this method is by default off or false
+         * @param gl the gridlet to be resumed
+         * @return <tt>true</tt> for successful resume <tt>false</tt> otherwise
+         */
+    public boolean gridletResume(Gridlet gl) {
+        return super.gridletResume(gl, this.getResourceID(), 0.0);
+    }
+    
+    /**
+     * 
+     * @param gl the gridlet of which to know the status
+     * @return the current Gridlet status or <tt>-1</tt> if not found.
+     *         The various Gridlet status can be found in Gridlet class.
+     */
+    public int gridletStatus(Gridlet gl) {
+        return super.gridletStatus(gl, this.getResourceID());
+    }
+
+
+    /**
+     * This method is responsible for moving a gridlet to another resource ID
+     * @TODO Note: To complete migration it's needed to change the agent that manages
+     * @TODO the gridlet using an existing agent or the migrated entity of this
+     * 
+     * @param gl the gridlet to move
+     * @param destResID the destination resource ID 
+     * @return <tt>true</tt> for successful move <tt>false</tt> otherwise
+     */
+    public boolean gridletMove(Gridlet gl,int destResID) {
+        return super.gridletMove(gl, this.getResourceID(), destResID, 0.0);
+    }
+    
     public RRScheduler getScheduler() {
         return scheduler;
     }
