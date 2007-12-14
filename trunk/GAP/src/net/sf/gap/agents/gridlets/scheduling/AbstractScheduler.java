@@ -92,6 +92,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
      */
     @SuppressWarnings("unchecked")
     public boolean gridletSubmit() {
+        // @TODO Add another method for 1+ concurrent gridlets by an agent
         // if there is NOT any gridlet on the Grid Element
         if (this.getCurrentList().isEmpty()) {
             // if there are gridlets on local agent's queue
@@ -118,6 +119,77 @@ public abstract class AbstractScheduler implements IJobScheduler {
         }
     }
 
+        /**
+         * Cancels a Gridlet on the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the success 
+         * of this method is by default off or false
+         * 
+         * @param gl the gridlet to be canceled
+         * @return canceled gridlet or null otherwise
+         */
+    public Gridlet gridletCancel(Gridlet gl) {
+        // If the gridlet has been previously submitted and has yet NOT returned
+        if (this.getGridlets().getGridletSubmitted().contains(gl)) {
+            Gridlet canceledGridlet = this.gridletCancel(gl);
+            if (canceledGridlet.getGridletStatus()==Gridlet.CANCELED) {
+                this.getGridlets().addCanceled(canceledGridlet);
+                return canceledGridlet;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+        /**
+         * Pauses a Gridlet on the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the success 
+         * of this method is by default off or false
+         * 
+         * @param gl the gridlet to be paused
+         * @return paused gridlet or null otherwise
+         */
+    public Gridlet gridletPause(Gridlet gl) {
+        // If the gridlet has been previously submitted and has yet NOT returned
+        if (this.getGridlets().getGridletSubmitted().contains(gl)) {
+            Gridlet pausedGridlet = this.gridletPause(gl);
+            if (pausedGridlet.getGridletStatus()==Gridlet.PAUSED) {
+                this.getGridlets().addPaused(pausedGridlet);
+                return pausedGridlet;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+        /**
+         * Resumes a Gridlet on the Grid Element of this agent 
+         * without any delay. An acknowledgement to denote the success 
+         * of this method is by default off or false
+         * 
+         * @param gl the gridlet to be resumed
+         * @return resumed gridlet or null otherwise
+         */
+    public Gridlet gridletResume(Gridlet gl) {
+        // If the gridlet has been previously submitted and has yet NOT returned
+        if (this.getGridlets().getGridletSubmitted().contains(gl)) {
+            Gridlet resumedGridlet = this.gridletResume(gl);
+            if (resumedGridlet.getGridletStatus()==Gridlet.RESUMED) {
+                this.getGridlets().getGridletPaused().remove(gl);
+                return resumedGridlet;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    // @TODO Add MOVE gridlet
+    
     /**
      * This method is responsible for syncronously receiving 
      * a gridlet back from Grid Element
