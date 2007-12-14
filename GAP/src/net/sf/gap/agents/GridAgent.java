@@ -483,7 +483,7 @@ public abstract class GridAgent extends Agent {
          * without any delay. An acknowledgement to denote the success 
          * of this method is by default off or false
          * @param gl the gridlet to be canceled
-         * @return <tt>true</tt> for successful cancel <tt>false</tt> otherwise
+         * @return canceled gridlet
          */
     public Gridlet gridletCancel(Gridlet gl) {
         return super.gridletCancel(gl, this.getResourceID(), 0.0);
