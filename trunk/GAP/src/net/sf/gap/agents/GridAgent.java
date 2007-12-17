@@ -180,23 +180,17 @@ public abstract class GridAgent extends Agent {
 
                 // Cancels a Gridlet submitted in the GridResource entity
 		case GridSimTags.GRIDLET_CANCEL:
-                    Assert.fail();
-                    /*
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
-				gridlet.setUserID(this.get_id());
-				Gridlet canceledGridlet = super.gridletCancel(gridlet, this
-						.getResourceID(), GridSimTags.SCHEDULE_NOW);
-				if (canceledGridlet == null) {
-					this.getGapGridlets().addCanceled(gridlet);
-				} else {
-					this.getGapGridlets().addCanceled(canceledGridlet);
-				}
+                                Gridlet canceledGridlet = this.getScheduler().gridletCancel(gridlet);
+                                if (canceledGridlet!=null) {
 				this.sendACK(ev, gridletRequest, gridlet);
+                                } else {
+				this.sendNACK(ev, gridletRequest, gridlet);
+                                }
 			} else {
 				this.sendNACK(ev, gridletRequest, gridlet);
 			}
-                     */
 			break;
                 case GridSimTags.GRIDLET_MOVE:
                     Assert.fail();
@@ -206,24 +200,17 @@ public abstract class GridAgent extends Agent {
                     break;
                 // Pauses a Gridlet submitted in the GridResource entity
 		case GridSimTags.GRIDLET_PAUSE:
-                    Assert.fail();
-                    /*
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
-				gridlet.setUserID(this.get_id());
-				boolean paused = super.gridletPause(gridlet, this
-						.getResourceID(), GridSimTags.SCHEDULE_NOW);
-				if (paused) {
-					this.getGapGridlets().addPaused(gridlet);
-					this.sendACK(ev, gridletRequest, gridlet);
-				} else {
-					this.sendNACK(ev, gridletRequest, gridlet);
-				}
-
+                                boolean paused = this.getScheduler().gridletPause(gridlet);
+                                if (paused) {
+				this.sendACK(ev, gridletRequest, gridlet);
+                                } else {
+				this.sendNACK(ev, gridletRequest, gridlet);
+                                }
 			} else {
 				this.sendNACK(ev, gridletRequest, gridlet);
 			}
-                     */
 			break;
                 case GridSimTags.GRIDLET_PAUSE_ACK:
                     Assert.fail();
