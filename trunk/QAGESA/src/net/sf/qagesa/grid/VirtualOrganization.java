@@ -39,7 +39,6 @@ import net.sf.qagesa.agents.middleware.QAGESAPlatform;
 import net.sf.qagesa.factories.GEFactory;
 import net.sf.qagesa.factories.LinkFactory;
 import net.sf.qagesa.grid.components.QAGESAGridElement;
-import net.sf.qagesa.measures.MeasuresContainer;
 import net.sf.qagesa.multimedia.TranscodingSet;
 import net.sf.qagesa.users.impl.Submitter;
 import net.sf.qagesa.users.impl.User;
