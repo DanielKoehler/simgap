@@ -9,15 +9,15 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * GridletsMap.java
+ * GridletRequestsMap.java
  *
  * Created on 11 March 2007, 12.00 by Giovanni Novelli
  *
  ****************************************************************************************
  *
  * $Revision: 1141 $
- * $Id: GridletsMap.java 1141 2007-07-18 18:22:15Z gnovelli $
- * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/agents/gridlets/GridletsMap.java $
+ * $Id: GridletRequestsMap.java 1141 2007-07-18 18:22:15Z gnovelli $
+ * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/agents/gridlets/GridletRequestsMap.java $
  *
  *****************************************************************************************
  */
@@ -32,7 +32,7 @@ import net.sf.gap.messages.impl.GridletRequest;
  * 
  * @author Giovanni Novelli
  */
-public class GridletsMap extends HashMap<Integer, GridletRequest> {
+public class GridletRequestsMap extends HashMap<Integer, GridletRequest> {
 
 	/**
 	 * 

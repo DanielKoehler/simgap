@@ -34,7 +34,7 @@ import net.sf.gap.messages.impl.AgentRequest;
  * @author Giovanni Novelli
  */
 public class GridletsBag {
-	private GridletsMap mapGR; // gridlets IDs --> GridletRequests
+	private GridletRequestsMap gridletRequestsMap; // gridlets IDs --> GridletRequests
 
 	private GridletList gridletSubmitted; // GridletsBag submitted
 
@@ -59,7 +59,7 @@ public class GridletsBag {
 	 * Creates a new instance of GridletsBag
 	 */
 	public GridletsBag() {
-		this.setMapGR(new GridletsMap());
+		this.setGridletRequestsMap(new GridletRequestsMap());
 		this.setGridletSubmitted(new GridletList());
 		this.setGridletCanceled(new GridletList());
 		this.setGridletPaused(new GridletList());
@@ -75,12 +75,12 @@ public class GridletsBag {
 	}
 
 	public void addRequest(GridletRequest gridletRequest) {
-		this.getMapGR().put(gridletRequest.getGridlet().getGridletID(),
+		this.getGridletRequestsMap().put(gridletRequest.getGridlet().getGridletID(),
 				gridletRequest);
 	}
         
         private GridletRequest getRequest(int gridletID) {
-            return this.getMapGR().get(gridletID);
+            return this.getGridletRequestsMap().get(gridletID);
         }
         
         public Gridlet getGridlet(int gridletID) {
@@ -115,12 +115,12 @@ public class GridletsBag {
 		this.getGridletFailures().add(gridlet);
 	}
 
-	public GridletsMap getMapGR() {
-		return this.mapGR;
+	public GridletRequestsMap getGridletRequestsMap() {
+		return this.gridletRequestsMap;
 	}
 
-	public void setMapGR(GridletsMap mapGridletRequests) {
-		this.mapGR = mapGridletRequests;
+	public void setGridletRequestsMap(GridletRequestsMap mapGridletRequests) {
+		this.gridletRequestsMap = mapGridletRequests;
 	}
 
 	public GridletList getGridletSuccesses() {
