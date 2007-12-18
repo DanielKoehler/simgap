@@ -27,51 +27,53 @@ package net.sf.gap.agents.gridlets;
 import gridsim.Gridlet;
 import gridsim.GridletList;
 import net.sf.gap.messages.impl.GridletRequest;
-import net.sf.gap.messages.impl.AgentRequest;
 
 /**
  * @TODO Fix GridletsBag lists as queues and vectors when needed
  * @author Giovanni Novelli
  */
 public class GridletsBag {
-	private GridletRequestsMap gridletRequestsMap; // gridlets IDs --> GridletRequests
+        /**
+         * Map of GridletRequest instances received by agent
+         * Maps gridlets IDs to GridletRequests
+         */
+	private GridletRequestsMap gridletRequestsMap; 
 
-	private GridletList gridletSubmitted; // GridletsBag submitted
+        /**
+         * List of gridlets submitted to GE/GEs
+         */
+	private GridletList gridletSubmitted; 
 
-	private GridletList gridletCanceled; // GridletsBag canceled
+        /**
+         * List of canceled gridlets
+         */
+	private GridletList gridletCanceled; 
 
-	private GridletList gridletPaused; // GridletsBag paused
+        /**
+         * List of paused gridlets
+         */
+	private GridletList gridletPaused; 
 
-	private GridletList gridletSuccesses; // GridletsBag successfull
+        /**
+         * List of successful gridlets
+         */
+	private GridletList gridletSuccesses;
 
-	private GridletList gridletFailures; // GridletsBag failed
+        /**
+         * List of failed gridlets
+         */
+	private GridletList gridletFailures; 
 
-	private boolean waitingGridlets; // Flag for waiting gridlets ending
-
-	// before KILL_AGENT
-
-	private AgentRequest waitingAgentRequest; // GridAgent Request for
-
-	// KILL_AGENT waiting gridlets
-	// ending
-
-	/**
+        /**
 	 * Creates a new instance of GridletsBag
 	 */
 	public GridletsBag() {
-		this.setGridletRequestsMap(new GridletRequestsMap());
-		this.setGridletSubmitted(new GridletList());
-		this.setGridletCanceled(new GridletList());
-		this.setGridletPaused(new GridletList());
-		this.setGridletSuccesses(new GridletList());
-		this.setGridletFailures(new GridletList());
-
-		this.setWaitingGridlets(false);
-		this.setWaitingAgentRequest(null);
-	}
-
-	public boolean hasGridlets() {
-		return (this.getGridletSubmitted().size() > 0);
+		this.gridletRequestsMap = new GridletRequestsMap();
+		this.gridletSubmitted = new GridletList();
+		this.gridletCanceled = new GridletList();
+		this.gridletPaused = new GridletList();
+		this.gridletSuccesses = new GridletList();
+		this.gridletFailures = new GridletList();
 	}
 
 	public void addRequest(GridletRequest gridletRequest) {
@@ -119,72 +121,23 @@ public class GridletsBag {
 		return this.gridletRequestsMap;
 	}
 
-	public void setGridletRequestsMap(GridletRequestsMap mapGridletRequests) {
-		this.gridletRequestsMap = mapGridletRequests;
-	}
-
 	public GridletList getGridletSuccesses() {
 		return gridletSuccesses;
-	}
-
-	public void setGridletSuccesses(GridletList gridletSuccesses) {
-		this.gridletSuccesses = gridletSuccesses;
 	}
 
 	public GridletList getGridletFailures() {
 		return gridletFailures;
 	}
 
-	public void setGridletFailures(GridletList gridletFailures) {
-		this.gridletFailures = gridletFailures;
-	}
-
 	public GridletList getGridletSubmitted() {
 		return gridletSubmitted;
-	}
-
-	public void setGridletSubmitted(GridletList gridletSubmitted) {
-		this.gridletSubmitted = gridletSubmitted;
 	}
 
 	public GridletList getGridletCanceled() {
 		return gridletCanceled;
 	}
 
-	public void setGridletCanceled(GridletList gridletCanceled) {
-		this.gridletCanceled = gridletCanceled;
-	}
-
-	public GridletList getGridletPaused() {
+        public GridletList getGridletPaused() {
 		return gridletPaused;
-	}
-
-	public void setGridletPaused(GridletList gridletPaused) {
-		this.gridletPaused = gridletPaused;
-	}
-
-	public boolean isWaitingGridlets() {
-		return waitingGridlets;
-	}
-
-	public void setWaitingGridlets(boolean waitingGridlets) {
-		this.waitingGridlets = waitingGridlets;
-	}
-
-	public AgentRequest getWaitingAgentRequest() {
-		return waitingAgentRequest;
-	}
-
-	public void setWaitingAgentRequest(AgentRequest waitingAgentRequest) {
-		this.waitingAgentRequest = waitingAgentRequest;
-	}
-
-	public void offWaitingGridlets() {
-		this.setWaitingGridlets(false);
-	}
-
-	public void onWaitingGridlets(AgentRequest agentRequest) {
-		this.setWaitingGridlets(true);
-		this.setWaitingAgentRequest(agentRequest);
 	}
 }
