@@ -95,10 +95,6 @@ public abstract class Agent extends AbstractAgent {
     abstract protected void onWaitingGridlets(AgentRequest agentRequest);
 
     /**
-     */
-    abstract protected void offWaitingGridlets();
-
-    /**
      * @param ev
      */
     abstract protected void manageGridlets(Sim_event ev);

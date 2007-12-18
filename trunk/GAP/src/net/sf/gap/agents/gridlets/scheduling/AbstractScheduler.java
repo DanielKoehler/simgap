@@ -50,7 +50,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
     public AbstractScheduler(GridAgent anAgent) {
         this.setUpperBound(1);
         this.setAgent(anAgent);
-        this.setGridlets(new GridletsBag());
+        this.setGridletsBag(new GridletsBag());
     }
 
     public AbstractScheduler(
@@ -58,7 +58,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
             int anUpperBound) {
         this.setUpperBound(anUpperBound);
         this.setAgent(anAgent);
-        this.setGridlets(new GridletsBag());
+        this.setGridletsBag(new GridletsBag());
     }
 
     protected int getUpperBound() {
@@ -108,7 +108,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
                     this.getCurrentList().add(this.deque());
                     // Add the gridlet to a list used for tracking
                     // submitted gridlets
-                    this.getGridlets().addSubmitted(gridlet);
+                    this.getGridletsBag().addSubmitted(gridlet);
                 }
                 return submitted;
             } else {
@@ -130,10 +130,10 @@ public abstract class AbstractScheduler implements IJobScheduler {
          */
     public Gridlet gridletCancel(Gridlet gl) {
         // If the gridlet has been previously submitted and has yet NOT returned
-        if (this.getGridlets().getGridletSubmitted().contains(gl)) {
+        if (this.getGridletsBag().getGridletSubmitted().contains(gl)) {
             Gridlet canceledGridlet = this.getAgent().gridletCancel(gl);
             if (canceledGridlet.getGridletStatus()==Gridlet.CANCELED) {
-                this.getGridlets().addCanceled(canceledGridlet);
+                this.getGridletsBag().addCanceled(canceledGridlet);
                 return canceledGridlet;
             } else {
                 return null;
@@ -154,10 +154,10 @@ public abstract class AbstractScheduler implements IJobScheduler {
          */
     public boolean gridletPause(Gridlet gl) {
         // If the gridlet has been previously submitted and has yet NOT returned
-        if (this.getGridlets().getGridletSubmitted().contains(gl)) {
+        if (this.getGridletsBag().getGridletSubmitted().contains(gl)) {
             boolean paused = this.getAgent().gridletPause(gl);
             if (paused) {
-                this.getGridlets().addPaused(gl);
+                this.getGridletsBag().addPaused(gl);
                 return paused;
             } else {
                 return false;
@@ -178,10 +178,10 @@ public abstract class AbstractScheduler implements IJobScheduler {
          */
     public boolean gridletResume(Gridlet gl) {
         // If the gridlet has been previously submitted and has yet NOT returned
-        if (this.getGridlets().getGridletSubmitted().contains(gl)) {
+        if (this.getGridletsBag().getGridletSubmitted().contains(gl)) {
             boolean resumed = this.getAgent().gridletResume(gl);
             if (resumed) {
-                this.getGridlets().getGridletPaused().remove(gl);
+                this.getGridletsBag().getGridletPaused().remove(gl);
                 return resumed;
             } else {
                 return false;
@@ -222,7 +222,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
             // Extract receveid gridlet's ID
             int gridletID = receivedGridlet.getGridletID();
             // Gets original gridlet from its ID
-            Gridlet gridlet = this.getGridlets().getGridlet(gridletID);
+            Gridlet gridlet = this.getGridletsBag().getGridlet(gridletID);
             // If the gridlet extracted from gridlets tracking field 
             // is NOT null
             if (gridlet != null) {
@@ -235,11 +235,11 @@ public abstract class AbstractScheduler implements IJobScheduler {
                     // based on its return status
                     switch (receivedGridlet.getGridletStatus()) {
                         case Gridlet.SUCCESS:
-                            this.getGridlets().addSuccesses(receivedGridlet);
+                            this.getGridletsBag().addSuccesses(receivedGridlet);
                             break;
                         case Gridlet.FAILED:
                         case Gridlet.FAILED_RESOURCE_UNAVAILABLE:
-                            this.getGridlets().addFailures(receivedGridlet);
+                            this.getGridletsBag().addFailures(receivedGridlet);
                             break;
                         default:
                             break;
@@ -273,14 +273,14 @@ public abstract class AbstractScheduler implements IJobScheduler {
     }
 
     public GridletList getCurrentList() {
-        return this.getGridlets().getGridletSubmitted();
+        return this.getGridletsBag().getGridletSubmitted();
     }
 
-    public GridletsBag getGridlets() {
+    public GridletsBag getGridletsBag() {
         return gridlets;
     }
 
-    public void setGridlets(GridletsBag gridlets) {
+    public void setGridletsBag(GridletsBag gridlets) {
         this.gridlets = gridlets;
     }
 }

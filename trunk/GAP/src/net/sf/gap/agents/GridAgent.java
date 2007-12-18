@@ -254,7 +254,7 @@ public abstract class GridAgent extends Agent {
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
-				this.getScheduler().getGridlets().addRequest(gridletRequest);
+				this.getScheduler().getGridletsBag().addRequest(gridletRequest);
                                 boolean submitted = this.getScheduler().enque(gridlet);
 				if (submitted) {
 					this.sendACK(ev, gridletRequest, gridlet);
@@ -431,18 +431,9 @@ public abstract class GridAgent extends Agent {
          */
 	@Override
 	protected void onWaitingGridlets(AgentRequest agentRequest) {
-		this.getScheduler().getGridlets().onWaitingGridlets(agentRequest);
+		Assert.fail();
 	}
 
-        /**
-         * @TODO Fix semanthics
-         * @TODO Comments to be completed
-         */
-	@Override
-	protected void offWaitingGridlets() {
-		this.getScheduler().getGridlets().offWaitingGridlets();
-	}
-        
         /**
          * Sends a Gridlet to the Grid Element of this agent 
          * without any delay. An acknowledgement to denote the success
