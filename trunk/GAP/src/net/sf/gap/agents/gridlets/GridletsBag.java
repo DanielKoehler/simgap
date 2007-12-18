@@ -9,15 +9,15 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * Gridlets.java
+ * GridletsBag.java
  *
  * Created on 11 March 2007, 12.00 by Giovanni Novelli
  *
  ****************************************************************************************
  *
  * $Revision: 1141 $
- * $Id: Gridlets.java 1141 2007-07-18 18:22:15Z gnovelli $
- * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/agents/gridlets/Gridlets.java $
+ * $Id: GridletsBag.java 1141 2007-07-18 18:22:15Z gnovelli $
+ * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/agents/gridlets/GridletsBag.java $
  *
  *****************************************************************************************
  */
@@ -30,23 +30,21 @@ import net.sf.gap.messages.impl.GridletRequest;
 import net.sf.gap.messages.impl.AgentRequest;
 
 /**
- * @TODO Fix Gridlets lists as queues and vectors when needed
+ * @TODO Fix GridletsBag lists as queues and vectors when needed
  * @author Giovanni Novelli
  */
-public class Gridlets {
+public class GridletsBag {
 	private GridletsMap mapGR; // gridlets IDs --> GridletRequests
 
-	private GridletList gridletRequests; // Gridlets received for submission
+	private GridletList gridletSubmitted; // GridletsBag submitted
 
-	private GridletList gridletSubmitted; // Gridlets submitted
+	private GridletList gridletCanceled; // GridletsBag canceled
 
-	private GridletList gridletCanceled; // Gridlets canceled
+	private GridletList gridletPaused; // GridletsBag paused
 
-	private GridletList gridletPaused; // Gridlets paused
+	private GridletList gridletSuccesses; // GridletsBag successfull
 
-	private GridletList gridletSuccesses; // Gridlets successfull
-
-	private GridletList gridletFailures; // Gridlets failed
+	private GridletList gridletFailures; // GridletsBag failed
 
 	private boolean waitingGridlets; // Flag for waiting gridlets ending
 
@@ -58,11 +56,10 @@ public class Gridlets {
 	// ending
 
 	/**
-	 * Creates a new instance of Gridlets
+	 * Creates a new instance of GridletsBag
 	 */
-	public Gridlets() {
+	public GridletsBag() {
 		this.setMapGR(new GridletsMap());
-		this.setGridletRequests(new GridletList());
 		this.setGridletSubmitted(new GridletList());
 		this.setGridletCanceled(new GridletList());
 		this.setGridletPaused(new GridletList());
@@ -81,6 +78,14 @@ public class Gridlets {
 		this.getMapGR().put(gridletRequest.getGridlet().getGridletID(),
 				gridletRequest);
 	}
+        
+        private GridletRequest getRequest(int gridletID) {
+            return this.getMapGR().get(gridletID);
+        }
+        
+        public Gridlet getGridlet(int gridletID) {
+            return this.getRequest(gridletID).getGridlet();
+        }
 
 	@SuppressWarnings("unchecked")
 	public void addSubmitted(Gridlet gridlet) {
@@ -116,14 +121,6 @@ public class Gridlets {
 
 	public void setMapGR(GridletsMap mapGridletRequests) {
 		this.mapGR = mapGridletRequests;
-	}
-
-	public GridletList getGridletRequests() {
-		return gridletRequests;
-	}
-
-	public void setGridletRequests(GridletList gridletRequests) {
-		this.gridletRequests = gridletRequests;
 	}
 
 	public GridletList getGridletSuccesses() {

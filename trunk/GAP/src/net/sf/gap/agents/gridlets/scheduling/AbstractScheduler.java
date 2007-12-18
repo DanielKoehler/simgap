@@ -26,7 +26,7 @@ package net.sf.gap.agents.gridlets.scheduling;
 import gridsim.Gridlet;
 import gridsim.GridletList;
 import net.sf.gap.agents.GridAgent;
-import net.sf.gap.agents.gridlets.Gridlets;
+import net.sf.gap.agents.gridlets.GridletsBag;
 
 /**
  *
@@ -43,14 +43,14 @@ public abstract class AbstractScheduler implements IJobScheduler {
      */
     private int upperBound;
     /**
-     * Gridlets tracking
+     * GridletsBag tracking
      */
-    private Gridlets gridlets;
+    private GridletsBag gridlets;
 
     public AbstractScheduler(GridAgent anAgent) {
         this.setUpperBound(1);
         this.setAgent(anAgent);
-        this.setGridlets(new Gridlets());
+        this.setGridlets(new GridletsBag());
     }
 
     public AbstractScheduler(
@@ -58,7 +58,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
             int anUpperBound) {
         this.setUpperBound(anUpperBound);
         this.setAgent(anAgent);
-        this.setGridlets(new Gridlets());
+        this.setGridlets(new GridletsBag());
     }
 
     protected int getUpperBound() {
@@ -222,7 +222,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
             // Extract receveid gridlet's ID
             int gridletID = receivedGridlet.getGridletID();
             // Gets original gridlet from its ID
-            Gridlet gridlet = this.getGridlets().getMapGR().get(gridletID).getGridlet();
+            Gridlet gridlet = this.getGridlets().getGridlet(gridletID);
             // If the gridlet extracted from gridlets tracking field 
             // is NOT null
             if (gridlet != null) {
@@ -276,11 +276,11 @@ public abstract class AbstractScheduler implements IJobScheduler {
         return this.getGridlets().getGridletSubmitted();
     }
 
-    public Gridlets getGridlets() {
+    public GridletsBag getGridlets() {
         return gridlets;
     }
 
-    public void setGridlets(Gridlets gridlets) {
+    public void setGridlets(GridletsBag gridlets) {
         this.gridlets = gridlets;
     }
 }
