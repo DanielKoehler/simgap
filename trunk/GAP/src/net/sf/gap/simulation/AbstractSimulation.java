@@ -37,6 +37,7 @@ public abstract class AbstractSimulation {
     private int replications; // The number of replications to perform
     private int maxReplications; // The max number of replications to perform in BATCH_MEANS
     private double confidence; // The confidence level that will be used to produce the simulation's measures' confidence intervals
+    private double accuracy;
 
 	/**
 	 * Creates a new instance of AbstractSimulation
@@ -60,11 +61,12 @@ public abstract class AbstractSimulation {
 	/**
 	 * Creates a new instance of AbstractSimulation
 	 */
-	public AbstractSimulation(int replications, double confidence) {
+	public AbstractSimulation(int replications, double confidence, double accuracy) {
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(replications);
                 this.setMaxReplications(replications);
                 this.setConfidence(confidence);
+                this.setAccuracy(accuracy);
 	}
 
 	/**
@@ -116,5 +118,13 @@ public abstract class AbstractSimulation {
 
     public void setMaxReplications(int maxReplications) {
         this.maxReplications = maxReplications;
+    }
+
+    public double getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(double accuracy) {
+        this.accuracy = accuracy;
     }
 }
