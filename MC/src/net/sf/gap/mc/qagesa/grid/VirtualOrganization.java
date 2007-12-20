@@ -35,7 +35,7 @@ import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
-import net.sf.gap.mc.agents.middleware.Platform;
+import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
 import net.sf.gap.mc.qagesa.factories.GEFactory;
 import net.sf.gap.mc.qagesa.factories.LinkFactory;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
@@ -223,16 +223,16 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.createAndAttachUsers();
     }
     
-    public Platform getQAGESAPlatform() {
-        return (Platform) this.getAgentPlatform();
+    public QAGESAPlatform getQAGESAPlatform() {
+        return (QAGESAPlatform) this.getAgentPlatform();
     }
     
     public void createAndAttachAgentPlatform() throws Exception {
         Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
         QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity("CE_"+index);
-        this.setAgentPlatform(new Platform(false));
-        Platform agent = (Platform) this.getAgentPlatform();
+        this.setAgentPlatform(new QAGESAPlatform(false));
+        QAGESAPlatform agent = (QAGESAPlatform) this.getAgentPlatform();
         
         agent.setGridElement(ce);
         agent.setVirtualOrganization(this);
