@@ -97,11 +97,12 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, boolean cachingEnabled, int whichMeasure, int maxRequests) throws Exception {
+        this.setFactor(factor);
         this.initParameters(traceFlag,
                 numCE, MIPS, PEMax, MMin, MMax, numSE, GBMin, GBMax, 
                 routersPerCloud, clouds, fixedInfrastructure, factor, numUsers, cachingEnabled, whichMeasure, maxRequests);
         
-        this.createEntities(VirtualOrganization.RINGS_CHAIN,factor);
+        this.createEntities();
     }
     
     public static final int RINGS_CHAIN = 1;
@@ -109,11 +110,12 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int numUsers, double factor) throws Exception {
+        this.setFactor(factor);
         this.initParameters(traceFlag,
                 numCE, MIPS, PEMax, MMin, MMax, 
                 numSE, GBMin, GBMax, numUsers);
         
-        this.createEntities(VirtualOrganization.ATOPOLOGY, factor);
+        this.createEntities();
     }
     
     public void initialize() {
@@ -200,13 +202,13 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.setNetworkType(VirtualOrganization.ATOPOLOGY);
     }
     
-    private void createEntities(int networkType, double factor) throws Exception {
+    protected void createEntities() throws Exception {
         this.setDataGIS(this.createDataGIS());
         this.setTopRegionalRC(this.createTopRegionalRC());
-        if (networkType == VirtualOrganization.RINGS_CHAIN) {
+        if (this.getNetworkType() == VirtualOrganization.RINGS_CHAIN) {
             this.setTopology(new RingsChain(this.getRoutersPerCloud(), this.getClouds(), this.getFactor(), this.isTraceFlag()));
-        } else if (networkType == VirtualOrganization.ATOPOLOGY) {
-            this.setTopology(new ATopology(this.isTraceFlag(),factor));
+        } else if (this.getNetworkType() == VirtualOrganization.ATOPOLOGY) {
+            this.setTopology(new ATopology(this.isTraceFlag(),this.getFactor()));
         }
         FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
         RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_0");
