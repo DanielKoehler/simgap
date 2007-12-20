@@ -59,6 +59,10 @@ public class MAIN {
 			}
                         Integer numUsers = Integer.parseInt(args[2]);
                         Integer numRequests = Integer.parseInt(args[3]);
+                        
+                        Integer numReplications = Integer.parseInt(args[4]);
+                        Double confidence = Double.parseDouble(args[5]);
+                        Double accuracy = Double.parseDouble(args[6]);
 		try {
 			if (swing) {
 				java.awt.EventQueue.invokeAndWait(new Runnable() {
@@ -72,7 +76,7 @@ public class MAIN {
 			System.out.println("Unwanted errors happen");
 		}
                 
-        	      MAIN.simulate(numUsers,numRequests,false,whichMeasure,1,0.99,0.10,swing);
+        	      MAIN.simulate(numUsers,numRequests,false,whichMeasure,numReplications,confidence,accuracy,swing);
 		}
 	}
 
