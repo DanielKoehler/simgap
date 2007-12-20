@@ -17,36 +17,22 @@
 package net.sf.gap.mc.agents.middleware;
 
 import net.sf.gap.agents.middleware.AgentPlatform;
-import net.sf.gap.mc.qagesa.QAGESA;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
-import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
-import net.sf.gap.mc.qagesa.agents.services.impl.ReFService;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
-import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
 
 /**
  * 
  * @author Giovanni Novelli
  */
-public class Platform extends AgentPlatform {
-	private MuMService serviceMuM; // MuM Service
+public abstract class Platform extends AgentPlatform {
 
-	private ReFService serviceReF; // ReF Service
 
 	/** Creates a new instance of Platform */
-	public Platform(boolean trace) throws Exception {
-		super("QAGESA", trace);
+	public Platform(String name, boolean trace) throws Exception {
+		super(name, trace);
 	}
 
-    @Override
-        public void createServices() throws Exception {
-            super.createServices();
-            
-            this.setServiceMuM(new MuMService(this, false));
-            this.setServiceReF(new ReFService(this, false, 0.0, 0.0));
-        }
-        
     @Override
         public void initialize() throws Exception {
             super.initialize();
@@ -55,94 +41,16 @@ public class Platform extends AgentPlatform {
             QAGESAStat.reset(this.getVirtualOrganization().getNumCEs());
         }
         
-        public void initAgents() throws Exception {
-            int totalAgents = this.getTotalAgents();
-            for (int i=0;i<totalAgents;i++) {
-                TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+i);
-                agent.initialize();
-            }
-        }
+        public abstract void initializeServices() throws Exception;
+        
+        public abstract void initAgents() throws Exception;
         
 	@Override
 	public void initPlatform() throws Exception {
 		super.initPlatform();
 
                 this.getVirtualOrganization().initialize();
-                
-		this.getServiceMuM().initialize();
 
-		this.getServiceReF().initialize();
-	}
-
-	private void asyncProcessNetworkMap() {
-		this.getNetworkMonitor().asyncProcessNetworkMap();
-	}
-
-	/**
-	 * The core method that handles communications among GridSim entities.
-	 */
-	@Override
-	public void body() {
-		// wait for a little while for about 3 seconds.
-		// This to give a time for GridResource entities to register their
-		// services to GIS (GridInformationService) entity.
-		super.gridSimHold(QAGESA.getPlatformStartTime());
-                
-                try {
-                this.initialize();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-		this.asyncProcessNetworkMap();
-
-                Sim_event ev = new Sim_event();
-		while (QAGESA.isRunning()) {
-			super.sim_wait_for(Sim_system.SIM_ANY, 10.0, ev);
-                        
-			this.processEvent(ev);
-			while (super.sim_waiting() > 0) {
-				this.processEvents();
-			}
-		}
-
-		// this.getNetworkMonitor().showNetworkMap();
-
-		// //////////////////////////////////////////////////////
-		// shut down I/O ports
-		this.shutdownUserEntity();
-		this.terminateIOEntities();
-
-		// don't forget to close the file
-		if (this.getReport_() != null) {
-			this.getReport_().finalWrite();
-		}
-	}
-
-	@Override
-	public void processOtherEvent(Sim_event ev) {
-	}
-
-	protected void processEvents() {
-		Sim_event ev = new Sim_event();
-
-		super.sim_get_next(ev);
-		this.processEvent(ev);
-	}
-
-	public MuMService getServiceMuM() {
-		return serviceMuM;
-	}
-
-	public void setServiceMuM(MuMService serviceMuM) {
-		this.serviceMuM = serviceMuM;
-	}
-
-	public ReFService getServiceReF() {
-		return serviceReF;
-	}
-
-	public void setServiceReF(ReFService serviceReF) {
-		this.serviceReF = serviceReF;
+                this.initializeServices();
 	}
 }
