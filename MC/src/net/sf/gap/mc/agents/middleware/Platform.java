@@ -4,20 +4,17 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        QAGESA Simulator
- * Description:  QAGESA (QoS Aware Grid Enabled Streaming Architecture) Simulator
- *               of a QoS-Aware Architecture for Multimedia Content Provisioning in a GRID Environment
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * QAGESAPlatform.java
+ * Platform.java
  *
  * Created on 10 August 2006, 9.44 by Giovanni Novelli
  *
- * $Id: QAGESAPlatform.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id: Platform.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
 
-package net.sf.gap.mc.qagesa.agents.middleware;
+package net.sf.gap.mc.agents.middleware;
 
 import net.sf.gap.agents.middleware.AgentPlatform;
 import net.sf.gap.mc.qagesa.QAGESA;
@@ -32,13 +29,13 @@ import eduni.simjava.Sim_system;
  * 
  * @author Giovanni Novelli
  */
-public class QAGESAPlatform extends AgentPlatform {
+public class Platform extends AgentPlatform {
 	private MuMService serviceMuM; // MuM Service
 
 	private ReFService serviceReF; // ReF Service
 
-	/** Creates a new instance of QAGESAPlatform */
-	public QAGESAPlatform(boolean trace) throws Exception {
+	/** Creates a new instance of Platform */
+	public Platform(boolean trace) throws Exception {
 		super("QAGESA", trace);
 	}
 
