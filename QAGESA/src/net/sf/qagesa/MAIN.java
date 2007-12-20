@@ -72,15 +72,15 @@ public class MAIN {
 			System.out.println("Unwanted errors happen");
 		}
                 
-        	      MAIN.simulate(numUsers,numRequests,false,whichMeasure,1,0.95,swing);
+        	      MAIN.simulate(numUsers,numRequests,false,whichMeasure,1,0.99,0.10,swing);
 		}
 	}
 
 	private static void simulate(int numUsers, int numRequests, boolean caching, int whichMeasure, 
-                                     int replications, double confidence, boolean swing) {
+                                     int replications, double confidence, double accuracy, boolean swing) {
 
                         Simulation simulation;
-                        simulation = new Simulation(numUsers, numRequests, caching, whichMeasure);
+                        simulation = new Simulation(numUsers, numRequests, caching, whichMeasure, replications, confidence, accuracy);
                         simulation.start();
 	}
 }

@@ -46,8 +46,8 @@ public class Simulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, int numRequests, boolean caching, int whichMeasure) {
-            super();
+	public Simulation(int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+            super(replications, confidence, accuracy);
             this.setNumUsers(numUsers);
             this.setNumRequests(numRequests);
             this.setCaching(caching);
@@ -75,8 +75,8 @@ public class Simulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, boolean caching, int whichMeasure, int replications, double confidence) {
-            super(replications,confidence);
+	public Simulation(int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+            super(replications,confidence, accuracy);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -84,7 +84,6 @@ public class Simulation extends AbstractSimulation {
             QAGESAStat.setCachingEnabled(caching);
             QAGESAStat.setWhichMeasure(whichMeasure);
 	}
-
 	/**
 	 * Creates a new instance of Simulation
 	 */
@@ -142,8 +141,8 @@ public class Simulation extends AbstractSimulation {
                       }
                       Sim_system.set_termination_condition(Sim_system.INTERVAL_ACCURACY,
                                                            Sim_system.IND_REPLICATIONS,
-                                                           0.95,
-                                                           0.25,
+                                                           this.getConfidence(),
+                                                           this.getAccuracy(),
                                                            prefix+"USER_0",
                                                            Sim_stat.SERVICE_TIME);			
                         QAGESA.startSimulation();
