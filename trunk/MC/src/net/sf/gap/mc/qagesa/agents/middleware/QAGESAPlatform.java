@@ -53,51 +53,22 @@ public class QAGESAPlatform extends Platform {
     private void asyncProcessNetworkMap() {
         this.getNetworkMonitor().asyncProcessNetworkMap();
     }
-
+    public void preprocess() {
+        this.asyncProcessNetworkMap();
+    }
+    public void postprocess() {
+    }
     @Override
     public void body() {
-        // wait for a little while for about 3 seconds.
-        // This to give a time for GridResource entities to register their
-        // services to GIS (GridInformationService) entity.
-        super.gridSimHold(QAGESA.getPlatformStartTime());
-        try {
-            this.initialize();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        this.asyncProcessNetworkMap();
-        Sim_event ev = new Sim_event();
-        while (QAGESA.isRunning()) {
-            super.sim_wait_for(Sim_system.SIM_ANY, 10.0, ev);
-
-            this.processEvent(ev);
-            while (super.sim_waiting() > 0) {
-                this.processEvents();
-            }
-        }
-
-        // this.getNetworkMonitor().showNetworkMap();
-        // //////////////////////////////////////////////////////
-        // shut down I/O ports
-        this.shutdownUserEntity();
-        this.terminateIOEntities();
-
-        // don't forget to close the file
-        if (this.getReport_() != null) {
-            this.getReport_().finalWrite();
-        }
+        this.init();
+        this.preprocess();
+        this.process();
+        this.postprocess();
+        this.end();
     }
 
     @Override
     public void processOtherEvent(Sim_event ev) {
-    }
-
-    protected void processEvents() {
-        Sim_event ev = new Sim_event();
-
-        super.sim_get_next(ev);
-        this.processEvent(ev);
     }
 
     public MuMService getServiceMuM() {

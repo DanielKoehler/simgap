@@ -16,10 +16,11 @@
 
 package net.sf.gap.mc.agents.middleware;
 
-import net.sf.gap.agents.middleware.AgentPlatform;
-import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
-import net.sf.gap.mc.qagesa.stats.QAGESAStat;
+import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
+import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.mc.qagesa.QAGESA;
+import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 
 /**
  * 
@@ -53,4 +54,51 @@ public abstract class Platform extends AgentPlatform {
 
                 this.initializeServices();
 	}
+        
+    public abstract void preprocess();
+    public abstract void postprocess();
+
+    public void end() {
+        // this.getNetworkMonitor().showNetworkMap();
+        // //////////////////////////////////////////////////////
+        // shut down I/O ports
+        this.shutdownUserEntity();
+        this.terminateIOEntities();
+
+        // don't forget to close the file
+        if (this.getReport_() != null) {
+            this.getReport_().finalWrite();
+        }
+    }
+
+    public void init() {
+        // wait for a little while for about 3 seconds.
+        // This to give a time for GridResource entities to register their
+        // services to GIS (GridInformationService) entity.
+        super.gridSimHold(QAGESA.getPlatformStartTime());
+        try {
+            this.initialize();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void process() {
+        Sim_event ev = new Sim_event();
+        while (QAGESA.isRunning()) {
+            super.sim_wait_for(Sim_system.SIM_ANY, 10.0, ev);
+
+            this.processEvent(ev);
+            while (super.sim_waiting() > 0) {
+                this.processEvents();
+            }
+        }
+    }
+
+    protected void processEvents() {
+        Sim_event ev = new Sim_event();
+
+        super.sim_get_next(ev);
+        this.processEvent(ev);
+    }
 }
