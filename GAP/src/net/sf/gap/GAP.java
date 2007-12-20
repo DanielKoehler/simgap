@@ -96,6 +96,7 @@ public abstract class GAP {
     }
 
     protected static void startSimulation() {
+        Sim_system.set_report_detail(true, true);
         Sim_system.generate_graphs(GAP.isGraphing());
         GridSim.startGridSimulation();
     }
