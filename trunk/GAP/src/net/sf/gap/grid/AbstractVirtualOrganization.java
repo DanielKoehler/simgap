@@ -77,6 +77,8 @@ public abstract class AbstractVirtualOrganization {
 
         public abstract void initialize();
         
+        protected abstract void createEntities() throws Exception;
+        
 	public AgentPlatform getAgentPlatform() {
 		return this.agentPlatform;
 	}
