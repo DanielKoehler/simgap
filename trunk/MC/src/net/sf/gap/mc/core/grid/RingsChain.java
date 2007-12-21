@@ -28,7 +28,8 @@ import java.util.Vector;
 
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.NetworkTopology;
-import net.sf.gap.mc.qagesa.factories.LinkFactory;
+
+import net.sf.gap.mc.core.factories.LinkFactory;
 
 /**
  * 
