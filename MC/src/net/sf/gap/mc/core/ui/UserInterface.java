@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.mc.qagesa.ui;
+package net.sf.gap.mc.core.ui;
 
 import java.io.IOException;
 import java.io.OutputStream;
