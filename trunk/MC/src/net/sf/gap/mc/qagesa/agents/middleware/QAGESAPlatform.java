@@ -24,6 +24,7 @@ import net.sf.gap.mc.core.agents.middleware.Platform;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.agents.services.impl.ReFService;
+import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 
 /**
  *
@@ -53,6 +54,7 @@ public class QAGESAPlatform extends Platform {
         this.getNetworkMonitor().asyncProcessNetworkMap();
     }
     public void preprocess() {
+        QAGESAStat.reset(this.getVirtualOrganization().getNumCEs());
         this.asyncProcessNetworkMap();
     }
     public void postprocess() {
