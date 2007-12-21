@@ -23,14 +23,12 @@ import net.sf.gap.mc.core.grid.StaticTopology;
 import net.sf.gap.mc.core.grid.RingsChain;
 import eduni.simjava.Sim_system;
 
-import gridsim.Gridlet;
 import gridsim.net.FIFOScheduler;
 import gridsim.net.Link;
 import gridsim.net.RIPRouter;
 
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.distributions.Uniform_int;
@@ -132,8 +130,6 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.initializeCEs();
         this.initializeSEs();
         this.initializeAgents();
-        this.mapGridlets = new ConcurrentHashMap<Integer, Gridlet>(this
-                .getNumAMs());
     }
     
     private void initializeCEs() {
