@@ -4,9 +4,6 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        QAGESA Simulator 
- * Description:  QAGESA (QoS Aware Grid Enabled Streaming Architecture) Simulator
- *               of a QoS-Aware Architecture for Multimedia Content Provisioning in a GRID Environment
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * NetworkTopology.java
@@ -17,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.qagesa.grid;
+package net.sf.gap.mc.core.grid;
 
 import gridsim.net.RIPRouter;
 
