@@ -13,11 +13,11 @@
  *
  * Created on 5 April 2007, 14.35 by Giovanni Novelli
  *
- * $Id: ATopology.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id: StaticTopology.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
 
-package net.sf.gap.mc.qagesa.grid;
+package net.sf.gap.mc.core.grid;
 
 import eduni.simjava.Sim_system;
 
@@ -35,7 +35,7 @@ import net.sf.gap.mc.qagesa.factories.LinkFactory;
  * 
  * @author Giovanni Novelli
  */
-public class ATopology extends NetworkTopology {
+public class StaticTopology extends NetworkTopology {
     /**
      *
      * Field used to equally scale delays of all links between routers
@@ -43,8 +43,8 @@ public class ATopology extends NetworkTopology {
      */
     private double factor;
     
-    /** Creates a new instance of ATopology */
-    public ATopology(boolean trace, double factor) throws Exception {
+    /** Creates a new instance of StaticTopology */
+    public StaticTopology(boolean trace, double factor) throws Exception {
         super(9);
         this.setFactor(factor);
         this.create(trace);

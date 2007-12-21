@@ -19,6 +19,8 @@
 
 package net.sf.gap.mc.qagesa.grid;
 
+import net.sf.gap.mc.core.grid.StaticTopology;
+import net.sf.gap.mc.core.grid.RingsChain;
 import eduni.simjava.Sim_system;
 
 import gridsim.Gridlet;
@@ -105,8 +107,8 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.createEntities();
     }
     
-    public static final int RINGS_CHAIN = 1;
-    public static final int ATOPOLOGY = 2;
+    public static final int NT_RINGSCHAIN = 1;
+    public static final int NT_STATIC = 2;
     public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int numUsers, double factor) throws Exception {
@@ -182,7 +184,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.setFactor(factor);
         this.setCachingEnabled(cachingEnabled);
         this.setWhichMeasure(whichMeasure);
-        this.setNetworkType(VirtualOrganization.RINGS_CHAIN);
+        this.setNetworkType(VirtualOrganization.NT_RINGSCHAIN);
         this.setMaxRequests(maxRequests);
     }
     
@@ -199,16 +201,16 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.setMMax(MMax);
         this.setGBMin(GBMin);
         this.setGBMax(GBMax);
-        this.setNetworkType(VirtualOrganization.ATOPOLOGY);
+        this.setNetworkType(VirtualOrganization.NT_STATIC);
     }
     
     protected void createEntities() throws Exception {
         this.setDataGIS(this.createDataGIS());
         this.setTopRegionalRC(this.createTopRegionalRC());
-        if (this.getNetworkType() == VirtualOrganization.RINGS_CHAIN) {
+        if (this.getNetworkType() == VirtualOrganization.NT_RINGSCHAIN) {
             this.setTopology(new RingsChain(this.getRoutersPerCloud(), this.getClouds(), this.getFactor(), this.isTraceFlag()));
-        } else if (this.getNetworkType() == VirtualOrganization.ATOPOLOGY) {
-            this.setTopology(new ATopology(this.isTraceFlag(),this.getFactor()));
+        } else if (this.getNetworkType() == VirtualOrganization.NT_STATIC) {
+            this.setTopology(new StaticTopology(this.isTraceFlag(),this.getFactor()));
         }
         FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
         RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_0");
@@ -351,7 +353,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachCEs() throws Exception {
-        if (this.getNetworkType()==VirtualOrganization.ATOPOLOGY) {
+        if (this.getNetworkType()==VirtualOrganization.NT_STATIC) {
             int N = this.getTopology().getNumRouters();
             int index;
             for (int i = 0; i < this.getNumCEs(); i++) {
@@ -376,7 +378,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachSEs() throws Exception {
-        if (this.getNetworkType()==VirtualOrganization.ATOPOLOGY) {
+        if (this.getNetworkType()==VirtualOrganization.NT_STATIC) {
         int N = this.getTopology().getNumRouters();
         int index;
         for (int i = 0; i < this.getNumSEs(); i++) {
