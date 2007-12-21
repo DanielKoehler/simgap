@@ -114,11 +114,11 @@ public abstract class AbstractUser extends DataGridUser {
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
 				Tags.AP_SERVICES_LIST_REQ, new IO_data(request, SIZE, this
-						.getVirtualOrganization().getAgentPlatform().get_id()));
+						.getVirtualOrganization().getPlatform().get_id()));
 		evsend_time = GridSim.clock();
 		String msg = String.format(
 				"%1$f %2$d %3$s --> %4$s SERVICES_LIST_REQUEST", evsend_time,
-				reqrepID, this.get_name(), this.getVirtualOrganization().getAgentPlatform()
+				reqrepID, this.get_name(), this.getVirtualOrganization().getPlatform()
 						.get_name());
 		this.write(msg);
 
@@ -133,7 +133,7 @@ public abstract class AbstractUser extends DataGridUser {
 		msg = String
 				.format("%1$f %2$d %3$s <-- %4$s SERVICES_LIST_REPLY %5$s",
 						evrecv_time, reqrepID, this.get_name(), this.getVirtualOrganization()
-								.getAgentPlatform().get_name(), reply
+								.getPlatform().get_name(), reply
 								.getServicesList());
 		this.write(msg);
 		return reply;
@@ -302,9 +302,9 @@ public abstract class AbstractUser extends DataGridUser {
 		int SIZE = 500;
 		AgentRequest request = null;
 		request = new AgentRequest(this.get_id(), this.get_id(), null, this
-				.getVirtualOrganization().getAgentPlatform().getGridElement().get_id(),
+				.getVirtualOrganization().getPlatform().getGridElement().get_id(),
 				Sim_system.get_entity_id("TestService"),
-				EntityTypes.AGENT_ZOMBIE, SIZE, this.getVirtualOrganization().getAgentPlatform()
+				EntityTypes.AGENT_ZOMBIE, SIZE, this.getVirtualOrganization().getPlatform()
 						.getGridElement().get_id(), EntityTypes.NOBODY);
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
