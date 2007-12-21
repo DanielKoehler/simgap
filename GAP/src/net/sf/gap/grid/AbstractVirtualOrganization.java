@@ -190,4 +190,14 @@ public abstract class AbstractVirtualOrganization {
 	public void setMapGridlets(ConcurrentHashMap<Integer, Gridlet> mapGridlets) {
 		this.mapGridlets = mapGridlets;
 	}
+
+    public abstract void createAndAttachAgentPlatform() throws Exception;
+
+    public abstract void createAndAttachAgents() throws Exception;
+
+    public abstract void createAndAttachCEs() throws Exception;
+
+    public abstract void createAndAttachSEs() throws Exception;
+
+    public abstract void createAndAttachUsers() throws Exception;
 }
