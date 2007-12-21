@@ -160,7 +160,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
             int numAgents = computingElement.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
-                this.getAgentPlatform().addAgent(agent, computingElement);
+                this.getPlatform().addAgent(agent, computingElement);
                 totalAgents++;
             }
         }
@@ -228,15 +228,15 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public QAGESAPlatform getQAGESAPlatform() {
-        return (QAGESAPlatform) this.getAgentPlatform();
+        return (QAGESAPlatform) this.getPlatform();
     }
     
     public void createAndAttachAgentPlatform() throws Exception {
         Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
         MCGridElement ce = (MCGridElement) Sim_system.get_entity("CE_"+index);
-        this.setAgentPlatform(new QAGESAPlatform(false));
-        QAGESAPlatform agent = (QAGESAPlatform) this.getAgentPlatform();
+        this.setPlatform(new QAGESAPlatform(false));
+        QAGESAPlatform agent = (QAGESAPlatform) this.getPlatform();
         
         agent.setGridElement(ce);
         agent.setVirtualOrganization(this);
@@ -267,7 +267,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
                 se.attachAgent(agent);
             }
         }
-        this.getAgentPlatform().setTotalAgents(totalAgents);
+        this.getPlatform().setTotalAgents(totalAgents);
     }
     
     public void createAndAttachSubmitters() throws Exception {

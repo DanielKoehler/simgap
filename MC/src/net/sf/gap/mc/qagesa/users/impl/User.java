@@ -224,7 +224,7 @@ public class User extends QAGESAUser {
         int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                QAGESATags.REF_PLAY_REQ, new IO_data(request, SIZE, super
+                QAGESATags.REF_PLAY_REQ, new IO_data(request, SIZE, QAGESAUser
                 .getEntityId("ReF")));
         evsend_time = GridSim.clock();
         String msg = String.format(
@@ -377,7 +377,7 @@ public class User extends QAGESAUser {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
         }
-        double start_clock = this.clock();
+        double start_clock = User.clock();
         for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
                 int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
                 int maxUsers = cycle*ratio;
@@ -386,9 +386,9 @@ public class User extends QAGESAUser {
                 double diff_time = negexp.sample();
                 double start_time = diff_time;
                 super.gridSimHold(start_time);
-                QAGESAStat.incRequests(this.clock());
+                QAGESAStat.incRequests(User.clock());
                 this.repeatedRandomRequest();
-                QAGESAStat.decRequests(this.clock());
+                QAGESAStat.decRequests(User.clock());
         }
         for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
                 int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
@@ -396,9 +396,9 @@ public class User extends QAGESAUser {
                 double diff_time = negexp.sample();
                 double start_time = diff_time;
                 super.gridSimHold(start_time);
-                QAGESAStat.incRequests(this.clock());
+                QAGESAStat.incRequests(User.clock());
                 this.repeatedRandomRequest();
-                QAGESAStat.decRequests(this.clock());
+                QAGESAStat.decRequests(User.clock());
         }
     }
     
@@ -473,7 +473,7 @@ public class User extends QAGESAUser {
 		InfoPacket pkt = super.pingBlockingCall(ceID,
 				50);
 		if (pkt != null) {
-                        this.getVirtualOrganization().getAgentPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID,this.get_id(),pkt);
+                        this.getVirtualOrganization().getPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID,this.get_id(),pkt);
 		}
             }
 	}
