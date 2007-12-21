@@ -36,11 +36,13 @@ import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
-import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
-import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
+
 import net.sf.gap.mc.core.factories.GEFactory;
 import net.sf.gap.mc.core.factories.LinkFactory;
-import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
+import net.sf.gap.mc.core.grid.components.MCGridElement;
+
+import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
+import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
 import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
 import net.sf.gap.mc.qagesa.users.impl.Submitter;
 import net.sf.gap.mc.qagesa.users.impl.User;
@@ -137,7 +139,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     private void initializeCEs() {
         int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
-            QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity("CE_"+i);
+            MCGridElement computingElement = (MCGridElement) Sim_system.get_entity("CE_"+i);
             this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
             this.getCEs().add(computingElement);
         }
@@ -145,7 +147,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     
     private void initializeSEs() {
         for (int i = 0; i < this.getNumSEs(); i++) {
-            QAGESAGridElement storageElement = (QAGESAGridElement) Sim_system.get_entity("SE_"+i);
+            MCGridElement storageElement = (MCGridElement) Sim_system.get_entity("SE_"+i);
             this.mapSEs.put(storageElement.get_id(), storageElement.getExternalRouter());
             this.getSEs().add(storageElement);
         }
@@ -154,7 +156,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     private void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity("CE_"+i);
+            MCGridElement computingElement = (MCGridElement) Sim_system.get_entity("CE_"+i);
             int numAgents = computingElement.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
@@ -232,7 +234,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgentPlatform() throws Exception {
         Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
-        QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity("CE_"+index);
+        MCGridElement ce = (MCGridElement) Sim_system.get_entity("CE_"+index);
         this.setAgentPlatform(new QAGESAPlatform(false));
         QAGESAPlatform agent = (QAGESAPlatform) this.getAgentPlatform();
         
@@ -242,11 +244,11 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         ce.attachPlatform(agent);
         
         for (int i = 0; i < this.getNumCEs(); i++) {
-            ce = (QAGESAGridElement) Sim_system.get_entity("CE_"+i);
+            ce = (MCGridElement) Sim_system.get_entity("CE_"+i);
             ce.setAgentPlatform(agent);
         }
         for (int i = 0; i < this.getNumSEs(); i++) {
-            ce = (QAGESAGridElement) Sim_system.get_entity("SE_"+i);
+            ce = (MCGridElement) Sim_system.get_entity("SE_"+i);
             ce.setAgentPlatform(agent);
         }
         
@@ -256,7 +258,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgents() throws Exception {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity("CE_"+i);
+            MCGridElement se = (MCGridElement) Sim_system.get_entity("CE_"+i);
             int numAgents = se.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = new TranscodingAgent(se, "AGENT_"
@@ -360,7 +362,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
                 index = i % N;
                 RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 Link link = LinkFactory.GELink(false);
-                QAGESAGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
+                MCGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
             }
         } else {
@@ -371,7 +373,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
                 index = i % N;
                 RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 Link link = LinkFactory.GELink(false);
-                QAGESAGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
+                MCGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
             }
         }
@@ -385,7 +387,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
             index = i % N;
             RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
             Link link = LinkFactory.GELink(false);
-            QAGESAGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
+            MCGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
             
             storageElement.attachRouter(router);
         }
@@ -397,7 +399,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
             index = i % N;
             RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
             Link link = LinkFactory.GELink(false);
-            QAGESAGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
+            MCGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
             
             storageElement.attachRouter(router);
         }
