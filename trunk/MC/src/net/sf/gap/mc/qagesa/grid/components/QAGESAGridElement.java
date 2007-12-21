@@ -28,7 +28,7 @@ import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
 
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.mc.grid.components.MCGridElement;
 
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.messages.ChunkReply;
@@ -42,7 +42,7 @@ import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
  * 
  * @author Giovanni Novelli
  */
-public class QAGESAGridElement extends GridElement {
+public class QAGESAGridElement extends MCGridElement {
 	private TranscodingSet transcodingSet;
 
 	/** Creates a new instance of StorageElement */
