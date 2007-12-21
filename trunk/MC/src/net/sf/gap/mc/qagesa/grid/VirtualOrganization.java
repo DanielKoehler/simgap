@@ -227,10 +227,6 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.createAndAttachUsers();
     }
     
-    public QAGESAPlatform getQAGESAPlatform() {
-        return (QAGESAPlatform) this.getPlatform();
-    }
-    
     public void createAndAttachAgentPlatform() throws Exception {
         Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;

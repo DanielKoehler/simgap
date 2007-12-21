@@ -25,7 +25,6 @@
 package net.sf.gap.grid;
 
 import gridsim.GridSim;
-import gridsim.Gridlet;
 import gridsim.datagrid.index.DataGIS;
 import gridsim.datagrid.index.TopRegionalRC;
 import gridsim.net.Link;
@@ -34,7 +33,6 @@ import gridsim.net.SimpleLink;
 
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.agents.middleware.AgentPlatform;
@@ -54,8 +52,6 @@ public abstract class AbstractVirtualOrganization {
 	private int numCEs;
 
 	private int numSEs;
-
-	protected ConcurrentHashMap<Integer, Gridlet> mapGridlets;
 
 	protected HashMap<Integer, RIPRouter> mapCEs;
 
@@ -181,14 +177,6 @@ public abstract class AbstractVirtualOrganization {
 
 	public void setAMs(Vector<AgentMiddleware> AMs) {
 		this.ams = AMs;
-	}
-
-	public ConcurrentHashMap<Integer, Gridlet> getMapGridlets() {
-		return this.mapGridlets;
-	}
-
-	public void setMapGridlets(ConcurrentHashMap<Integer, Gridlet> mapGridlets) {
-		this.mapGridlets = mapGridlets;
 	}
 
     public abstract void createAndAttachAgentPlatform() throws Exception;
