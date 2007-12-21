@@ -17,7 +17,8 @@
 package net.sf.gap.mc.core.factories;
 
 import gridsim.net.Link;
-import net.sf.gap.grid.components.GridElement;
+
+import net.sf.gap.mc.core.grid.components.MCGridElement;
 
 /**
  * 
@@ -28,5 +29,5 @@ public abstract class ResourceFactory {
 	public ResourceFactory() {
 	}
 
-	public abstract GridElement create(boolean fixed, int geIndex, Link link, boolean isSE);
+	public abstract MCGridElement create(boolean fixed, int geIndex, Link link, boolean isSE);
 }
