@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.mc.run;
+package net.sf.gap.mc;
 
 import net.sf.gap.mc.qagesa.grid.VirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
