@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 import net.sf.gap.mc.qagesa.QAGESA;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
-import net.sf.gap.mc.qagesa.grid.VirtualOrganization;
+import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.simulation.AbstractSimulation;
 
 /**
@@ -41,7 +41,7 @@ public class Simulation extends AbstractSimulation {
         private boolean caching;
         private int whichMeasure;
         
-	private VirtualOrganization virtualOrganization;
+	private QAGESAVirtualOrganization virtualOrganization;
         
 	/**
 	 * Creates a new instance of Simulation
@@ -105,7 +105,7 @@ public class Simulation extends AbstractSimulation {
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
 		QAGESA.initialize(500.0, 1000.0, 5000.0);
-		this.setVirtualOrganization(new VirtualOrganization(trace_flag, 4,
+		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, 4,
 				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.isCaching(), this.getWhichMeasure(), this.getNumRequests()));
 	}
@@ -120,22 +120,22 @@ public class Simulation extends AbstractSimulation {
 
                         String prefix = "";
                       switch (this.getWhichMeasure()) {
-                          case VirtualOrganization.RMR:
+                          case QAGESAVirtualOrganization.RMR:
                               prefix = "RMR";
                               break;
-                          case VirtualOrganization.MR:
+                          case QAGESAVirtualOrganization.MR:
                               prefix = "MR";
                               break;
-                          case VirtualOrganization.RMS:
+                          case QAGESAVirtualOrganization.RMS:
                               prefix = "RMS";
                               break;
-                          case VirtualOrganization.MS:
+                          case QAGESAVirtualOrganization.MS:
                               prefix = "MS";
                               break;
-                          case VirtualOrganization.RMF:
+                          case QAGESAVirtualOrganization.RMF:
                               prefix = "RMF";
                               break;
-                          case VirtualOrganization.MF:
+                          case QAGESAVirtualOrganization.MF:
                               prefix = "MF";
                               break;
                       }
@@ -154,11 +154,11 @@ public class Simulation extends AbstractSimulation {
 		}
 	}
 
-	public VirtualOrganization getVirtualOrganization() {
+	public QAGESAVirtualOrganization getVirtualOrganization() {
 		return virtualOrganization;
 	}
 
-	public void setVirtualOrganization(VirtualOrganization aVirtualOrganization) {
+	public void setVirtualOrganization(QAGESAVirtualOrganization aVirtualOrganization) {
 		virtualOrganization = aVirtualOrganization;
 	}
 

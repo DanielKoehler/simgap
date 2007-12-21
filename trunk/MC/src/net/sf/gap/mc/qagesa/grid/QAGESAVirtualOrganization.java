@@ -9,11 +9,11 @@
  *               of a QoS-Aware Architecture for Multimedia Content Provisioning in a GRID Environment
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * VirtualOrganization.java
+ * QAGESAVirtualOrganization.java
  *
  * Created on 7 August 2006, 14.40 by Giovanni Novelli
  *
- * $Id: VirtualOrganization.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id: QAGESAVirtualOrganization.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
 
@@ -49,7 +49,7 @@ import net.sf.gap.mc.qagesa.users.impl.User;
  *
  * @author Giovanni Novelli
  */
-public class VirtualOrganization extends AbstractVirtualOrganization {
+public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     /**
      * links delay factor
      */
@@ -96,7 +96,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     
     private int maxRequests;
     
-    public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
+    public QAGESAVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, boolean cachingEnabled, int whichMeasure, int maxRequests) throws Exception {
         this.setFactor(factor);
@@ -109,7 +109,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     
     public static final int NT_RINGSCHAIN = 1;
     public static final int NT_STATIC = 2;
-    public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
+    public QAGESAVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int numUsers, double factor) throws Exception {
         this.setFactor(factor);
@@ -182,7 +182,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.setFactor(factor);
         this.setCachingEnabled(cachingEnabled);
         this.setWhichMeasure(whichMeasure);
-        this.setNetworkType(VirtualOrganization.NT_RINGSCHAIN);
+        this.setNetworkType(QAGESAVirtualOrganization.NT_RINGSCHAIN);
         this.setMaxRequests(maxRequests);
     }
     
@@ -199,15 +199,15 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
         this.setMMax(MMax);
         this.setGBMin(GBMin);
         this.setGBMax(GBMax);
-        this.setNetworkType(VirtualOrganization.NT_STATIC);
+        this.setNetworkType(QAGESAVirtualOrganization.NT_STATIC);
     }
     
     protected void createEntities() throws Exception {
         this.setDataGIS(this.createDataGIS());
         this.setTopRegionalRC(this.createTopRegionalRC());
-        if (this.getNetworkType() == VirtualOrganization.NT_RINGSCHAIN) {
+        if (this.getNetworkType() == QAGESAVirtualOrganization.NT_RINGSCHAIN) {
             this.setTopology(new RingsChain(this.getRoutersPerCloud(), this.getClouds(), this.getFactor(), this.isTraceFlag()));
-        } else if (this.getNetworkType() == VirtualOrganization.NT_STATIC) {
+        } else if (this.getNetworkType() == QAGESAVirtualOrganization.NT_STATIC) {
             this.setTopology(new StaticTopology(this.isTraceFlag(),this.getFactor()));
         }
         FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
@@ -347,7 +347,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachCEs() throws Exception {
-        if (this.getNetworkType()==VirtualOrganization.NT_STATIC) {
+        if (this.getNetworkType()==QAGESAVirtualOrganization.NT_STATIC) {
             int N = this.getTopology().getNumRouters();
             int index;
             for (int i = 0; i < this.getNumCEs(); i++) {
@@ -372,7 +372,7 @@ public class VirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachSEs() throws Exception {
-        if (this.getNetworkType()==VirtualOrganization.NT_STATIC) {
+        if (this.getNetworkType()==QAGESAVirtualOrganization.NT_STATIC) {
         int N = this.getTopology().getNumRouters();
         int index;
         for (int i = 0; i < this.getNumSEs(); i++) {

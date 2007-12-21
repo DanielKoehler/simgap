@@ -19,7 +19,7 @@
 
 package net.sf.gap.mc;
 
-import net.sf.gap.mc.qagesa.grid.VirtualOrganization;
+import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
 import net.sf.gap.mc.core.ui.UserInterface;
 
@@ -40,22 +40,22 @@ public class QAGESA {
 			}
                         Integer whichMeasure = 3;
 			if (args[1].compareTo("--MS") == 0) {
-				whichMeasure = VirtualOrganization.MS;
+				whichMeasure = QAGESAVirtualOrganization.MS;
 			}
 			if (args[1].compareTo("--MF") == 0) {
-				whichMeasure = VirtualOrganization.MF;
+				whichMeasure = QAGESAVirtualOrganization.MF;
 			}
 			if (args[1].compareTo("--MR") == 0) {
-				whichMeasure = VirtualOrganization.MR;
+				whichMeasure = QAGESAVirtualOrganization.MR;
 			}
 			if (args[1].compareTo("--RMS") == 0) {
-				whichMeasure = VirtualOrganization.RMS;
+				whichMeasure = QAGESAVirtualOrganization.RMS;
 			}
 			if (args[1].compareTo("--RMF") == 0) {
-				whichMeasure = VirtualOrganization.RMF;
+				whichMeasure = QAGESAVirtualOrganization.RMF;
 			}
 			if (args[1].compareTo("--RMR") == 0) {
-				whichMeasure = VirtualOrganization.RMR;
+				whichMeasure = QAGESAVirtualOrganization.RMR;
 			}
                         Integer numUsers = Integer.parseInt(args[2]);
                         Integer numRequests = Integer.parseInt(args[3]);
