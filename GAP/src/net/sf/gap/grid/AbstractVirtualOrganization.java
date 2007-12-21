@@ -45,7 +45,7 @@ import net.sf.gap.grid.components.GridElement;
  * @author Giovanni Novelli
  */
 public abstract class AbstractVirtualOrganization {
-	private AgentPlatform agentPlatform;
+	private AgentPlatform platform;
 
 	private Vector<GridElement> ces;
 
@@ -79,12 +79,12 @@ public abstract class AbstractVirtualOrganization {
         
         protected abstract void createEntities() throws Exception;
         
-	public AgentPlatform getAgentPlatform() {
-		return this.agentPlatform;
+	public AgentPlatform getPlatform() {
+		return this.platform;
 	}
 
-	public void setAgentPlatform(AgentPlatform agentPlatform) {
-		this.agentPlatform = agentPlatform;
+	public void setPlatform(AgentPlatform agentPlatform) {
+		this.platform = agentPlatform;
 	}
 
 	public Vector<GridElement> getCEs() {
