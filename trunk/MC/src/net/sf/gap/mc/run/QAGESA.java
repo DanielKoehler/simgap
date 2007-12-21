@@ -13,11 +13,11 @@
  *
  * Created on 7 August 2006, 18.07 by Giovanni Novelli
  *
- * $Id: MAIN.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id: QAGESA.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
 
-package net.sf.gap.mc.qagesa;
+package net.sf.gap.mc.run;
 
 import net.sf.gap.mc.qagesa.grid.VirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
@@ -28,7 +28,7 @@ import net.sf.gap.mc.qagesa.ui.UserInterface;
  * 
  * @author Giovanni Novelli
  */
-public class MAIN {
+public class QAGESA {
 	public static void main(String[] args) {
 		boolean swing = false;
 		if (args.length > 0) {
@@ -76,7 +76,7 @@ public class MAIN {
 			System.out.println("Unwanted errors happen");
 		}
                 
-        	      MAIN.simulate(numUsers,numRequests,false,whichMeasure,numReplications,confidence,accuracy,swing);
+        	      QAGESA.simulate(numUsers,numRequests,false,whichMeasure,numReplications,confidence,accuracy,swing);
 		}
 	}
 
