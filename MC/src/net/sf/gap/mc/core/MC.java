@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc;
+package net.sf.gap.mc.core;
 
 import net.sf.gap.GAP;
 
