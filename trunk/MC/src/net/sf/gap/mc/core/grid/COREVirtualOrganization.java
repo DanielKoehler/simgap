@@ -13,7 +13,7 @@
  *
  * Created on 7 August 2006, 14.40 by Giovanni Novelli
  *
- * $Id: QAGESAVirtualOrganization.java 100 2008-01-07 11:23:02Z gnovelli $
+ * $Id$
  *
  */
 
