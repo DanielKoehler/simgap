@@ -6,11 +6,11 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * MCGEFactory.java
+ * COREGEFactory.java
  *
  * Created on 7 August 2006, 14.09 by Giovanni Novelli
  *
- * $Id: MCGEFactory.java 100 2008-01-07 11:23:02Z gnovelli $
+ * $Id$
  *
  */
 
@@ -38,7 +38,7 @@ import net.sf.gap.mc.core.grid.components.MCGridElement;
  * 
  * @author Giovanni Novelli
  */
-public class MCGEFactory extends ResourceFactory {
+public class COREGEFactory extends ResourceFactory {
 	private TopRegionalRC topRegionalRC;
 
 	private int GBMin;
@@ -56,7 +56,7 @@ public class MCGEFactory extends ResourceFactory {
 	private Uniform_int rand; // Random numbers generator
 
 	/** Creates a new instance of CEFactory */
-	public MCGEFactory(TopRegionalRC rc) {
+	public COREGEFactory(TopRegionalRC rc) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(500);
 		this.setPEmax(1);
@@ -68,7 +68,7 @@ public class MCGEFactory extends ResourceFactory {
 	}
 
 	/** Creates a new instance of CEFactory */
-	public MCGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
+	public COREGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
 			int GBMin, int GBMax) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(MIPS);
