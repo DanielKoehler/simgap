@@ -10,7 +10,7 @@
  *
  * Created on 19 August 2006, 17.14 by Giovanni Novelli
  *
- * $Id: MC.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

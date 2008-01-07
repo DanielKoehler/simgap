@@ -13,7 +13,7 @@
  *
  * Created on 29 March 2007, 13:05 by Giovanni Novelli
  *
- * $Id: ReFProximityList.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

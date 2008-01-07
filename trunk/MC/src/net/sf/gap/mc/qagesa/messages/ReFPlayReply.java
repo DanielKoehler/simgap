@@ -13,7 +13,7 @@
  *
  * Created on 24 March 2007, 17.54 by Giovanni Novelli
  *
- * $Id: ReFPlayReply.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

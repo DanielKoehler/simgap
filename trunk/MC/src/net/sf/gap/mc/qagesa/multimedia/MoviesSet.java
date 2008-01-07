@@ -13,7 +13,7 @@
  *
  * Created on 14 March 2007, 14.08 by Giovanni Novelli
  *
- * $Id: MoviesSet.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

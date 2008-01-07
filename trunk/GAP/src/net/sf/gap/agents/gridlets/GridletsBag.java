@@ -15,9 +15,9 @@
  *
  ****************************************************************************************
  *
- * $Revision: 1141 $
- * $Id: GridletsBag.java 1141 2007-07-18 18:22:15Z gnovelli $
- * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/agents/gridlets/GridletsBag.java $
+ * $Revision$
+ * $Id$
+ * $HeadURL$
  *
  *****************************************************************************************
  */

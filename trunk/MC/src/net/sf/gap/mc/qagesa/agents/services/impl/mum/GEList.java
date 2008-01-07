@@ -11,7 +11,7 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  *
- * $Id: GEList.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

@@ -15,9 +15,9 @@
  *
  ****************************************************************************************
  *
- * $Revision: 1141 $
- * $Id: Predicate.java 1141 2007-07-18 18:22:15Z gnovelli $
- * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/agents/predicates/Predicate.java $
+ * $Revision$
+ * $Id$
+ * $HeadURL$
  *
  *****************************************************************************************
  */

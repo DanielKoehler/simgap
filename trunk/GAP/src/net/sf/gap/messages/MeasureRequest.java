@@ -15,9 +15,9 @@
  *
  ****************************************************************************************
  *
- * $Revision: 1141 $
- * $Id: MeasureRequest.java 1141 2007-07-18 18:22:15Z gnovelli $
- * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/messages/MeasureRequest.java $
+ * $Revision$
+ * $Id$
+ * $HeadURL$
  *
  *****************************************************************************************
  */

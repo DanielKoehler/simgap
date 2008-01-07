@@ -13,7 +13,7 @@
  *
  * Created on 21 March 2007, 23.03 by Giovanni Novelli
  *
- * $Id: ReFPlayRequest.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

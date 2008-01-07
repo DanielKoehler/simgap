@@ -10,7 +10,7 @@
  *
  * Created on 7 August 2006, 21.38 by Giovanni Novelli
  *
- * $Id: NetworkTopology.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

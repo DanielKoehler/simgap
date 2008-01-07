@@ -13,7 +13,7 @@
  *
  * Created on 16 August 2006, 11.51 by Giovanni Novelli
  *
- * $Id: QAGESAEntityTypes.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

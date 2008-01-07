@@ -15,9 +15,9 @@
  *
  ****************************************************************************************
  *
- * $Revision: 1141 $
- * $Id: AbstractVirtualOrganization.java 1141 2007-07-18 18:22:15Z gnovelli $
- * $HeadURL: file:///var/svn/grid/trunk/GAP/src/net/sf/gap/grid/AbstractVirtualOrganization.java $
+ * $Revision$
+ * $Id$
+ * $HeadURL$
  *
  *****************************************************************************************
  */

@@ -13,7 +13,7 @@
  *
  * Created on 06 April 2007, 18:19 by Giovanni Novelli
  *
- * $Id: RequestsHistoryEntry.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 
