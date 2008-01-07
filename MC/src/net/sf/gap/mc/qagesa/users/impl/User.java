@@ -13,7 +13,7 @@
  *
  * Created on 15 March 2007, 21.32 by Giovanni Novelli
  *
- * $Id: User.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

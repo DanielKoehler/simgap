@@ -10,7 +10,7 @@
  *
  * Created on 4 March 2007, 13.51 by Giovanni Novelli
  *
- * $Id: UserInterface.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

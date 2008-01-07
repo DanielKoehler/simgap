@@ -10,7 +10,7 @@
  *
  * Created on 5 April 2007, 14.35 by Giovanni Novelli
  *
- * $Id: StaticTopology.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

@@ -13,7 +13,7 @@
  *
  * Created on 25 March 2007, 23:59 by Giovanni Novelli
  *
- * $Id: AgentsLocatorDirectory.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

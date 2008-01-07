@@ -13,7 +13,7 @@
  *
  * Created on 16 March 2007, 16.16 by Giovanni Novelli
  *
- * $Id: MuMSearchRequest.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

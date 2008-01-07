@@ -13,7 +13,7 @@
  *
  * Created on 9 August 2006, 14.14 by Giovanni Novelli
  *
- * $Id: QAGESAGridElement.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

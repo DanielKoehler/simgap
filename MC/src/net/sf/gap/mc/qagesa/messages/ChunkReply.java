@@ -13,7 +13,7 @@
  *
  * Created on 19 March 2007, 21.48 by Giovanni Novelli
  *
- * $Id: ChunkReply.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

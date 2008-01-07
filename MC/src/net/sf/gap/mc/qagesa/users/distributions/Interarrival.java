@@ -13,7 +13,7 @@
  *
  * Created on 28 May 2007, 14.32 by Giovanni Novelli
  *
- * $Id: Interarrival.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

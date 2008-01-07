@@ -13,7 +13,7 @@
  *
  * Created on 14 March 2007, 09.07 by Giovanni Novelli
  *
- * $Id: TranscodingSet.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

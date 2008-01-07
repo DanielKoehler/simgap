@@ -13,7 +13,7 @@
  *
  * Created on 21 March 2007, 15.05 by Giovanni Novelli
  *
- * $Id: MD5Checksum.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

@@ -10,7 +10,7 @@
  *
  * Created on 10 August 2006, 9.44 by Giovanni Novelli
  *
- * $Id: Platform.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

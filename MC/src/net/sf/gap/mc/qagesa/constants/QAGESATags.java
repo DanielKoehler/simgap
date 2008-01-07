@@ -13,7 +13,7 @@
  *
  * Created on 8 August 2006, 22.01 by Giovanni Novelli
  *
- * $Id: QAGESATags.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 

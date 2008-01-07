@@ -13,7 +13,7 @@
  *
  * Created on 23 March 2007, 15.06 by Giovanni Novelli
  *
- * $Id: TranscodeRequest.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id$
  *
  */
 
