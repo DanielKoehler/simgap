@@ -16,7 +16,6 @@
 
 package net.sf.gap.mc.core.grid.components;
 
-import net.sf.gap.mc.qagesa.grid.components.*;
 import eduni.simjava.Sim_event;
 
 import gridsim.ResourceCalendar;
