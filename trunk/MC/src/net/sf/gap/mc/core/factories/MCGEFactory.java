@@ -6,17 +6,16 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * QAGESAGEFactory.java
+ * MCGEFactory.java
  *
  * Created on 7 August 2006, 14.09 by Giovanni Novelli
  *
- * $Id$
+ * $Id: MCGEFactory.java 100 2008-01-07 11:23:02Z gnovelli $
  *
  */
 
-package net.sf.gap.mc.qagesa.factories;
+package net.sf.gap.mc.core.factories;
 
-import net.sf.gap.mc.core.factories.*;
 import gridsim.Machine;
 import gridsim.MachineList;
 import gridsim.PE;
@@ -33,13 +32,13 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
+import net.sf.gap.mc.core.grid.components.MCGridElement;
 
 /**
  * 
  * @author Giovanni Novelli
  */
-public class QAGESAGEFactory extends ResourceFactory {
+public class MCGEFactory extends ResourceFactory {
 	private TopRegionalRC topRegionalRC;
 
 	private int GBMin;
@@ -57,7 +56,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 	private Uniform_int rand; // Random numbers generator
 
 	/** Creates a new instance of CEFactory */
-	public QAGESAGEFactory(TopRegionalRC rc) {
+	public MCGEFactory(TopRegionalRC rc) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(500);
 		this.setPEmax(1);
@@ -69,7 +68,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 	}
 
 	/** Creates a new instance of CEFactory */
-	public QAGESAGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
+	public MCGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
 			int GBMin, int GBMax) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(MIPS);
@@ -83,7 +82,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public QAGESAGridElement create(boolean fixed, int geIndex, Link link, boolean isSE) {
+	public MCGridElement create(boolean fixed, int geIndex, Link link, boolean isSE) {
 		MachineList mList = new MachineList();
 		Uniform_int r = this.getRand();
 		int np = 0;
@@ -149,7 +148,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 		Weekends.add(new Integer(Calendar.SUNDAY));
 		// incorporates holidays. However, no holidays are set in this example
 		LinkedList Holidays = new LinkedList();
-		QAGESAGridElement se = null;
+		MCGridElement se = null;
 		try {
 			// create the resource calendar
 			ResourceCalendar cal = new ResourceCalendar(time_zone, peakLoad,
@@ -159,7 +158,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 
 			SimpleReplicaManager rm = new SimpleReplicaManager("RM_" + name,
 					name); // create a storage
-			se = new QAGESAGridElement(name, link, resConfig, cal, rm);
+			se = new MCGridElement(name, link, resConfig, cal, rm);
 			if (isSE) {
 				se.setSE(true);
 				int ws = (this.getGBMax() - this.getGBMin() + 1);
