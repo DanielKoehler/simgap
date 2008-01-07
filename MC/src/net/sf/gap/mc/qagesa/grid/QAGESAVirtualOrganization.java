@@ -35,7 +35,7 @@ import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
 
-import net.sf.gap.mc.core.factories.GEFactory;
+import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
 import net.sf.gap.mc.core.factories.LinkFactory;
 import net.sf.gap.mc.core.grid.components.MCGridElement;
 
@@ -77,7 +77,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     
     private int GBMax;
     
-    private GEFactory seFactory;
+    private QAGESAGEFactory seFactory;
     
     private int numUsers;
     
@@ -213,7 +213,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
         RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_0");
         router.attachHost(this.getTopRegionalRC(), rcSched);
-        GEFactory sefactory = new GEFactory(this.getTopRegionalRC(), this.getBasicMIPS(),
+        QAGESAGEFactory sefactory = new QAGESAGEFactory(this.getTopRegionalRC(), this.getBasicMIPS(),
                 getPEMax(), getMMin(), getMMax(), getGBMin(), getGBMax());
         this.setSeFactory(sefactory);
         this.createAndAttachCEs();
@@ -398,11 +398,11 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         }
     }
     
-    public GEFactory getSeFactory() {
+    public QAGESAGEFactory getSeFactory() {
         return this.seFactory;
     }
     
-    public void setSeFactory(GEFactory seFactory) {
+    public void setSeFactory(QAGESAGEFactory seFactory) {
         this.seFactory = seFactory;
     }
     
