@@ -75,11 +75,11 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
 
     public COREVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
-            int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, boolean cachingEnabled, int whichMeasure, int maxRequests) throws Exception {
+            int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, int whichMeasure) throws Exception {
         this.setFactor(factor);
         this.initParameters(traceFlag,
                 numCE, MIPS, PEMax, MMin, MMax, numSE, GBMin, GBMax, 
-                routersPerCloud, clouds, fixedInfrastructure, factor, numUsers, cachingEnabled, whichMeasure, maxRequests);
+                routersPerCloud, clouds, fixedInfrastructure, factor, numUsers, whichMeasure);
         
         this.createEntities();
     }
@@ -131,7 +131,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     private void initParameters(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, 
-            double factor, int numUsers, boolean cachingEnabled, int whichMeasure, int maxRequests) {
+            double factor, int numUsers, int whichMeasure) {
         this.setTraceFlag(traceFlag);
         this.setNumCEs(numCE);
         this.setNumSEs(numSE);
