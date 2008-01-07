@@ -10,12 +10,13 @@
  *
  * Created on 7 August 2006, 14.09 by Giovanni Novelli
  *
- * $Id: GEFactory.java 1142 2007-07-18 20:49:58Z gnovelli $
+ * $Id: QAGESAGEFactory.java 1142 2007-07-18 20:49:58Z gnovelli $
  *
  */
 
-package net.sf.gap.mc.core.factories;
+package net.sf.gap.mc.qagesa.factories;
 
+import net.sf.gap.mc.core.factories.*;
 import gridsim.Machine;
 import gridsim.MachineList;
 import gridsim.PE;
@@ -38,7 +39,7 @@ import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
  * 
  * @author Giovanni Novelli
  */
-public class GEFactory extends ResourceFactory {
+public class QAGESAGEFactory extends ResourceFactory {
 	private TopRegionalRC topRegionalRC;
 
 	private int GBMin;
@@ -56,7 +57,7 @@ public class GEFactory extends ResourceFactory {
 	private Uniform_int rand; // Random numbers generator
 
 	/** Creates a new instance of CEFactory */
-	public GEFactory(TopRegionalRC rc) {
+	public QAGESAGEFactory(TopRegionalRC rc) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(500);
 		this.setPEmax(1);
@@ -68,7 +69,7 @@ public class GEFactory extends ResourceFactory {
 	}
 
 	/** Creates a new instance of CEFactory */
-	public GEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
+	public QAGESAGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
 			int GBMin, int GBMax) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(MIPS);
