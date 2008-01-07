@@ -4,12 +4,9 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        QAGESA Simulator
- * Description:  QAGESA (QoS Aware Grid Enabled Streaming Architecture) Simulator
- *               of a QoS-Aware Architecture for Multimedia Content Provisioning in a GRID Environment
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * QAGESAVirtualOrganization.java
+ * COREVirtualOrganization.java
  *
  * Created on 7 August 2006, 14.40 by Giovanni Novelli
  *
@@ -20,8 +17,6 @@
 package net.sf.gap.mc.core.grid;
 
 import net.sf.gap.mc.qagesa.grid.*;
-import net.sf.gap.mc.core.grid.StaticTopology;
-import net.sf.gap.mc.core.grid.RingsChain;
 import eduni.simjava.Sim_system;
 
 import gridsim.net.FIFOScheduler;
@@ -36,21 +31,15 @@ import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
 
-import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
+import net.sf.gap.mc.core.factories.COREGEFactory;
 import net.sf.gap.mc.core.factories.LinkFactory;
 import net.sf.gap.mc.core.grid.components.MCGridElement;
-
-import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
-import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
-import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
-import net.sf.gap.mc.qagesa.users.impl.Submitter;
-import net.sf.gap.mc.qagesa.users.impl.User;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public class COREVirtualOrganization extends AbstractVirtualOrganization {
+public abstract class COREVirtualOrganization extends AbstractVirtualOrganization {
     /**
      * links delay factor
      */
@@ -78,25 +67,12 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
     
     private int GBMax;
     
-    private QAGESAGEFactory seFactory;
+    private COREGEFactory seFactory;
     
     private int numUsers;
     
-    private boolean cachingEnabled;
-    
-    public static final int RMR = 0;
-    public static final int MR = 1;
-    public static final int RMS = 2;
-    public static final int MS = 3;
-    public static final int RMF = 4;
-    public static final int MF = 5;
-    
     private int whichMeasure;
-    
-    private TranscodingSet transcodingSet;
-    
-    private int maxRequests;
-    
+
     public COREVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, boolean cachingEnabled, int whichMeasure, int maxRequests) throws Exception {
@@ -150,18 +126,7 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
         }
     }
     
-    private void initializeAgents() {
-        int totalAgents = 0;
-        for (int i = 0; i < this.getNumCEs(); i++) {
-            MCGridElement computingElement = (MCGridElement) Sim_system.get_entity("CE_"+i);
-            int numAgents = computingElement.getNumPE();
-            for (int j = 0; j < numAgents; j++) {
-                TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
-                this.getPlatform().addAgent(agent, computingElement);
-                totalAgents++;
-            }
-        }
-    }
+    abstract protected void initializeAgents();
     
     private void initParameters(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
@@ -181,10 +146,8 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
         this.setGBMax(GBMax);
         this.setFixedInfrastructure(fixedInfrastructure);
         this.setFactor(factor);
-        this.setCachingEnabled(cachingEnabled);
         this.setWhichMeasure(whichMeasure);
         this.setNetworkType(COREVirtualOrganization.NT_RINGSCHAIN);
-        this.setMaxRequests(maxRequests);
     }
     
     private void initParameters(boolean traceFlag, int numCE, int MIPS,
@@ -214,7 +177,7 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
         FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
         RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_0");
         router.attachHost(this.getTopRegionalRC(), rcSched);
-        QAGESAGEFactory sefactory = new QAGESAGEFactory(this.getTopRegionalRC(), this.getBasicMIPS(),
+        COREGEFactory sefactory = new COREGEFactory(this.getTopRegionalRC(), this.getBasicMIPS(),
                 getPEMax(), getMMin(), getMMax(), getGBMin(), getGBMax());
         this.setSeFactory(sefactory);
         this.createAndAttachCEs();
@@ -224,128 +187,11 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
         this.createAndAttachUsers();
     }
     
-    public void createAndAttachAgentPlatform() throws Exception {
-        Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
-        int index = 0;
-        MCGridElement ce = (MCGridElement) Sim_system.get_entity("CE_"+index);
-        this.setPlatform(new QAGESAPlatform(false));
-        QAGESAPlatform agent = (QAGESAPlatform) this.getPlatform();
-        
-        agent.setGridElement(ce);
-        agent.setVirtualOrganization(this);
-        
-        ce.attachPlatform(agent);
-        
-        for (int i = 0; i < this.getNumCEs(); i++) {
-            ce = (MCGridElement) Sim_system.get_entity("CE_"+i);
-            ce.setAgentPlatform(agent);
-        }
-        for (int i = 0; i < this.getNumSEs(); i++) {
-            ce = (MCGridElement) Sim_system.get_entity("SE_"+i);
-            ce.setAgentPlatform(agent);
-        }
-        
-        agent.createServices();
-    }
+    abstract public void createAndAttachAgentPlatform() throws Exception;
     
-    public void createAndAttachAgents() throws Exception {
-        int totalAgents = 0;
-        for (int i = 0; i < this.getNumCEs(); i++) {
-            MCGridElement se = (MCGridElement) Sim_system.get_entity("CE_"+i);
-            int numAgents = se.getNumPE();
-            for (int j = 0; j < numAgents; j++) {
-                TranscodingAgent agent = new TranscodingAgent(se, "AGENT_"
-                        + totalAgents, 0, false, this.isCachingEnabled());
-                totalAgents++;
-                se.attachAgent(agent);
-            }
-        }
-        this.getPlatform().setTotalAgents(totalAgents);
-    }
+    abstract public void createAndAttachAgents() throws Exception;
     
-    public void createAndAttachSubmitters() throws Exception {
-        Uniform_int r = new Uniform_int("createAndAttachSubmitters");
-        int N = this.getTopology().getNumRouters();
-        int index;
-        RIPRouter router = null;
-        Link link = null;
-        for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % N;
-                router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                link = LinkFactory.UserLink(640000, 20);
-                Submitter submitter = new Submitter("SUBMITTER_" + i, link,false);
-                router.attachHost(submitter, submitter.getUserSched());
-                submitter.setVirtualOrganization(this);
-        }
-    }
-
-    public void createAndAttachUsers() throws Exception {
-        this.setTranscodingSet(new TranscodingSet("measures/videos.csv",
-                "measures/chunks.csv"));
-        Uniform_int r = new Uniform_int("createAndAttachUsers");
-        int N = this.getTopology().getNumRouters();
-        int index;
-        RIPRouter router = null;
-        Link link = null;
-        String movieTag = "743e9c39a8b9735409def891a39d08ea";
-        int numRequests = this.getMaxRequests();
-        boolean repeated = true;
-        for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % N;
-                switch (this.getWhichMeasure()) {
-                    case RMR:
-                        router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
-                        User rmrUser = new User("RMRUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
-                        router.attachHost(rmrUser, rmrUser.getUserSched());
-                        rmrUser.setVirtualOrganization(this);
-                        break;
-                    case  MR:
-                        router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
-                        User mruser = new User("MRUSER_" + i, link,false,
-                                false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
-                        router.attachHost(mruser, mruser.getUserSched());
-                        mruser.setVirtualOrganization(this);
-                        break;
-                    case RMS:
-                        router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
-                        User rmsUser = new User("RMSUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
-                        router.attachHost(rmsUser, rmsUser.getUserSched());
-                        rmsUser.setVirtualOrganization(this);
-                        break;
-                    case  MS:
-                        router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
-                        User msuser = new User("MSUSER_" + i, link,false,
-                                false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
-                        router.attachHost(msuser, msuser.getUserSched());
-                        msuser.setVirtualOrganization(this);
-                        break;
-                    case RMF:
-                        router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
-                        User rmfUser = new User("RMFUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
-                        router.attachHost(rmfUser, rmfUser.getUserSched());
-                        rmfUser.setVirtualOrganization(this);
-                        break;
-                    case MF:
-                        router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
-                        User mfUser = new User("MFUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
-                        router.attachHost(mfUser, mfUser.getUserSched());
-                        mfUser.setVirtualOrganization(this);
-                        break;
-                    default:
-                        break;
-                }
-        }
-    }
+    abstract public void createAndAttachUsers() throws Exception;
     
     public void createAndAttachCEs() throws Exception {
         if (this.getNetworkType()==COREVirtualOrganization.NT_STATIC) {
@@ -399,24 +245,16 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
         }
     }
     
-    public QAGESAGEFactory getSeFactory() {
+    public COREGEFactory getSeFactory() {
         return this.seFactory;
     }
     
-    public void setSeFactory(QAGESAGEFactory seFactory) {
+    public void setSeFactory(COREGEFactory seFactory) {
         this.seFactory = seFactory;
     }
     
     public int getNumAMs() {
         return this.getNumCEs() + this.getNumSEs();
-    }
-    
-    public TranscodingSet getTranscodingSet() {
-        return transcodingSet;
-    }
-    
-    public void setTranscodingSet(TranscodingSet transcodingSet) {
-        this.transcodingSet = transcodingSet;
     }
     
     public int getNumUsers() {
@@ -523,27 +361,11 @@ public class COREVirtualOrganization extends AbstractVirtualOrganization {
         this.factor = factor;
     }
 
-    public boolean isCachingEnabled() {
-        return cachingEnabled;
-    }
-
-    public void setCachingEnabled(boolean cachingEnabled) {
-        this.cachingEnabled = cachingEnabled;
-    }
-
     public int getWhichMeasure() {
         return whichMeasure;
     }
 
     public void setWhichMeasure(int whichMeasure) {
         this.whichMeasure = whichMeasure;
-    }
-
-    public int getMaxRequests() {
-        return maxRequests;
-    }
-
-    public void setMaxRequests(int maxRequests) {
-        this.maxRequests = maxRequests;
     }
 }
