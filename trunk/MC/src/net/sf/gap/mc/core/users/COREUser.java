@@ -13,7 +13,7 @@
  *
  * Created on 13 August 2006, 20.24 by Giovanni Novelli
  *
- * $Id: QAGESAUser.java 100 2008-01-07 11:23:02Z gnovelli $
+ * $Id$
  *
  */
 
