@@ -13,15 +13,16 @@
  * $Id$
  *
  */
+
 package net.sf.gap.mc.core.agents;
 
-import net.sf.gap.mc.core.agents.behaviours.Sim_eventListener;
-import net.sf.gap.mc.core.agents.behaviours.ISim_eventDelegate;
-import net.sf.gap.mc.core.agents.behaviours.Sim_eventListenerList;
 import eduni.simjava.Sim_event;
 
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.grid.components.GridElement;
+
+import net.sf.gap.mc.core.agents.behaviours.Sim_eventListener;
+import net.sf.gap.mc.core.agents.behaviours.Sim_eventListenerList;
 
 /**
  * 
@@ -29,7 +30,7 @@ import net.sf.gap.grid.components.GridElement;
  *
  * @author Giovanni Novelli
  */
-public abstract class PluggableAgent extends GridAgent implements ISim_eventDelegate {
+public abstract class PluggableAgent extends GridAgent {
         private Sim_eventListenerList evlList;
         
 	/**
@@ -50,8 +51,8 @@ public abstract class PluggableAgent extends GridAgent implements ISim_eventDele
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
-        public Sim_eventListener addListener(int tag, Sim_eventListener evListener) {
-            return this.getEvlList().addListener(tag, evListener);
+        public Sim_eventListener addListener(Sim_eventListener evListener) {
+            return this.getEvlList().addListener(evListener.getTag(), evListener);
         }
         
         public Sim_eventListener removeListener(int tag) {
