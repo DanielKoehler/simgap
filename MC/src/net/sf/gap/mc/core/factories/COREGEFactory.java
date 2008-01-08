@@ -32,7 +32,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.mc.core.grid.components.MCGridElement;
+import net.sf.gap.mc.core.grid.components.COREGridElement;
 
 /**
  * 
@@ -82,7 +82,7 @@ public class COREGEFactory extends ResourceFactory {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public MCGridElement create(boolean fixed, int geIndex, Link link, boolean isSE) {
+	public COREGridElement create(boolean fixed, int geIndex, Link link, boolean isSE) {
 		MachineList mList = new MachineList();
 		Uniform_int r = this.getRand();
 		int np = 0;
@@ -148,7 +148,7 @@ public class COREGEFactory extends ResourceFactory {
 		Weekends.add(new Integer(Calendar.SUNDAY));
 		// incorporates holidays. However, no holidays are set in this example
 		LinkedList Holidays = new LinkedList();
-		MCGridElement se = null;
+		COREGridElement se = null;
 		try {
 			// create the resource calendar
 			ResourceCalendar cal = new ResourceCalendar(time_zone, peakLoad,
@@ -158,7 +158,7 @@ public class COREGEFactory extends ResourceFactory {
 
 			SimpleReplicaManager rm = new SimpleReplicaManager("RM_" + name,
 					name); // create a storage
-			se = new MCGridElement(name, link, resConfig, cal, rm);
+			se = new COREGridElement(name, link, resConfig, cal, rm);
 			if (isSE) {
 				se.setSE(true);
 				int ws = (this.getGBMax() - this.getGBMin() + 1);

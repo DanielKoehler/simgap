@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * Platform.java
+ * COREPlatform.java
  *
  * Created on 20 December 2007, 20:00 by Giovanni Novelli
  *
@@ -27,11 +27,11 @@ import net.sf.gap.mc.core.MC;
  * 
  * @author Giovanni Novelli
  */
-public abstract class Platform extends AgentPlatform {
+public abstract class COREPlatform extends AgentPlatform {
 
 
-	/** Creates a new instance of Platform */
-	public Platform(String name, boolean trace) throws Exception {
+	/** Creates a new instance of COREPlatform */
+	public COREPlatform(String name, boolean trace) throws Exception {
 		super(name, trace);
 	}
 
