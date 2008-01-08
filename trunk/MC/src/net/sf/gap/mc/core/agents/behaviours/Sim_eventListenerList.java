@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * ISim_eventListener.java
+ * Sim_eventListenerList.java
  *
  * Created on 8 January 2008, 09.28 by Giovanni Novelli
  *
@@ -14,14 +14,20 @@
  *
  */
 
-package net.sf.gap.mc.core.agents;
+package net.sf.gap.mc.core.agents.behaviours;
 
-import eduni.simjava.Sim_event;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public interface ISim_eventListener {
-    public void eventOccurred(Sim_event ev);
+public class Sim_eventListenerList extends ConcurrentHashMap<Integer,Sim_eventListener>{
+   public Sim_eventListener addListener(int tag, Sim_eventListener listener) {
+       return this.put(tag, listener);
+   } 
+   
+   public Sim_eventListener removeListener(int tag) {
+       return this.remove(tag);
+   }
 }
