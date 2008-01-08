@@ -16,7 +16,6 @@
 
 package net.sf.gap.mc.core.grid;
 
-import net.sf.gap.mc.qagesa.grid.*;
 import eduni.simjava.Sim_system;
 
 import gridsim.net.FIFOScheduler;

@@ -22,15 +22,14 @@ import net.sf.gap.mc.core.agents.middleware.*;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
 import net.sf.gap.mc.core.agents.middleware.COREPlatform;
-import net.sf.gap.mc.core.agents.PluggableAgent;
-import net.sf.gap.mc.qagesa.stats.QAGESAStat;
+import net.sf.gap.mc.experiments.agents.TESTAgent;
 
 /**
  *
  * @author Giovanni Novelli
  */
 public class ExperimentsPlatform extends COREPlatform {
-    /** Creates a new instance of QAGESA COREPlatform */
+    /** Creates a new instance of COREPlatform */
     public ExperimentsPlatform(boolean trace) throws Exception {
             super("EXPERIMENTS", trace);
     }
@@ -44,7 +43,6 @@ public class ExperimentsPlatform extends COREPlatform {
     }
     
     public void preprocess() {
-        QAGESAStat.reset(this.getVirtualOrganization().getNumCEs());
     }
     public void postprocess() {
     }
@@ -65,7 +63,7 @@ public class ExperimentsPlatform extends COREPlatform {
     public void initAgents() throws Exception {
         int totalAgents = this.getTotalAgents();
         for (int i = 0; i < totalAgents; i++) {
-            PluggableAgent agent = (PluggableAgent) Sim_system.get_entity("AGENT_" + i);
+            TESTAgent agent = (TESTAgent) Sim_system.get_entity("AGENT_" + i);
             agent.initialize();
         }
     }
