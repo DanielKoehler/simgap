@@ -33,7 +33,7 @@ import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.core.factories.COREGEFactory;
 import net.sf.gap.mc.core.factories.LinkFactory;
-import net.sf.gap.mc.core.grid.components.MCGridElement;
+import net.sf.gap.mc.core.grid.components.COREGridElement;
 
 /**
  *
@@ -112,7 +112,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     private void initializeCEs() {
         int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
-            MCGridElement computingElement = (MCGridElement) Sim_system.get_entity("CE_"+i);
+            COREGridElement computingElement = (COREGridElement) Sim_system.get_entity("CE_"+i);
             this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
             this.getCEs().add(computingElement);
         }
@@ -120,7 +120,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     
     private void initializeSEs() {
         for (int i = 0; i < this.getNumSEs(); i++) {
-            MCGridElement storageElement = (MCGridElement) Sim_system.get_entity("SE_"+i);
+            COREGridElement storageElement = (COREGridElement) Sim_system.get_entity("SE_"+i);
             this.mapSEs.put(storageElement.get_id(), storageElement.getExternalRouter());
             this.getSEs().add(storageElement);
         }
@@ -201,7 +201,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
                 index = i % N;
                 RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 Link link = LinkFactory.GELink(false);
-                MCGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
+                COREGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
             }
         } else {
@@ -212,7 +212,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
                 index = i % N;
                 RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 Link link = LinkFactory.GELink(false);
-                MCGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
+                COREGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
             }
         }
@@ -226,7 +226,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
             index = i % N;
             RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
             Link link = LinkFactory.GELink(false);
-            MCGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
+            COREGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
             
             storageElement.attachRouter(router);
         }
@@ -238,7 +238,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
             index = i % N;
             RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
             Link link = LinkFactory.GELink(false);
-            MCGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
+            COREGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
             
             storageElement.attachRouter(router);
         }

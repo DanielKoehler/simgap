@@ -37,7 +37,7 @@ import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
 import net.sf.gap.mc.core.factories.LinkFactory;
-import net.sf.gap.mc.core.grid.components.MCGridElement;
+import net.sf.gap.mc.core.grid.components.COREGridElement;
 
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
@@ -135,7 +135,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     private void initializeCEs() {
         int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
-            MCGridElement computingElement = (MCGridElement) Sim_system.get_entity("CE_"+i);
+            COREGridElement computingElement = (COREGridElement) Sim_system.get_entity("CE_"+i);
             this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
             this.getCEs().add(computingElement);
         }
@@ -143,7 +143,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     
     private void initializeSEs() {
         for (int i = 0; i < this.getNumSEs(); i++) {
-            MCGridElement storageElement = (MCGridElement) Sim_system.get_entity("SE_"+i);
+            COREGridElement storageElement = (COREGridElement) Sim_system.get_entity("SE_"+i);
             this.mapSEs.put(storageElement.get_id(), storageElement.getExternalRouter());
             this.getSEs().add(storageElement);
         }
@@ -152,7 +152,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     private void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            MCGridElement computingElement = (MCGridElement) Sim_system.get_entity("CE_"+i);
+            COREGridElement computingElement = (COREGridElement) Sim_system.get_entity("CE_"+i);
             int numAgents = computingElement.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
@@ -226,7 +226,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgentPlatform() throws Exception {
         Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
-        MCGridElement ce = (MCGridElement) Sim_system.get_entity("CE_"+index);
+        COREGridElement ce = (COREGridElement) Sim_system.get_entity("CE_"+index);
         this.setPlatform(new QAGESAPlatform(false));
         QAGESAPlatform agent = (QAGESAPlatform) this.getPlatform();
         
@@ -236,11 +236,11 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         ce.attachPlatform(agent);
         
         for (int i = 0; i < this.getNumCEs(); i++) {
-            ce = (MCGridElement) Sim_system.get_entity("CE_"+i);
+            ce = (COREGridElement) Sim_system.get_entity("CE_"+i);
             ce.setAgentPlatform(agent);
         }
         for (int i = 0; i < this.getNumSEs(); i++) {
-            ce = (MCGridElement) Sim_system.get_entity("SE_"+i);
+            ce = (COREGridElement) Sim_system.get_entity("SE_"+i);
             ce.setAgentPlatform(agent);
         }
         
@@ -250,7 +250,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgents() throws Exception {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            MCGridElement se = (MCGridElement) Sim_system.get_entity("CE_"+i);
+            COREGridElement se = (COREGridElement) Sim_system.get_entity("CE_"+i);
             int numAgents = se.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = new TranscodingAgent(se, "AGENT_"
@@ -354,7 +354,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                 index = i % N;
                 RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 Link link = LinkFactory.GELink(false);
-                MCGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
+                COREGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
             }
         } else {
@@ -365,7 +365,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                 index = i % N;
                 RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 Link link = LinkFactory.GELink(false);
-                MCGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
+                COREGridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
             }
         }
@@ -379,7 +379,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
             index = i % N;
             RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
             Link link = LinkFactory.GELink(false);
-            MCGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
+            COREGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
             
             storageElement.attachRouter(router);
         }
@@ -391,7 +391,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
             index = i % N;
             RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
             Link link = LinkFactory.GELink(false);
-            MCGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
+            COREGridElement storageElement = this.seFactory.create(this.isFixedInfrastructure(), i, link, true);
             
             storageElement.attachRouter(router);
         }

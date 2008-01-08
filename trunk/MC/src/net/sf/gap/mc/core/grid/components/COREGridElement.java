@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * MCGridElement.java
+ * COREGridElement.java
  *
  * Created on 21 December 2007, 09.00 by Giovanni Novelli
  *
@@ -30,9 +30,9 @@ import net.sf.gap.grid.components.GridElement;
  * 
  * @author Giovanni Novelli
  */
-public class MCGridElement extends GridElement {
+public class COREGridElement extends GridElement {
 	/** Creates a new instance of StorageElement */
-	public MCGridElement(String name, Link link,
+	public COREGridElement(String name, Link link,
 			ResourceCharacteristics resourceCharacteristics,
 			ResourceCalendar resourceCalendar, ReplicaManager replicaManager)
 			throws Exception {
