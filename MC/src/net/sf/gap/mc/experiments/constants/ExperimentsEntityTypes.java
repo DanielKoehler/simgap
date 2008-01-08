@@ -16,7 +16,6 @@
 
 package net.sf.gap.mc.experiments.constants;
 
-import net.sf.gap.mc.qagesa.constants.*;
 import net.sf.gap.constants.EntityTypes;
 
 /**

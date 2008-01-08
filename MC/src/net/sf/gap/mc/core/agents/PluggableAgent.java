@@ -81,7 +81,11 @@ public abstract class PluggableAgent extends GridAgent {
          * @param ev Event triggering agent's actions
          */
         public void processOtherEvent(Sim_event ev) {
-            this.getEvlList().get(ev.get_tag()).eventOccurred(ev);
+            Sim_eventListener listener = this.getEvlList().get(ev.get_tag());
+            
+            if (listener!=null) {
+                listener.eventOccurred(ev);
+            }
         }
 
     public Sim_eventListenerList getEvlList() {

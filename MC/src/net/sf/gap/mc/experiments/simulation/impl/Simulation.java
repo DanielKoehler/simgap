@@ -70,13 +70,14 @@ public class Simulation extends AbstractSimulation {
 			// Final step: Starts the simulation
                         super.setupOutputAnalysis();
 
-                        String prefix = "";
-                      Sim_system.set_termination_condition(Sim_system.INTERVAL_ACCURACY,
+                      /*
+                                Sim_system.set_termination_condition(Sim_system.INTERVAL_ACCURACY,
                                                            Sim_system.IND_REPLICATIONS,
                                                            this.getConfidence(),
                                                            this.getAccuracy(),
                                                            "USER_0",
                                                            Sim_stat.SERVICE_TIME);			
+                       * */
                         EXPERIMENTS.startSimulation();
 
 			System.out.println("\nFinished Simulation ...");

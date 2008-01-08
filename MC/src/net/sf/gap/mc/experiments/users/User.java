@@ -16,7 +16,6 @@
 
 package net.sf.gap.mc.experiments.users;
 
-import net.sf.gap.mc.qagesa.users.impl.*;
 import eduni.simjava.Sim_event;
 
 import gridsim.net.Link;
