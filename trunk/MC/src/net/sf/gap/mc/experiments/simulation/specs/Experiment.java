@@ -21,16 +21,5 @@ package net.sf.gap.mc.experiments.simulation.specs;
  * @author giovanni
  */
 public class Experiment {
-    private int ID;
-    public Experiment(int ID) {
-        this.setID(ID);
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    public static int _01_JOB_SUBMISSION = 1;
 }
