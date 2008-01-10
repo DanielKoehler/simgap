@@ -6,20 +6,22 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * ExperimentsTags.java
+ * Experiment01.java
  *
- * Created on 10 January 2008, 10.33 by Giovanni Novelli
+ * Created on 10 January 2008, 11.00 by Giovanni Novelli
  *
  * $Id$
  *
  */
 
-package net.sf.gap.mc.experiments.constants;
+package net.sf.gap.mc.experiments.simulation.specs;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public class ExperimentsNames {
-
+public class Experiment01 extends Experiment {
+    public Experiment01() {
+        super(1);
+    }
 }
