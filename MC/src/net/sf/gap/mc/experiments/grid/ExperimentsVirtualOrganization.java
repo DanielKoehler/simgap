@@ -39,13 +39,13 @@ public class ExperimentsVirtualOrganization extends COREVirtualOrganization {
     public ExperimentsVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, 
-            boolean fixedInfrastructure, double factor, int numUsers, int whichMeasure) 
+            boolean fixedInfrastructure, double factor, int numUsers, int experimentID) 
             throws Exception {
         super(
                 traceFlag, numCE, MIPS,
                 PEMax, MMin, MMax, numSE, GBMin,
                 GBMax, routersPerCloud, clouds,
-                fixedInfrastructure, factor, numUsers, whichMeasure
+                fixedInfrastructure, factor, numUsers, experimentID
                 );
     }
     

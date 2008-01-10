@@ -33,20 +33,20 @@ import net.sf.gap.mc.experiments.grid.ExperimentsVirtualOrganization;
  * @author Giovanni Novelli
  */
 public class Simulation extends AbstractSimulation {
+        private int experimentID;
         private int numUsers;
         private int numRequests;
-        private int whichMeasure;
         
 	private ExperimentsVirtualOrganization virtualOrganization;
         
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, int numRequests, int whichMeasure, int replications, double confidence, double accuracy) {
+	public Simulation(int experimentID, int numUsers, int numRequests, int replications, double confidence, double accuracy) {
             super(replications, confidence, accuracy);
+            this.setExperimentID(experimentID);
             this.setNumUsers(numUsers);
             this.setNumRequests(numRequests);
-            this.setWhichMeasure(whichMeasure);
 	}
 
 	private void initialize() throws Exception {
@@ -59,7 +59,7 @@ public class Simulation extends AbstractSimulation {
 		EXPERIMENTS.initialize(500.0, 1000.0, 5000.0);
 		this.setVirtualOrganization(new ExperimentsVirtualOrganization(trace_flag, 4,
 				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
-                                this.getNumUsers(), this.getWhichMeasure()));
+                                this.getNumUsers(), this.getExperimentID()));
 	}
 
 	public void start() {
@@ -103,19 +103,19 @@ public class Simulation extends AbstractSimulation {
         this.numUsers = numUsers;
     }
 
-    public int getWhichMeasure() {
-        return whichMeasure;
-    }
-
-    public void setWhichMeasure(int whichMeasure) {
-        this.whichMeasure = whichMeasure;
-    }
-
     public int getNumRequests() {
         return numRequests;
     }
 
     public void setNumRequests(int numRequests) {
         this.numRequests = numRequests;
+    }
+
+    public int getExperimentID() {
+        return experimentID;
+    }
+
+    public void setExperimentID(int experimentID) {
+        this.experimentID = experimentID;
     }
 }
