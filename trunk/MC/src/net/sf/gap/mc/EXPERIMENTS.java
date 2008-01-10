@@ -26,6 +26,8 @@ import net.sf.gap.mc.experiments.simulation.impl.Simulation;
  * @author Giovanni Novelli
  */
 public class EXPERIMENTS {
+    public static int _01_JOB_SUBMISSION = 1;
+    
 	public static void main(String[] args) {
 		boolean swing = false;
 		if (args.length > 0) {
@@ -35,9 +37,7 @@ public class EXPERIMENTS {
 			if (args[0].compareTo("--ui") == 0) {
 				swing = true;
 			}
-                        Integer whichMeasure = 0;
-			if (args[1].compareTo("--EX") == 0) {
-			}
+                        Integer experimentID = Integer.parseInt(args[1]);
 
                         Integer numUsers = Integer.parseInt(args[2]);
                         Integer numRequests = Integer.parseInt(args[3]);
@@ -58,15 +58,15 @@ public class EXPERIMENTS {
 			System.out.println("Unwanted errors happen");
 		}
                 
-        	      EXPERIMENTS.simulate(numUsers,numRequests,whichMeasure,numReplications,confidence,accuracy,swing);
+        	      EXPERIMENTS.simulate(experimentID, numUsers,numRequests,numReplications,confidence,accuracy,swing);
 		}
 	}
 
-	private static void simulate(int numUsers, int numRequests, int whichMeasure, 
+	private static void simulate(int experimentID, int numUsers, int numRequests, 
                                      int replications, double confidence, double accuracy, boolean swing) {
 
                         Simulation simulation;
-                        simulation = new Simulation(numUsers, numRequests, whichMeasure, replications, confidence, accuracy);
+                        simulation = new Simulation(experimentID, numUsers, numRequests, replications, confidence, accuracy);
                         simulation.start();
 	}
 }
