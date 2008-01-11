@@ -43,7 +43,8 @@ public class Measure {
 
     public void setup() {
         Sim_stat stat = new Sim_stat();
-        stat.add_measure(Sim_stat.SERVICE_TIME);
+        this.setMeasure(Sim_stat.SERVICE_TIME);
+        stat.add_measure(this.getMeasure());
         this.setStat(stat);
     }
 

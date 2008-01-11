@@ -34,8 +34,6 @@ public class User extends COREUser {
     
     private Measure measure;
     
-    private Sim_stat stat;
-    
 	/**
 	 * 
 	 * Creates a new instance of Submitter
@@ -53,7 +51,7 @@ public class User extends COREUser {
 		super(name, link, ExperimentsEntityTypes.USER_USER, trace_flag);
                 this.setExperimentID(experimentID);
                 this.setMeasure(new Measure(experimentID));
-                this.setStat(this.getMeasure().getStat());
+                this.set_stat(this.getMeasure().getStat());
 	}
 
         public void printStats() {
@@ -85,13 +83,5 @@ public class User extends COREUser {
 
     public void setExperimentID(int experimentID) {
         this.experimentID = experimentID;
-    }
-
-    public Sim_stat getStat() {
-        return stat;
-    }
-
-    public void setStat(Sim_stat stat) {
-        this.stat = stat;
     }
 }
