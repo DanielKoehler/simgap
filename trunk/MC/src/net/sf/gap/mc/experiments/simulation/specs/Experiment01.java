@@ -54,12 +54,12 @@ public class Experiment01 extends Experiment {
 			System.out.println("Unwanted errors happen");
 		}
                 
-        	      simulate(numUsers,numRequests,numReplications,confidence,accuracy,swing);
+        	      simulate(numUsers,numRequests,numReplications,confidence,accuracy);
 		}
 	}
 
 	private static void simulate(int numUsers, int numRequests, 
-                                     int replications, double confidence, double accuracy, boolean swing) {
+                                     int replications, double confidence, double accuracy) {
                         Simulation simulation;
                         simulation = new Simulation(Experiment._01_JOB_SUBMISSION,numUsers, numRequests, replications, confidence, accuracy);
                         simulation.start();

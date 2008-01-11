@@ -16,9 +16,6 @@
 
 package net.sf.gap.mc.experiments.simulation.impl;
 
-import eduni.simjava.Sim_system;
-import eduni.simjava.Sim_stat;
-
 import gridsim.GridSim;
 
 import java.util.Calendar;
