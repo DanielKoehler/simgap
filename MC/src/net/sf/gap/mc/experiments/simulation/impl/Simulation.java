@@ -16,6 +16,9 @@
 
 package net.sf.gap.mc.experiments.simulation.impl;
 
+import eduni.simjava.Sim_stat;
+import eduni.simjava.Sim_system;
+
 import gridsim.GridSim;
 
 import java.util.Calendar;
@@ -24,6 +27,7 @@ import net.sf.gap.simulation.AbstractSimulation;
 
 import net.sf.gap.mc.experiments.EXPERIMENTS;
 import net.sf.gap.mc.experiments.grid.ExperimentsVirtualOrganization;
+import net.sf.gap.mc.experiments.users.User;
 
 /**
  * 
@@ -67,14 +71,15 @@ public class Simulation extends AbstractSimulation {
 			// Final step: Starts the simulation
                         super.setupOutputAnalysis();
 
-                      /*
+                        User user0 = (User) Sim_system.get_entity("USER_0");
+                        int measure0 = user0.getMeasure().getMeasure();
                                 Sim_system.set_termination_condition(Sim_system.INTERVAL_ACCURACY,
                                                            Sim_system.IND_REPLICATIONS,
                                                            this.getConfidence(),
                                                            this.getAccuracy(),
                                                            "USER_0",
-                                                           Sim_stat.SERVICE_TIME);			
-                       * */
+                                                           measure0);			
+                                
                         EXPERIMENTS.startSimulation();
 
 			System.out.println("\nFinished Simulation ...");
