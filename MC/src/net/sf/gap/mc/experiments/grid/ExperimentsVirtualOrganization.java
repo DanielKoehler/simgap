@@ -36,7 +36,8 @@ import net.sf.gap.mc.experiments.users.User;
  * @author Giovanni Novelli
  */
 public class ExperimentsVirtualOrganization extends COREVirtualOrganization {
-    public ExperimentsVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
+    
+    public ExperimentsVirtualOrganization( boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, 
             boolean fixedInfrastructure, double factor, int numUsers, int experimentID) 
@@ -111,9 +112,9 @@ public class ExperimentsVirtualOrganization extends COREVirtualOrganization {
                 index = i % N;
                 router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 link = LinkFactory.UserLink(640000, 20);
-                User rmrUser = new User("USER_" + i, link,false);
-                router.attachHost(rmrUser, rmrUser.getUserSched());
-                rmrUser.setVirtualOrganization(this);
+                User user = new User(this.getExperimentID(),"USER_" + i, link,false);
+                router.attachHost(user, user.getUserSched());
+                user.setVirtualOrganization(this);
         }
     }
 }
