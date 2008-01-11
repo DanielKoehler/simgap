@@ -17,17 +17,25 @@
 package net.sf.gap.mc.experiments.users;
 
 import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_stat;
 
 import gridsim.net.Link;
 
 import net.sf.gap.mc.core.users.COREUser;
 
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
+import net.sf.gap.mc.experiments.users.impl.Measure;
 
 /**
  * @author Giovanni Novelli
  */
 public class User extends COREUser {
+    private int experimentID;
+    
+    private Measure measure;
+    
+    private Sim_stat stat;
+    
 	/**
 	 * 
 	 * Creates a new instance of Submitter
@@ -40,9 +48,12 @@ public class User extends COREUser {
 	 *             This happens when name is null or haven't initialized
 	 *             GridSim.
 	 */
-	public User(String name, Link link, boolean trace_flag)
+	public User(int experimentID, String name, Link link, boolean trace_flag)
 			throws Exception {
 		super(name, link, ExperimentsEntityTypes.USER_USER, trace_flag);
+                this.setExperimentID(experimentID);
+                this.setMeasure(new Measure(experimentID));
+                this.setStat(this.getMeasure().getStat());
 	}
 
         public void printStats() {
@@ -59,4 +70,28 @@ public class User extends COREUser {
 
 	private void DoIt() {
 	}
+
+    public Measure getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(Measure measure) {
+        this.measure = measure;
+    }
+
+    public int getExperimentID() {
+        return experimentID;
+    }
+
+    public void setExperimentID(int experimentID) {
+        this.experimentID = experimentID;
+    }
+
+    public Sim_stat getStat() {
+        return stat;
+    }
+
+    public void setStat(Sim_stat stat) {
+        this.stat = stat;
+    }
 }

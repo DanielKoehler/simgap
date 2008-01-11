@@ -70,15 +70,15 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     
     private int numUsers;
     
-    private int whichMeasure;
+    private int experimentID;
 
     public COREVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
-            int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, int whichMeasure) throws Exception {
+            int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, int experimentID) throws Exception {
         this.setFactor(factor);
         this.initParameters(traceFlag,
                 numCE, MIPS, PEMax, MMin, MMax, numSE, GBMin, GBMax, 
-                routersPerCloud, clouds, fixedInfrastructure, factor, numUsers, whichMeasure);
+                routersPerCloud, clouds, fixedInfrastructure, factor, numUsers, experimentID);
         
         this.createEntities();
     }
@@ -130,7 +130,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     private void initParameters(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, 
-            double factor, int numUsers, int whichMeasure) {
+            double factor, int numUsers, int experimentID) {
         this.setTraceFlag(traceFlag);
         this.setNumCEs(numCE);
         this.setNumSEs(numSE);
@@ -145,7 +145,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
         this.setGBMax(GBMax);
         this.setFixedInfrastructure(fixedInfrastructure);
         this.setFactor(factor);
-        this.setWhichMeasure(whichMeasure);
+        this.setExperimentID(experimentID);
         this.setNetworkType(COREVirtualOrganization.NT_RINGSCHAIN);
     }
     
@@ -360,11 +360,11 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
         this.factor = factor;
     }
 
-    public int getWhichMeasure() {
-        return whichMeasure;
+    public int getExperimentID() {
+        return experimentID;
     }
 
-    public void setWhichMeasure(int whichMeasure) {
-        this.whichMeasure = whichMeasure;
+    public void setExperimentID(int experimentID) {
+        this.experimentID = experimentID;
     }
 }
