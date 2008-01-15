@@ -96,9 +96,39 @@ public interface IJobScheduler {
      * Determines the number of gridlets that are currently enqueued in this
      * scheduler.
      *
-     * @return the number of gridlets enqueud by this scheduler.
+     * @return the number of gridlets enqueued by this scheduler.
      * @pre $none
      * @post $none
      */
     public abstract int size();
+    
+    /**
+     * Determines size in bytes of Input for gridlets 
+     * enqueued to this scheduler.
+     *
+     * @return size in bytes of Input files of gridlets enqueued
+     * @pre $none
+     * @post $none
+     */
+    public abstract long getInputSize();
+
+    /**
+     * Determines size in bytes of Output for gridlets 
+     * enqueued to this scheduler.
+     *
+     * @return size in bytes of Output of gridlets enqueued
+     * @pre $none
+     * @post $none
+     */
+    public abstract long getOutputSize();
+    
+    /**
+     * Determines size in MIPS for gridlets 
+     * enqueued to this scheduler.
+     *
+     * @return size in bytes of Output of gridlets enqueued
+     * @pre $none
+     * @post $none
+     */
+    public abstract double getMIPS();
 }

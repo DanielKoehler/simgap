@@ -36,12 +36,17 @@ import net.sf.gap.agents.GridAgent;
  * @author Giovanni Novelli
  */
 public class RRScheduler extends AbstractScheduler {
+    private double MIPS;
+    private long inputSize;
+    private long outputSize;
     
     private LinkedBlockingQueue<Gridlet> queue;
 
     
     public RRScheduler(GridAgent anAgent) {
         super(anAgent);
+        this.setInputSize(0);
+        this.setOutputSize(0);
         this.setQueue(new LinkedBlockingQueue<Gridlet>(this.getUpperBound()));
     }
     
@@ -49,17 +54,31 @@ public class RRScheduler extends AbstractScheduler {
             GridAgent anAgent, 
             int anUpperBound) {
         super(anAgent,anUpperBound);
+        this.setInputSize(0);
+        this.setOutputSize(0);
         this.setQueue(new LinkedBlockingQueue<Gridlet>(this.getUpperBound()));
     }
     
     public boolean enque(Gridlet gridlet) 
     {
-        return this.getQueue().add(gridlet);
+        boolean result = this.getQueue().add(gridlet);
+        if (result) {
+            this.incMIPS(gridlet.getGridletLength());
+            this.incInputSize(gridlet.getGridletFileSize());
+            this.incOutputSize(gridlet.getGridletOutputSize());
+        }
+        return result;
     }
     
     public Gridlet deque()
     {
-        return this.getQueue().poll();
+        Gridlet gridlet = this.getQueue().poll();
+        if (gridlet!=null) {
+            this.decMIPS(gridlet.getGridletLength());
+            this.decInputSize(gridlet.getGridletFileSize());
+            this.decOutputSize(gridlet.getGridletOutputSize());
+        }
+        return gridlet;
     }
     
     public Gridlet peek()
@@ -88,5 +107,53 @@ public class RRScheduler extends AbstractScheduler {
 
     private void setQueue(LinkedBlockingQueue<Gridlet> queue) {
         this.queue = queue;
+    }
+
+    public double getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(double MIPS) {
+        this.MIPS = MIPS;
+    }
+
+    public void decMIPS(double MIPS) {
+        this.MIPS -= MIPS;
+    }
+
+    public void incMIPS(double MIPS) {
+        this.MIPS += MIPS;
+    }
+
+    public long getInputSize() {
+        return inputSize;
+    }
+
+    public void setInputSize(long inputSize) {
+        this.inputSize = inputSize;
+    }
+
+    public void decInputSize(long inputSize) {
+        this.inputSize -= inputSize;
+    }
+
+    public void incInputSize(long inputSize) {
+        this.inputSize += inputSize;
+    }
+    
+    public long getOutputSize() {
+        return outputSize;
+    }
+
+    public void setOutputSize(long outputSize) {
+        this.outputSize = outputSize;
+    }
+
+    public void decOutputSize(long outputSize) {
+        this.outputSize -= outputSize;
+    }
+
+    public void incOutputSize(long outputSize) {
+        this.outputSize += outputSize;
     }
 }

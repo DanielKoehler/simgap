@@ -94,7 +94,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
     public boolean gridletSubmit() {
         // @TODO Add another method for 1+ concurrent gridlets by an agent
         // if there is NOT any gridlet on the Grid Element
-        if (this.getCurrentList().isEmpty()) {
+        if (this.getCurrentList().isEmpty()|| true) {
             // if there are gridlets on local agent's queue
             if (!this.isEmpty()) {
                 // Peeks the gridlet on the head of agent's scheduling queue

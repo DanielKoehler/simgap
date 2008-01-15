@@ -545,4 +545,16 @@ public abstract class GridAgent extends Agent {
     public void setScheduler(RRScheduler scheduler) {
         this.scheduler = scheduler;
     }
+    
+    public double getMIPS() {
+        return this.getScheduler().getMIPS();
+    }
+    
+    public long getInputSize() {
+        return this.getScheduler().getInputSize();
+    }
+    
+    public long getOutputSize() {
+        return this.getScheduler().getOutputSize();
+    }
 }
