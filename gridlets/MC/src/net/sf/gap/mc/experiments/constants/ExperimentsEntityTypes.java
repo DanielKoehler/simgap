@@ -23,6 +23,7 @@ import net.sf.gap.constants.EntityTypes;
  * @author Giovanni Novelli
  */
 public class ExperimentsEntityTypes extends EntityTypes {
+	public static final int AGENT_AGENT = 2003;
 	public static final int USER_USER = 2004;
 
 	/**
@@ -35,6 +36,9 @@ public class ExperimentsEntityTypes extends EntityTypes {
 	public String otherTypes(int entityType) {
 		String str = null;
 		switch (entityType) {
+		case ExperimentsEntityTypes.AGENT_AGENT:
+			str = "AGENT_AGENT";
+			break;
 		case ExperimentsEntityTypes.USER_USER:
 			str = "USER_USER";
 			break;

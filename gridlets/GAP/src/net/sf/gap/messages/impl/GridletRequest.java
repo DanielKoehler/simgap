@@ -26,7 +26,10 @@
 package net.sf.gap.messages.impl;
 
 import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
+
 import gridsim.Gridlet;
+
 import net.sf.gap.messages.Message;
 import net.sf.gap.messages.Request;
 

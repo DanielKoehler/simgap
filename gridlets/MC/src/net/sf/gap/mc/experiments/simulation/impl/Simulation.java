@@ -52,12 +52,12 @@ public class Simulation extends AbstractSimulation {
 
 	private void initialize() throws Exception {
 		Calendar calendar = Calendar.getInstance();
-		boolean trace_flag = false; // mean trace GridSim events/activities
+		boolean trace_flag = true; // mean trace GridSim events/activities
 		boolean default_gis = false;
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
-		EXPERIMENTS.initialize(500.0, 1000.0, 5000.0);
+		EXPERIMENTS.initialize(100.0, 200.0, 1000.0);
 		this.setVirtualOrganization(new ExperimentsVirtualOrganization(trace_flag, 4,
 				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.getExperimentID()));
