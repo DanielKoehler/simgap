@@ -25,7 +25,7 @@
 package net.sf.gap.agents.gridlets;
 
 import gridsim.Gridlet;
-import gridsim.GridletList;
+
 import net.sf.gap.messages.impl.GridletRequest;
 
 /**
@@ -42,38 +42,38 @@ public class GridletsBag {
         /**
          * List of gridlets submitted to GE/GEs
          */
-	private GridletList gridletSubmitted; 
+	private GAPGridletList gridletSubmitted; 
 
         /**
          * List of canceled gridlets
          */
-	private GridletList gridletCanceled; 
+	private GAPGridletList gridletCanceled; 
 
         /**
          * List of paused gridlets
          */
-	private GridletList gridletPaused; 
+	private GAPGridletList gridletPaused; 
 
         /**
          * List of successful gridlets
          */
-	private GridletList gridletSuccesses;
+	private GAPGridletList gridletSuccesses;
 
         /**
          * List of failed gridlets
          */
-	private GridletList gridletFailures; 
+	private GAPGridletList gridletFailures; 
 
         /**
 	 * Creates a new instance of GridletsBag
 	 */
 	public GridletsBag() {
 		this.gridletRequestsMap = new GridletRequestsMap();
-		this.gridletSubmitted = new GridletList();
-		this.gridletCanceled = new GridletList();
-		this.gridletPaused = new GridletList();
-		this.gridletSuccesses = new GridletList();
-		this.gridletFailures = new GridletList();
+		this.gridletSubmitted = new GAPGridletList();
+		this.gridletCanceled = new GAPGridletList();
+		this.gridletPaused = new GAPGridletList();
+		this.gridletSuccesses = new GAPGridletList();
+		this.gridletFailures = new GAPGridletList();
 	}
 
 	public void addRequest(GridletRequest gridletRequest) {
@@ -121,23 +121,23 @@ public class GridletsBag {
 		return this.gridletRequestsMap;
 	}
 
-	public GridletList getGridletSuccesses() {
+	public GAPGridletList getGridletSuccesses() {
 		return gridletSuccesses;
 	}
 
-	public GridletList getGridletFailures() {
+	public GAPGridletList getGridletFailures() {
 		return gridletFailures;
 	}
 
-	public GridletList getGridletSubmitted() {
+	public GAPGridletList getGridletSubmitted() {
 		return gridletSubmitted;
 	}
 
-	public GridletList getGridletCanceled() {
+	public GAPGridletList getGridletCanceled() {
 		return gridletCanceled;
 	}
 
-        public GridletList getGridletPaused() {
+        public GAPGridletList getGridletPaused() {
 		return gridletPaused;
 	}
 }

@@ -24,9 +24,10 @@
 package net.sf.gap.agents.gridlets.scheduling;
 
 import gridsim.Gridlet;
-import gridsim.GridletList;
+
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.gridlets.GridletsBag;
+import net.sf.gap.agents.gridlets.GAPGridletList;
 
 /**
  *
@@ -275,7 +276,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
         this.agent = agent;
     }
 
-    public GridletList getCurrentList() {
+    public GAPGridletList getCurrentList() {
         return this.getGridletsBag().getGridletSubmitted();
     }
 
