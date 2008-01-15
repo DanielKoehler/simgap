@@ -254,7 +254,7 @@ public abstract class AbstractUser extends DataGridUser {
 		} else {
 			String msg = String
 					.format(
-							"%1$f $2$d %3$s <-- GOT GRIDLET_REPLY for Gridlet %4$d of Gridlet %5$d with result FALSE on AM_%6$s",
+							"%1$f %2$d %3$s <-- GOT GRIDLET_REPLY for Gridlet %4$d of Gridlet %5$d with result FALSE on AM_%6$s",
 							evrecv_time, reqrepID, this.get_name(), reply
 									.getReceivedGridlet().getGridletID(), reply
 									.getRequest().getGridlet().getGridletID(),
@@ -373,6 +373,7 @@ public abstract class AbstractUser extends DataGridUser {
 		super.sim_get_next(ptag, ev); // only look for this type of ack
 		AgentReply agentReply = AgentReply.get_data(ev);
 
+                if (agentReply!=null) {
 		Assert.assertEquals(requestID, agentReply.getRequestID());
 		Assert.assertEquals(tag, agentReply.getRequestTAG());
 		Assert.assertEquals(ev.get_tag(), tag + 1);
@@ -390,6 +391,7 @@ public abstract class AbstractUser extends DataGridUser {
 								.getEntityName(request.getDst_moveToresID()),
 						request.getDst_AID());
 		this.write(msg);
+                }
 		return agentReply;
 	}
 
@@ -421,7 +423,9 @@ public abstract class AbstractUser extends DataGridUser {
 		Sim_event ev = new Sim_event();
 		super.sim_get_next(ptag, ev); // only look for this type of ack
 		AgentReply agentReply = AgentReply.get_data(ev);
-
+                if (agentReply==null) {
+                    Assert.fail();
+                }
 		Assert.assertEquals(requestID, agentReply.getRequestID());
 		Assert.assertEquals(Tags.HASGRIDLETS_REQUEST, agentReply
 				.getRequestTAG());
