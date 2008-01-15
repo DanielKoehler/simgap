@@ -88,7 +88,7 @@ public class User extends COREUser {
         agentReply = this.submitAgent(ExperimentsEntityTypes.AGENT_AGENT,
                 aegeResourceID, 10000);
         if (agentReply.isOk()) {
-            for (int j = 0; j < 1; j++) {
+            for (int j = 0; j < 10; j++) {
                 GridletReply gridletReply = null;
                 gridletReply = this.newGridlet(agentReply);
             }
