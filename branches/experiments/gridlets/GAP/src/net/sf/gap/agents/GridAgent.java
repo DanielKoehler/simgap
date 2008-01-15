@@ -25,6 +25,15 @@
 package net.sf.gap.agents;
 
 import junit.framework.Assert;
+
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
+
+import gridsim.Gridlet;
+import gridsim.GridSim;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
+
 import net.sf.gap.GAP;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.Tags;
@@ -34,11 +43,6 @@ import net.sf.gap.messages.impl.GridletRequest;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.grid.components.GridElement;
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
-import gridsim.GridSimTags;
-import gridsim.Gridlet;
-import gridsim.IO_data;
 
 /**
  * This abstract class is mainly responsible in simulating basic behaviour 
@@ -250,14 +254,19 @@ public abstract class GridAgent extends Agent {
                      */
 			break;
 		case Tags.GRIDLET_SUBMIT_REQ:
-                    Assert.fail();
+                    //Assert.fail();
 			gridlet = gridletRequest.getGridlet();
 			if (this.getAgentState() == AgentStates.RUNNING) {
 				gridlet.setUserID(this.get_id());
 				this.getScheduler().getGridletsBag().addRequest(gridletRequest);
                                 boolean submitted = this.getScheduler().enque(gridlet);
 				if (submitted) {
+                                    if (this.getScheduler().gridletSubmit()) {
 					this.sendACK(ev, gridletRequest, gridlet);
+                                    } else {
+					System.out.println("Problems in submitting a gridlet from " + this.get_name() + " to " + this.getGridElement().get_name());
+					this.sendNACK(ev, gridletRequest, gridlet);
+                                    }
 				} else {
 					System.out.println("Problems in queueing of last gridlet on agent " + this.get_name());
 					this.sendNACK(ev, gridletRequest, gridlet);
@@ -366,6 +375,7 @@ public abstract class GridAgent extends Agent {
 		replyToID = gridletRequest.getSrc_ID();
 		gridletReply = new GridletReply(ev.get_tag(), flag, gridletRequest,
 				gridlet);
+                double evsend_time = GridSim.clock();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
 				Tags.GRIDLET_SUBMIT_REP, new IO_data(gridletReply, SIZE,
 						replyToID));
@@ -431,7 +441,7 @@ public abstract class GridAgent extends Agent {
          */
 	@Override
 	protected void onWaitingGridlets(AgentRequest agentRequest) {
-		Assert.fail();
+//		Assert.fail();
 	}
 
         /**
@@ -443,7 +453,7 @@ public abstract class GridAgent extends Agent {
          */
         public boolean gridletSubmit(Gridlet gl) 
         {
-            return super.gridletSubmit(gl,this.getResourceID());
+            return super.gridletSubmit(gl, this.getResourceID(), 0.0, true);
         }
         
         /**

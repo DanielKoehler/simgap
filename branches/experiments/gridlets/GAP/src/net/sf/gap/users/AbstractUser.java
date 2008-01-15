@@ -254,7 +254,7 @@ public abstract class AbstractUser extends DataGridUser {
 		} else {
 			String msg = String
 					.format(
-							"%1$f $2$d %3$s <-- GOT GRIDLET_REPLY for Gridlet %4$d of Gridlet %5$d with result FALSE on AM_%6$s",
+							"%1$f %2$d %3$s <-- GOT GRIDLET_REPLY for Gridlet %4$d of Gridlet %5$d with result FALSE on AM_%6$s",
 							evrecv_time, reqrepID, this.get_name(), reply
 									.getReceivedGridlet().getGridletID(), reply
 									.getRequest().getGridlet().getGridletID(),
