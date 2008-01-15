@@ -33,6 +33,9 @@ import net.sf.gap.agents.gridlets.GridletsBag;
  * @author Giovanni Novelli
  */
 public abstract class AbstractScheduler implements IJobScheduler {
+    private double MIPS;
+    private long inputSize;
+    private long outputSize;
 
     /**
      * GridAgent using this scheduler
@@ -282,5 +285,54 @@ public abstract class AbstractScheduler implements IJobScheduler {
 
     public void setGridletsBag(GridletsBag gridlets) {
         this.gridlets = gridlets;
+    }
+
+
+    public double getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(double MIPS) {
+        this.MIPS = MIPS;
+    }
+
+    public void decMIPS(double MIPS) {
+        this.MIPS -= MIPS;
+    }
+
+    public void incMIPS(double MIPS) {
+        this.MIPS += MIPS;
+    }
+
+    public long getInputSize() {
+        return inputSize;
+    }
+
+    public void setInputSize(long inputSize) {
+        this.inputSize = inputSize;
+    }
+
+    public void decInputSize(long inputSize) {
+        this.inputSize -= inputSize;
+    }
+
+    public void incInputSize(long inputSize) {
+        this.inputSize += inputSize;
+    }
+    
+    public long getOutputSize() {
+        return outputSize;
+    }
+
+    public void setOutputSize(long outputSize) {
+        this.outputSize = outputSize;
+    }
+
+    public void decOutputSize(long outputSize) {
+        this.outputSize -= outputSize;
+    }
+
+    public void incOutputSize(long outputSize) {
+        this.outputSize += outputSize;
     }
 }

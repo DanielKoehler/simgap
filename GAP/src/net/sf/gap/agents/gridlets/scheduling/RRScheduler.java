@@ -36,10 +36,6 @@ import net.sf.gap.agents.GridAgent;
  * @author Giovanni Novelli
  */
 public class RRScheduler extends AbstractScheduler {
-    private double MIPS;
-    private long inputSize;
-    private long outputSize;
-    
     private LinkedBlockingQueue<Gridlet> queue;
 
     
@@ -107,53 +103,5 @@ public class RRScheduler extends AbstractScheduler {
 
     private void setQueue(LinkedBlockingQueue<Gridlet> queue) {
         this.queue = queue;
-    }
-
-    public double getMIPS() {
-        return MIPS;
-    }
-
-    public void setMIPS(double MIPS) {
-        this.MIPS = MIPS;
-    }
-
-    public void decMIPS(double MIPS) {
-        this.MIPS -= MIPS;
-    }
-
-    public void incMIPS(double MIPS) {
-        this.MIPS += MIPS;
-    }
-
-    public long getInputSize() {
-        return inputSize;
-    }
-
-    public void setInputSize(long inputSize) {
-        this.inputSize = inputSize;
-    }
-
-    public void decInputSize(long inputSize) {
-        this.inputSize -= inputSize;
-    }
-
-    public void incInputSize(long inputSize) {
-        this.inputSize += inputSize;
-    }
-    
-    public long getOutputSize() {
-        return outputSize;
-    }
-
-    public void setOutputSize(long outputSize) {
-        this.outputSize = outputSize;
-    }
-
-    public void decOutputSize(long outputSize) {
-        this.outputSize -= outputSize;
-    }
-
-    public void incOutputSize(long outputSize) {
-        this.outputSize += outputSize;
     }
 }
