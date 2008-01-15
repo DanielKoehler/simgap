@@ -108,11 +108,9 @@ public abstract class AbstractScheduler implements IJobScheduler {
                 // If the gridlet has been successfully submitted
                 if (submitted) {
                     // Removes the gridlet from the head of agent's
-                    // scheduling queue
-                    this.getCurrentList().add(this.deque());
-                    // Add the gridlet to a list used for tracking
-                    // submitted gridlets
-                    this.getGridletsBag().addSubmitted(gridlet);
+                    // scheduling queue and adds the gridlet to a list 
+                    // used for tracking submitted gridlets
+                    this.getGridletsBag().addSubmitted(this.deque());
                 }
                 return submitted;
             } else {
@@ -185,7 +183,7 @@ public abstract class AbstractScheduler implements IJobScheduler {
         if (this.getGridletsBag().getGridletSubmitted().contains(gl)) {
             boolean resumed = this.getAgent().gridletResume(gl);
             if (resumed) {
-                this.getGridletsBag().getGridletPaused().remove(gl);
+                this.getGridletsBag().removePaused(gl);
                 return resumed;
             } else {
                 return false;

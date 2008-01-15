@@ -92,29 +92,72 @@ public class GridletsBag {
 	@SuppressWarnings("unchecked")
 	public void addSubmitted(Gridlet gridlet) {
 		this.getGridletSubmitted().add(gridlet);
+                this.getGridletSubmitted().incMIPS(gridlet.getGridletLength());
+                this.getGridletSubmitted().incInputSize(gridlet.getGridletFileSize());
+                this.getGridletSubmitted().incOutputSize(gridlet.getGridletOutputSize());
 	}
 
 	@SuppressWarnings("unchecked")
 	public void addCanceled(Gridlet gridlet) {
 		this.getGridletSubmitted().remove(gridlet);
 		this.getGridletCanceled().add(gridlet);
+                this.getGridletCanceled().incMIPS(gridlet.getGridletLength());
+                this.getGridletCanceled().incInputSize(gridlet.getGridletFileSize());
+                this.getGridletCanceled().incOutputSize(gridlet.getGridletOutputSize());
+                this.getGridletCanceled().incActualCPUTime(gridlet.getActualCPUTime());
+                this.getGridletCanceled().incProcessingCost(gridlet.getProcessingCost());
+                this.getGridletCanceled().incWaitingTime(gridlet.getWaitingTime());
+                this.getGridletCanceled().incWallClockTime(gridlet.getWallClockTime());
 	}
 
 	@SuppressWarnings("unchecked")
 	public void addPaused(Gridlet gridlet) {
 		this.getGridletPaused().add(gridlet);
+                this.getGridletPaused().incMIPS(gridlet.getGridletLength());
+                this.getGridletPaused().incInputSize(gridlet.getGridletFileSize());
+                this.getGridletPaused().incOutputSize(gridlet.getGridletOutputSize());
+                this.getGridletPaused().incActualCPUTime(gridlet.getActualCPUTime());
+                this.getGridletPaused().incProcessingCost(gridlet.getProcessingCost());
+                this.getGridletPaused().incWaitingTime(gridlet.getWaitingTime());
+                this.getGridletPaused().incWallClockTime(gridlet.getWallClockTime());
 	}
 
+	@SuppressWarnings("unchecked")
+	public void removePaused(Gridlet gridlet) {
+		this.getGridletPaused().remove(gridlet);
+                this.getGridletPaused().decMIPS(gridlet.getGridletLength());
+                this.getGridletPaused().decInputSize(gridlet.getGridletFileSize());
+                this.getGridletPaused().decOutputSize(gridlet.getGridletOutputSize());
+                this.getGridletPaused().decActualCPUTime(gridlet.getActualCPUTime());
+                this.getGridletPaused().decProcessingCost(gridlet.getProcessingCost());
+                this.getGridletPaused().decWaitingTime(gridlet.getWaitingTime());
+                this.getGridletPaused().decWallClockTime(gridlet.getWallClockTime());
+	}
+        
 	@SuppressWarnings("unchecked")
 	public void addSuccesses(Gridlet gridlet) {
 		this.getGridletSubmitted().remove(gridlet);
 		this.getGridletSuccesses().add(gridlet);
+                this.getGridletSuccesses().incMIPS(gridlet.getGridletLength());
+                this.getGridletSuccesses().incInputSize(gridlet.getGridletFileSize());
+                this.getGridletSuccesses().incOutputSize(gridlet.getGridletOutputSize());
+                this.getGridletSuccesses().incActualCPUTime(gridlet.getActualCPUTime());
+                this.getGridletSuccesses().incProcessingCost(gridlet.getProcessingCost());
+                this.getGridletSuccesses().incWaitingTime(gridlet.getWaitingTime());
+                this.getGridletSuccesses().incWallClockTime(gridlet.getWallClockTime());
 	}
 
 	@SuppressWarnings("unchecked")
 	public void addFailures(Gridlet gridlet) {
 		this.getGridletSubmitted().remove(gridlet);
 		this.getGridletFailures().add(gridlet);
+                this.getGridletFailures().incMIPS(gridlet.getGridletLength());
+                this.getGridletFailures().incInputSize(gridlet.getGridletFileSize());
+                this.getGridletFailures().incOutputSize(gridlet.getGridletOutputSize());
+                this.getGridletFailures().incActualCPUTime(gridlet.getActualCPUTime());
+                this.getGridletFailures().incProcessingCost(gridlet.getProcessingCost());
+                this.getGridletFailures().incWaitingTime(gridlet.getWaitingTime());
+                this.getGridletFailures().incWallClockTime(gridlet.getWallClockTime());
 	}
 
 	public GridletRequestsMap getGridletRequestsMap() {
