@@ -145,9 +145,11 @@ public abstract class GridAgent extends Agent {
 		case GridSimTags.GRIDLET_CANCEL:
 		case GridSimTags.GRIDLET_STATUS:
 		case Tags.GRIDLET_SUBMIT_REQ:
-		case GridSimTags.GRIDLET_RETURN:
 		case Tags.GRIDLET_SUBMIT_REP:
 			this.manageGridlets(ev);
+			break;
+		case GridSimTags.GRIDLET_RETURN:
+                        this.manageGridletReturn(ev);
 			break;
 
                 // Replying to requests related to the presence of gridlets
@@ -225,12 +227,6 @@ public abstract class GridAgent extends Agent {
                 case GridSimTags.GRIDLET_RESUME_ACK:
                     Assert.fail();
                     break;
-                //  Denotes the return of a Gridlet back to sender
-		case GridSimTags.GRIDLET_RETURN:
-                    Assert.fail();
-			Gridlet receivedGridlet = (Gridlet) ev.get_data();
-                        this.getScheduler().gridletReceive(receivedGridlet);
-			break;
                 case GridSimTags.GRIDLET_STATUS:
                     Assert.fail();
                     break;
@@ -262,6 +258,11 @@ public abstract class GridAgent extends Agent {
                                 boolean submitted = this.getScheduler().enque(gridlet);
 				if (submitted) {
                                     if (this.getScheduler().gridletSubmit()) {
+                                        /*
+                                        // Receiving gridlet back
+                                        receivedGridlet = super.gridletReceive();
+                                        gridletRequest.setReceivedGridlet(receivedGridlet);
+                                         */
 					this.sendACK(ev, gridletRequest, gridlet);
                                     } else {
 					System.out.println("Problems in submitting a gridlet from " + this.get_name() + " to " + this.getGridElement().get_name());
@@ -283,6 +284,20 @@ public abstract class GridAgent extends Agent {
 		}
 	}
 
+	protected void manageGridletReturn(Sim_event ev) {
+    		switch (ev.get_tag()) {
+
+                //  Denotes the return of a Gridlet back to sender
+		case GridSimTags.GRIDLET_RETURN:
+                        //Assert.fail();
+			Gridlet receivedGridlet = (Gridlet) ev.get_data();
+                        this.getScheduler().gridletReceive(receivedGridlet);
+			break;
+		default:
+			break;
+		}
+	}
+        
         /**
          * @TODO Fix semanthics
          * @TODO Comments to be completed
