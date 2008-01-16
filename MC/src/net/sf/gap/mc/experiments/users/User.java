@@ -88,7 +88,7 @@ public class User extends COREUser {
         agentReply = this.submitAgent(ExperimentsEntityTypes.AGENT_AGENT,
                 aegeResourceID, 10000);
         if (agentReply.isOk()) {
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 256; j++) {
                 GridletReply gridletReply = null;
                 gridletReply = this.newGridlet(agentReply);
             }
@@ -110,13 +110,21 @@ public class User extends COREUser {
         if (!EntitiesCounter.contains("Gridlet")) {
             EntitiesCounter.create("Gridlet");
         }
-        double length = 5000.0;
-        long file_size = 300;
-        long output_size = 300;
+        double length = 50000.0;
+        long file_size = 65536;
+        long output_size = 1024;
         Gridlet g = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
                 file_size, output_size);
         GridletReply gridletReply = null;
-        gridletReply = this.submitGridletToAgent(agentReply.getRequest().getDst_agentID(), agentReply.getRequest().getDst_resID(), g);
+        //gridletReply = this.submitGridletToAgent(agentReply.getRequest().getDst_agentID(), agentReply.getRequest().getDst_resID(), g);
+        Uniform_int r = new Uniform_int("nextaege");
+        COREGridElement agentsEnabledGridElement = null;
+        int aegeResourceID;
+        int i = 0;
+        i = r.sample(this.getVirtualOrganization().getCEs().size());
+        agentsEnabledGridElement = (COREGridElement) this.getVirtualOrganization().getCEs().get(i);
+        aegeResourceID = agentsEnabledGridElement.get_id();
+        gridletReply = this.submitGridletToAgent(agentReply.getRequest().getDst_agentID(), aegeResourceID, g);
         return gridletReply;
     }
 
