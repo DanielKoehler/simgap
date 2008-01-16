@@ -38,11 +38,17 @@ public abstract class EntityTypes {
 	public EntityTypes() {
 	}
 
+        public static final int ENTITYBASE = 200;
+
+        /*
+         * @TODO Somewhere in the code NOBODY tag is used as value 0, fix it
+         * 
+         */
 	public static final int NOBODY = 0;
 
-	public static final int AGENT_ZOMBIE = 1;
+	public static final int AGENT_ZOMBIE = 1 + ENTITYBASE;
 
-	public static final int USER = 2;
+	public static final int USER = 2 + ENTITYBASE;
 
 	public static final String toString(int entityType) {
 		if (getInstance() != null) {

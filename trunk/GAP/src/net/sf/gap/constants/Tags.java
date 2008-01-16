@@ -37,106 +37,108 @@ public abstract class Tags {
 	public Tags() {
 	}
 
+        public static final int TAGSBASE = 1000;
+
+        public static final int AGENTBASE = 100 + TAGSBASE;
+                
+        public static final int SSBASE = 200 + TAGSBASE;
+
+        public static final int GRIDLETSBASE = 300 + TAGSBASE;
+        
 	// AgentPlatform
-	public static final int AP_SERVICES_LIST_REQ = 1001; // From any source
+	public static final int AP_SERVICES_LIST_REQ = 1 + TAGSBASE; // From any source
 															// entity to
 															// AgentPlatform
 
-	public static final int AP_SERVICES_LIST_REP = 1002; // From
+	public static final int AP_SERVICES_LIST_REP = 2 + TAGSBASE; // From
 															// AgentPlatform to
 															// any source entity
 
 	// TestService
-	public static final int TEST_SERVICE_REQ = 1011; // To TestService
+	public static final int TEST_SERVICE_REQ = 11 + TAGSBASE; // To TestService
 
-	public static final int TEST_SERVICE_REP = 1012; // From TestService
+	public static final int TEST_SERVICE_REP = 12 + TAGSBASE; // From TestService
 
 	// Agent
-	public static final int AGENT_RUN_REQ = 1101; // Final destination is an
+	public static final int AGENT_RUN_REQ = 1 + AGENTBASE; // Final destination is an
 													// Agent
 
-	public static final int AGENT_RUN_REP = 1102;
+	public static final int AGENT_RUN_REP = 2 + AGENTBASE;
 
-	public static final int AGENT_RESUME_REQ = 1111; // Final destination is
+	public static final int AGENT_RESUME_REQ = 11 + AGENTBASE; // Final destination is
 														// an Agent
 
-	public static final int AGENT_RESUME_REP = 1112;
+	public static final int AGENT_RESUME_REP = 12 + AGENTBASE;
 
-	public static final int AGENT_PAUSE_REQ = 1121; // Final destination is an
+	public static final int AGENT_PAUSE_REQ = 21 + AGENTBASE; // Final destination is an
 													// Agent
 
-	public static final int AGENT_PAUSE_REP = 1122;
+	public static final int AGENT_PAUSE_REP = 22 + AGENTBASE;
 
-	public static final int AGENT_KILL_REQ = 1131; // Final destination is an
+	public static final int AGENT_KILL_REQ = 31 + AGENTBASE; // Final destination is an
 													// Agent
+	public static final int AGENT_KILL_REP = 32 + AGENTBASE;
 
-	public static final int AGENT_KILL_REP = 1132;
-
-	public static final int AGENT_KILLAWAIT_REQ = 1141; // Final destination is
+	public static final int AGENT_KILLAWAIT_REQ = 41 + AGENTBASE; // Final destination is
 														// an Agent
+	public static final int AGENT_KILLAWAIT_REP = 42 + AGENTBASE;
 
-	public static final int AGENT_KILLAWAIT_REP = 1142;
-
-	public static final int AGENT_MOVE_REQ = 1151; // Final destination is an
+	public static final int AGENT_MOVE_REQ = 51 + AGENTBASE; // Final destination is an
 													// Agent
-
-	public static final int AGENT_MOVE_REP = 1152;
+	public static final int AGENT_MOVE_REP = 52 + AGENTBASE;
 
 	// DirectoryFacilitator
-	public static final int DF_REGISTER_REQ = 1201; // Final destination is
+	public static final int DF_REGISTER_REQ = 1 + SSBASE; // Final destination is
 													// DirectoryFacilitator
 
-	public static final int DF_REGISTER_REP = 1202;
+	public static final int DF_REGISTER_REP = 2 + SSBASE;
 
-	public static final int DF_DEREGISTER_REQ = 1211; // Final destination is
+	public static final int DF_DEREGISTER_REQ = 11 + SSBASE; // Final destination is
 														// DirectoryFacilitator
 
-	public static final int DF_DEREGISTER_REP = 1212;
+	public static final int DF_DEREGISTER_REP = 12 + SSBASE;
 
-	public static final int DF_PAUSED_REQ = 1221; // Final destination is
+	public static final int DF_PAUSED_REQ = 21 + SSBASE; // Final destination is
 													// DirectoryFacilitator
 
-	public static final int DF_PAUSED_REP = 1222;
+	public static final int DF_PAUSED_REP = 22 + SSBASE;
 
-	public static final int DF_RESUMED_REQ = 1231; // Final destination is
+	public static final int DF_RESUMED_REQ = 31 + SSBASE; // Final destination is
 													// DirectoryFacilitator
-
-	public static final int DF_RESUMED_REP = 1232;
+	public static final int DF_RESUMED_REP = 32 + SSBASE;
 
 	// NetworkMonitor
-	public static final int NM_NETWORKMAP_REQ = 1241; // Final destination is
+	public static final int NM_NETWORKMAP_REQ = 41 + SSBASE; // Final destination is
 														// NetworkMonitor
-
-	public static final int NM_NETWORKMAP_REP = 1242;
+	public static final int NM_NETWORKMAP_REP = 42 + SSBASE;
 
 	// TODO: REVIEW ALL
-	public static final int GIS_REQUEST = 1560; // Request to GIS
+	public static final int GIS_REQUEST = 51 + SSBASE; // Request to GIS
 
-	public static final int GIS_REPLY = 1561; // Reply from GIS
+	public static final int GIS_REPLY = 52 + SSBASE; // Reply from GIS
 
-	public static final int PING_REQ = 1570; // Mainly from NetworkMonitor to
-												// any GridElement
-
-	public static final int PING_REP = 1571; // From a GridElement to,
+	public static final int PING_REQ = 61 + SSBASE; // Mainly from NetworkMonitor to
+										// any GridElement
+	public static final int PING_REP = 62 + SSBASE; // From a GridElement to,
 												// mainly, NetworkMonitor
 
-	public static final int GRIDLET_SUBMIT_REQ = 1580; // Destination is any
+        public static final int GRIDLET_SUBMIT_REQ = 11 + GRIDLETSBASE; // Destination is any
+														// Agent
+	public static final int GRIDLET_SUBMIT_REP = 12 + GRIDLETSBASE; // Source of reply is an
 														// Agent
 
-	public static final int GRIDLET_SUBMIT_REP = 1581; // Source of reply is an
-														// Agent
+	public static final int GRIDLET_STATUS_REQ = 21 + GRIDLETSBASE;
 
-	public static final int GRIDLET_STATUS_REQ = 1590;
+	public static final int GRIDLET_STATUS_REP = 22 + GRIDLETSBASE;
+        
 
-	public static final int GRIDLET_STATUS_REP = 1591;
+	public static final int HASGRIDLETS_REQUEST = 31 + GRIDLETSBASE;
 
-	public static final int HASGRIDLETS_REQUEST = 1592;
+	public static final int HASGRIDLETS_REPLY = 32 + GRIDLETSBASE;
 
-	public static final int HASGRIDLETS_REPLY = 1593;
+	public static final int GRIDLETS_WAIT = 41 + GRIDLETSBASE;
 
-	public static final int GRIDLETS_WAIT = 1594;
-
-	public static final int GRIDLETS_REPLY = 1595;
+	public static final int GRIDLETS_REPLY = 42 + GRIDLETSBASE;
 
 	public static final String toString(int tag) {
 		if (getInstance() != null) {
