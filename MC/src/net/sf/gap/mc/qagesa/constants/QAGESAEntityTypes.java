@@ -23,26 +23,28 @@ import net.sf.gap.constants.EntityTypes;
 
 /**
  * 
- * @author Giovanni Novelli
+ * @author Giovanni Novelli 
  */
 public class QAGESAEntityTypes extends EntityTypes {
-	public static final int SERVER_PROXY = 1001;
+    public static final int QEBASE = 100 + ENTITYBASE;
+    
+	public static final int SERVER_PROXY = 1 + QEBASE;
 
-	public static final int SERVICE_AL = 1502;
+	public static final int SERVICE_AL =  11 + QEBASE;
 
-	public static final int SERVICE_CEL = 1503;
+	public static final int SERVICE_CEL = 12 + QEBASE;
 
-	public static final int SERVICE_MUC = 1504;
+	public static final int SERVICE_MUC = 13 + QEBASE;
 
-	public static final int SERVICE_REF = 1505;
+	public static final int SERVICE_REF = 14 + QEBASE;
 
-	public static final int USER_PUBLISHER = 2001;
+	public static final int USER_PUBLISHER = 21 + QEBASE;
 
-	public static final int USER_PLAYER = 2002;
+	public static final int USER_PLAYER = 22 + QEBASE;
 
-	public static final int USER_SUBMITTER = 2003;
+	public static final int USER_SUBMITTER = 23 + QEBASE;
 
-	public static final int USER_USER = 2004;
+	public static final int USER_USER = 24 + QEBASE;
 
 	/**
 	 * Creates a new instance of QAGESAEntityTypes

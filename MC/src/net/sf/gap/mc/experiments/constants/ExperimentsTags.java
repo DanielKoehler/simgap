@@ -24,8 +24,10 @@ import net.sf.gap.constants.Tags;
  */
 public class ExperimentsTags extends Tags {
 
-        public static final int TEST_REQ = 2001;
-        public static final int TEST_REP = 2002;
+        public static final int ETAGS = 3000;
+        
+        public static final int TEST_REQ = 11 + ETAGS;
+        public static final int TEST_REP = 12 + ETAGS;
         
         /**
 	 * Creates a new instance of ExperimentsTags

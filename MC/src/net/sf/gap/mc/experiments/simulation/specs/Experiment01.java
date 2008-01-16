@@ -35,12 +35,12 @@ public class Experiment01 extends Experiment {
 				swing = true;
 			}
 
-                        Integer numUsers = Integer.parseInt(args[1]);
-                        Integer numRequests = Integer.parseInt(args[2]);
+                        Integer numUsers = Integer.parseInt(args[2]);
+                        Integer numRequests = Integer.parseInt(args[3]);
                         
-                        Integer numReplications = Integer.parseInt(args[3]);
-                        Double confidence = Double.parseDouble(args[4]);
-                        Double accuracy = Double.parseDouble(args[5]);
+                        Integer numReplications = Integer.parseInt(args[4]);
+                        Double confidence = Double.parseDouble(args[5]);
+                        Double accuracy = Double.parseDouble(args[6]);
 		try {
 			if (swing) {
 				java.awt.EventQueue.invokeAndWait(new Runnable() {
