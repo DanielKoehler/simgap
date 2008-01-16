@@ -33,6 +33,20 @@ import net.sf.gap.messages.impl.GridletRequest;
  * @author Giovanni Novelli
  */
 public class GridletsBag {
+    private final int MIPS = 1;
+    private final int INPUTSIZE = 2;
+    private final int OUTPUTSIZE = 3;
+    private final int PROCESSINGCOST = 4;
+    private final int ACTUALCPUTIME = 5;
+    private final int WAITINGTIME = 6;
+    private final int WALLCLOCKTIME = 7;
+    
+    private final int SUBMITTED = 11;
+    private final int CANCELED = 12;
+    private final int PAUSED = 13;
+    private final int SUCCESSES = 14;
+    private final int FAILURES = 15;
+    
         /**
          * Map of GridletRequest instances received by agent
          * Maps gridlets IDs to GridletRequests
@@ -183,4 +197,61 @@ public class GridletsBag {
         public GAPGridletList getGridletPaused() {
 		return gridletPaused;
 	}
+        
+        private GAPGridletList getList(int list) {
+            GAPGridletList result = null;
+            switch(list) {
+                case SUBMITTED:
+                    result = this.getGridletSubmitted();
+                    break;
+                case CANCELED:
+                    result = this.getGridletCanceled();
+                    break;
+                case PAUSED:
+                    result = this.getGridletCanceled();
+                    break;
+                case SUCCESSES:
+                    result = this.getGridletSuccesses();
+                    break;
+                case FAILURES:
+                    result = this.getGridletFailures();
+                    break;
+                default:
+                    break;
+            }
+            return result;
+        }
+        
+        public double getTotal(int total, int list) {
+            GAPGridletList theList = this.getList(list);
+            double result = 0.0;
+            if (theList!=null) {
+                switch(total) {
+                    case MIPS:
+                        result = theList.getMIPS();
+                        break;
+                    case INPUTSIZE:
+                        result = theList.getInputSize();
+                        break;
+                    case OUTPUTSIZE:
+                        result = theList.getOutputSize();
+                        break;
+                    case ACTUALCPUTIME:
+                        result = theList.getActualCPUTime();
+                        break;
+                    case PROCESSINGCOST:
+                        result = theList.getProcessingCost();
+                        break;
+                    case WAITINGTIME:
+                        result = theList.getWaitingTime();
+                        break;
+                    case WALLCLOCKTIME:
+                        result = theList.getWallClockTime();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return result;
+        }
 }
