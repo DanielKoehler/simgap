@@ -88,7 +88,7 @@ public class User extends COREUser {
         agentReply = this.submitAgent(ExperimentsEntityTypes.AGENT_AGENT,
                 aegeResourceID, 10000);
         if (agentReply.isOk()) {
-            for (int j = 0; j < 256; j++) {
+            for (int j = 0; j < 1; j++) {
                 GridletReply gridletReply = null;
                 gridletReply = this.newGridlet(agentReply);
             }
@@ -111,8 +111,8 @@ public class User extends COREUser {
             EntitiesCounter.create("Gridlet");
         }
         double length = 50000.0;
-        long file_size = 65536;
-        long output_size = 1024;
+        long file_size = 1048576;
+        long output_size = 512;
         Gridlet g = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
                 file_size, output_size);
         GridletReply gridletReply = null;
