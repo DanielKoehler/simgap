@@ -26,54 +26,56 @@ import net.sf.gap.constants.Tags;
  * @author Giovanni Novelli
  */
 public class QAGESATags extends Tags {
-
-        public static final int RESPONSE_TIME_REQ = 2001;
-        public static final int RESPONSE_TIME_REP = 2002;
+        public static final int QTAGS = 2000;
+        public static final int TATAGS = 100 + QTAGS;
+        
+        public static final int RESPONSE_TIME_REQ = 1 + QTAGS;
+        public static final int RESPONSE_TIME_REP = 2 + QTAGS;
         
 	// ReF Service
-	public static final int REF_PLAY_REQ      = 2100; // From USER to ReF
+	public static final int REF_PLAY_REQ      = 11 + QTAGS; // From USER to ReF
 
-	public static final int REF_PLAY_START_REP        = 2101; // From ReF to USER
+	public static final int REF_PLAY_START_REP        = 12 + QTAGS; // From ReF to USER
 
-	public static final int REF_PLAY_END_REP     = 2102; // From ReF to USER
+	public static final int REF_PLAY_END_REP     = 13 + QTAGS; // From ReF to USER
 
         // MuM Service
-	public static final int MUM_SEARCH_REQ = 2110; // From ReF to MuM
+	public static final int MUM_SEARCH_REQ = 21 + QTAGS; // From ReF to MuM
 
-	public static final int MUM_SEARCH_REP = 2111; // From MuM to ReF
+	public static final int MUM_SEARCH_REP = 22 + QTAGS; // From MuM to ReF
 
 	// CEL Service
-	public static final int CEL_SEARCH_REQ = 2120; // From ReF to CEL
+	public static final int CEL_SEARCH_REQ = 31 + QTAGS; // From ReF to CEL
 
-	public static final int CEL_SEARCH_REP = 2121; // From CeL to ReF
+	public static final int CEL_SEARCH_REP = 32 + QTAGS; // From CeL to ReF
 
 	// AL Service
-	public static final int AL_SEARCH_REQ = 2130; // From ReF to AL
+	public static final int AL_SEARCH_REQ = 41 + QTAGS; // From ReF to AL
 
-	public static final int AL_SEARCH_REP = 2131; // From AL to ReF
+	public static final int AL_SEARCH_REP = 42 + QTAGS; // From AL to ReF
 
-	public static final int AL_UPDATE_REQ = 2132; // From ReF to AL
+	public static final int AL_UPDATE_REQ = 51 + QTAGS; // From ReF to AL
 
-	public static final int AL_UPDATE_REP = 2133; // From AL to ReF
+	public static final int AL_UPDATE_REP = 52 + QTAGS; // From AL to ReF
 
 	// TA (Transcoding Agent)
 	// Getting a chunk of a movie from the SE containing the movie
-	public static final int GET_CHUNK_REQ = 3201; // From TA to
+	public static final int GET_CHUNK_REQ = 11 + TATAGS; // From TA to
 
-	public static final int GET_CHUNK_REP = 3202; // From QAGESAGridElement of
+	public static final int GET_CHUNK_REP = 12 + TATAGS; // From QAGESAGridElement of
 
 	// Sending chunk to SE
-	public static final int SENDING_FIRST_CHUNK_REQ = 3210;     // From TA to USER
-	public static final int TRANSCODED_FIRST_CHUNK_REQ = 3211;  // From TA to USER
+	public static final int SENDING_FIRST_CHUNK_REQ = 21 + TATAGS;     // From TA to USER
+	public static final int TRANSCODED_FIRST_CHUNK_REQ = 22 + TATAGS;  // From TA to USER
 
-        public static final int SEND_CHUNK_REQ = 3212;              // From TA to USER
+        public static final int SEND_CHUNK_REQ = 31 + TATAGS;              // From TA to USER
 
-	public static final int SEND_CHUNK_REP = 3213;              // From USER to TA
+	public static final int SEND_CHUNK_REP = 32 + TATAGS;              // From USER to TA
 
-	public static final int SENT_LAST_CHUNK_REQ  = 3214;        // From TA to USER
+	public static final int SENT_LAST_CHUNK_REQ  = 33 + TATAGS;        // From TA to USER
 
 	// Caching chunks to SE
-	public static final int CACHE_CHUNKS_REQ = 3221;            // From TA to
+	public static final int CACHE_CHUNKS_REQ = 41 + TATAGS;            // From TA to
 													// QAGESAGridElement of type
 	/*
 	 * 
@@ -94,9 +96,9 @@ public class QAGESATags extends Tags {
 	 * the submission of gridlets to local CE and obtaining back gridlets
 	 * results) - streaming them to the user
 	 */
-	public static final int TRANSCODE_CHUNKS_REQ = 3231; // From ReF to TA
+	public static final int TRANSCODE_CHUNKS_REQ = 51 + TATAGS; // From ReF to TA
 
-        public static final int TRANSCODE_CHUNKS_REP = 3232; // From TA to ReF
+        public static final int TRANSCODE_CHUNKS_REP = 52 + TATAGS; // From TA to ReF
 
         /**
 	 * Creates a new instance of QAGESATags
