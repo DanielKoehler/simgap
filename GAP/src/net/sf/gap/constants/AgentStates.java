@@ -45,12 +45,12 @@ package net.sf.gap.constants;
  * @author Giovanni Novelli
  */
 public class AgentStates {
+        public static final int STATESBASE = 100;
+	public static final int RUNNING = 1 + STATESBASE;
 
-	public static final int RUNNING = 1;
+	public static final int PAUSED = 2 + STATESBASE;
 
-	public static final int PAUSED = 2;
-
-	public static final int ZOMBIE = 3;
+	public static final int ZOMBIE = 3 + STATESBASE;
 
 	/**
 	 * Creates a new instance of AgentStates
