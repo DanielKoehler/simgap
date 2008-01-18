@@ -148,7 +148,7 @@ public class COREGEFactory extends ResourceFactory {
 		Weekends.add(new Integer(Calendar.SUNDAY));
 		// incorporates holidays. However, no holidays are set in this example
 		LinkedList Holidays = new LinkedList();
-		COREGridElement se = null;
+		COREGridElement ge = null;
 		try {
 			// create the resource calendar
 			ResourceCalendar cal = new ResourceCalendar(time_zone, peakLoad,
@@ -158,25 +158,25 @@ public class COREGEFactory extends ResourceFactory {
 
 			SimpleReplicaManager rm = new SimpleReplicaManager("RM_" + name,
 					name); // create a storage
-			se = new COREGridElement(name, link, resConfig, cal, rm);
+			ge = new COREGridElement(name, link, resConfig, cal, rm);
 			if (isSE) {
-				se.setSE(true);
+				ge.setSE(true);
 				int ws = (this.getGBMax() - this.getGBMin() + 1);
 				int s = r.sample(ws) + this.getGBMin(); // Size in GB
-				Storage storage = new HarddriveStorage("HD_" + se.get_name(),
+				Storage storage = new HarddriveStorage("HD_" + ge.get_name(),
 						s * 1000);
-				se.addStorage(storage);
+				ge.addStorage(storage);
 			} else {
-				se.setSE(false);
+				ge.setSE(false);
 			}
-			se.createLocalRC();
-			se.setHigherReplicaCatalogue(TopRegionalRC.DEFAULT_NAME);
-			se.setNumPE(np);
-			se.setNumWN(m);
+			ge.createLocalRC();
+			ge.setHigherReplicaCatalogue(TopRegionalRC.DEFAULT_NAME);
+			ge.setNumPE(np);
+			ge.setNumWN(m);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return se;
+		return ge;
 	}
 
 	public int getGBMin() {
