@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://xml.netbeans.org/schema/GridElement"
-            xmlns:tns="http://xml.netbeans.org/schema/GridElement"
-            elementFormDefault="qualified">
-    <xsd:element name="GridElement" type="tns:GridElementType">
+            targetNamespace="Schema"
+            elementFormDefault="qualified" xmlns:tns="Schema">
+    <xsd:element name="Tape" type="tns:TapeType">
     </xsd:element>
     <xsd:complexType name="ResourceCharacteristicsType">
         <xsd:sequence>
