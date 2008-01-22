@@ -8,10 +8,10 @@
         Purpose of the document follows.
 -->
 
-<scenario    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<scenario  name="example" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="schema.xsd"
         xsi:type="SimulationScenarioType">
-    <Topology>
+    <topology>
         <routers>
             <Item name="R_0"/>
             <Item name="R_1"/>
@@ -33,7 +33,5 @@
                 <bidirectional>true</bidirectional>
             </Item>
         </links>
-    </Topology>
-    <grid>
-    </grid>
+    </topology>
 </scenario>
