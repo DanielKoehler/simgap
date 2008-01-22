@@ -49,12 +49,20 @@
                     <xsd:attribute name="name" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="HardDisksList">
+            <xsd:element name="HardDiskList">
                 <xsd:complexType>
-                    <xsd:sequence></xsd:sequence>
+                    <xsd:sequence>
+                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="tns:HardDiskType"/>
+                    </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="TapesList" minOccurs="0"/>
+            <xsd:element name="TapeList" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Tape" maxOccurs="unbounded" type="tns:TapesListType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="HardDiskType">
