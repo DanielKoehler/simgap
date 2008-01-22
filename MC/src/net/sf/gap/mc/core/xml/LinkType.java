@@ -29,6 +29,7 @@ public class LinkType {
     private int MTU;
     private String fromEntity;
     private String toEntity;
+    private boolean bidirectional;
     
     public LinkType(
             String name,
@@ -40,6 +41,40 @@ public class LinkType {
         this.setBaudrate(Link.DEFAULT_BAUD_RATE);
         this.setDelay(Link.DEFAULT_PROP_DELAY);
         this.setMTU(Link.DEFAULT_MTU);
+        this.setBidirectional(true);
+    }
+    
+    public LinkType(
+            String name,
+            double Baudrate,
+            double Delay,
+            int MTU,
+            String fromEntity,
+            String toEntity) {
+        this.setName(name);
+        this.setBaudrate(Baudrate);
+        this.setDelay(Delay);
+        this.setMTU(MTU);
+        this.setFromEntity(fromEntity);
+        this.setToEntity(toEntity);
+        this.setBidirectional(true);
+    }
+
+    public LinkType(
+            String name,
+            double Baudrate,
+            double Delay,
+            int MTU,
+            String fromEntity,
+            String toEntity,
+            boolean bidirectional) {
+        this.setName(name);
+        this.setBaudrate(Baudrate);
+        this.setDelay(Delay);
+        this.setMTU(MTU);
+        this.setFromEntity(fromEntity);
+        this.setToEntity(toEntity);
+        this.setBidirectional(bidirectional);
     }
 
     public String getName() {
@@ -88,5 +123,13 @@ public class LinkType {
 
     public void setToEntity(String toEntity) {
         this.toEntity = toEntity;
+    }
+
+    public boolean isBidirectional() {
+        return bidirectional;
+    }
+
+    public void setBidirectional(boolean bidirectional) {
+        this.bidirectional = bidirectional;
     }
 }

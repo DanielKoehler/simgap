@@ -3,8 +3,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="Schema"
             elementFormDefault="qualified" xmlns:tns="Schema">
-    <xsd:element name="Tape" type="tns:TapeType">
-    </xsd:element>
+    <xsd:element name="scenario" type="tns:SimulationScenarioType"/>
     <xsd:complexType name="ResourceCharacteristicsType">
         <xsd:sequence>
             <xsd:element name="Architecture" type="xsd:string" minOccurs="0" default="System Architecture"></xsd:element>
@@ -144,7 +143,9 @@
             <xsd:element name="MTU" type="xsd:int" default="1500"/>
             <xsd:element name="fromEntity" type="xsd:string"/>
             <xsd:element name="toEntity" type="xsd:string"/>
+            <xsd:element name="bidirectional" type="xsd:boolean" minOccurs="0" fixed="true"/>
         </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
     </xsd:complexType>
     <xsd:complexType name="EntityType">
         <xsd:choice>
@@ -197,14 +198,14 @@
             <xsd:element name="routers">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="router" type="tns:RouterType" maxOccurs="unbounded" minOccurs="2"/>
+                        <xsd:element name="Item" type="tns:RouterType" maxOccurs="unbounded" minOccurs="2"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="links">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="link" type="tns:LinkType" maxOccurs="unbounded"/>
+                        <xsd:element name="Item" type="tns:LinkType" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -212,7 +213,7 @@
     </xsd:complexType>
     <xsd:complexType name="SimulationScenarioType">
         <xsd:sequence>
-            <xsd:element name="networkTopology" type="tns:NetworkTopologyType"/>
+            <xsd:element name="Topology" type="tns:NetworkTopologyType"/>
             <xsd:element name="grid">
                 <xsd:complexType>
                     <xsd:sequence>
