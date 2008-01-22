@@ -8,10 +8,30 @@
         Purpose of the document follows.
 -->
 
-<Tape name="TAPE_0">
-    <Capacity>100000.0</Capacity>
-    <AccessTime>142.0</AccessTime>
-    <RewindTime>284.0.0</Capacity>
-    <AccessTime>1</RewindTime>
-    <MaxTransferRate>8.0</MaxTransferRate>
-</Tape>
+<scenario>
+    <Topology>
+        <routers>
+            <Item name="R_0"/>
+            <Item name="R_1"/>
+        </routers>
+        <Links>
+            <Item name="L_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_0</fromEntity>
+                <toEntity>R_1</toEntity>
+            </Item>
+            <Item name="L_1">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_0</fromEntity>
+                <toEntity>R_1</toEntity>
+                <bidirectional>true</bidirectional>
+            </Item>
+        </Links>
+    </Topology>
+    <grid>
+    </grid>
+</scenario>
