@@ -9,12 +9,12 @@
     </xsd:documentation>
   </xsd:annotation>
   
-  <xsd:element name="scenario" type="tns:SimulationScenarioType"/>
+  <xsd:element name="scenario" type="SimulationScenarioType"/>
     <xsd:complexType name="ResourceCharacteristicsType">
         <xsd:sequence>
             <xsd:element name="Architecture" type="xsd:string" minOccurs="0" default="System Architecture"></xsd:element>
             <xsd:element name="OS" type="xsd:string" minOccurs="0" default="Operating System"/>
-            <xsd:element name="machinesList" type="tns:MachineListType"/>
+            <xsd:element name="machinesList" type="MachineListType"/>
             <xsd:element name="Policy" type="xsd:int" default="0" minOccurs="0"/>
             <xsd:element name="Timezone" type="xsd:double" default="12.0" minOccurs="0"/>
             <xsd:element name="Cost" type="xsd:double" minOccurs="0" default="1.0"/>
@@ -25,7 +25,7 @@
             <xsd:element name="items">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Machine" type="tns:MachineType" maxOccurs="unbounded"/>
+                        <xsd:element name="Machine" type="MachineType" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -36,7 +36,7 @@
             <xsd:element name="peList">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="PE" type="tns:PEType" maxOccurs="unbounded"/>
+                        <xsd:element name="PE" type="PEType" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -57,14 +57,14 @@
             <xsd:element name="HardDiskList">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="tns:HardDiskType"/>
+                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="HardDiskType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="TapeList" minOccurs="0">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Tape" maxOccurs="unbounded" type="tns:TapesListType"/>
+                        <xsd:element name="Tape" maxOccurs="unbounded" type="TapesListType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -93,7 +93,7 @@
             <xsd:element name="items">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="tns:HardDiskType"/>
+                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="HardDiskType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -104,7 +104,7 @@
             <xsd:element name="items">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Tape" maxOccurs="unbounded" type="tns:TapeType"/>
+                        <xsd:element name="Tape" maxOccurs="unbounded" type="TapeType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -116,8 +116,8 @@
             <xsd:element name="PeakLoad" type="xsd:double"/>
             <xsd:element name="OffPeakLoad" type="xsd:double"/>
             <xsd:element name="RelativeHolidayLoad" type="xsd:double"/>
-            <xsd:element name="weekendList" type="tns:WeekendListType"/>
-            <xsd:element name="holidayList" type="tns:HolidayListType"/>
+            <xsd:element name="weekendList" type="WeekendListType"/>
+            <xsd:element name="holidayList" type="HolidayListType"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="WeekendListType">
@@ -177,11 +177,11 @@
     </xsd:complexType>
     <xsd:complexType name="GridElementType">
         <xsd:sequence>
-            <xsd:element name="resourceCalendar" type="tns:ResourceCalendarType"/>
-            <xsd:element name="resourceCharacteristics" type="tns:ResourceCharacteristicsType"/>
-            <xsd:element name="machineList" type="tns:MachineListType"/>
-            <xsd:element name="storage" type="tns:StorageType" nillable="false" minOccurs="0"/>
-            <xsd:element name="link" type="tns:LinkType"/>
+            <xsd:element name="resourceCalendar" type="ResourceCalendarType"/>
+            <xsd:element name="resourceCharacteristics" type="ResourceCharacteristicsType"/>
+            <xsd:element name="machineList" type="MachineListType"/>
+            <xsd:element name="storage" type="StorageType" nillable="false" minOccurs="0"/>
+            <xsd:element name="link" type="LinkType"/>
         </xsd:sequence>
         <xsd:attribute name="name" type="xsd:string"/>
     </xsd:complexType>
@@ -204,14 +204,14 @@
             <xsd:element name="routers">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Item" type="tns:RouterType" maxOccurs="unbounded" minOccurs="2"/>
+                        <xsd:element name="Item" type="RouterType" maxOccurs="unbounded" minOccurs="2"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="links">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Item" type="tns:LinkType" maxOccurs="unbounded"/>
+                        <xsd:element name="Item" type="LinkType" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -219,18 +219,18 @@
     </xsd:complexType>
     <xsd:complexType name="SimulationScenarioType">
         <xsd:sequence>
-            <xsd:element name="Topology" type="tns:NetworkTopologyType"/>
+            <xsd:element name="Topology" type="NetworkTopologyType"/>
             <xsd:element name="grid">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="gridElement" maxOccurs="unbounded" type="tns:GridElementType"/>
+                        <xsd:element name="gridElement" maxOccurs="unbounded" type="GridElementType" minOccurs="0"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="vos" minOccurs="0">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="vo" type="tns:VOType" minOccurs="1" maxOccurs="unbounded"/>
+                        <xsd:element name="vo" type="VOType" minOccurs="1" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
