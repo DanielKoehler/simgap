@@ -33,6 +33,28 @@ public class TopologyParser {
         this.setDocument(document);
     }
     
+    public NetworkTopologyType getTopology() {
+        NetworkTopologyType topology = null;
+        try {
+        XPathFactory xpfactory = XPathFactory.newInstance();
+        XPath xpath = xpfactory.newXPath();
+        XPathExpression expr 
+         = xpath.compile("/scenario/*");
+            Object results = expr.evaluate(document, XPathConstants.NODESET);
+            NodeList nodes = (NodeList) results;
+            for (int i = 0; i < nodes.getLength(); i++) {
+                System.out.println(
+                        nodes.item(i).getParentNode().getNodeName() 
+                        + " " + 
+                        nodes.item(i).getNodeValue()); 
+            }
+        } catch (XPathExpressionException e) {
+            System.err.println("XPathExpressionException caught...");
+            e.printStackTrace();
+        }
+        return topology;
+    }
+    
     public Document getDocument() {
         return document;
     }
