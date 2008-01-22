@@ -16,15 +16,20 @@
 
 package net.sf.gap.mc.core.xml;
 
+import org.w3c.dom.Document;
+
 import org.xml.sax.SAXException;
 
+import java.io.File;
 import java.io.IOException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import javax.xml.xpath.*;
 
 /**
  *
@@ -44,14 +49,15 @@ public class XMLReader {
        String xml = "xml/data.xml";
        XMLReader reader = new XMLReader(xsd, xml);
        System.out.println(xsd + " " + xml);
-       boolean valid = reader.validate();
+       Document document = reader.getDocument();
+       boolean valid = (document!=null);
        if (valid) {
         System.out.println(reader.get_xml() + " is valid for schema " + reader.get_xsd());
        }
     }
     
-    public boolean validate() {
-        boolean valid = false;
+    public Document getDocument() {
+        Document document = null;
         try {
             // define the type of schema - we use W3C:
             String schemaLang = "http://www.w3.org/2001/XMLSchema";
@@ -62,7 +68,14 @@ public class XMLReader {
             Validator validator = schema.newValidator();
 
             validator.validate(new StreamSource(this.get_xml()));
-            valid=true;
+            // Parse the XML as a W3C document.
+            DocumentBuilder builder =
+                    DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            document = builder.parse(new File("xml/data.xml"));
+
+        } catch (ParserConfigurationException e) {
+            System.err.println("ParserConfigurationException caught...");
+            e.printStackTrace();
         } catch (SAXException e) {
             System.err.println("SAXException caught...");
             e.printStackTrace();
@@ -70,7 +83,7 @@ public class XMLReader {
             System.err.println("IOException caught...");
             e.printStackTrace();
         }
-        return valid;
+        return document;
     }
 
     public String get_xsd() {
