@@ -21,6 +21,7 @@ package net.sf.gap.mc.core.xml.types;
  * @author Giovanni Novelli
  */
 public class GridElementType {
+    private String name;
     private ResourceCalendarType resourceCalendar;
     private ResourceCharacteristicsType resourceCharacteristics;
     private MachineListType machineList;
@@ -28,12 +29,14 @@ public class GridElementType {
     private LinkType link;
 
     public GridElementType(
+            String name,
             ResourceCalendarType resourceCalendar,
             ResourceCharacteristicsType resourceCharacteristics,
             MachineListType machineList,
             StorageType storage,
             LinkType link
             ) {
+        this.setName(name);
         this.setResourceCalendar(resourceCalendar);
         this.setResourceCharacteristics(resourceCharacteristics);
         this.setMachineList(machineList);
@@ -79,5 +82,13 @@ public class GridElementType {
 
     public void setLink(LinkType link) {
         this.link = link;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

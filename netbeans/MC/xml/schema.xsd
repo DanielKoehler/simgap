@@ -219,11 +219,11 @@
     </xsd:complexType>
     <xsd:complexType name="SimulationScenarioType">
         <xsd:sequence>
-            <xsd:element name="Topology" type="NetworkTopologyType"/>
-            <xsd:element name="grid">
+            <xsd:element name="topology" type="NetworkTopologyType"/>
+            <xsd:element name="grid" minOccurs="0">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="gridElement" maxOccurs="unbounded" type="GridElementType" minOccurs="0"/>
+                        <xsd:element name="gridElement" maxOccurs="unbounded" type="GridElementType" minOccurs="1"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -235,5 +235,6 @@
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
     </xsd:complexType>
 </xsd:schema>
