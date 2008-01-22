@@ -44,7 +44,7 @@
     </xsd:complexType>
     <xsd:complexType name="StorageType">
         <xsd:sequence>
-            <xsd:element name="ReplicaManager">
+            <xsd:element name="RM">
                 <xsd:complexType>
                     <xsd:attribute name="name" type="xsd:string"/>
                 </xsd:complexType>
