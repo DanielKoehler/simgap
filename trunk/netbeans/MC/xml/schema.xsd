@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="Schema"
-            elementFormDefault="qualified" xmlns:tns="Schema">
-    <xsd:element name="scenario" type="tns:SimulationScenarioType"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+     Simulation Scenario Schema.
+     Copyright © Giovanni Novelli. All rights reserved.
+    </xsd:documentation>
+  </xsd:annotation>
+  
+  <xsd:element name="scenario" type="tns:SimulationScenarioType"/>
     <xsd:complexType name="ResourceCharacteristicsType">
         <xsd:sequence>
             <xsd:element name="Architecture" type="xsd:string" minOccurs="0" default="System Architecture"></xsd:element>
