@@ -9,13 +9,13 @@
         <xsd:sequence>
             <xsd:element name="Architecture" type="xsd:string" minOccurs="0" default="System Architecture"></xsd:element>
             <xsd:element name="OS" type="xsd:string" minOccurs="0" default="Operating System"/>
-            <xsd:element name="machinesList" type="tns:MachinesListType"/>
+            <xsd:element name="machinesList" type="tns:MachineListType"/>
             <xsd:element name="Policy" type="xsd:int" default="0" minOccurs="0"/>
             <xsd:element name="Timezone" type="xsd:double" default="12.0" minOccurs="0"/>
             <xsd:element name="Cost" type="xsd:double" minOccurs="0" default="1.0"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType name="MachinesListType">
+    <xsd:complexType name="MachineListType">
         <xsd:sequence>
             <xsd:element name="items">
                 <xsd:complexType>
@@ -148,7 +148,7 @@
         <xsd:sequence>
             <xsd:element name="ResourceCalendar" type="tns:ResourceCalendarType"/>
             <xsd:element name="ResourceCharacteristics" type="tns:ResourceCharacteristicsType"/>
-            <xsd:element name="MachinesList" type="tns:MachinesListType"/>
+            <xsd:element name="MachinesList" type="tns:MachineListType"/>
             <xsd:element name="Storage" type="tns:StorageType" nillable="false" minOccurs="0"/>
             <xsd:element name="Link" type="tns:LinkType"/>
         </xsd:sequence>
