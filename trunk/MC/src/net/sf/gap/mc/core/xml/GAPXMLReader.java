@@ -16,16 +16,10 @@
 
 package net.sf.gap.mc.core.xml;
 
-import org.w3c.dom.Document;
-
 import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -67,15 +61,8 @@ public class GAPXMLReader {
             Schema schema = factory.newSchema(new StreamSource(this.get_xsd()));
             Validator validator = schema.newValidator();
 
-            // Parse the _xml as a W3C document.
-            DocumentBuilder builder =
-                    DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = builder.parse(new File(this.get_xml()));
             validator.validate(new StreamSource(this.get_xml()));
             valid=true;
-        } catch (ParserConfigurationException e) {
-            System.err.println("ParserConfigurationException caught...");
-            e.printStackTrace();
         } catch (SAXException e) {
             System.err.println("SAXException caught...");
             e.printStackTrace();
