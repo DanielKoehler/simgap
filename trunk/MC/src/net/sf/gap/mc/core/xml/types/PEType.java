@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * EntityType.java
+ * PEType.java
  *
  * Created on 22 January 2008, 09.00 by Giovanni Novelli
  *
@@ -14,25 +14,28 @@
  *
  */
 
-package net.sf.gap.mc.core.xml;
+package net.sf.gap.mc.core.xml.types;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public abstract class EntityType {
-    private String name;
+public class PEType {
+    private int MIPS;
 
-    public EntityType(String name) {
-        this.setName(name);
+    public PEType() {
+        this.setMIPS(1000);
     }
     
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public PEType(int MIPS) {
+        this.setMIPS(MIPS);
     }
     
+    public int getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(int MIPS) {
+        this.MIPS = MIPS;
+    }
 }

@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * HolidayListType.java
+ * HardDiskListType.java
  *
  * Created on 22 January 2008, 09.00 by Giovanni Novelli
  *
@@ -14,38 +14,34 @@
  *
  */
 
-package net.sf.gap.mc.core.xml;
+package net.sf.gap.mc.core.xml.types;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public class HolidayListType {
-    private LinkedList<Date> items;
+public class HardDiskListType {
+    private LinkedList<HardDiskType> items;
+    
+    public HardDiskListType() {
+        this.setItems(new LinkedList<HardDiskType>());
+    }
 
-    public HolidayListType() {
-        this.setItems(new LinkedList<Date>());
+    public HardDiskListType(LinkedList<HardDiskType> items) {
+        this.setItems(items);
     }
     
-    public boolean addDate(Date date) {
-        return this.getItems().add(date);
+    public boolean addHardDisk(HardDiskType hardDisk) {
+        return this.getItems().add(hardDisk);
     }
     
-    public boolean addCalendarDay(int year, int month, int day) {
-        @SuppressWarnings("deprecation")
-        Date date = new Date(year, month, day);
-        return this.getItems().add(date);
-    }
-    
-    public LinkedList<Date> getItems() {
+    public LinkedList<HardDiskType> getItems() {
         return items;
     }
 
-    public void setItems(LinkedList<Date> items) {
+    public void setItems(LinkedList<HardDiskType> items) {
         this.items = items;
     }
 }
