@@ -134,14 +134,30 @@
             <xsd:element name="Baudrate" type="xsd:double" default="9600"/>
             <xsd:element name="Delay" type="xsd:double" default="5"/>
             <xsd:element name="MTU" type="xsd:int" default="1500"/>
-            <xsd:element name="FromEntity" type="tns:EntityType"/>
-            <xsd:element name="ToEntity" type="tns:EntityType"/>
+            <xsd:element name="fromEntity" type="xsd:string"/>
+            <xsd:element name="toEntity" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="EntityType">
         <xsd:choice>
-            <xsd:element name="GridElement" type="tns:GridElementType"/>
-            <xsd:element name="Router" type="tns:RouterType"/>
+            <xsd:element name="GridElement" minOccurs="0" nillable="true">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Router" minOccurs="0" nillable="true">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:choice>
     </xsd:complexType>
     <xsd:complexType name="GridElementType">
