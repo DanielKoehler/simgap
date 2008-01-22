@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * ReplicaManagerType.java
+ * RouterType.java
  *
  * Created on 22 January 2008, 09.00 by Giovanni Novelli
  *
@@ -14,15 +14,14 @@
  *
  */
 
-
-package net.sf.gap.mc.core.xml;
+package net.sf.gap.mc.core.xml.types;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public class ReplicaManagerType extends EntityType {
-    public ReplicaManagerType(String name) {
+public class RouterType extends EntityType{
+    public RouterType(String name) {
         super(name);
     }
 }

@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.xml;
+package net.sf.gap.mc.core.xml.types;
 
 /**
  *

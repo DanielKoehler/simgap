@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * GAPXMLReader.java
+ * XMLReader.java
  *
  * Created on 22 January 2008, 09.00 by Giovanni Novelli
  *
@@ -30,11 +30,11 @@ import javax.xml.xpath.*;
  *
  * @author Giovanni Novelli
  */
-public class GAPXMLReader {
+public class XMLReader {
     private String _xsd;
     private String _xml;
     
-    public GAPXMLReader(String xsd, String xml) {
+    public XMLReader(String xsd, String xml) {
         this.set_xsd(xsd);
         this.set_xml(xml);
     }
@@ -42,7 +42,7 @@ public class GAPXMLReader {
     public static void main(String[] args) {
        String xsd = "xml/schema.xsd";
        String xml = "xml/data.xml";
-       GAPXMLReader reader = new GAPXMLReader(xsd, xml);
+       XMLReader reader = new XMLReader(xsd, xml);
        System.out.println(xsd + " " + xml);
        boolean valid = reader.validate();
        if (valid) {

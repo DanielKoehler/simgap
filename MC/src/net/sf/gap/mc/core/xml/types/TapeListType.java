@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * HardDiskListType.java
+ * TapeListType.java
  *
  * Created on 22 January 2008, 09.00 by Giovanni Novelli
  *
@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.xml;
+package net.sf.gap.mc.core.xml.types;
 
 import java.util.LinkedList;
 
@@ -22,26 +22,26 @@ import java.util.LinkedList;
  *
  * @author Giovanni Novelli
  */
-public class HardDiskListType {
-    private LinkedList<HardDiskType> items;
+public class TapeListType {
+    private LinkedList<TapeType> items;
     
-    public HardDiskListType() {
-        this.setItems(new LinkedList<HardDiskType>());
+    public TapeListType() {
+        this.setItems(new LinkedList<TapeType>());
     }
 
-    public HardDiskListType(LinkedList<HardDiskType> items) {
+    public TapeListType(LinkedList<TapeType> items) {
         this.setItems(items);
     }
     
-    public boolean addHardDisk(HardDiskType hardDisk) {
-        return this.getItems().add(hardDisk);
+    public boolean addTape(TapeType tape) {
+        return this.getItems().add(tape);
     }
     
-    public LinkedList<HardDiskType> getItems() {
+    public LinkedList<TapeType> getItems() {
         return items;
     }
 
-    public void setItems(LinkedList<HardDiskType> items) {
+    public void setItems(LinkedList<TapeType> items) {
         this.items = items;
     }
 }
