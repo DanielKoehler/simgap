@@ -31,6 +31,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import net.sf.gap.mc.core.xml.types.*;
+
 /**
  *
  * @author Giovanni Novelli
@@ -72,6 +74,9 @@ public class XMLReader {
             DocumentBuilder builder =
                     DocumentBuilderFactory.newInstance().newDocumentBuilder();
             document = builder.parse(new File("xml/data.xml"));
+            
+            TopologyParser topologyParser = new TopologyParser(document);
+            NetworkTopologyType topology = topologyParser.getTopology();
 
         } catch (ParserConfigurationException e) {
             System.err.println("ParserConfigurationException caught...");
