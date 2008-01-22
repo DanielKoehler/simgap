@@ -35,7 +35,7 @@ public class ResourceCharacteristicsType {
         this.setOS("Operating System");
         this.setMachineList(machineList);
         this.setPolicy(ResourceCharacteristics.TIME_SHARED);
-        this.setTimezone(12.0);
+        this.setTimezone(0.0);
         this.setCost(1.0);
     }
     

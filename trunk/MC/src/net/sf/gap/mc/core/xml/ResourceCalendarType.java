@@ -21,5 +21,83 @@ package net.sf.gap.mc.core.xml;
  * @author Giovanni Novelli
  */
 public class ResourceCalendarType {
+    private double TimeZone;
+    private double PeakLoad;
+    private double OffPeakLoad;
+    private double RelativeHolidayLoad;
+    private WeekendListType weekendList;
+    private HolidayListType holidayList;
 
+    public ResourceCalendarType() {
+        this.setTimeZone(0.0);
+        this.setPeakLoad(0.0);
+        this.setOffPeakLoad(0.0);
+        this.setRelativeHolidayLoad(0.0);
+        this.setWeekendList(new WeekendListType());
+        this.setHolidayList(new HolidayListType());
+    }
+    
+    public ResourceCalendarType(
+            double TimeZone,
+            double PeakLoad,
+            double OffPeakLoad,
+            double RelativeHolidayLoad,
+            WeekendListType weekendList,
+            HolidayListType holidayList
+            ) {
+        this.setTimeZone(TimeZone);
+        this.setPeakLoad(PeakLoad);
+        this.setOffPeakLoad(OffPeakLoad);
+        this.setRelativeHolidayLoad(RelativeHolidayLoad);
+        this.setWeekendList(weekendList);
+        this.setHolidayList(holidayList);
+    }
+    
+    public double getTimeZone() {
+        return TimeZone;
+    }
+
+    public void setTimeZone(double TimeZone) {
+        this.TimeZone = TimeZone;
+    }
+
+    public double getPeakLoad() {
+        return PeakLoad;
+    }
+
+    public void setPeakLoad(double PeakLoad) {
+        this.PeakLoad = PeakLoad;
+    }
+
+    public double getOffPeakLoad() {
+        return OffPeakLoad;
+    }
+
+    public void setOffPeakLoad(double OffPeakLoad) {
+        this.OffPeakLoad = OffPeakLoad;
+    }
+
+    public double getRelativeHolidayLoad() {
+        return RelativeHolidayLoad;
+    }
+
+    public void setRelativeHolidayLoad(double RelativeHolidayLoad) {
+        this.RelativeHolidayLoad = RelativeHolidayLoad;
+    }
+
+    public WeekendListType getWeekendList() {
+        return weekendList;
+    }
+
+    public void setWeekendList(WeekendListType weekendList) {
+        this.weekendList = weekendList;
+    }
+
+    public HolidayListType getHolidayList() {
+        return holidayList;
+    }
+
+    public void setHolidayList(HolidayListType holidayList) {
+        this.holidayList = holidayList;
+    }
 }
