@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -45,12 +46,15 @@ public class GAPXMLReader {
     private String _xml;
     
     public GAPXMLReader(String xsd, String xml) {
-        this.set_xsd(_xsd);
-        this.set_xml(_xml);
+        this.set_xsd(xsd);
+        this.set_xml(xml);
     }
     
     public static void main(String[] args) {
-       GAPXMLReader reader = new GAPXMLReader("xml/schema.xsd","xml/data.xml");
+       String xsd = "xml/olydates.xsd";
+       String xml = "xml/olydate.xml";
+       GAPXMLReader reader = new GAPXMLReader(xsd, xml);
+       System.out.println(xsd + " " + xml);
        boolean valid = reader.validate();
        if (valid) {
         System.out.println(reader.get_xml() + " is valid for schema " + reader.get_xsd());
@@ -60,16 +64,19 @@ public class GAPXMLReader {
     public boolean validate() {
         boolean valid = false;
         try {
+            // define the type of schema - we use W3C:
+            String schemaLang = "http://www.w3.org/2001/XMLSchema";
+            
             SchemaFactory factory =
-                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(new File(this.get_xsd()));
+                    SchemaFactory.newInstance(schemaLang);
+            Schema schema = factory.newSchema(new StreamSource(this.get_xsd()));
             Validator validator = schema.newValidator();
 
             // Parse the _xml as a W3C document.
             DocumentBuilder builder =
                     DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = builder.parse(new File(this.get_xml()));
-            validator.validate(new DOMSource(document));
+            validator.validate(new StreamSource(this.get_xml()));
             valid=true;
         } catch (ParserConfigurationException e) {
             System.err.println("ParserConfigurationException caught...");
