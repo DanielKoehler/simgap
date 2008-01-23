@@ -34,13 +34,23 @@ public class GridParser extends Parser {
     
     public GridType getGrid() {
         GridType grid = null;
-        NodeList gridElement = this.getDocument().getElementsByTagName("grid");
-        if (gridElement.getLength()>0) {
-            NodeList gridElements = this.getDocument().getElementsByTagName("gridElement");
+        NodeList gridNodeList = this.getDocument().getElementsByTagName("grid");
+        if (gridNodeList.getLength()>0) {
+            Element gridNodeListElement = (Element) gridNodeList.item(0); 
+            NodeList gridElements = gridNodeListElement.getElementsByTagName("gridElement");
             if (gridElements.getLength()>0) {
                 grid = new GridType();
                 for (int ig=0;ig < gridElements.getLength();ig++) {
                     Element geItem = (Element) gridElements.item(ig);
+                    GridElementType gridElementInstance = this.getGridElement(geItem);
+                    grid.addGridElement(gridElementInstance);
+                }
+            }
+        }
+        return grid;
+    }
+    
+    private GridElementType getGridElement(Element geItem) {
                     GridElementType gridElementInstance = new GridElementType();
                     gridElementInstance.setName(geItem.getAttribute("name"));
                     NodeList machineListItems = geItem.getElementsByTagName("Machine");
@@ -59,10 +69,6 @@ public class GridParser extends Parser {
                     Element linkItem = (Element) geItem.getElementsByTagName("link").item(0);
                     String linkName = linkItem.getTextContent();
                     gridElementInstance.setLink(linkName);
-                    grid.addGridElement(gridElementInstance);
-                }
-            }
-        }
-        return grid;
+                    return gridElementInstance;
     }
 }
