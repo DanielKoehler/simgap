@@ -50,6 +50,29 @@
                 <fromEntity>R_2</fromEntity>
                 <toEntity>R_3</toEntity>
             </linkItem>
+            <linkItem name="L_CE_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_0</fromEntity>
+                <toEntity>R_0</toEntity>
+            </linkItem>
         </links>
     </topology>
+    <grid>
+        <gridElement name="CE_0">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_0</link>
+        </gridElement>
+    </grid>
 </scenario>

@@ -26,7 +26,7 @@ public class GridElementType {
     private ResourceCharacteristicsType resourceCharacteristics;
     private MachineListType machineList;
     private StorageType storage;
-    private LinkType link;
+    private String link;
 
     public GridElementType(
             String name,
@@ -34,7 +34,7 @@ public class GridElementType {
             ResourceCharacteristicsType resourceCharacteristics,
             MachineListType machineList,
             StorageType storage,
-            LinkType link
+            String link
             ) {
         this.setName(name);
         this.setResourceCalendar(resourceCalendar);
@@ -76,11 +76,11 @@ public class GridElementType {
         this.storage = storage;
     }
 
-    public LinkType getLink() {
+    public String getLink() {
         return link;
     }
 
-    public void setLink(LinkType link) {
+    public void setLink(String link) {
         this.link = link;
     }
 
