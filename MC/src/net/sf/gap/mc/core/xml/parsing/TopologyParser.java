@@ -13,6 +13,7 @@
  * $Id$
  *
  */
+
 package net.sf.gap.mc.core.xml.parsing;
 
 import org.w3c.dom.*;
@@ -23,14 +24,11 @@ import net.sf.gap.mc.core.xml.types.*;
 
 /**
  *
- * @routerElement Giovanni Novelli
+ * @author Giovanni Novelli
  */
-public class TopologyParser {
-
-    private Document document;
-
+public class TopologyParser extends Parser {
     public TopologyParser(Document document) {
-        this.setDocument(document);
+        super(document);
     }
 
     public NetworkTopologyType getTopology() {
@@ -72,33 +70,5 @@ public class TopologyParser {
             topology.addLink(link);
         }
         return topology;
-    }
-
-    public NetworkTopologyType oldgetTopology() {
-        NetworkTopologyType topology = null;
-        try {
-            XPathFactory xpfactory = XPathFactory.newInstance();
-            XPath xpath = xpfactory.newXPath();
-            XPathExpression expr = xpath.compile("//routers/Item/text()");
-            Object results = expr.evaluate(document, XPathConstants.NODESET);
-            NodeList nodes = (NodeList) results;
-            for (int i = 0; i < nodes.getLength(); i++) {
-                System.out.println(
-                        nodes.item(i).getParentNode().getNodeName() + " " +
-                        nodes.item(i).getTextContent());
-            }
-        } catch (XPathExpressionException e) {
-            System.err.println("XPathExpressionException caught...");
-            e.printStackTrace();
-        }
-        return topology;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
     }
 }
