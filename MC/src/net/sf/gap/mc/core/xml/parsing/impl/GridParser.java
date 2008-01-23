@@ -36,6 +36,16 @@ public class GridParser extends Parser {
     
     public GridType getGrid() {
         GridType grid = null;
+        NodeList gridElement = this.getDocument().getElementsByTagName("grid");
+        if (gridElement.getLength()>0) {
+            NodeList gridElements = this.getDocument().getElementsByTagName("gridElement");
+            if (gridElements.getLength()>0) {
+            } else {
+                System.out.println("There are NOT grid elements");
+            }
+        } else {
+            System.out.println("There is NOT a grid environment in the scenario");
+        }
         return grid;
     }
 }

@@ -177,11 +177,11 @@
     </xsd:complexType>
     <xsd:complexType name="GridElementType">
         <xsd:sequence>
-            <xsd:element name="resourceCalendar" type="ResourceCalendarType"/>
-            <xsd:element name="resourceCharacteristics" type="ResourceCharacteristicsType"/>
+            <xsd:element name="resourceCalendar" type="ResourceCalendarType" minOccurs="0"/>
+            <xsd:element name="resourceCharacteristics" type="ResourceCharacteristicsType" minOccurs="0"/>
             <xsd:element name="machineList" type="MachineListType"/>
             <xsd:element name="storage" type="StorageType" nillable="false" minOccurs="0"/>
-            <xsd:element name="link" type="LinkType"/>
+            <xsd:element name="link" type="xsd:string"/>
         </xsd:sequence>
         <xsd:attribute name="name" type="xsd:string"/>
     </xsd:complexType>
