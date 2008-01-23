@@ -19,8 +19,6 @@ package net.sf.gap.mc.core.xml.parsing.impl;
 import net.sf.gap.mc.core.xml.parsing.*;
 import org.w3c.dom.*;
 
-import javax.xml.xpath.*;
-
 import net.sf.gap.mc.core.xml.types.*;
 
 /**
