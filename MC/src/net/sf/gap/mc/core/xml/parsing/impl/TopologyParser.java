@@ -39,6 +39,11 @@ public class TopologyParser extends Parser {
             Element routerItem = (Element) routerItems.item(i);
             topology.addRouter(routerItem.getAttribute("name"));
         }
+        NodeList geItems = this.getDocument().getElementsByTagName("geItem");
+        for (int i = 0; i < geItems.getLength(); i++) {
+            Element geItem = (Element) geItems.item(i);
+            topology.addGE(geItem.getAttribute("name"));
+        }
         NodeList linkItems = this.getDocument().getElementsByTagName("linkItem");
         for (int i = 0; i < linkItems.getLength(); i++) {
             Element linkItem = (Element) linkItems.item(i);

@@ -24,10 +24,12 @@ import java.util.LinkedList;
  */
 public class NetworkTopologyType {
     private LinkedList<RouterType> routers;
+    private LinkedList<String> ges;
     private LinkedList<LinkType> links;
 
     public NetworkTopologyType() {
         this.setRouters(new LinkedList<RouterType>());
+        this.setGes(new LinkedList<String>());
         this.setLinks(new LinkedList<LinkType>());
     }
     
@@ -35,6 +37,10 @@ public class NetworkTopologyType {
         return this.getRouters().add(new RouterType(routerName));
     }
 
+    public boolean addGE(String geName) {
+        return this.getGes().add(geName);
+    }
+    
     public boolean addRouter(RouterType router) {
         return this.getRouters().add(router);
     }
@@ -57,6 +63,14 @@ public class NetworkTopologyType {
 
     public void setLinks(LinkedList<LinkType> links) {
         this.links = links;
+    }
+
+    public LinkedList<String> getGes() {
+        return ges;
+    }
+
+    public void setGes(LinkedList<String> ges) {
+        this.ges = ges;
     }
     
     
