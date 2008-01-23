@@ -60,11 +60,7 @@ public class GridParser extends Parser {
                     }
                     grid.addGridElement(gridElementInstance);
                 }
-            } else {
-                System.out.println("There are NOT grid elements");
             }
-        } else {
-            System.out.println("There is NOT a grid environment in the scenario");
         }
         return grid;
     }
