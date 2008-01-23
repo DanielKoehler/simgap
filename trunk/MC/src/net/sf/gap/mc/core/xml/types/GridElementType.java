@@ -28,6 +28,10 @@ public class GridElementType {
     private StorageType storage;
     private String link;
 
+    public GridElementType() {
+        this.setMachineList(new MachineListType());
+    }
+
     public GridElementType(
             String name,
             ResourceCalendarType resourceCalendar,
@@ -42,6 +46,10 @@ public class GridElementType {
         this.setMachineList(machineList);
         this.setStorage(storage);
         this.setLink(link);
+    }
+    
+    public boolean addMachine(MachineType machine) {
+        return this.getMachineList().addMachine(machine);
     }
     
     public ResourceCalendarType getResourceCalendar() {

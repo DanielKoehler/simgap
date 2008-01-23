@@ -69,7 +69,10 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>2000</MIPS>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
                             </PE>
                         </peList>
                     </Machine>

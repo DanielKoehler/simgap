@@ -40,6 +40,26 @@ public class GridParser extends Parser {
         if (gridElement.getLength()>0) {
             NodeList gridElements = this.getDocument().getElementsByTagName("gridElement");
             if (gridElements.getLength()>0) {
+                grid = new GridType();
+                for (int ig=0;ig < gridElements.getLength();ig++) {
+                    Element geItem = (Element) gridElements.item(ig);
+                    GridElementType gridElementInstance = new GridElementType();
+                    gridElementInstance.setName(geItem.getAttribute("name"));
+                    NodeList machineListItems = geItem.getElementsByTagName("Machine");
+                    for (int i = 0; i < machineListItems.getLength(); i++) {
+                        Element machineItem = (Element) machineListItems.item(i);
+                        MachineType machine = new MachineType();
+                        NodeList peListItems = machineItem.getElementsByTagName("PE");
+                        for (int j = 0; j < peListItems.getLength(); j++) {
+                            Element peItem = (Element) peListItems.item(j);
+                            Element mipsItem = (Element) peItem.getElementsByTagName("MIPS").item(0);
+                            int MIPS = Integer.parseInt(mipsItem.getTextContent());
+                            machine.addPE(MIPS);
+                        }
+                        gridElementInstance.addMachine(machine);
+                    }
+                    grid.addGridElement(gridElementInstance);
+                }
             } else {
                 System.out.println("There are NOT grid elements");
             }
