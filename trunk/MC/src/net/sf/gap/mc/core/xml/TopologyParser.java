@@ -43,7 +43,37 @@ public class TopologyParser {
         NodeList linkItems = this.getDocument().getElementsByTagName("linkItem");
         for (int i = 0; i < linkItems.getLength(); i++) {
             Element linkItem = (Element) linkItems.item(i);
-            System.out.println(linkItem.getNodeName() + " name = " + linkItem.getAttribute("name"));
+            System.out.println(
+                    linkItem.getNodeName() + 
+                    " name = " + 
+                    linkItem.getAttribute("name"));
+            Element element;
+            element = (Element) linkItem.getElementsByTagName("Baudrate").item(0);
+            System.out.println(
+                    element.getNodeName() + " value is " +
+                    element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("Delay").item(0);
+            System.out.println(
+                    element.getNodeName() + " value is " +
+                    element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("MTU").item(0);
+            System.out.println(
+                    element.getNodeName() + " value is " +
+                    element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("fromEntity").item(0);
+            System.out.println(
+                    element.getNodeName() + " value is " +
+                    element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("toEntity").item(0);
+            System.out.println(
+                    element.getNodeName() + " value is " +
+                    element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("bidirectional").item(0);
+            if (element!=null) {
+            System.out.println(
+                    element.getNodeName() + " value is " +
+                    element.getTextContent());
+            }
         }
         return topology;
     }

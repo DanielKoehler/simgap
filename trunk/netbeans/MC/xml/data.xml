@@ -15,6 +15,8 @@
         <routers>
             <routerItem name="R_0"/>
             <routerItem name="R_1"/>
+            <routerItem name="R_2"/>
+            <routerItem name="R_3"/>
         </routers>
         <links>
             <linkItem name="L_0">
@@ -23,14 +25,30 @@
                 <MTU>1512</MTU>
                 <fromEntity>R_0</fromEntity>
                 <toEntity>R_1</toEntity>
+                <bidirectional>true</bidirectional>
             </linkItem>
             <linkItem name="L_1">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_0</fromEntity>
-                <toEntity>R_1</toEntity>
+                <toEntity>R_2</toEntity>
                 <bidirectional>true</bidirectional>
+            </linkItem>
+            <linkItem name="L_2">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_1</fromEntity>
+                <toEntity>R_2</toEntity>
+                <bidirectional>false</bidirectional>
+            </linkItem>
+            <linkItem name="L_3">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_2</fromEntity>
+                <toEntity>R_3</toEntity>
             </linkItem>
         </links>
     </topology>
