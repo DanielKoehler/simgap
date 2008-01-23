@@ -13,7 +13,7 @@
  * $Id$
  *
  */
-package net.sf.gap.mc.core.xml;
+package net.sf.gap.mc.core.xml.parsing;
 
 import org.w3c.dom.*;
 

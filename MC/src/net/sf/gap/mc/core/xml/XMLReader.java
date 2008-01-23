@@ -16,6 +16,7 @@
 
 package net.sf.gap.mc.core.xml;
 
+import net.sf.gap.mc.core.xml.parsing.TopologyParser;
 import org.w3c.dom.Document;
 
 import org.xml.sax.SAXException;
