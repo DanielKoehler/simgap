@@ -50,13 +50,24 @@ public class XMLReader {
     public static void main(String[] args) {
        String xsd = "xml/schema.xsd";
        String xml = "xml/data.xml";
+       
        XMLReader reader = new XMLReader(xsd, xml);
-       System.out.println(xsd + " " + xml);
-       Document document = reader.getDocument();
-       boolean valid = (document!=null);
-       if (valid) {
-        System.out.println(reader.get_xml() + " is valid for schema " + reader.get_xsd());
-       }
+ 
+       ScenarioType scenario = reader.getScenario();
+       System.out.println("Scenario's name: " + scenario.getName());
+    }
+    
+    public ScenarioType getScenario() {
+        Document document = this.getDocument();
+ 
+        ScenarioType scenario = new ScenarioType();
+        
+        TopologyParser topologyParser = new TopologyParser(document);
+        NetworkTopologyType topology = topologyParser.getTopology();
+        
+        scenario.setTopology(topology);
+        
+        return scenario;
     }
     
     public Document getDocument() {
@@ -75,9 +86,10 @@ public class XMLReader {
             DocumentBuilder builder =
                     DocumentBuilderFactory.newInstance().newDocumentBuilder();
             document = builder.parse(new File("xml/data.xml"));
-            
-            TopologyParser topologyParser = new TopologyParser(document);
-            NetworkTopologyType topology = topologyParser.getTopology();
+            boolean valid = (document!=null);
+            if (!valid) {
+              System.err.println(this.get_xml() + " is NOT valid against schema " + this.get_xsd());
+            }
         } catch (ParserConfigurationException e) {
             System.err.println("ParserConfigurationException caught...");
             e.printStackTrace();
