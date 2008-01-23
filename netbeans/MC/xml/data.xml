@@ -13,25 +13,25 @@
         xsi:type="SimulationScenarioType">
     <topology>
         <routers>
-            <Item name="R_0"/>
-            <Item name="R_1"/>
+            <routerItem name="R_0"/>
+            <routerItem name="R_1"/>
         </routers>
         <links>
-            <Item name="L_0">
+            <linkItem name="L_0">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_0</fromEntity>
                 <toEntity>R_1</toEntity>
-            </Item>
-            <Item name="L_1">
+            </linkItem>
+            <linkItem name="L_1">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_0</fromEntity>
                 <toEntity>R_1</toEntity>
                 <bidirectional>true</bidirectional>
-            </Item>
+            </linkItem>
         </links>
     </topology>
 </scenario>

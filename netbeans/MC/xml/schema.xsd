@@ -204,14 +204,14 @@
             <xsd:element name="routers">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Item" type="RouterType" maxOccurs="unbounded" minOccurs="2"/>
+                        <xsd:element name="routerItem" type="RouterType" maxOccurs="unbounded" minOccurs="2"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="links">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Item" type="LinkType" maxOccurs="unbounded"/>
+                        <xsd:element name="linkItem" type="LinkType" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>

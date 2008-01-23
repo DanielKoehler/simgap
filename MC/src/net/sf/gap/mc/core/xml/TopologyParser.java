@@ -13,7 +13,6 @@
  * $Id$
  *
  */
-
 package net.sf.gap.mc.core.xml;
 
 import org.w3c.dom.*;
@@ -24,29 +23,43 @@ import net.sf.gap.mc.core.xml.types.*;
 
 /**
  *
- * @author Giovanni Novelli
+ * @routerElement Giovanni Novelli
  */
 public class TopologyParser {
+
     private Document document;
 
     public TopologyParser(Document document) {
         this.setDocument(document);
     }
-    
+
     public NetworkTopologyType getTopology() {
         NetworkTopologyType topology = null;
+        NodeList routerItems = this.getDocument().getElementsByTagName("routerItem");
+        for (int i = 0; i < routerItems.getLength(); i++) {
+            Element routerItem = (Element) routerItems.item(i);
+            System.out.println(routerItem.getNodeName() + " name = " + routerItem.getAttribute("name"));
+        }
+        NodeList linkItems = this.getDocument().getElementsByTagName("linkItem");
+        for (int i = 0; i < linkItems.getLength(); i++) {
+            Element linkItem = (Element) linkItems.item(i);
+            System.out.println(linkItem.getNodeName() + " name = " + linkItem.getAttribute("name"));
+        }
+        return topology;
+    }
+
+    public NetworkTopologyType oldgetTopology() {
+        NetworkTopologyType topology = null;
         try {
-        XPathFactory xpfactory = XPathFactory.newInstance();
-        XPath xpath = xpfactory.newXPath();
-        XPathExpression expr 
-         = xpath.compile("/scenario/*");
+            XPathFactory xpfactory = XPathFactory.newInstance();
+            XPath xpath = xpfactory.newXPath();
+            XPathExpression expr = xpath.compile("//routers/Item/text()");
             Object results = expr.evaluate(document, XPathConstants.NODESET);
             NodeList nodes = (NodeList) results;
             for (int i = 0; i < nodes.getLength(); i++) {
                 System.out.println(
-                        nodes.item(i).getParentNode().getNodeName() 
-                        + " " + 
-                        nodes.item(i).getNodeValue()); 
+                        nodes.item(i).getParentNode().getNodeName() + " " +
+                        nodes.item(i).getTextContent());
             }
         } catch (XPathExpressionException e) {
             System.err.println("XPathExpressionException caught...");
@@ -54,7 +67,7 @@ public class TopologyParser {
         }
         return topology;
     }
-    
+
     public Document getDocument() {
         return document;
     }
