@@ -77,7 +77,6 @@ public class XMLReader {
             
             TopologyParser topologyParser = new TopologyParser(document);
             NetworkTopologyType topology = topologyParser.getTopology();
-
         } catch (ParserConfigurationException e) {
             System.err.println("ParserConfigurationException caught...");
             e.printStackTrace();

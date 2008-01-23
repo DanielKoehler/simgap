@@ -31,6 +31,10 @@ public class NetworkTopologyType {
         this.setLinks(new LinkedList<LinkType>());
     }
     
+    public boolean addRouter(String routerName) {
+        return this.getRouters().add(new RouterType(routerName));
+    }
+
     public boolean addRouter(RouterType router) {
         return this.getRouters().add(router);
     }

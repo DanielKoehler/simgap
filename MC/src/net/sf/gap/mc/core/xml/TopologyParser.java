@@ -34,46 +34,42 @@ public class TopologyParser {
     }
 
     public NetworkTopologyType getTopology() {
-        NetworkTopologyType topology = null;
+        NetworkTopologyType topology = new NetworkTopologyType();
         NodeList routerItems = this.getDocument().getElementsByTagName("routerItem");
         for (int i = 0; i < routerItems.getLength(); i++) {
             Element routerItem = (Element) routerItems.item(i);
-            System.out.println(routerItem.getNodeName() + " name = " + routerItem.getAttribute("name"));
+            topology.addRouter(routerItem.getAttribute("name"));
         }
         NodeList linkItems = this.getDocument().getElementsByTagName("linkItem");
         for (int i = 0; i < linkItems.getLength(); i++) {
             Element linkItem = (Element) linkItems.item(i);
-            System.out.println(
-                    linkItem.getNodeName() + 
-                    " name = " + 
-                    linkItem.getAttribute("name"));
+            String aName = linkItem.getAttribute("name");
             Element element;
             element = (Element) linkItem.getElementsByTagName("Baudrate").item(0);
-            System.out.println(
-                    element.getNodeName() + " value is " +
-                    element.getTextContent());
+            double aBaudrate = Double.parseDouble(element.getTextContent());
             element = (Element) linkItem.getElementsByTagName("Delay").item(0);
-            System.out.println(
-                    element.getNodeName() + " value is " +
-                    element.getTextContent());
+            double aDelay = Double.parseDouble(element.getTextContent());
             element = (Element) linkItem.getElementsByTagName("MTU").item(0);
-            System.out.println(
-                    element.getNodeName() + " value is " +
-                    element.getTextContent());
+            int aMTU = Integer.parseInt(element.getTextContent());
             element = (Element) linkItem.getElementsByTagName("fromEntity").item(0);
-            System.out.println(
-                    element.getNodeName() + " value is " +
-                    element.getTextContent());
+            String fromEntity = element.getTextContent();
             element = (Element) linkItem.getElementsByTagName("toEntity").item(0);
-            System.out.println(
-                    element.getNodeName() + " value is " +
-                    element.getTextContent());
+            String toEntity = element.getTextContent();
             element = (Element) linkItem.getElementsByTagName("bidirectional").item(0);
+            boolean aBidirectional = true;
             if (element!=null) {
-            System.out.println(
-                    element.getNodeName() + " value is " +
-                    element.getTextContent());
+            aBidirectional = Boolean.parseBoolean(element.getTextContent());
             }
+            LinkType link = 
+                    new LinkType(
+                    aName,
+                    aBaudrate,
+                    aDelay,
+                    aMTU,
+                    fromEntity,
+                    toEntity,
+                    aBidirectional);
+            topology.addLink(link);
         }
         return topology;
     }
