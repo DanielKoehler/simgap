@@ -52,6 +52,10 @@ public class GridElementType {
         return this.getMachineList().addMachine(machine);
     }
     
+    public boolean isSE() {
+        return (this.getStorage()!=null);
+    }
+    
     public ResourceCalendarType getResourceCalendar() {
         return resourceCalendar;
     }

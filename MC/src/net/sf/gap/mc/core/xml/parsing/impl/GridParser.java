@@ -56,6 +56,9 @@ public class GridParser extends Parser {
                         }
                         gridElementInstance.addMachine(machine);
                     }
+                    Element linkItem = (Element) geItem.getElementsByTagName("link").item(0);
+                    String linkName = linkItem.getTextContent();
+                    gridElementInstance.setLink(linkName);
                     grid.addGridElement(gridElementInstance);
                 }
             }
