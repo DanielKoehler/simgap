@@ -149,7 +149,7 @@
             <xsd:element name="MTU" type="xsd:int" default="1500"/>
             <xsd:element name="fromEntity" type="xsd:string"/>
             <xsd:element name="toEntity" type="xsd:string"/>
-            <xsd:element name="bidirectional" type="xsd:boolean" minOccurs="0" fixed="true"/>
+            <xsd:element name="bidirectional" type="xsd:boolean" minOccurs="0"/>
         </xsd:sequence>
         <xsd:attribute name="name" type="xsd:string"/>
     </xsd:complexType>
