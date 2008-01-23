@@ -18,6 +18,9 @@
             <routerItem name="R_2"/>
             <routerItem name="R_3"/>
         </routers>
+        <ges>
+            <geItem name="CE_0"/>
+        </ges>
         <links>
             <linkItem name="L_0">
                 <Baudrate>100000000.0</Baudrate>
