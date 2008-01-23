@@ -16,7 +16,9 @@
 
 package net.sf.gap.mc.core.xml;
 
-import net.sf.gap.mc.core.xml.parsing.TopologyParser;
+import net.sf.gap.mc.core.xml.parsing.impl.GridParser;
+import net.sf.gap.mc.core.xml.parsing.impl.VOSParser;
+import net.sf.gap.mc.core.xml.parsing.impl.TopologyParser;
 import org.w3c.dom.Document;
 
 import org.xml.sax.SAXException;
@@ -64,9 +66,23 @@ public class XMLReader {
         
         TopologyParser topologyParser = new TopologyParser(document);
         NetworkTopologyType topology = topologyParser.getTopology();
-        
+
         scenario.setTopology(topology);
         
+        GridParser gridParser = new GridParser(document);
+        GridType grid = gridParser.getGrid();
+        
+        if (grid!=null) {
+            scenario.setGrid(grid);
+            
+            VOSParser vosParser = new VOSParser(document);
+            VOSType vos = vosParser.getVOS();
+            
+            if (vos!=null) {
+                scenario.setVos(vos);
+            }
+        }
+
         return scenario;
     }
     
