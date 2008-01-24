@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * AgentPlatform.java
+ * AbstractAgentPlatform.java
  *
  * Created on 17 August 2006, 12.00 by Giovanni Novelli
  *
@@ -45,7 +45,7 @@ import gridsim.IO_data;
  * 
  * @author Giovanni Novelli
  */
-public abstract class AgentPlatform extends AgentMiddleware {
+public abstract class AbstractAgentPlatform extends AgentMiddleware {
         private int totalAgents;    // Total number of agent entities
     
 	private ServicesList servicesList; // list of services
@@ -64,9 +64,9 @@ public abstract class AgentPlatform extends AgentMiddleware {
 	// class
 
 	/**
-	 * Creates a new instance of AgentPlatform
+	 * Creates a new instance of AbstractAgentPlatform
 	 */
-	public AgentPlatform(String name, boolean trace) throws Exception {
+	public AbstractAgentPlatform(String name, boolean trace) throws Exception {
 		super(name, trace);
                 this.setPlatform(true);
 	}

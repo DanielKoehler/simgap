@@ -33,7 +33,7 @@ import java.util.Iterator;
 
 import junit.framework.Assert;
 
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
@@ -59,7 +59,7 @@ public class NMService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public NMService(AgentPlatform ap, boolean trace_flag) throws Exception {
+	public NMService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
 		super(ap, "NMService", trace_flag);
 	}
 

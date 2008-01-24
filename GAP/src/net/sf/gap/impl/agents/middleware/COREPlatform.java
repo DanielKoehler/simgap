@@ -22,7 +22,7 @@ package net.sf.gap.impl.agents.middleware;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
 
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 
 import net.sf.gap.GAP;
 
@@ -30,7 +30,7 @@ import net.sf.gap.GAP;
  * 
  * @author Giovanni Novelli
  */
-public abstract class COREPlatform extends AgentPlatform {
+public abstract class COREPlatform extends AbstractAgentPlatform {
 
 
 	/** Creates a new instance of COREPlatform */

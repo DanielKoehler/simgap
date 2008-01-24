@@ -26,7 +26,7 @@ package net.sf.gap.agents.services.impl;
 
 import net.sf.gap.constants.Tags;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
 import eduni.simjava.Sim_event;
 
@@ -44,7 +44,7 @@ public class TestService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public TestService(AgentPlatform ap, boolean trace_flag) throws Exception {
+	public TestService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
 		super(ap, "TestService", trace_flag);
 	}
 

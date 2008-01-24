@@ -37,7 +37,7 @@ import junit.framework.Assert;
 
 import net.sf.gap.constants.Tags;
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
 import net.sf.gap.grid.components.GridElement;
@@ -51,12 +51,12 @@ import net.sf.gap.messages.impl.NetworkMapReply;
  * @author Giovanni Novelli
  */
 public class NetworkMonitor {
-	private AgentPlatform agentPlatform;
+	private AbstractAgentPlatform agentPlatform;
 
 	private NetworkMap networkMap;
 
 	/** Creates a new instance of NetworkMonitor */
-	public NetworkMonitor(AgentPlatform agentPlatform) {
+	public NetworkMonitor(AbstractAgentPlatform agentPlatform) {
 		this.setAgentPlatform(agentPlatform);
 		this.setNetworkMap(new NetworkMap());
 	}
@@ -111,11 +111,11 @@ public class NetworkMonitor {
 		}
 	}
 
-	public AgentPlatform getAgentPlatform() {
+	public AbstractAgentPlatform getAgentPlatform() {
 		return agentPlatform;
 	}
 
-	public void setAgentPlatform(AgentPlatform agentPlatform) {
+	public void setAgentPlatform(AbstractAgentPlatform agentPlatform) {
 		this.agentPlatform = agentPlatform;
 	}
 

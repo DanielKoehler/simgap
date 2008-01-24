@@ -47,7 +47,7 @@ import net.sf.gap.agents.AbstractAgent;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.Service;
 import net.sf.gap.grid.LocalDirectory;
 import net.sf.gap.grid.factories.LinkFactory;
@@ -59,7 +59,7 @@ import net.sf.gap.messages.impl.PingRequest;
  * @author Giovanni Novelli
  */
 public abstract class GridElement extends DataGridResource {
-	private AgentPlatform agentPlatform;
+	private AbstractAgentPlatform agentPlatform;
 
 	private int numPE;
 
@@ -307,11 +307,11 @@ public abstract class GridElement extends DataGridResource {
 		this.SE = SE;
 	}
 
-	public AgentPlatform getAgentPlatform() {
+	public AbstractAgentPlatform getAgentPlatform() {
 		return this.agentPlatform;
 	}
 
-	public void setAgentPlatform(AgentPlatform platform) {
+	public void setAgentPlatform(AbstractAgentPlatform platform) {
 		this.agentPlatform = platform;
 	}
 
@@ -325,7 +325,7 @@ public abstract class GridElement extends DataGridResource {
 		}
 	}
 
-	public void attachPlatform(AgentPlatform platform) {
+	public void attachPlatform(AbstractAgentPlatform platform) {
 		this.attachHost(platform);
 	}
 

@@ -32,7 +32,7 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import net.sf.gap.agents.services.impl.gis.GISEntry;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.grid.components.GridElement;
 
 /**
@@ -42,7 +42,7 @@ import net.sf.gap.grid.components.GridElement;
 public class GISRepository extends HashMap<Integer, GISEntry> {
 	private double lastRequestTime;
 
-	private AgentPlatform agentPlatform;
+	private AbstractAgentPlatform agentPlatform;
 
 	private LinkedList<GridElement> listGEs; // list of GEs hosting
 
@@ -54,7 +54,7 @@ public class GISRepository extends HashMap<Integer, GISEntry> {
 	/**
 	 * Creates a new instance of GISRepository
 	 */
-	public GISRepository(AgentPlatform agentPlatform) {
+	public GISRepository(AbstractAgentPlatform agentPlatform) {
 		super();
 		this.setAgentPlatform(agentPlatform);
 
@@ -93,11 +93,11 @@ public class GISRepository extends HashMap<Integer, GISEntry> {
 		this.listGEs = listGEs;
 	}
 
-	public AgentPlatform getAgentPlatform() {
+	public AbstractAgentPlatform getAgentPlatform() {
 		return agentPlatform;
 	}
 
-	public void setAgentPlatform(AgentPlatform agentPlatform) {
+	public void setAgentPlatform(AbstractAgentPlatform agentPlatform) {
 		this.agentPlatform = agentPlatform;
 	}
 

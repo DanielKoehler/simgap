@@ -30,7 +30,7 @@ import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.agents.history.AgentHistory;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.grid.factories.LinkFactory;
 import net.sf.gap.util.EntitiesCounter;
@@ -76,7 +76,7 @@ public abstract class AbstractAgent extends DataGridUser {
      * Needed by an agent to refer to the correct SimJava's ID
      * for communications with its Agent Platform
      */
-    private AgentPlatform agentPlatform;
+    private AbstractAgentPlatform agentPlatform;
     /**
      * Unique Agent ID which follows agent through its whole lifecycle in a
      * simulation and is independent from agent's localization
@@ -201,9 +201,9 @@ public abstract class AbstractAgent extends DataGridUser {
      * 
      * 
      * @return
-     * @see AgentPlatform
+     * @see AbstractAgentPlatform
      */
-    protected AgentPlatform getAgentPlatform() {
+    protected AbstractAgentPlatform getAgentPlatform() {
         return this.agentPlatform;
     }
 
@@ -246,7 +246,7 @@ public abstract class AbstractAgent extends DataGridUser {
      * 
      * @param agentPlatform
      */
-    protected void setAgentPlatform(AgentPlatform agentPlatform) {
+    protected void setAgentPlatform(AbstractAgentPlatform agentPlatform) {
         this.agentPlatform = agentPlatform;
     }
     
