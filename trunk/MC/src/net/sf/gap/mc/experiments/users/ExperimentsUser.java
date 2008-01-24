@@ -27,7 +27,7 @@ import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.util.EntitiesCounter;
 
 import net.sf.gap.grid.components.GridElement;
-import net.sf.gap.impl.users.COREUser;
+import net.sf.gap.impl.users.User;
 
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
 import net.sf.gap.mc.experiments.users.impl.Measure;
@@ -35,7 +35,7 @@ import net.sf.gap.mc.experiments.users.impl.Measure;
 /**
  * @author Giovanni Novelli
  */
-public class ExperimentsUser extends COREUser {
+public class ExperimentsUser extends User {
 
     private int experimentID;
     private Measure measure;
