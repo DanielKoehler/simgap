@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.impl.users;
+package net.sf.gap.users;
 
 import eduni.simjava.Sim_event;
 import gridsim.net.Link;
