@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * COREUser.java
+ * User.java
  *
  * Created on 13 August 2006, 20.24 by Giovanni Novelli
  *
@@ -27,10 +27,10 @@ import net.sf.gap.users.AbstractUser;
  * 
  * @author Giovanni Novelli
  */
-public abstract class COREUser extends AbstractUser {
+public abstract class User extends AbstractUser {
 
 	/** Creates a new instance of QAGESAUser */
-	public COREUser(String name, Link link, int entityType, boolean trace_flag)
+	public User(String name, Link link, int entityType, boolean trace_flag)
 			throws Exception {
 		super(name, link, entityType, trace_flag);
 	}
