@@ -119,9 +119,12 @@ public class GridParser extends Parser {
                         }
                         gridElementInstance.addMachine(machine);
                     }
-                    Element storageElement = (Element) geItem.getElementsByTagName("storage").item(0);
-                    StorageType storage = this.getStorage(storageElement);
-                    gridElementInstance.setStorage(storage);
+                    NodeList storageNodeList = geItem.getElementsByTagName("storage");
+                    if (storageNodeList.getLength()>0) {
+                        Element storageElement = (Element) storageNodeList.item(0);
+                        StorageType storage = this.getStorage(storageElement);
+                        gridElementInstance.setStorage(storage);
+                    }
                     Element linkItem = (Element) geItem.getElementsByTagName("link").item(0);
                     String linkName = linkItem.getTextContent();
                     gridElementInstance.setLink(linkName);
