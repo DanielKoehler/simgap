@@ -33,8 +33,8 @@ import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
 
-import net.sf.gap.impl.factories.COREGEFactory;
-import net.sf.gap.impl.factories.LinkFactory;
+import net.sf.gap.factories.COREGEFactory;
+import net.sf.gap.factories.LinkFactory;
 import net.sf.gap.impl.grid.components.COREGridElement;
 
 /**

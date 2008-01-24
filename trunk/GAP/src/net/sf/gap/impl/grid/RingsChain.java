@@ -32,7 +32,7 @@ import java.util.Vector;
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.NetworkTopology;
 
-import net.sf.gap.impl.factories.LinkFactory;
+import net.sf.gap.factories.LinkFactory;
 
 /**
  * 
