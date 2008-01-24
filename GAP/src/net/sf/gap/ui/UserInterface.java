@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.impl.ui;
+package net.sf.gap.ui;
 
 import java.io.IOException;
 import java.io.OutputStream;
