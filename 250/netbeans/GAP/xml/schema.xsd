@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+     Simulation Scenario Schema.
+     Copyright © Giovanni Novelli. All rights reserved.
+    </xsd:documentation>
+  </xsd:annotation>
+  
+  <xsd:element name="scenario" type="SimulationScenarioType"/>
+    <xsd:complexType name="ResourceCharacteristicsType">
+        <xsd:sequence>
+            <xsd:element name="Architecture" type="xsd:string" minOccurs="0" default="System Architecture"></xsd:element>
+            <xsd:element name="OS" type="xsd:string" minOccurs="0" default="Operating System"/>
+            <xsd:element name="machinesList" type="MachineListType"/>
+            <xsd:element name="Policy" type="xsd:int" default="0" minOccurs="0"/>
+            <xsd:element name="Timezone" type="xsd:double" default="12.0" minOccurs="0"/>
+            <xsd:element name="Cost" type="xsd:double" minOccurs="0" default="1.0"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="MachineListType">
+        <xsd:sequence>
+            <xsd:element name="items">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Machine" type="MachineType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="MachineType">
+        <xsd:sequence>
+            <xsd:element name="peList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="PE" type="PEType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="PEType">
+        <xsd:sequence>
+            <xsd:element name="MIPS" default="1000" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="StorageType">
+        <xsd:sequence>
+            <xsd:element name="RM">
+                <xsd:complexType>
+                    <xsd:attribute name="name" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="hdList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="hdItem" maxOccurs="unbounded" type="HardDiskType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="tapeList" minOccurs="0" type="TapesListType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="HardDiskType">
+        <xsd:sequence>
+            <xsd:element name="Capacity" type="xsd:double"/>
+            <xsd:element name="Latency" type="xsd:double" default="4.17" minOccurs="0"/>
+            <xsd:element name="AvgSeekTime" minOccurs="0" type="xsd:double" default="9.0"/>
+            <xsd:element name="MaxTransferRate" minOccurs="0" type="xsd:double" default="133.0"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="TapeType">
+        <xsd:sequence>
+            <xsd:element name="Capacity" type="xsd:double"/>
+            <xsd:element name="AccessTime" minOccurs="0" type="xsd:double"/>
+            <xsd:element name="RewindTime" minOccurs="0" type="xsd:double"/>
+            <xsd:element name="MaxTransferRate" minOccurs="0" type="xsd:double"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="HardDisksListType">
+        <xsd:sequence>
+            <xsd:element name="items">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="HardDiskType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TapesListType">
+        <xsd:sequence>
+            <xsd:element name="tapeItem" type="TapeType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ResourceCalendarType">
+        <xsd:sequence>
+            <xsd:element name="TimeZone" type="xsd:double"/>
+            <xsd:element name="PeakLoad" type="xsd:double"/>
+            <xsd:element name="OffPeakLoad" type="xsd:double"/>
+            <xsd:element name="RelativeHolidayLoad" type="xsd:double"/>
+            <xsd:element name="weekendList" type="WeekendListType"/>
+            <xsd:element name="holidayList" type="HolidayListType"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="WeekendListType">
+        <xsd:sequence>
+            <xsd:element name="items">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Weekday" minOccurs="0" maxOccurs="unbounded" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="HolidayListType">
+        <xsd:sequence>
+            <xsd:element name="items">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Date" type="xsd:date" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LinkType">
+        <xsd:sequence>
+            <xsd:element name="Baudrate" type="xsd:double" default="9600"/>
+            <xsd:element name="Delay" type="xsd:double" default="5"/>
+            <xsd:element name="MTU" type="xsd:int" default="1500"/>
+            <xsd:element name="fromEntity" type="xsd:string"/>
+            <xsd:element name="toEntity" type="xsd:string"/>
+            <xsd:element name="bidirectional" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="EntityType">
+        <xsd:choice>
+            <xsd:element name="GridElement" minOccurs="0" nillable="true">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Router" minOccurs="0" nillable="true">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+    </xsd:complexType>
+    <xsd:complexType name="GridElementType">
+        <xsd:sequence>
+            <xsd:element name="resourceCalendar" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="resourceCharacteristics" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="machineList" type="MachineListType"/>
+            <xsd:element name="storage" type="StorageType" nillable="false" minOccurs="0"/>
+            <xsd:element name="link" type="xsd:string"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="RouterType">
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="VOType">
+        <xsd:sequence>
+            <xsd:element name="items">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="gridElement" type="xsd:string" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="NetworkTopologyType">
+        <xsd:sequence>
+            <xsd:element name="routers">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="routerItem" type="RouterType" maxOccurs="unbounded" minOccurs="2"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ges" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="geItem" maxOccurs="unbounded" form="qualified">
+                            <xsd:complexType>
+                                <xsd:attribute name="name" type="xsd:string"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="netLinks">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="netLinkItem" type="LinkType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="geLinks" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="geLinkItem" type="LinkType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SimulationScenarioType">
+        <xsd:sequence>
+            <xsd:element name="topology" type="NetworkTopologyType"/>
+            <xsd:element name="calendars" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="calendarItem" maxOccurs="unbounded" type="ResourceCalendarType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="characteristics" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="characteristicsItem" maxOccurs="unbounded" type="ResourceCharacteristicsType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="grid" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="gridElement" maxOccurs="unbounded" type="GridElementType" minOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="vos" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="voItem" type="VOType" minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+</xsd:schema>
