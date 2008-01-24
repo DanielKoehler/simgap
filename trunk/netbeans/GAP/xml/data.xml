@@ -238,4 +238,20 @@
             <link>L_SE_1</link>
         </gridElement>
     </grid>
+    <vos>
+        <voItem name="VO_0">
+            <voges>
+                <vogeItem>CE_0</vogeItem>
+                <vogeItem>CE_1</vogeItem>
+                <vogeItem>SE_0</vogeItem>
+            </voges>
+        </voItem>
+        <voItem name="VO_1">
+            <voges>
+                <vogeItem>CE_2</vogeItem>
+                <vogeItem>CE_3</vogeItem>
+                <vogeItem>SE_1</vogeItem>
+            </voges>
+        </voItem>
+    </vos>
 </scenario>
