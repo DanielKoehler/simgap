@@ -24,7 +24,7 @@ import gridsim.net.RIPRouter;
 import net.sf.gap.distributions.Uniform_int;
 
 import net.sf.gap.factories.LinkFactory;
-import net.sf.gap.grid.COREVirtualOrganization;
+import net.sf.gap.grid.VirtualOrganization;
 import net.sf.gap.impl.grid.components.COREGridElement;
 
 import net.sf.gap.mc.experiments.agents.TESTAgent;
@@ -35,7 +35,7 @@ import net.sf.gap.mc.experiments.users.User;
  *
  * @author Giovanni Novelli
  */
-public class ExperimentsVirtualOrganization extends COREVirtualOrganization {
+public class ExperimentsVirtualOrganization extends VirtualOrganization {
     
     public ExperimentsVirtualOrganization( boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
