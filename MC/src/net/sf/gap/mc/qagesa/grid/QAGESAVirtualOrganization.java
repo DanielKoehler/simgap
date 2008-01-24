@@ -19,8 +19,8 @@
 
 package net.sf.gap.mc.qagesa.grid;
 
-import net.sf.gap.impl.grid.StaticTopology;
-import net.sf.gap.impl.grid.RingsChain;
+import net.sf.gap.grid.StaticTopology;
+import net.sf.gap.grid.RingsChain;
 import eduni.simjava.Sim_system;
 
 import gridsim.net.FIFOScheduler;
