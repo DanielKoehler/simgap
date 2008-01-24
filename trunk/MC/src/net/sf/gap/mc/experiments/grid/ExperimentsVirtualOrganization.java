@@ -25,7 +25,7 @@ import net.sf.gap.distributions.Uniform_int;
 
 import net.sf.gap.factories.LinkFactory;
 import net.sf.gap.grid.VirtualOrganization;
-import net.sf.gap.impl.grid.components.GridElement;
+import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 import net.sf.gap.mc.experiments.agents.middleware.ExperimentsPlatform;

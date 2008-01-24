@@ -37,7 +37,7 @@ import net.sf.gap.grid.components.AbstractGridElement;
 
 import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
 import net.sf.gap.factories.LinkFactory;
-import net.sf.gap.impl.grid.components.GridElement;
+import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
