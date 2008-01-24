@@ -35,7 +35,7 @@ import junit.framework.Assert;
 
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.agents.predicates.Predicate;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.impl.gis.GISEntry;
 import net.sf.gap.constants.Tags;
@@ -102,7 +102,7 @@ public class ReFService extends PlatformService {
      * @param trace_flag
      * @throws Exception
      */
-    public ReFService(AgentPlatform ap, boolean trace_flag,
+    public ReFService(AbstractAgentPlatform ap, boolean trace_flag,
             double celCacheLifetime, double nmCacheLifetime) throws Exception {
         super(ap, "ReF", trace_flag);
         this.setupStatPlayStart();
