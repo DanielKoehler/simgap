@@ -31,7 +31,7 @@ import net.sf.gap.agents.history.AgentHistory;
 import net.sf.gap.agents.history.AgentHistoryEntry;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_type_p;
 import gridsim.GridSim;
@@ -56,16 +56,16 @@ public abstract class DFAgent extends AbstractAgent {
 
     /**
      * DFAgent constructor
-     * @param ge GridElement associated to an agent
+     * @param ge AbstractGridElement associated to an agent
      * @param name DFAgent's name
      * @param agentSizeInBytes DFAgent's transfer size in bytes
      * @param trace_flag Flag used to enable(true)/disable(false) tracing
      * @throws java.lang.Exception 
      * 
-     * @see net.sf.gap.grid.components.GridElement
+     * @see net.sf.gap.grid.components.AbstractGridElement
      */
     public DFAgent(
-            GridElement ge, 
+            AbstractGridElement ge, 
             String name, 
             int agentSizeInBytes,
             boolean trace_flag) 
@@ -218,7 +218,7 @@ public abstract class DFAgent extends AbstractAgent {
                 // 1. Checks if agent is NOT in the zombies list of its original Grid Element
                 Assert.assertEquals(this.gridElement.getLocalDirectory().getZombieAgents().contains(this.get_id()), false);
                 /*
-                 * @TODO Fix it This is a TRICK Missing message exchange with GridElement
+                 * @TODO Fix it This is a TRICK Missing message exchange with AbstractGridElement
                  */
                 // 2. Updates local zombies list adding agent to zombies
                 this.gridElement.getLocalDirectory().update(agentRequest,Tags.AGENT_MOVE_REQ);
@@ -673,7 +673,7 @@ public abstract class DFAgent extends AbstractAgent {
             // Sends agent's request to destination agent indirectly
             // through its Grid Element resource ID that acts as
             // DFAgent Middleware
-            // @TODO for a better SoC DFAgent Middleware should be separated from Grid Element in order to use GridSim entities without requiring a class like GridElement
+            // @TODO for a better SoC DFAgent Middleware should be separated from Grid Element in order to use GridSim entities without requiring a class like AbstractGridElement
             super.send(super.output, GridSimTags.SCHEDULE_NOW, tag,
                     new IO_data(request, SIZE, request.getDst_resID()));
         } else {

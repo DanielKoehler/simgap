@@ -31,7 +31,7 @@ import java.util.Vector;
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 import net.sf.gap.factories.COREGEFactory;
 import net.sf.gap.factories.LinkFactory;
@@ -103,8 +103,8 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
         this.getTopology().initialize();
         this.mapCEs = new HashMap<Integer, RIPRouter>(this.getNumCEs());
         this.mapSEs = new HashMap<Integer, RIPRouter>(this.getNumSEs());
-        this.setCEs(new Vector<GridElement>(this.getNumCEs()));
-        this.setSEs(new Vector<GridElement>(this.getNumSEs()));
+        this.setCEs(new Vector<AbstractGridElement>(this.getNumCEs()));
+        this.setSEs(new Vector<AbstractGridElement>(this.getNumSEs()));
         this.setAMs(new Vector<AgentMiddleware>(this.getNumAMs()));
         this.initializeCEs();
         this.initializeSEs();

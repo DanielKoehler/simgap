@@ -42,7 +42,7 @@ import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 /**
  * 
@@ -119,7 +119,7 @@ public class DirectoryFacilitator {
 		this.getDFMap().registerAgentsMap(entityType);
 	}
 
-	public void addAgent(AbstractAgent agent, GridElement ge) {
+	public void addAgent(AbstractAgent agent, AbstractGridElement ge) {
 		this.getMapZombieAgents().put(agent.get_id(), ge.get_id());
 		ge.getLocalDirectory().addFreeAgent(agent);
 		this.getMapAgentStates().put(agent.get_id(), AgentStates.ZOMBIE);

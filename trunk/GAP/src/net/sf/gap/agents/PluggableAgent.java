@@ -22,7 +22,7 @@ package net.sf.gap.agents;
 import eduni.simjava.Sim_event;
 
 import net.sf.gap.agents.GridAgent;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 import net.sf.gap.agents.behaviours.Sim_eventListener;
 import net.sf.gap.agents.behaviours.Sim_eventListenerList;
@@ -45,7 +45,7 @@ public abstract class PluggableAgent extends GridAgent {
 	 * @throws Exception
 	 */
 	public PluggableAgent(
-                GridElement ge, 
+                AbstractGridElement ge, 
                 String name, 
                 int agentSizeInBytes,
 		boolean trace_flag) 

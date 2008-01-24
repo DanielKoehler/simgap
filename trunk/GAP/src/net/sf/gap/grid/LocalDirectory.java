@@ -28,7 +28,7 @@ import java.util.LinkedList;
 
 import net.sf.gap.agents.AbstractAgent;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.AgentRequest;
 
 /**
@@ -48,7 +48,7 @@ import net.sf.gap.messages.impl.AgentRequest;
  */
 public class LocalDirectory {
 
-	private GridElement gridElement;
+	private AbstractGridElement gridElement;
 
 	private LinkedList<Integer> zombieAgents;
 
@@ -59,7 +59,7 @@ public class LocalDirectory {
 	/**
 	 * Creates a new instance of LocalDirectory
 	 */
-	public LocalDirectory(GridElement gridElement) {
+	public LocalDirectory(AbstractGridElement gridElement) {
 		this.setGridElement(gridElement);
 
 		this.setZombieAgents(new LinkedList<Integer>());
@@ -177,11 +177,11 @@ public class LocalDirectory {
 		return msg;
 	}
 
-	public GridElement getGridElement() {
+	public AbstractGridElement getGridElement() {
 		return gridElement;
 	}
 
-	public void setGridElement(GridElement gridElement) {
+	public void setGridElement(AbstractGridElement gridElement) {
 		this.gridElement = gridElement;
 	}
 }

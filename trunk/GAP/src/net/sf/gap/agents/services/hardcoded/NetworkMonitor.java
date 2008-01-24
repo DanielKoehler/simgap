@@ -40,7 +40,7 @@ import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.PingReply;
 import net.sf.gap.messages.impl.PingRequest;
 import net.sf.gap.messages.impl.NetworkMapRequest;
@@ -78,14 +78,14 @@ public class NetworkMonitor {
 	}
 
 	public void asyncProcessNetworkMap() {
-		Iterator<GridElement> it1 = this.getAgentPlatform().getGisService().getGisRepository().getListGEs().iterator();
+		Iterator<AbstractGridElement> it1 = this.getAgentPlatform().getGisService().getGisRepository().getListGEs().iterator();
 		while (it1.hasNext()) {
-			Iterator<GridElement> it2 = this.getAgentPlatform().getGisService()
+			Iterator<AbstractGridElement> it2 = this.getAgentPlatform().getGisService()
 					.getGisRepository().getListGEs().iterator();
-			GridElement ge1 = it1.next();
+			AbstractGridElement ge1 = it1.next();
 			int ge1id = ge1.get_id();
 			while (it2.hasNext()) {
-				GridElement ge2 = it2.next();
+				AbstractGridElement ge2 = it2.next();
 				int ge2id = ge2.get_id();
 				if (ge1id != ge2id) {
 					this.asyncRequestPing(ge1id, ge2id);

@@ -42,7 +42,7 @@ import net.sf.gap.messages.impl.GridletReply;
 import net.sf.gap.messages.impl.GridletRequest;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 /**
  * This abstract class is mainly responsible in simulating basic behaviour 
@@ -69,7 +69,7 @@ public abstract class GridAgent extends DFAgent {
 	 * @throws Exception
 	 */
 	public GridAgent(
-                GridElement ge, 
+                AbstractGridElement ge, 
                 String name, 
                 int agentSizeInBytes,
 		boolean trace_flag) 

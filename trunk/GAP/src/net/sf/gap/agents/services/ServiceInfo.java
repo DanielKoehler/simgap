@@ -24,7 +24,7 @@
 
 package net.sf.gap.agents.services;
 
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 /**
  * This class is responsible for maintaining info about a platform service
@@ -35,9 +35,9 @@ import net.sf.gap.grid.components.GridElement;
 public class ServiceInfo {
 	private String serviceName;
 
-	private GridElement gridElement;
+	private AbstractGridElement gridElement;
 
-	public ServiceInfo(String serviceName, GridElement gridElement) {
+	public ServiceInfo(String serviceName, AbstractGridElement gridElement) {
 		this.setServiceName(serviceName);
 		this.setGridElement(gridElement);
 	}
@@ -55,11 +55,11 @@ public class ServiceInfo {
 		this.serviceName = serviceName;
 	}
 
-	public GridElement getGridElement() {
+	public AbstractGridElement getGridElement() {
 		return gridElement;
 	}
 
-	public void setGridElement(GridElement gridElement) {
+	public void setGridElement(AbstractGridElement gridElement) {
 		this.gridElement = gridElement;
 	}
 }

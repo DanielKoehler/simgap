@@ -34,7 +34,7 @@ import net.sf.gap.agents.services.hardcoded.NetworkMonitor;
 import net.sf.gap.agents.services.impl.GISService;
 import net.sf.gap.agents.services.impl.NMService;
 import net.sf.gap.agents.services.impl.TestService;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_predicate;
@@ -77,7 +77,7 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 		this.setNMService(new NMService(this, false));
         }
         
-	public void addAgent(AbstractAgent agent, GridElement ge) {
+	public void addAgent(AbstractAgent agent, AbstractGridElement ge) {
 		this.getDirectoryFacilitator().addAgent(agent, ge);
 	}
 
