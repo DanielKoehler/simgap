@@ -16,7 +16,7 @@
 
 package net.sf.gap.mc.experiments.simulation.specs;
 
-import net.sf.gap.impl.ui.UserInterface;
+import net.sf.gap.ui.UserInterface;
 
 import net.sf.gap.mc.experiments.simulation.impl.Simulation;
 

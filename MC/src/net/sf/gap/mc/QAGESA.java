@@ -21,7 +21,7 @@ package net.sf.gap.mc;
 
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
-import net.sf.gap.impl.ui.UserInterface;
+import net.sf.gap.ui.UserInterface;
 
 /**
  * This class is responsible of main entry method of QAGESA's simulation
