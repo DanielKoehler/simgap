@@ -4,6 +4,9 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
+ * Title:        GAP Simulator
+ * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Sim_eventListener.java

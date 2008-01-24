@@ -6,6 +6,9 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
+ * Title:        GAP Simulator
+ * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ *               of Mobile Agents on Grids
  * NetworkTopology.java
  *
  * Created on 7 August 2006, 21.38 by Giovanni Novelli
