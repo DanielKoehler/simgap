@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * COREVirtualOrganization.java
+ * VirtualOrganization.java
  *
  * Created on 7 August 2006, 14.40 by Giovanni Novelli
  *
@@ -41,7 +41,7 @@ import net.sf.gap.impl.grid.components.COREGridElement;
  *
  * @author Giovanni Novelli
  */
-public abstract class COREVirtualOrganization extends AbstractVirtualOrganization {
+public abstract class VirtualOrganization extends AbstractVirtualOrganization {
     /**
      * links delay factor
      */
@@ -75,7 +75,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     
     private int experimentID;
 
-    public COREVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
+    public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int routersPerCloud, int clouds, boolean fixedInfrastructure, double factor, int numUsers, int experimentID) throws Exception {
         this.setFactor(factor);
@@ -88,7 +88,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     
     public static final int NT_RINGSCHAIN = 1;
     public static final int NT_STATIC = 2;
-    public COREVirtualOrganization(boolean traceFlag, int numCE, int MIPS,
+    public VirtualOrganization(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
             int GBMax, int numUsers, double factor) throws Exception {
         this.setFactor(factor);
@@ -149,7 +149,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
         this.setFixedInfrastructure(fixedInfrastructure);
         this.setFactor(factor);
         this.setExperimentID(experimentID);
-        this.setNetworkType(COREVirtualOrganization.NT_RINGSCHAIN);
+        this.setNetworkType(VirtualOrganization.NT_RINGSCHAIN);
     }
     
     private void initParameters(boolean traceFlag, int numCE, int MIPS,
@@ -165,15 +165,15 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
         this.setMMax(MMax);
         this.setGBMin(GBMin);
         this.setGBMax(GBMax);
-        this.setNetworkType(COREVirtualOrganization.NT_STATIC);
+        this.setNetworkType(VirtualOrganization.NT_STATIC);
     }
     
     protected void createEntities() throws Exception {
         this.setDataGIS(this.createDataGIS());
         this.setTopRegionalRC(this.createTopRegionalRC());
-        if (this.getNetworkType() == COREVirtualOrganization.NT_RINGSCHAIN) {
+        if (this.getNetworkType() == VirtualOrganization.NT_RINGSCHAIN) {
             this.setTopology(new RingsChain(this.getRoutersPerCloud(), this.getClouds(), this.getFactor(), this.isTraceFlag()));
-        } else if (this.getNetworkType() == COREVirtualOrganization.NT_STATIC) {
+        } else if (this.getNetworkType() == VirtualOrganization.NT_STATIC) {
             this.setTopology(new StaticTopology(this.isTraceFlag(),this.getFactor()));
         }
         FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
@@ -196,7 +196,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     abstract public void createAndAttachUsers() throws Exception;
     
     public void createAndAttachCEs() throws Exception {
-        if (this.getNetworkType()==COREVirtualOrganization.NT_STATIC) {
+        if (this.getNetworkType()==VirtualOrganization.NT_STATIC) {
             int N = this.getTopology().getNumRouters();
             int index;
             for (int i = 0; i < this.getNumCEs(); i++) {
@@ -221,7 +221,7 @@ public abstract class COREVirtualOrganization extends AbstractVirtualOrganizatio
     }
     
     public void createAndAttachSEs() throws Exception {
-        if (this.getNetworkType()==COREVirtualOrganization.NT_STATIC) {
+        if (this.getNetworkType()==VirtualOrganization.NT_STATIC) {
         int N = this.getTopology().getNumRouters();
         int index;
         for (int i = 0; i < this.getNumSEs(); i++) {
