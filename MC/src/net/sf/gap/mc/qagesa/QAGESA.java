@@ -16,7 +16,7 @@
 
 package net.sf.gap.mc.qagesa;
 
-import net.sf.gap.GAP;
+import net.sf.gap.AbstractGAP;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.impl.MC;
@@ -35,9 +35,9 @@ public class QAGESA extends MC {
          * @param end           Simulation's end time
          */
 	public static void initialize(double platformStart, double start, double end) {
-		GAP.setPlatformStartTime(platformStart);
-		GAP.setStartTime(start);
-		GAP.setEndTime(end);
+		AbstractGAP.setPlatformStartTime(platformStart);
+		AbstractGAP.setStartTime(start);
+		AbstractGAP.setEndTime(end);
 		EntityTypes.setInstance(new QAGESAEntityTypes());
 		Tags.setInstance(new QAGESATags());
 	}

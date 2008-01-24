@@ -4,8 +4,8 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        GAP Simulator
- * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ * Title:        AbstractGAP Simulator
+ * Description:  AbstractGAP (Grid Agents Platform) Toolkit for Modeling and Simulation
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
@@ -26,7 +26,7 @@ package net.sf.gap.agents.services.hardcoded.df;
 
 import java.util.HashMap;
 
-import net.sf.gap.GAP;
+import net.sf.gap.AbstractGAP;
 import net.sf.gap.constants.EntityTypes;
 
 /**
@@ -41,7 +41,7 @@ public class DFMap extends HashMap<Integer, AgentsMap> {
 	private static final long serialVersionUID = 217466636888949413L;
 
 	public int getAgentResourceID(int entityType, int aid) {
-		int resID = GAP.NOWHERE;
+		int resID = AbstractGAP.NOWHERE;
 		if (this.containsKey(entityType)) {
 			AgentsMap agentsMap = this.get(entityType);
 			resID = agentsMap.get(aid);
