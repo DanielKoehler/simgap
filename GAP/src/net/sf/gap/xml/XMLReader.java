@@ -52,7 +52,7 @@ public class XMLReader {
     
     public static void main(String[] args) {
        String xsd = "xml/schema.xsd";
-       String xml = "xml/flatgrid.xml";
+       String xml = "xml/manyvos.xml";
        
        XMLReader reader = new XMLReader(xsd, xml);
  

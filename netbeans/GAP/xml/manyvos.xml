@@ -241,16 +241,16 @@
     <vos>
         <voItem name="VO_0">
             <voges>
-                <vogeItem>CE_0</vogeItem>
-                <vogeItem>CE_1</vogeItem>
-                <vogeItem>SE_0</vogeItem>
+                <vogeItem name="CE_0"/>
+                <vogeItem name="CE_1"/>
+                <vogeItem name="SE_0"/>
             </voges>
         </voItem>
         <voItem name="VO_1">
             <voges>
-                <vogeItem>CE_2</vogeItem>
-                <vogeItem>CE_3</vogeItem>
-                <vogeItem>SE_1</vogeItem>
+                <vogeItem name="CE_2"/>
+                <vogeItem name="CE_3"/>
+                <vogeItem name="SE_1"/>
             </voges>
         </voItem>
     </vos>

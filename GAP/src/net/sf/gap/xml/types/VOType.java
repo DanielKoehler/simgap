@@ -36,8 +36,8 @@ public class VOType {
         this.setGridElements(new LinkedList<String>());
     }
 
-    public boolean addGridElement(String gridElement) {
-        return this.getGridElements().add(gridElement);
+    public boolean addGE(String ge) {
+        return this.getGridElements().add(ge);
     }
     
     public LinkedList<String> getGridElements() {

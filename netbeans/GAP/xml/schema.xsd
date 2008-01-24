@@ -183,7 +183,11 @@
             <xsd:element name="voges">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="vogeItem" maxOccurs="unbounded"/>
+                        <xsd:element name="vogeItem" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="name" type="xsd:string"/>
+                            </xsd:complexType>
+                        </xsd:element>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
