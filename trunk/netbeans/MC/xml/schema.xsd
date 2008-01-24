@@ -61,13 +61,7 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="TapeList" minOccurs="0">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Tape" maxOccurs="unbounded" type="TapesListType"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="tapeList" minOccurs="0" type="TapesListType"></xsd:element>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="HardDiskType">
@@ -101,13 +95,7 @@
     </xsd:complexType>
     <xsd:complexType name="TapesListType">
         <xsd:sequence>
-            <xsd:element name="items">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Tape" maxOccurs="unbounded" type="TapeType"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="tapeItem" type="TapeType" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="ResourceCalendarType">

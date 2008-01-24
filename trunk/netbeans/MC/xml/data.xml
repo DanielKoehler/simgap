@@ -88,6 +88,14 @@
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
                 </hdList>
+                <tapeList>
+                    <tapeItem name="TAPE_0_CE_0">
+                        <Capacity>100000</Capacity>
+                        <AccessTime>142.0</AccessTime>
+                        <RewindTime>284.0</RewindTime>
+                        <MaxTransferRate>8.0</MaxTransferRate>
+                    </tapeItem>
+                </tapeList>
             </storage>
             <link>L_CE_0</link>
         </gridElement>
