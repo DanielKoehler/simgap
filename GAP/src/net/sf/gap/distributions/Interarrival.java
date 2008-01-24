@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.impl.distributions;
+package net.sf.gap.distributions;
 import eduni.simjava.distributions.*;
 
 /**
