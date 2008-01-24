@@ -50,6 +50,38 @@ public class GridParser extends Parser {
         return grid;
     }
     
+    private StorageType getStorage(Element storageElement) {
+        Element rmElement = (Element) storageElement.getElementsByTagName("RM").item(0);
+        String rmName = rmElement.getAttribute("name");
+        StorageType storage = new StorageType(rmName);
+        NodeList hdItems = storageElement.getElementsByTagName("hdItem");
+        HardDiskListType hdList = new HardDiskListType();
+        for (int i = 0; i < hdItems.getLength(); i++) {
+            Element hdItem = (Element) hdItems.item(i);
+            String hdName = hdItem.getAttribute("name");
+            Element capacityElement = (Element) hdItem.getElementsByTagName("Capacity").item(0);
+            double aCapacity = Double.parseDouble(capacityElement.getTextContent());
+            Element latencyElement = (Element) hdItem.getElementsByTagName("Latency").item(0);
+            double aLatency = Double.parseDouble(latencyElement.getTextContent());
+            Element askElement = (Element) hdItem.getElementsByTagName("AvgSeekTime").item(0);
+            double aAvgSeekTime = Double.parseDouble(askElement.getTextContent());
+            Element mtrElement = (Element) hdItem.getElementsByTagName("MaxTransferRate").item(0);
+            double aMaxTransferRate = Double.parseDouble(mtrElement.getTextContent());
+            HardDiskType hd = new 
+                    HardDiskType(
+                    hdName,
+                    aCapacity,
+                    aLatency,
+                    aAvgSeekTime,
+                    aMaxTransferRate);
+            hdList.addHardDisk(hd);
+        }
+        storage.setHardDiskList(hdList);
+        //NodeList hdItems = storageElement.getElementsByTagName("hdItem");
+        //HardDiskListType hdList = new HardDiskListType();
+        return storage;
+    }
+    
     private GridElementType getGridElement(Element geItem) {
                     GridElementType gridElementInstance = new GridElementType();
                     gridElementInstance.setName(geItem.getAttribute("name"));
@@ -66,6 +98,9 @@ public class GridParser extends Parser {
                         }
                         gridElementInstance.addMachine(machine);
                     }
+                    Element storageElement = (Element) geItem.getElementsByTagName("storage").item(0);
+                    StorageType storage = this.getStorage(storageElement);
+                    gridElementInstance.setStorage(storage);
                     Element linkItem = (Element) geItem.getElementsByTagName("link").item(0);
                     String linkName = linkItem.getTextContent();
                     gridElementInstance.setLink(linkName);

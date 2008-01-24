@@ -54,10 +54,10 @@
                     <xsd:attribute name="name" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="HardDiskList">
+            <xsd:element name="hdList">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="HardDisk" maxOccurs="unbounded" type="HardDiskType"/>
+                        <xsd:element name="hdItem" maxOccurs="unbounded" type="HardDiskType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
