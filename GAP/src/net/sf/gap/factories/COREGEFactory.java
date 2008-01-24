@@ -35,7 +35,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.impl.grid.components.GridElement;
+import net.sf.gap.grid.components.GridElement;
 
 /**
  * 

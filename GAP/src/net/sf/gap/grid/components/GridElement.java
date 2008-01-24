@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.impl.grid.components;
+package net.sf.gap.grid.components;
 
 import eduni.simjava.Sim_event;
 
