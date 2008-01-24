@@ -167,8 +167,8 @@
     </xsd:complexType>
     <xsd:complexType name="GridElementType">
         <xsd:sequence>
-            <xsd:element name="resourceCalendar" type="ResourceCalendarType" minOccurs="0"/>
-            <xsd:element name="resourceCharacteristics" type="ResourceCharacteristicsType" minOccurs="0"/>
+            <xsd:element name="resourceCalendar" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="resourceCharacteristics" type="xsd:string" minOccurs="0"/>
             <xsd:element name="machineList" type="MachineListType"/>
             <xsd:element name="storage" type="StorageType" nillable="false" minOccurs="0"/>
             <xsd:element name="link" type="xsd:string"/>
@@ -209,10 +209,17 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="links">
+            <xsd:element name="netLinks">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="linkItem" type="LinkType" maxOccurs="unbounded"/>
+                        <xsd:element name="netLinkItem" type="LinkType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="geLinks" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="geLinkItem" type="LinkType" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -221,6 +228,20 @@
     <xsd:complexType name="SimulationScenarioType">
         <xsd:sequence>
             <xsd:element name="topology" type="NetworkTopologyType"/>
+            <xsd:element name="calendars" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="calendarItem" maxOccurs="unbounded" type="ResourceCalendarType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="characteristics" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="characteristicsItem" maxOccurs="unbounded" type="ResourceCharacteristicsType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
             <xsd:element name="grid" minOccurs="0">
                 <xsd:complexType>
                     <xsd:sequence>
