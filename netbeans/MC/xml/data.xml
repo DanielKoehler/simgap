@@ -21,46 +21,48 @@
         <ges>
             <geItem name="CE_0"/>
         </ges>
-        <links>
-            <linkItem name="L_0">
+        <netLinks>
+            <netLinkItem name="L_0">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_0</fromEntity>
                 <toEntity>R_1</toEntity>
                 <bidirectional>true</bidirectional>
-            </linkItem>
-            <linkItem name="L_1">
+            </netLinkItem>
+            <netLinkItem name="L_1">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_0</fromEntity>
                 <toEntity>R_2</toEntity>
                 <bidirectional>true</bidirectional>
-            </linkItem>
-            <linkItem name="L_2">
+            </netLinkItem>
+            <netLinkItem name="L_2">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_1</fromEntity>
                 <toEntity>R_2</toEntity>
                 <bidirectional>false</bidirectional>
-            </linkItem>
-            <linkItem name="L_3">
+            </netLinkItem>
+            <netLinkItem name="L_3">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>R_2</fromEntity>
                 <toEntity>R_3</toEntity>
-            </linkItem>
-            <linkItem name="L_CE_0">
+            </netLinkItem>
+        </netLinks>
+        <geLinks>
+            <geLinkItem name="L_CE_0">
                 <Baudrate>100000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>CE_0</fromEntity>
                 <toEntity>R_0</toEntity>
-            </linkItem>
-        </links>
+            </geLinkItem>
+        </geLinks>
     </topology>
     <grid>
         <gridElement name="CE_0">

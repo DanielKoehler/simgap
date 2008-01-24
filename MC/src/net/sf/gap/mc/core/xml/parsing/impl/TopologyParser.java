@@ -42,9 +42,40 @@ public class TopologyParser extends Parser {
             Element geItem = (Element) geItems.item(i);
             topology.addGE(geItem.getAttribute("name"));
         }
-        NodeList linkItems = this.getDocument().getElementsByTagName("linkItem");
-        for (int i = 0; i < linkItems.getLength(); i++) {
-            Element linkItem = (Element) linkItems.item(i);
+        NodeList netLinkItems = this.getDocument().getElementsByTagName("netLinkItem");
+        for (int i = 0; i < netLinkItems.getLength(); i++) {
+            Element linkItem = (Element) netLinkItems.item(i);
+            String aName = linkItem.getAttribute("name");
+            Element element;
+            element = (Element) linkItem.getElementsByTagName("Baudrate").item(0);
+            double aBaudrate = Double.parseDouble(element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("Delay").item(0);
+            double aDelay = Double.parseDouble(element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("MTU").item(0);
+            int aMTU = Integer.parseInt(element.getTextContent());
+            element = (Element) linkItem.getElementsByTagName("fromEntity").item(0);
+            String fromEntity = element.getTextContent();
+            element = (Element) linkItem.getElementsByTagName("toEntity").item(0);
+            String toEntity = element.getTextContent();
+            element = (Element) linkItem.getElementsByTagName("bidirectional").item(0);
+            boolean aBidirectional = true;
+            if (element!=null) {
+            aBidirectional = Boolean.parseBoolean(element.getTextContent());
+            }
+            LinkType link = 
+                    new LinkType(
+                    aName,
+                    aBaudrate,
+                    aDelay,
+                    aMTU,
+                    fromEntity,
+                    toEntity,
+                    aBidirectional);
+            topology.addLink(link);
+        }
+        NodeList geLinkItems = this.getDocument().getElementsByTagName("geLinkItem");
+        for (int i = 0; i < geLinkItems.getLength(); i++) {
+            Element linkItem = (Element) geLinkItems.item(i);
             String aName = linkItem.getAttribute("name");
             Element element;
             element = (Element) linkItem.getElementsByTagName("Baudrate").item(0);
