@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.impl.agents;
+package net.sf.gap.agents;
 
 import eduni.simjava.Sim_event;
 
