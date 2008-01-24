@@ -28,7 +28,7 @@ import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
 
-import net.sf.gap.impl.grid.components.GridElement;
+import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.messages.ChunkReply;
