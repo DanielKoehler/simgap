@@ -26,8 +26,8 @@ import net.sf.gap.messages.impl.GridletReply;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.util.EntitiesCounter;
 
-import net.sf.gap.mc.core.grid.components.COREGridElement;
-import net.sf.gap.mc.core.users.COREUser;
+import net.sf.gap.impl.grid.components.COREGridElement;
+import net.sf.gap.impl.users.COREUser;
 
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
 import net.sf.gap.mc.experiments.users.impl.Measure;

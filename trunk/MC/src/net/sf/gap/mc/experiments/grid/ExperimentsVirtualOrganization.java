@@ -23,9 +23,9 @@ import gridsim.net.RIPRouter;
 
 import net.sf.gap.distributions.Uniform_int;
 
-import net.sf.gap.mc.core.factories.LinkFactory;
-import net.sf.gap.mc.core.grid.COREVirtualOrganization;
-import net.sf.gap.mc.core.grid.components.COREGridElement;
+import net.sf.gap.impl.factories.LinkFactory;
+import net.sf.gap.impl.grid.COREVirtualOrganization;
+import net.sf.gap.impl.grid.components.COREGridElement;
 
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 import net.sf.gap.mc.experiments.agents.middleware.ExperimentsPlatform;

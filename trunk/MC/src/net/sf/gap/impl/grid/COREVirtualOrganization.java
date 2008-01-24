@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.grid;
+package net.sf.gap.impl.grid;
 
 import eduni.simjava.Sim_system;
 
@@ -30,9 +30,9 @@ import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
 
-import net.sf.gap.mc.core.factories.COREGEFactory;
-import net.sf.gap.mc.core.factories.LinkFactory;
-import net.sf.gap.mc.core.grid.components.COREGridElement;
+import net.sf.gap.impl.factories.COREGEFactory;
+import net.sf.gap.impl.factories.LinkFactory;
+import net.sf.gap.impl.grid.components.COREGridElement;
 
 /**
  *

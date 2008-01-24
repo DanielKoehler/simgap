@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.grid;
+package net.sf.gap.impl.grid;
 
 import gridsim.net.RIPRouter;
 

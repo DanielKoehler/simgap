@@ -14,15 +14,15 @@
  *
  */
 
-package net.sf.gap.mc.core.agents;
+package net.sf.gap.impl.agents;
 
 import eduni.simjava.Sim_event;
 
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.grid.components.GridElement;
 
-import net.sf.gap.mc.core.agents.behaviours.Sim_eventListener;
-import net.sf.gap.mc.core.agents.behaviours.Sim_eventListenerList;
+import net.sf.gap.impl.agents.behaviours.Sim_eventListener;
+import net.sf.gap.impl.agents.behaviours.Sim_eventListenerList;
 
 /**
  * 

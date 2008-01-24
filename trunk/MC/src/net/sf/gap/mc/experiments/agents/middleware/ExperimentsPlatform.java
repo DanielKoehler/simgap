@@ -18,10 +18,10 @@
 
 package net.sf.gap.mc.experiments.agents.middleware;
 
-import net.sf.gap.mc.core.agents.middleware.*;
+import net.sf.gap.impl.agents.middleware.*;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
-import net.sf.gap.mc.core.agents.middleware.COREPlatform;
+import net.sf.gap.impl.agents.middleware.COREPlatform;
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 
 /**
