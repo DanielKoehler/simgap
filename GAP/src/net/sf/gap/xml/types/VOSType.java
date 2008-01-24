@@ -16,22 +16,37 @@
 
 package net.sf.gap.xml.types;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Giovanni Novelli
  */
 public class VOSType {
-    private VOType vo;
+    private LinkedList<VOType> voItems;
     
-    public VOSType(VOType vo) {
-        this.setVo(vo);
+    public VOSType() {
     }
 
-    public VOType getVo() {
-        return vo;
+    public VOSType(GridType grid) {
+        this.setVoItems(new LinkedList<VOType>());
+        VOType aVO = new VOType();
+        aVO.setGridElements(new LinkedList<String>());
+        for (int i=0;i<grid.getGridElements().size();i++) {
+            aVO.addGridElement(grid.getGridElements().get(i).getName());
+        }
+        this.addVO(aVO);
+    }
+    
+    public boolean addVO(VOType aVO) {
+        return this.getVoItems().add(aVO);
+    }
+    
+    public LinkedList<VOType> getVoItems() {
+        return voItems;
     }
 
-    public void setVo(VOType vo) {
-        this.vo = vo;
+    public void setVoItems(LinkedList<VOType> voItems) {
+        this.voItems = voItems;
     }
 }

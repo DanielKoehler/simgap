@@ -32,8 +32,19 @@ public class VOSParser extends Parser {
         super(document);
     }
     
-    public VOSType getVOS() {
-        VOSType vos = null;
+    public VOSType getVOS(GridType grid) {
+        VOSType vos;
+        NodeList voItems = this.getDocument().getElementsByTagName("voItem");
+        if (voItems.getLength()>0) {
+            vos = new VOSType();
+            for (int i = 0; i < voItems.getLength(); i++) {
+                Element voItem = (Element) voItems.item(i);
+                String voName = voItem.getAttribute("name");
+                
+            }
+        } else {
+            vos = new VOSType(grid);
+        }
         return vos;
     }
 }

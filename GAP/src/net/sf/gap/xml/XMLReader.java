@@ -16,10 +16,8 @@
 
 package net.sf.gap.xml;
 
-import net.sf.gap.xml.parsing.impl.GridParser;
-import net.sf.gap.xml.parsing.impl.VOSParser;
-import net.sf.gap.xml.parsing.impl.TopologyParser;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import org.xml.sax.SAXException;
 
@@ -35,6 +33,9 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import net.sf.gap.xml.types.*;
+import net.sf.gap.xml.parsing.impl.GridParser;
+import net.sf.gap.xml.parsing.impl.VOSParser;
+import net.sf.gap.xml.parsing.impl.TopologyParser;
 
 /**
  *
@@ -51,7 +52,7 @@ public class XMLReader {
     
     public static void main(String[] args) {
        String xsd = "xml/schema.xsd";
-       String xml = "xml/data.xml";
+       String xml = "xml/flatgrid.xml";
        
        XMLReader reader = new XMLReader(xsd, xml);
  
@@ -62,7 +63,9 @@ public class XMLReader {
     public ScenarioType getScenario() {
         Document document = this.getDocument();
  
-        ScenarioType scenario = new ScenarioType();
+        Element scenarioElement = (Element) this.getDocument().getElementsByTagName("scenario").item(0);
+        String scenarioName = scenarioElement.getAttribute("name");
+        ScenarioType scenario = new ScenarioType(scenarioName);
         
         TopologyParser topologyParser = new TopologyParser(document);
         NetworkTopologyType topology = topologyParser.getTopology();
@@ -71,17 +74,11 @@ public class XMLReader {
         
         GridParser gridParser = new GridParser(document);
         GridType grid = gridParser.getGrid();
-        
-        if (grid!=null) {
-            scenario.setGrid(grid);
+        scenario.setGrid(grid);
             
-            VOSParser vosParser = new VOSParser(document);
-            VOSType vos = vosParser.getVOS();
-            
-            if (vos!=null) {
-                scenario.setVos(vos);
-            }
-        }
+        VOSParser vosParser = new VOSParser(document);
+        VOSType vos = vosParser.getVOS(grid);
+        scenario.setVos(vos);
 
         return scenario;
     }
@@ -101,7 +98,7 @@ public class XMLReader {
             // Parse the XML as a W3C document.
             DocumentBuilder builder =
                     DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            document = builder.parse(new File("xml/data.xml"));
+            document = builder.parse(new File(this.get_xml()));
             boolean valid = (document!=null);
             if (!valid) {
               System.err.println(this.get_xml() + " is NOT valid against schema " + this.get_xsd());
