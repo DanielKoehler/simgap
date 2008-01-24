@@ -23,6 +23,7 @@ import gridsim.ResourceCharacteristics;
  * @author Giovanni Novelli
  */
 public class ResourceCharacteristicsType {
+    private String name;
     private String Architecture;
     private String OS;
     private MachineListType machineList;
@@ -31,6 +32,7 @@ public class ResourceCharacteristicsType {
     private double Cost;
     
     public ResourceCharacteristicsType(MachineListType machineList) {
+        this.setName("Default Resource Characteristics");
         this.setArchitecture("System Architecture");
         this.setOS("Operating System");
         this.setMachineList(machineList);
@@ -40,6 +42,7 @@ public class ResourceCharacteristicsType {
     }
     
     public ResourceCharacteristicsType(
+            String name,
             String Architecture,
             String OS,
             MachineListType machineList,
@@ -47,6 +50,7 @@ public class ResourceCharacteristicsType {
             double Timezone,
             double Cost
             ) {
+        this.setName(name);
         this.setArchitecture(Architecture);
         this.setOS(OS);
         this.setMachineList(machineList);
@@ -106,6 +110,14 @@ public class ResourceCharacteristicsType {
 
     public void setCost(double Cost) {
         this.Cost = Cost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
 }

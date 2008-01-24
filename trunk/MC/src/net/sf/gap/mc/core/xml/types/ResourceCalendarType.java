@@ -21,6 +21,7 @@ package net.sf.gap.mc.core.xml.types;
  * @author Giovanni Novelli
  */
 public class ResourceCalendarType {
+    private String name;
     private double TimeZone;
     private double PeakLoad;
     private double OffPeakLoad;
@@ -29,6 +30,7 @@ public class ResourceCalendarType {
     private HolidayListType holidayList;
 
     public ResourceCalendarType() {
+        this.setName("Default Resource Calendar");
         this.setTimeZone(0.0);
         this.setPeakLoad(0.0);
         this.setOffPeakLoad(0.0);
@@ -38,6 +40,7 @@ public class ResourceCalendarType {
     }
     
     public ResourceCalendarType(
+            String name,
             double TimeZone,
             double PeakLoad,
             double OffPeakLoad,
@@ -45,6 +48,7 @@ public class ResourceCalendarType {
             WeekendListType weekendList,
             HolidayListType holidayList
             ) {
+        this.setName(name);
         this.setTimeZone(TimeZone);
         this.setPeakLoad(PeakLoad);
         this.setOffPeakLoad(OffPeakLoad);
@@ -99,5 +103,13 @@ public class ResourceCalendarType {
 
     public void setHolidayList(HolidayListType holidayList) {
         this.holidayList = holidayList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
