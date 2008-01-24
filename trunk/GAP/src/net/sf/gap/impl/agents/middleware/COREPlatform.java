@@ -24,7 +24,7 @@ import eduni.simjava.Sim_system;
 
 import net.sf.gap.agents.middleware.AgentPlatform;
 
-import net.sf.gap.impl.MC;
+import net.sf.gap.GAP;
 
 /**
  * 
@@ -78,7 +78,7 @@ public abstract class COREPlatform extends AgentPlatform {
         // wait for a little while for about 3 seconds.
         // This to give a time for GridResource entities to register their
         // services to GIS (GridInformationService) entity.
-        super.gridSimHold(MC.getPlatformStartTime());
+        super.gridSimHold(GAP.getPlatformStartTime());
         try {
             this.initialize();
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public abstract class COREPlatform extends AgentPlatform {
 
     public void process() {
         Sim_event ev = new Sim_event();
-        while (MC.isRunning()) {
+        while (GAP.isRunning()) {
             super.sim_wait_for(Sim_system.SIM_ANY, 10.0, ev);
 
             this.processEvent(ev);

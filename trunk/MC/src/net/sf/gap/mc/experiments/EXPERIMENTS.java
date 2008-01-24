@@ -19,7 +19,7 @@ package net.sf.gap.mc.experiments;
 import net.sf.gap.AbstractGAP;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.impl.MC;
+import net.sf.gap.GAP;
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
 import net.sf.gap.mc.experiments.constants.ExperimentsTags;
 
@@ -27,7 +27,7 @@ import net.sf.gap.mc.experiments.constants.ExperimentsTags;
  *
  * @author Giovanni Novelli
  */
-public class EXPERIMENTS extends MC {
+public class EXPERIMENTS extends GAP {
 	/** 
          * Initializes simulation's time parameters
          * @param platformStart Platform's start time
