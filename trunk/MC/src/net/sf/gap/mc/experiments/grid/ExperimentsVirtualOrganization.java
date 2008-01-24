@@ -29,7 +29,7 @@ import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 import net.sf.gap.mc.experiments.agents.middleware.ExperimentsPlatform;
-import net.sf.gap.mc.experiments.users.User;
+import net.sf.gap.mc.experiments.users.ExperimentsUser;
 
 /**
  *
@@ -112,7 +112,7 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
                 index = i % N;
                 router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 link = LinkFactory.UserLink(640000, 20);
-                User user = new User(this.getExperimentID(),"USER_" + i, link,false);
+                ExperimentsUser user = new ExperimentsUser(this.getExperimentID(),"USER_" + i, link,false);
                 router.attachHost(user, user.getUserSched());
                 user.setVirtualOrganization(this);
         }
