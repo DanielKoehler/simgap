@@ -110,9 +110,9 @@ public class User extends COREUser {
         if (!EntitiesCounter.contains("Gridlet")) {
             EntitiesCounter.create("Gridlet");
         }
-        double length = 50000.0;
-        long file_size = 1048576;
-        long output_size = 512;
+        double length = 1000.0;
+        long file_size = 3000;
+        long output_size = 1500;
         Gridlet g = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
                 file_size, output_size);
         GridletReply gridletReply = null;

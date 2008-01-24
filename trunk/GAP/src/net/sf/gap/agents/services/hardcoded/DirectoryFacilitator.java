@@ -4,8 +4,8 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        GAP Simulator
- * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ * Title:        AbstractGAP Simulator
+ * Description:  AbstractGAP (Grid Agents Platform) Toolkit for Modeling and Simulation
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
@@ -32,7 +32,7 @@ import eduni.simjava.Sim_port;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
 
-import net.sf.gap.GAP;
+import net.sf.gap.AbstractGAP;
 import net.sf.gap.agents.AbstractAgent;
 import net.sf.gap.agents.middleware.AgentPlatform;
 import net.sf.gap.agents.services.hardcoded.df.AgentsMap;
@@ -130,11 +130,11 @@ public class DirectoryFacilitator {
 	}
 
 	protected int locateAID(int AID) {
-		int resID = GAP.NOWHERE;
+		int resID = AbstractGAP.NOWHERE;
 		if (this.getMapAIDs().containsKey(AID)) {
 			int aid = this.getMapAIDs().get(AID);
 			if (this.getMapZombieAgents().containsKey(aid)) {
-				resID = GAP.NOWHERE * this.getMapZombieAgents().get(aid);
+				resID = AbstractGAP.NOWHERE * this.getMapZombieAgents().get(aid);
 			} else {
 				int entityType = this.getMapEntityTypes().get(aid);
 				resID = this.getAgentResourceID(entityType, aid);

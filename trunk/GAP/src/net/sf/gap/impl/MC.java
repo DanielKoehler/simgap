@@ -4,8 +4,8 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        GAP Simulator
- * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ * Title:        AbstractGAP Simulator
+ * Description:  AbstractGAP (Grid Agents Platform) Toolkit for Modeling and Simulation
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
@@ -19,13 +19,13 @@
 
 package net.sf.gap.impl;
 
-import net.sf.gap.GAP;
+import net.sf.gap.AbstractGAP;
 
 /**
  * 
  * @author Giovanni Novelli
  */
-public abstract class MC extends GAP {
+public abstract class MC extends AbstractGAP {
 
 	/** Creates a new instance of MC */
 	public MC() {
@@ -44,7 +44,7 @@ public abstract class MC extends GAP {
          */
 	public static void startSimulation() {
 		System.out.println("Starting simulation");
-		GAP.startSimulation();
+		AbstractGAP.startSimulation();
 	}
 
 	/** 
@@ -52,6 +52,6 @@ public abstract class MC extends GAP {
          */
 	public static void stopSimulation() {
 		System.out.println("Stopping simulation");
-		GAP.stopSimulation();
+		AbstractGAP.stopSimulation();
 	}
 }

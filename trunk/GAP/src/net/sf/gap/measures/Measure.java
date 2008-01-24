@@ -4,8 +4,8 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        GAP Simulator
- * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ * Title:        AbstractGAP Simulator
+ * Description:  AbstractGAP (Grid Agents Platform) Toolkit for Modeling and Simulation
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
@@ -33,7 +33,7 @@ import gridsim.GridSim;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.sf.gap.GAP;
+import net.sf.gap.AbstractGAP;
 import net.sf.gap.messages.MeasureReply;
 import net.sf.gap.messages.MeasureRequest;
 
@@ -78,10 +78,10 @@ public class Measure extends GridSim {
 
 	@Override
 	public void body() {
-		super.gridSimHold(GAP.getStartTime());
+		super.gridSimHold(AbstractGAP.getStartTime());
 
 		Sim_event ev = new Sim_event();
-		while (GAP.isRunning()) {
+		while (AbstractGAP.isRunning()) {
 			super.sim_wait_for(Sim_system.SIM_ANY, 1.0, ev);
 			this.processEvent(ev);
 			while (super.sim_waiting() > 0) {

@@ -4,12 +4,12 @@
  * All Rights Reserved.                                                                 
  ****************************************************************************************
  *
- * Title:        GAP Simulator
- * Description:  GAP (Grid Agents Platform) Toolkit for Modeling and Simulation
+ * Title:        AbstractGAP Simulator
+ * Description:  AbstractGAP (Grid Agents Platform) Toolkit for Modeling and Simulation
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * GAP.java
+ * AbstractGAP.java
  *
  * Created on 16 August 2006, 21.47 by Giovanni Novelli
  *
@@ -38,7 +38,7 @@ import gridsim.GridSim;
  * @see gridsim.GridSim
  *
  */
-public abstract class GAP {
+public abstract class AbstractGAP {
 
     /**
      * Used for no resource ID associated to an agent (its AID isn't alive or
@@ -71,33 +71,33 @@ public abstract class GAP {
     }
 
     /**
-     * Creates a new instance of GAP
+     * Creates a new instance of AbstractGAP
      */
-    public GAP() {
-        GAP.setGraphing(true);
+    public AbstractGAP() {
+        AbstractGAP.setGraphing(true);
     }
 
     /**
-     * Creates a new instance of GAP indicating preference about graphing
+     * Creates a new instance of AbstractGAP indicating preference about graphing
      */
-    public GAP(boolean aGraphing) { 
-        GAP.setGraphing(aGraphing);
+    public AbstractGAP(boolean aGraphing) { 
+        AbstractGAP.setGraphing(aGraphing);
     }
 
     /**
      * Static initialization
      */
     static {
-        GAP.setPlatformStartTime(100.0);
-        GAP.setStartTime(200.0);
-        GAP.setEndTime(500.0);
-        Assert.assertFalse(GAP.getPlatformStartTime() > GAP.getStartTime());
-        Assert.assertFalse(GAP.getStartTime() > GAP.getEndTime());
+        AbstractGAP.setPlatformStartTime(100.0);
+        AbstractGAP.setStartTime(200.0);
+        AbstractGAP.setEndTime(500.0);
+        Assert.assertFalse(AbstractGAP.getPlatformStartTime() > AbstractGAP.getStartTime());
+        Assert.assertFalse(AbstractGAP.getStartTime() > AbstractGAP.getEndTime());
     }
 
     protected static void startSimulation() {
         Sim_system.set_report_detail(true, true);
-        Sim_system.generate_graphs(GAP.isGraphing());
+        Sim_system.generate_graphs(AbstractGAP.isGraphing());
         GridSim.startGridSimulation();
     }
 
@@ -106,14 +106,14 @@ public abstract class GAP {
     }
 
     /**
-     * @return true if a GAP simulation is running
+     * @return true if a AbstractGAP simulation is running
      */
     public static final boolean isRunning() {
-        return (GridSim.clock() < GAP.getEndTime());
+        return (GridSim.clock() < AbstractGAP.getEndTime());
     }
 
     /**
-     * @return GAP Simulation start time
+     * @return AbstractGAP Simulation start time
      */
     public static final double getStartTime() {
         return startTime;
@@ -121,14 +121,14 @@ public abstract class GAP {
 
     /**
      * @param aStartTime
-     *            sets GAP Simulation start time
+     *            sets AbstractGAP Simulation start time
      */
     public static final void setStartTime(double aStartTime) {
         startTime = aStartTime;
     }
 
     /**
-     * @return GAP Simulation end time
+     * @return AbstractGAP Simulation end time
      */
     public static final double getEndTime() {
         return endTime;
@@ -136,14 +136,14 @@ public abstract class GAP {
 
     /**
      * @param aEndTime
-     *            sets GAP Simulation end time
+     *            sets AbstractGAP Simulation end time
      */
     public static final void setEndTime(double aEndTime) {
         endTime = aEndTime;
     }
 
     /**
-     * @return GAP Simulation platform start time
+     * @return AbstractGAP Simulation platform start time
      */
     public static double getPlatformStartTime() {
         return platformStartTime;
@@ -151,7 +151,7 @@ public abstract class GAP {
 
     /**
      * @param aPlatformStartTime
-     *            sets GAP Simulation platform start time
+     *            sets AbstractGAP Simulation platform start time
      */
     public static void setPlatformStartTime(double aPlatformStartTime) {
         platformStartTime = aPlatformStartTime;
