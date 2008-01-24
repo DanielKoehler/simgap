@@ -27,7 +27,7 @@ import net.sf.gap.simulation.AbstractSimulation;
 
 import net.sf.gap.mc.experiments.EXPERIMENTS;
 import net.sf.gap.mc.experiments.grid.ExperimentsVirtualOrganization;
-import net.sf.gap.mc.experiments.users.User;
+import net.sf.gap.mc.experiments.users.ExperimentsUser;
 
 /**
  * 
@@ -71,7 +71,7 @@ public class Simulation extends AbstractSimulation {
 			// Final step: Starts the simulation
                         super.setupOutputAnalysis();
 
-                        User user0 = (User) Sim_system.get_entity("USER_0");
+                        ExperimentsUser user0 = (ExperimentsUser) Sim_system.get_entity("USER_0");
                         int measure0 = user0.getMeasure().getMeasure();
                                 Sim_system.set_termination_condition(Sim_system.INTERVAL_ACCURACY,
                                                            Sim_system.IND_REPLICATIONS,

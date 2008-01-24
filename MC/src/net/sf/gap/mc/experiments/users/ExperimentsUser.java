@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * User.java
+ * ExperimentsUser.java
  *
  * Created on 8 January 2008, 12:45 by Giovanni Novelli
  *
@@ -35,14 +35,14 @@ import net.sf.gap.mc.experiments.users.impl.Measure;
 /**
  * @author Giovanni Novelli
  */
-public class User extends COREUser {
+public class ExperimentsUser extends COREUser {
 
     private int experimentID;
     private Measure measure;
 
     /**
      * 
-     * Creates a new instance of User
+     * Creates a new instance of ExperimentsUser
      * 
      * @param name
      *            AgentMiddleware entity name
@@ -52,7 +52,7 @@ public class User extends COREUser {
      *             This happens when name is null or haven't initialized
      *             GridSim.
      */
-    public User(int experimentID, String name, Link link, boolean trace_flag)
+    public ExperimentsUser(int experimentID, String name, Link link, boolean trace_flag)
             throws Exception {
         super(name, link, ExperimentsEntityTypes.USER_USER, trace_flag);
         this.setExperimentID(experimentID);
