@@ -33,7 +33,7 @@ import java.util.Set;
 
 import net.sf.gap.agents.services.impl.gis.GISEntry;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class GISRepository extends HashMap<Integer, GISEntry> {
 
 	private AbstractAgentPlatform agentPlatform;
 
-	private LinkedList<GridElement> listGEs; // list of GEs hosting
+	private LinkedList<AbstractGridElement> listGEs; // list of GEs hosting
 
 	/**
 	 * 
@@ -58,7 +58,7 @@ public class GISRepository extends HashMap<Integer, GISEntry> {
 		super();
 		this.setAgentPlatform(agentPlatform);
 
-		this.setListGEs(new LinkedList<GridElement>());
+		this.setListGEs(new LinkedList<AbstractGridElement>());
 
 		this.setLastRequestTime(0);
 	}
@@ -77,19 +77,19 @@ public class GISRepository extends HashMap<Integer, GISEntry> {
 		return msg;
 	}
 
-	public void addGE(GridElement ge) {
+	public void addGE(AbstractGridElement ge) {
 		this.getListGEs().add(ge);
 	}
 
-	public void removeGE(GridElement ge) {
+	public void removeGE(AbstractGridElement ge) {
 		this.getListGEs().remove(ge);
 	}
 
-	public LinkedList<GridElement> getListGEs() {
+	public LinkedList<AbstractGridElement> getListGEs() {
 		return this.listGEs;
 	}
 
-	public void setListGEs(LinkedList<GridElement> listGEs) {
+	public void setListGEs(LinkedList<AbstractGridElement> listGEs) {
 		this.listGEs = listGEs;
 	}
 

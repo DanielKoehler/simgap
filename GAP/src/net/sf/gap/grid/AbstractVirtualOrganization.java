@@ -36,7 +36,7 @@ import java.util.Vector;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 /**
  * 
@@ -45,9 +45,9 @@ import net.sf.gap.grid.components.GridElement;
 public abstract class AbstractVirtualOrganization {
 	private AbstractAgentPlatform platform;
 
-	private Vector<GridElement> ces;
+	private Vector<AbstractGridElement> ces;
 
-	private Vector<GridElement> ses;
+	private Vector<AbstractGridElement> ses;
 
 	private int numCEs;
 
@@ -83,19 +83,19 @@ public abstract class AbstractVirtualOrganization {
 		this.platform = agentPlatform;
 	}
 
-	public Vector<GridElement> getCEs() {
+	public Vector<AbstractGridElement> getCEs() {
 		return this.ces;
 	}
 
-	public void setCEs(Vector<GridElement> ces) {
+	public void setCEs(Vector<AbstractGridElement> ces) {
 		this.ces = ces;
 	}
 
-	public Vector<GridElement> getSEs() {
+	public Vector<AbstractGridElement> getSEs() {
 		return this.ses;
 	}
 
-	public void setSEs(Vector<GridElement> SEs) {
+	public void setSEs(Vector<AbstractGridElement> SEs) {
 		this.ses = SEs;
 	}
 

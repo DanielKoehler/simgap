@@ -27,7 +27,7 @@ package net.sf.gap.agents.middleware;
 import gridsim.GridSim;
 import gridsim.util.SimReport;
 import net.sf.gap.grid.AbstractVirtualOrganization;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.grid.factories.LinkFactory;
 
 /**
@@ -45,7 +45,7 @@ public class AgentMiddleware extends GridSim {
     
 	private SimReport report_; // logs every events
 
-	private GridElement gridElement;
+	private AbstractGridElement gridElement;
 
 	private AbstractVirtualOrganization virtualOrganization;
 
@@ -107,14 +107,14 @@ public class AgentMiddleware extends GridSim {
 	 * @param gridElement
 	 *            the gridElement to set
 	 */
-	public void setGridElement(GridElement gridElement) {
+	public void setGridElement(AbstractGridElement gridElement) {
 		this.gridElement = gridElement;
 	}
 
 	/**
 	 * @return the gridElement
 	 */
-	public GridElement getGridElement() {
+	public AbstractGridElement getGridElement() {
 		return gridElement;
 	}
 

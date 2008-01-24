@@ -25,7 +25,7 @@
 package net.sf.gap.agents.services;
 
 import net.sf.gap.agents.GridAgent;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import eduni.simjava.Sim_event;
 
 /**
@@ -37,7 +37,7 @@ import eduni.simjava.Sim_event;
 
 public class Service extends GridAgent {
     private ServiceInfo serviceInfo;
-	public Service(GridElement ge, String name, boolean trace_flag)
+	public Service(AbstractGridElement ge, String name, boolean trace_flag)
 			throws Exception {
 		super(ge, name, 0, trace_flag);
 	}

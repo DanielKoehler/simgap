@@ -26,14 +26,14 @@ import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
 
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 
 /**
  * 
  * @author Giovanni Novelli
  */
-public class COREGridElement extends GridElement {
+public class COREGridElement extends AbstractGridElement {
 	/** Creates a new instance of StorageElement */
 	public COREGridElement(String name, Link link,
 			ResourceCharacteristics resourceCharacteristics,

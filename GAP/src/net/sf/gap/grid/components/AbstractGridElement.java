@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * GridElement.java
+ * AbstractGridElement.java
  *
  * Created on 19 August 2006, 12.00 by Giovanni Novelli
  *
@@ -58,7 +58,7 @@ import net.sf.gap.messages.impl.PingRequest;
  * 
  * @author Giovanni Novelli
  */
-public abstract class GridElement extends DataGridResource {
+public abstract class AbstractGridElement extends DataGridResource {
 	private AbstractAgentPlatform agentPlatform;
 
 	private int numPE;
@@ -78,9 +78,9 @@ public abstract class GridElement extends DataGridResource {
 	// Grid Element (CE/SE)
 
 	/**
-	 * Creates a new instance of GridElement
+	 * Creates a new instance of AbstractGridElement
 	 */
-	public GridElement(String name, Link link,
+	public AbstractGridElement(String name, Link link,
 			ResourceCharacteristics resourceCharacteristics,
 			ResourceCalendar resourceCalendar, ReplicaManager replicaManager)
 			throws Exception {
@@ -125,7 +125,7 @@ public abstract class GridElement extends DataGridResource {
 	/*
 	 * 
 	 * To process other events in concrete simulations TODO: Divide
-	 * responsibilities between GridElement class and a new indipendent
+	 * responsibilities between AbstractGridElement class and a new indipendent
 	 * Sim_entity class for Agent Middleware
 	 * 
 	 */

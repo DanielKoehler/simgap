@@ -31,7 +31,7 @@ import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.agents.history.AgentHistory;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.grid.factories.LinkFactory;
 import net.sf.gap.util.EntitiesCounter;
 
@@ -67,9 +67,9 @@ public abstract class AbstractAgent extends DataGridUser {
     private int resourceID;
     /**
      * Used to map agent to a Grid Element with a reference to an istance of
-     * GridElement class
+     * AbstractGridElement class
      */
-    protected GridElement gridElement;
+    protected AbstractGridElement gridElement;
     /**
      * Used to map agent to a specific Agent Platform
      * Useful to have multiple Agent Platforms running in a simulation
@@ -90,13 +90,13 @@ public abstract class AbstractAgent extends DataGridUser {
 
     /**
      * AbstractAgent constructor
-     * @param ge GridElement associated to an agent
+     * @param ge AbstractGridElement associated to an agent
      * @param name Agent's name
      * @param agentSizeInBytes Agent's transfer size in bytes
      * @param trace_flag Flag used to enable(true)/disable(false) tracing
      * @throws java.lang.Exception 
      */
-    public AbstractAgent(GridElement ge, String name, int agentSizeInBytes,
+    public AbstractAgent(AbstractGridElement ge, String name, int agentSizeInBytes,
             boolean trace_flag) throws Exception {
         super(name, LinkFactory.getAgentLink(name));
         this.setTraceFlag(trace_flag);
@@ -308,7 +308,7 @@ public abstract class AbstractAgent extends DataGridUser {
      * 
      * @param gridElement
      */
-    protected void setGridElement(GridElement gridElement) {
+    protected void setGridElement(AbstractGridElement gridElement) {
         this.gridElement = gridElement;
     }
 
@@ -346,9 +346,9 @@ public abstract class AbstractAgent extends DataGridUser {
 
     /**
      * 
-     * @return agent's GridElement
+     * @return agent's AbstractGridElement
      */
-    protected GridElement getGridElement() {
+    protected AbstractGridElement getGridElement() {
         return gridElement;
     }
 
