@@ -35,7 +35,7 @@ import java.util.Iterator;
 
 import net.sf.gap.constants.Tags;
 import net.sf.gap.agents.services.impl.gis.GISEntry;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.impl.gis.GISRepository;
 import net.sf.gap.grid.components.GridElement;
@@ -58,11 +58,11 @@ public class GISService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public GISService(AgentPlatform ap, boolean trace_flag) throws Exception {
+	public GISService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
 		super(ap, "GISService", trace_flag);
 	}
 
-	public GISService(AgentPlatform ap, String name, boolean trace_flag)
+	public GISService(AbstractAgentPlatform ap, String name, boolean trace_flag)
 			throws Exception {
 		super(ap, name, trace_flag);
 	}

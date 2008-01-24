@@ -34,7 +34,7 @@ import gridsim.IO_data;
 
 import net.sf.gap.AbstractGAP;
 import net.sf.gap.agents.AbstractAgent;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.hardcoded.df.AgentsMap;
 import net.sf.gap.agents.services.hardcoded.df.DFMap;
 import net.sf.gap.constants.AgentStates;
@@ -49,7 +49,7 @@ import net.sf.gap.grid.components.GridElement;
  * @author Giovanni Novelli
  */
 public class DirectoryFacilitator {
-	private AgentPlatform agentPlatform;
+	private AbstractAgentPlatform agentPlatform;
 
 	private DFMap directory; // GridAgent
 
@@ -76,7 +76,7 @@ public class DirectoryFacilitator {
 	// ID
 
 	/** Creates a new instance of DirectoryFacilitator */
-	public DirectoryFacilitator(AgentPlatform agentPlatform) {
+	public DirectoryFacilitator(AbstractAgentPlatform agentPlatform) {
 		this.setAgentPlatform(agentPlatform);
 
 		this.setDFMap(new DFMap());
@@ -210,14 +210,14 @@ public class DirectoryFacilitator {
 	 * @param agentPlatform
 	 *            the agentPlatform to set
 	 */
-	public void setAgentPlatform(AgentPlatform agentPlatform) {
+	public void setAgentPlatform(AbstractAgentPlatform agentPlatform) {
 		this.agentPlatform = agentPlatform;
 	}
 
 	/**
 	 * @return the agentPlatform
 	 */
-	public AgentPlatform getAgentPlatform() {
+	public AbstractAgentPlatform getAgentPlatform() {
 		return agentPlatform;
 	}
 

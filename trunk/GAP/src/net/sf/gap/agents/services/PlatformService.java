@@ -24,7 +24,7 @@
 
 package net.sf.gap.agents.services;
 
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 
 /**
  * This class is responsible for abstraction of Platform services
@@ -34,7 +34,7 @@ import net.sf.gap.agents.middleware.AgentPlatform;
  */
 
 public class PlatformService extends Service {
-	public PlatformService(AgentPlatform ap, String name, boolean trace_flag)
+	public PlatformService(AbstractAgentPlatform ap, String name, boolean trace_flag)
 			throws Exception {
 		super(ap.getGridElement(), name, trace_flag);
                 this.setServiceInfo(new ServiceInfo(name, ap.getGridElement()));

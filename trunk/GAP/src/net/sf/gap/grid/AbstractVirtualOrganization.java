@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.grid.components.GridElement;
 
 /**
@@ -43,7 +43,7 @@ import net.sf.gap.grid.components.GridElement;
  * @author Giovanni Novelli
  */
 public abstract class AbstractVirtualOrganization {
-	private AgentPlatform platform;
+	private AbstractAgentPlatform platform;
 
 	private Vector<GridElement> ces;
 
@@ -75,11 +75,11 @@ public abstract class AbstractVirtualOrganization {
         
         protected abstract void createEntities() throws Exception;
         
-	public AgentPlatform getPlatform() {
+	public AbstractAgentPlatform getPlatform() {
 		return this.platform;
 	}
 
-	public void setPlatform(AgentPlatform agentPlatform) {
+	public void setPlatform(AbstractAgentPlatform agentPlatform) {
 		this.platform = agentPlatform;
 	}
 
