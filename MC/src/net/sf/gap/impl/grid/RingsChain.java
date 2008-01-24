@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.grid;
+package net.sf.gap.impl.grid;
 
 import eduni.simjava.Sim_system;
 
@@ -29,7 +29,7 @@ import java.util.Vector;
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.NetworkTopology;
 
-import net.sf.gap.mc.core.factories.LinkFactory;
+import net.sf.gap.impl.factories.LinkFactory;
 
 /**
  * 

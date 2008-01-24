@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.factories;
+package net.sf.gap.impl.factories;
 
 import gridsim.Machine;
 import gridsim.MachineList;
@@ -32,7 +32,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.mc.core.grid.components.COREGridElement;
+import net.sf.gap.impl.grid.components.COREGridElement;
 
 /**
  * 

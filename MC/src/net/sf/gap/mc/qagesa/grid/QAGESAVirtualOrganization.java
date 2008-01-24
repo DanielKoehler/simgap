@@ -19,8 +19,8 @@
 
 package net.sf.gap.mc.qagesa.grid;
 
-import net.sf.gap.mc.core.grid.StaticTopology;
-import net.sf.gap.mc.core.grid.RingsChain;
+import net.sf.gap.impl.grid.StaticTopology;
+import net.sf.gap.impl.grid.RingsChain;
 import eduni.simjava.Sim_system;
 
 import gridsim.net.FIFOScheduler;
@@ -36,8 +36,8 @@ import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
 
 import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
-import net.sf.gap.mc.core.factories.LinkFactory;
-import net.sf.gap.mc.core.grid.components.COREGridElement;
+import net.sf.gap.impl.factories.LinkFactory;
+import net.sf.gap.impl.grid.components.COREGridElement;
 
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;

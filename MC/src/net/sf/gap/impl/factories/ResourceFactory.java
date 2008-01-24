@@ -6,32 +6,28 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * COREUser.java
+ * ResourceFactory.java
  *
- * Created on 13 August 2006, 20.24 by Giovanni Novelli
+ * Created on 7 August 2006, 13.37 by Giovanni Novelli
  *
  * $Id$
  *
  */
 
-package net.sf.gap.mc.core.users;
+package net.sf.gap.impl.factories;
 
-import eduni.simjava.Sim_event;
 import gridsim.net.Link;
-import net.sf.gap.users.AbstractUser;
+
+import net.sf.gap.impl.grid.components.COREGridElement;
 
 /**
  * 
  * @author Giovanni Novelli
  */
-public abstract class COREUser extends AbstractUser {
-
-	/** Creates a new instance of QAGESAUser */
-	public COREUser(String name, Link link, int entityType, boolean trace_flag)
-			throws Exception {
-		super(name, link, entityType, trace_flag);
+public abstract class ResourceFactory {
+	/** Creates a new instance of ResourceFactory */
+	public ResourceFactory() {
 	}
 
-	@Override
-	public abstract void processOtherEvent(Sim_event ev);
+	public abstract COREGridElement create(boolean fixed, int geIndex, Link link, boolean isSE);
 }

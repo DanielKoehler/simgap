@@ -16,7 +16,7 @@
 
 package net.sf.gap.mc.qagesa.factories;
 
-import net.sf.gap.mc.core.factories.*;
+import net.sf.gap.impl.factories.*;
 import gridsim.Machine;
 import gridsim.MachineList;
 import gridsim.PE;

@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.factories;
+package net.sf.gap.impl.factories;
 
 import gridsim.net.Link;
 import gridsim.net.SimpleLink;

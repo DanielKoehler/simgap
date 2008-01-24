@@ -18,7 +18,7 @@ package net.sf.gap.mc.experiments.agents;
 
 import net.sf.gap.grid.components.GridElement;
 
-import net.sf.gap.mc.core.agents.PluggableAgent;
+import net.sf.gap.impl.agents.PluggableAgent;
 
 import net.sf.gap.mc.experiments.constants.ExperimentsTags;
 import net.sf.gap.mc.experiments.agents.behaviours.TEST_REPListener;

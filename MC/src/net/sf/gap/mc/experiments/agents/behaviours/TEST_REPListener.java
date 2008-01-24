@@ -18,8 +18,8 @@ package net.sf.gap.mc.experiments.agents.behaviours;
 
 import eduni.simjava.Sim_event;
 
-import net.sf.gap.mc.core.agents.PluggableAgent;
-import net.sf.gap.mc.core.agents.behaviours.Sim_eventListener;
+import net.sf.gap.impl.agents.PluggableAgent;
+import net.sf.gap.impl.agents.behaviours.Sim_eventListener;
 
 import net.sf.gap.mc.experiments.constants.ExperimentsTags;
 

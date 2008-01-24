@@ -13,9 +13,9 @@
  * $Id$
  *
  */  
-package net.sf.gap.mc.core.agents.behaviours;
+package net.sf.gap.impl.agents.behaviours;
 
-import net.sf.gap.mc.core.agents.*;
+import net.sf.gap.impl.agents.*;
 import eduni.simjava.Sim_event;
 
 /**

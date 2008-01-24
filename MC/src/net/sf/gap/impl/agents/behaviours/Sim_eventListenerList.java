@@ -14,7 +14,7 @@
  *
  */
 
-package net.sf.gap.mc.core.agents.behaviours;
+package net.sf.gap.impl.agents.behaviours;
 
 import java.util.concurrent.ConcurrentHashMap;
 
