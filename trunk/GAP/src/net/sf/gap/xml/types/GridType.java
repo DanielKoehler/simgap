@@ -29,6 +29,10 @@ public class GridType {
         this.setGridElements(new LinkedList<GridElementType>());
     }
 
+    public int size() {
+        return this.getGridElements().size();
+    }
+    
     public boolean addGridElement(GridElementType gridElement) {
         return this.getGridElements().add(gridElement);
     }

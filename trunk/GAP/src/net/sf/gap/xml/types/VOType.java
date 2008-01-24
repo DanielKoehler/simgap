@@ -23,9 +23,16 @@ import java.util.LinkedList;
  * @author Giovanni Novelli
  */
 public class VOType {
+    private String name;
     private LinkedList<String> gridElements;
     
     public VOType() {
+        this.setName("VO");
+        this.setGridElements(new LinkedList<String>());
+    }
+
+    public VOType(String name) {
+        this.setName(name);
         this.setGridElements(new LinkedList<String>());
     }
 
@@ -39,5 +46,13 @@ public class VOType {
 
     public void setGridElements(LinkedList<String> gridElements) {
         this.gridElements = gridElements;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

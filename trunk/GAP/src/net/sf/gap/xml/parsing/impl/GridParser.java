@@ -31,7 +31,7 @@ public class GridParser extends Parser {
     }
     
     public GridType getGrid() {
-        GridType grid = null;
+        GridType grid = new GridType();
         NodeList gridNodeList = this.getDocument().getElementsByTagName("grid");
         if (gridNodeList.getLength()>0) {
             Element gridNodeListElement = (Element) gridNodeList.item(0); 

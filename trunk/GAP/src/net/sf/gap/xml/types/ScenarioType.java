@@ -29,7 +29,7 @@ public class ScenarioType {
         this.setName("scenario");
         this.setTopology(new NetworkTopologyType());
         this.setGrid(new GridType());
-        VOSType aVOS = new VOSType(new VOType());
+        VOSType aVOS = new VOSType();
         this.setVos(aVOS);
     }
 
@@ -39,7 +39,7 @@ public class ScenarioType {
         this.setName(name);
         this.setTopology(new NetworkTopologyType());
         this.setGrid(new GridType());
-        VOSType aVOS = new VOSType(new VOType());
+        VOSType aVOS = new VOSType();
         this.setVos(aVOS);
     }
 
@@ -50,7 +50,7 @@ public class ScenarioType {
         this.setName(name);
         this.setTopology(topology);
         this.setGrid(new GridType());
-        VOSType aVOS = new VOSType(new VOType());
+        VOSType aVOS = new VOSType();
         this.setVos(aVOS);
     }
 
@@ -63,9 +63,10 @@ public class ScenarioType {
         this.setTopology(topology);
         this.setGrid(grid);
         int nge = grid.getGridElements().size();
-        VOSType aVOS = new VOSType(new VOType());
+        VOSType aVOS = new VOSType();
+        VOType aVO = new VOType();
         for (int i=0;i<nge;i++) {
-            aVOS.getVo().addGridElement(grid.getGridElements().get(i).getName());
+            aVO.addGridElement(grid.getGridElements().get(i).getName());
         }
         this.setVos(aVOS);
     }
