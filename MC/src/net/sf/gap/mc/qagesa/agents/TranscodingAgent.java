@@ -32,7 +32,7 @@ import junit.framework.Assert;
 
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.predicates.Predicate;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.util.EntitiesCounter;
 
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
@@ -62,7 +62,7 @@ public class TranscodingAgent extends GridAgent {
         
         private boolean enabledCaching;
     
-	public TranscodingAgent(GridElement ge, String name, int agentSizeInBytes,
+	public TranscodingAgent(AbstractGridElement ge, String name, int agentSizeInBytes,
 			boolean trace_flag, boolean enabledCaching) throws Exception {
 		super(ge, name, agentSizeInBytes, trace_flag);
                 this.setEnabledCaching(enabledCaching);
