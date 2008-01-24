@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * COREGridElement.java
+ * GridElement.java
  *
  * Created on 21 December 2007, 09.00 by Giovanni Novelli
  *
@@ -33,9 +33,9 @@ import net.sf.gap.grid.components.AbstractGridElement;
  * 
  * @author Giovanni Novelli
  */
-public class COREGridElement extends AbstractGridElement {
+public class GridElement extends AbstractGridElement {
 	/** Creates a new instance of StorageElement */
-	public COREGridElement(String name, Link link,
+	public GridElement(String name, Link link,
 			ResourceCharacteristics resourceCharacteristics,
 			ResourceCalendar resourceCalendar, ReplicaManager replicaManager)
 			throws Exception {
