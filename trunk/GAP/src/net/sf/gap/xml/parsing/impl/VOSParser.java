@@ -40,7 +40,13 @@ public class VOSParser extends Parser {
             for (int i = 0; i < voItems.getLength(); i++) {
                 Element voItem = (Element) voItems.item(i);
                 String voName = voItem.getAttribute("name");
-                
+                VOType aVO = new VOType(voName);
+                NodeList vogeItems = voItem.getElementsByTagName("vogeItem");
+                for (int j = 0; j < vogeItems.getLength(); j++) {
+                    Element vogeItem = (Element) vogeItems.item(j);
+                    aVO.addGE(vogeItem.getAttribute("name"));
+                }
+                vos.addVO(aVO);
             }
         } else {
             vos = new VOSType(grid);

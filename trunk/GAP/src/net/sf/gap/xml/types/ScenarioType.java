@@ -66,7 +66,7 @@ public class ScenarioType {
         VOSType aVOS = new VOSType();
         VOType aVO = new VOType();
         for (int i=0;i<nge;i++) {
-            aVO.addGridElement(grid.getGridElements().get(i).getName());
+            aVO.addGE(grid.getGridElements().get(i).getName());
         }
         this.setVos(aVOS);
     }

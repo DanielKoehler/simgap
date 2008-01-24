@@ -26,6 +26,7 @@ public class VOSType {
     private LinkedList<VOType> voItems;
     
     public VOSType() {
+        this.setVoItems(new LinkedList<VOType>());
     }
 
     public VOSType(GridType grid) {
@@ -33,7 +34,7 @@ public class VOSType {
         VOType aVO = new VOType();
         aVO.setGridElements(new LinkedList<String>());
         for (int i=0;i<grid.getGridElements().size();i++) {
-            aVO.addGridElement(grid.getGridElements().get(i).getName());
+            aVO.addGE(grid.getGridElements().get(i).getName());
         }
         this.addVO(aVO);
     }
