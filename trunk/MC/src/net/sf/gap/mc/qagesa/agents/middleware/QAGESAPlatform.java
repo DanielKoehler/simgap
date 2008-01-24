@@ -6,7 +6,7 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * COREPlatform.java
+ * AgentPlatform.java
  *
  * Created on 10 August 2006, 9.44 by Giovanni Novelli
  *
@@ -20,7 +20,7 @@ package net.sf.gap.mc.qagesa.agents.middleware;
 
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
-import net.sf.gap.impl.agents.middleware.COREPlatform;
+import net.sf.gap.impl.agents.middleware.AgentPlatform;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.agents.services.impl.ReFService;
@@ -30,10 +30,10 @@ import net.sf.gap.mc.qagesa.stats.QAGESAStat;
  *
  * @author Giovanni Novelli
  */
-public class QAGESAPlatform extends COREPlatform {
+public class QAGESAPlatform extends AgentPlatform {
     private MuMService serviceMuM;
     private ReFService serviceReF;
-    /** Creates a new instance of QAGESA COREPlatform */
+    /** Creates a new instance of QAGESA AgentPlatform */
     public QAGESAPlatform(boolean trace) throws Exception {
             super("QAGESA", trace);
     }
