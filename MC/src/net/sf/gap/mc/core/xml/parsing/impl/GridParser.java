@@ -77,8 +77,31 @@ public class GridParser extends Parser {
             hdList.addHardDisk(hd);
         }
         storage.setHardDiskList(hdList);
-        //NodeList hdItems = storageElement.getElementsByTagName("hdItem");
-        //HardDiskListType hdList = new HardDiskListType();
+        NodeList tapeItems = storageElement.getElementsByTagName("tapeItem");
+        if (tapeItems.getLength()>0) {
+            TapeListType tapeList = new TapeListType();
+            for (int i = 0; i < hdItems.getLength(); i++) {
+                Element tapeItem = (Element) tapeItems.item(i);
+                String tapeName = tapeItem.getAttribute("name");
+                Element capacityElement = (Element) tapeItem.getElementsByTagName("Capacity").item(0);
+                double aCapacity = Double.parseDouble(capacityElement.getTextContent());
+                Element atElement = (Element) tapeItem.getElementsByTagName("AccessTime").item(0);
+                double aAccessTime = Double.parseDouble(atElement.getTextContent());
+                Element rtElement = (Element) tapeItem.getElementsByTagName("RewindTime").item(0);
+                double aRewindTime = Double.parseDouble(rtElement.getTextContent());
+                Element mtrElement = (Element) tapeItem.getElementsByTagName("MaxTransferRate").item(0);
+                double aMaxTransferRate = Double.parseDouble(mtrElement.getTextContent());
+                TapeType tape = new 
+                        TapeType(
+                        tapeName,
+                        aCapacity,
+                        aAccessTime,
+                        aRewindTime,
+                        aMaxTransferRate);
+                tapeList.addTape(tape);
+            }
+            storage.setTapeList(tapeList);
+        }
         return storage;
     }
     
