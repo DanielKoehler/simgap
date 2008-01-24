@@ -21,15 +21,15 @@ package net.sf.gap.mc.experiments.agents.middleware;
 import net.sf.gap.impl.agents.middleware.*;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
-import net.sf.gap.impl.agents.middleware.COREPlatform;
+import net.sf.gap.impl.agents.middleware.AgentPlatform;
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 
 /**
  *
  * @author Giovanni Novelli
  */
-public class ExperimentsPlatform extends COREPlatform {
-    /** Creates a new instance of COREPlatform */
+public class ExperimentsPlatform extends AgentPlatform {
+    /** Creates a new instance of AgentPlatform */
     public ExperimentsPlatform(boolean trace) throws Exception {
             super("EXPERIMENTS", trace);
     }
