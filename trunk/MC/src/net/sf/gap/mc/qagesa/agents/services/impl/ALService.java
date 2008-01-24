@@ -24,7 +24,7 @@ import eduni.simjava.Sim_event;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
 
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.hardcoded.df.AgentsMap;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.hardcoded.df.AgentsMap;
@@ -46,7 +46,7 @@ public class ALService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public ALService(AgentPlatform ap, boolean trace_flag) throws Exception {
+	public ALService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
 		super(ap, "AL", trace_flag);
 	}
 

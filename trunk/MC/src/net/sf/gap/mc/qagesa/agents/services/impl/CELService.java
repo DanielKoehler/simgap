@@ -24,7 +24,7 @@ import eduni.simjava.Sim_event;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
 
-import net.sf.gap.agents.middleware.AgentPlatform;
+import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.impl.GISService;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
@@ -45,7 +45,7 @@ public class CELService extends GISService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public CELService(AgentPlatform ap, boolean trace_flag) throws Exception {
+	public CELService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
 		super(ap, "CEL", trace_flag);
 	}
 
