@@ -17,7 +17,7 @@
  *
  */
 
-package net.sf.gap.impl.grid;
+package net.sf.gap.grid;
 
 import eduni.simjava.Sim_system;
 
