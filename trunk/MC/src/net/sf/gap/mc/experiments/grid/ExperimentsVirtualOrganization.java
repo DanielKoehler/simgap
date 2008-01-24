@@ -25,7 +25,7 @@ import net.sf.gap.distributions.Uniform_int;
 
 import net.sf.gap.factories.LinkFactory;
 import net.sf.gap.grid.VirtualOrganization;
-import net.sf.gap.impl.grid.components.COREGridElement;
+import net.sf.gap.impl.grid.components.GridElement;
 
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 import net.sf.gap.mc.experiments.agents.middleware.ExperimentsPlatform;
@@ -53,7 +53,7 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
     protected void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            COREGridElement computingElement = (COREGridElement) Sim_system.get_entity("CE_"+i);
+            GridElement computingElement = (GridElement) Sim_system.get_entity("CE_"+i);
             int numAgents = computingElement.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TESTAgent agent = (TESTAgent) Sim_system.get_entity("AGENT_"+totalAgents);
@@ -66,7 +66,7 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
     public void createAndAttachAgentPlatform() throws Exception {
         Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
-        COREGridElement ce = (COREGridElement) Sim_system.get_entity("CE_"+index);
+        GridElement ce = (GridElement) Sim_system.get_entity("CE_"+index);
         this.setPlatform(new ExperimentsPlatform(false));
         ExperimentsPlatform agent = (ExperimentsPlatform) this.getPlatform();
         
@@ -76,11 +76,11 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
         ce.attachPlatform(agent);
         
         for (int i = 0; i < this.getNumCEs(); i++) {
-            ce = (COREGridElement) Sim_system.get_entity("CE_"+i);
+            ce = (GridElement) Sim_system.get_entity("CE_"+i);
             ce.setAgentPlatform(agent);
         }
         for (int i = 0; i < this.getNumSEs(); i++) {
-            ce = (COREGridElement) Sim_system.get_entity("SE_"+i);
+            ce = (GridElement) Sim_system.get_entity("SE_"+i);
             ce.setAgentPlatform(agent);
         }
         
@@ -90,7 +90,7 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
     public void createAndAttachAgents() throws Exception {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            COREGridElement se = (COREGridElement) Sim_system.get_entity("CE_"+i);
+            GridElement se = (GridElement) Sim_system.get_entity("CE_"+i);
             int numAgents = se.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TESTAgent agent = new TESTAgent(se, "AGENT_"

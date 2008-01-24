@@ -26,7 +26,7 @@ import net.sf.gap.messages.impl.GridletReply;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.util.EntitiesCounter;
 
-import net.sf.gap.impl.grid.components.COREGridElement;
+import net.sf.gap.impl.grid.components.GridElement;
 import net.sf.gap.impl.users.COREUser;
 
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
@@ -79,11 +79,11 @@ public class User extends COREUser {
     private void DoGridlets() {
         Uniform_int r = new Uniform_int("nextaege");
         AgentReply agentReply = null;
-        COREGridElement agentsEnabledGridElement = null;
+        GridElement agentsEnabledGridElement = null;
         int aegeResourceID;
         int i = 0;
         i = r.sample(this.getVirtualOrganization().getCEs().size());
-        agentsEnabledGridElement = (COREGridElement) this.getVirtualOrganization().getCEs().get(i);
+        agentsEnabledGridElement = (GridElement) this.getVirtualOrganization().getCEs().get(i);
         aegeResourceID = agentsEnabledGridElement.get_id();
         agentReply = this.submitAgent(ExperimentsEntityTypes.AGENT_AGENT,
                 aegeResourceID, 10000);
@@ -118,11 +118,11 @@ public class User extends COREUser {
         GridletReply gridletReply = null;
         //gridletReply = this.submitGridletToAgent(agentReply.getRequest().getDst_agentID(), agentReply.getRequest().getDst_resID(), g);
         Uniform_int r = new Uniform_int("nextaege");
-        COREGridElement agentsEnabledGridElement = null;
+        GridElement agentsEnabledGridElement = null;
         int aegeResourceID;
         int i = 0;
         i = r.sample(this.getVirtualOrganization().getCEs().size());
-        agentsEnabledGridElement = (COREGridElement) this.getVirtualOrganization().getCEs().get(i);
+        agentsEnabledGridElement = (GridElement) this.getVirtualOrganization().getCEs().get(i);
         aegeResourceID = agentsEnabledGridElement.get_id();
         gridletReply = this.submitGridletToAgent(agentReply.getRequest().getDst_agentID(), aegeResourceID, g);
         return gridletReply;
