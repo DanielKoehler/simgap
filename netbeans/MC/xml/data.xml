@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : data.xml
+    Created on : 21 gennaio 2008, 9.50
+    Author     : giovanni
+    Description:
+        Purpose of the document follows.
+-->
+
+<scenario  name="example" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="schema.xsd"
+        xsi:type="SimulationScenarioType">
+    <topology>
+        <routers>
+            <routerItem name="R_0"/>
+            <routerItem name="R_1"/>
+            <routerItem name="R_2"/>
+            <routerItem name="R_3"/>
+        </routers>
+        <ges>
+            <geItem name="CE_0"/>
+        </ges>
+        <netLinks>
+            <netLinkItem name="L_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_0</fromEntity>
+                <toEntity>R_1</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="L_1">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_0</fromEntity>
+                <toEntity>R_2</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="L_2">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_1</fromEntity>
+                <toEntity>R_2</toEntity>
+                <bidirectional>false</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="L_3">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_2</fromEntity>
+                <toEntity>R_3</toEntity>
+            </netLinkItem>
+        </netLinks>
+        <geLinks>
+            <geLinkItem name="L_CE_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_0</fromEntity>
+                <toEntity>R_0</toEntity>
+            </geLinkItem>
+        </geLinks>
+    </topology>
+    <grid>
+        <gridElement name="CE_0">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM_CE_0"/>
+                <hdList>
+                    <hdItem name="HD_0_CE_0">
+                        <Capacity>100000</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+                <tapeList>
+                    <tapeItem name="TAPE_0_CE_0">
+                        <Capacity>100000</Capacity>
+                        <AccessTime>142.0</AccessTime>
+                        <RewindTime>284.0</RewindTime>
+                        <MaxTransferRate>8.0</MaxTransferRate>
+                    </tapeItem>
+                </tapeList>
+            </storage>
+            <link>L_CE_0</link>
+        </gridElement>
+    </grid>
+</scenario>
