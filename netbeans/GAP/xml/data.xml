@@ -20,6 +20,11 @@
         </routers>
         <ges>
             <geItem name="CE_0"/>
+            <geItem name="CE_1"/>
+            <geItem name="CE_2"/>
+            <geItem name="CE_3"/>
+            <geItem name="SE_0"/>
+            <geItem name="SE_1"/>
         </ges>
         <netLinks>
             <netLinkItem name="L_0">
@@ -62,6 +67,41 @@
                 <fromEntity>CE_0</fromEntity>
                 <toEntity>R_0</toEntity>
             </geLinkItem>
+            <geLinkItem name="L_CE_1">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_1</fromEntity>
+                <toEntity>R_1</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_CE_2">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_2</fromEntity>
+                <toEntity>R_2</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_CE_3">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_3</fromEntity>
+                <toEntity>R_3</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_SE_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>SE_0</fromEntity>
+                <toEntity>R_0</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_SE_1">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>SE_1</fromEntity>
+                <toEntity>R_1</toEntity>
+            </geLinkItem>
         </geLinks>
     </topology>
     <grid>
@@ -80,10 +120,78 @@
                     </Machine>
                 </items>
             </machineList>
+            <link>L_CE_0</link>
+        </gridElement>
+        <gridElement name="CE_1">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_1</link>
+        </gridElement>
+        <gridElement name="CE_2">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_2</link>
+        </gridElement>
+        <gridElement name="CE_3">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_3</link>
+        </gridElement>
+        <gridElement name="SE_0">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
             <storage>
-                <RM name="RM_CE_0"/>
+                <RM name="RM_SE_0"/>
                 <hdList>
-                    <hdItem name="HD_0_CE_0">
+                    <hdItem name="HD_0_SE_0">
                         <Capacity>100000</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -91,7 +199,7 @@
                     </hdItem>
                 </hdList>
                 <tapeList>
-                    <tapeItem name="TAPE_0_CE_0">
+                    <tapeItem name="TAPE_0_SE_0">
                         <Capacity>100000</Capacity>
                         <AccessTime>142.0</AccessTime>
                         <RewindTime>284.0</RewindTime>
@@ -99,7 +207,35 @@
                     </tapeItem>
                 </tapeList>
             </storage>
-            <link>L_CE_0</link>
+            <link>L_SE_0</link>
+        </gridElement>
+        <gridElement name="SE_1">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM_SE_1"/>
+                <hdList>
+                    <hdItem name="HD_0_SE_1">
+                        <Capacity>100000</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>L_SE_1</link>
         </gridElement>
     </grid>
 </scenario>
