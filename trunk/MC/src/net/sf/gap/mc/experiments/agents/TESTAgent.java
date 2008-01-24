@@ -16,7 +16,7 @@
 
 package net.sf.gap.mc.experiments.agents;
 
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 import net.sf.gap.agents.PluggableAgent;
 
@@ -38,7 +38,7 @@ public class TESTAgent extends PluggableAgent {
 	 * @throws Exception
 	 */
 	public TESTAgent(
-                GridElement ge, 
+                AbstractGridElement ge, 
                 String name, 
                 int agentSizeInBytes,
 		boolean trace_flag) 
