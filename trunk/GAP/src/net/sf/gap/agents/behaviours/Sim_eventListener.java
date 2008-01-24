@@ -16,7 +16,7 @@
  * $Id$
  *
  */  
-package net.sf.gap.impl.agents.behaviours;
+package net.sf.gap.agents.behaviours;
 
 import net.sf.gap.agents.PluggableAgent;
 import net.sf.gap.impl.agents.*;
