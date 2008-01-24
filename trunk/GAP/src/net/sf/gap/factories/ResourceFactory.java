@@ -21,7 +21,7 @@ package net.sf.gap.factories;
 
 import gridsim.net.Link;
 
-import net.sf.gap.impl.grid.components.GridElement;
+import net.sf.gap.grid.components.GridElement;
 
 /**
  * 

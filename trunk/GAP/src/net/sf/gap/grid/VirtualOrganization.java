@@ -35,7 +35,7 @@ import net.sf.gap.grid.components.AbstractGridElement;
 
 import net.sf.gap.factories.COREGEFactory;
 import net.sf.gap.factories.LinkFactory;
-import net.sf.gap.impl.grid.components.GridElement;
+import net.sf.gap.grid.components.GridElement;
 
 /**
  *
