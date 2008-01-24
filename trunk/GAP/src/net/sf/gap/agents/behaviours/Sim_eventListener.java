@@ -19,7 +19,6 @@
 package net.sf.gap.agents.behaviours;
 
 import net.sf.gap.agents.PluggableAgent;
-import net.sf.gap.impl.agents.*;
 import eduni.simjava.Sim_event;
 
 /**
