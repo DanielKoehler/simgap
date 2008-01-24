@@ -54,7 +54,7 @@ import net.sf.gap.grid.components.GridElement;
  * 
  * @author Giovanni Novelli
  */
-public abstract class GridAgent extends Agent {
+public abstract class GridAgent extends DFAgent {
         /**
          * This field incorporates gridlets' scheduler
          */
@@ -79,7 +79,7 @@ public abstract class GridAgent extends Agent {
 	}
 
         /**
-         * Agent's Initialization
+         * DFAgent's Initialization
          * 
          * @throws java.lang.Exception
          */
@@ -111,7 +111,7 @@ public abstract class GridAgent extends Agent {
 			}
 		}
 
-		// Dispose Agent
+		// Dispose DFAgent
 		this.dispose();
 
 		// //////////////////////////////////////////////////////

@@ -9,7 +9,7 @@
  *               of Mobile Agents on Grids
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * Agent.java
+ * DFAgent.java
  *
  * Created on 9 March 2007, 12.00 by Giovanni Novelli
  *
@@ -52,19 +52,19 @@ import gridsim.IO_data;
  * 
  * @author Giovanni Novelli
  */
-public abstract class Agent extends AbstractAgent {
+public abstract class DFAgent extends AbstractAgent {
 
     /**
-     * Agent constructor
+     * DFAgent constructor
      * @param ge GridElement associated to an agent
-     * @param name Agent's name
-     * @param agentSizeInBytes Agent's transfer size in bytes
+     * @param name DFAgent's name
+     * @param agentSizeInBytes DFAgent's transfer size in bytes
      * @param trace_flag Flag used to enable(true)/disable(false) tracing
      * @throws java.lang.Exception 
      * 
      * @see net.sf.gap.grid.components.GridElement
      */
-    public Agent(
+    public DFAgent(
             GridElement ge, 
             String name, 
             int agentSizeInBytes,
@@ -75,7 +75,7 @@ public abstract class Agent extends AbstractAgent {
     }
 
     /**
-     * Agent's Initialization
+     * DFAgent's Initialization
      * @throws java.lang.Exception
      */
     @Override
@@ -385,7 +385,7 @@ public abstract class Agent extends AbstractAgent {
     {
         AgentHistoryEntry agentHistoryEntry = null;
         switch (ev.get_tag()) {
-            // Agent has received a RUN request
+            // DFAgent has received a RUN request
             case Tags.AGENT_RUN_REQ:
                 // Checks that current agent's state is ZOMBIE
                 Assert.assertEquals(this.getAgentState(), AgentStates.ZOMBIE);
@@ -436,9 +436,9 @@ public abstract class Agent extends AbstractAgent {
                 // Updates agentRequest with current agent's AID
                 agentRequest.setDst_AID(this.getAID());
                 break;
-            // Agent has received a KILL request
+            // DFAgent has received a KILL request
             case Tags.AGENT_KILL_REQ:
-            // Agent has received a delayed KILL request
+            // DFAgent has received a delayed KILL request
             case Tags.AGENT_KILLAWAIT_REQ:
                 // Checks that current agent's state is RUNNING
                 Assert.assertEquals(this.getAgentState(), AgentStates.RUNNING);
@@ -480,14 +480,14 @@ public abstract class Agent extends AbstractAgent {
                 // Sets agent's AID to NOBODY
                 agentRequest.setDst_AID(EntityTypes.NOBODY);
                 break;
-            // Agent has received a PAUSE request
+            // DFAgent has received a PAUSE request
             case Tags.AGENT_PAUSE_REQ:
                 // Checks that agent's state is RUNNING
                 Assert.assertEquals(this.getAgentState(), AgentStates.RUNNING);
                 // Sets agent's state to PAUSED
                 this.setAgentState(AgentStates.PAUSED);
                 break;
-            // Agent has received a RESUME request
+            // DFAgent has received a RESUME request
             case Tags.AGENT_RESUME_REQ:
                 // Checks that agent's state is PAUSED
                 Assert.assertEquals(this.getAgentState(), AgentStates.PAUSED);
@@ -513,24 +513,24 @@ public abstract class Agent extends AbstractAgent {
             AgentRequest agentRequest) 
     {
         switch (ev.get_tag()) {
-            // Agent has received a RUN request
+            // DFAgent has received a RUN request
             case Tags.AGENT_RUN_REQ:
                 // Notifies DF to REGISTER agent
                 this.notifyDFService(agentRequest, Tags.DF_REGISTER_REQ);
                 break;
-            // Agent has received a KILL request
+            // DFAgent has received a KILL request
             case Tags.AGENT_KILL_REQ:
-             // Agent has received a delayed KILL request
+             // DFAgent has received a delayed KILL request
              case Tags.AGENT_KILLAWAIT_REQ:
                 // Notifies DF to DEREGISTER agent
                 this.notifyDFService(agentRequest, Tags.DF_DEREGISTER_REQ);
                 break;
-            // Agent has received a PAUSE request
+            // DFAgent has received a PAUSE request
             case Tags.AGENT_PAUSE_REQ:
                 // Notifies DF to PAUSE agent
                 this.notifyDFService(agentRequest, Tags.DF_PAUSED_REQ);
                 break;
-            // Agent has received a RESUME request
+            // DFAgent has received a RESUME request
             case Tags.AGENT_RESUME_REQ:
                 // Notifies DF to RESUME agent
                 this.notifyDFService(agentRequest, Tags.DF_RESUMED_REQ);
@@ -672,8 +672,8 @@ public abstract class Agent extends AbstractAgent {
         if ((tag == Tags.AGENT_RUN_REQ) || (tag == Tags.AGENT_KILL_REQ) || (tag == Tags.AGENT_KILLAWAIT_REQ) || (tag == Tags.AGENT_PAUSE_REQ) || (tag == Tags.AGENT_RESUME_REQ)) {
             // Sends agent's request to destination agent indirectly
             // through its Grid Element resource ID that acts as
-            // Agent Middleware
-            // @TODO for a better SoC Agent Middleware should be separated from Grid Element in order to use GridSim entities without requiring a class like GridElement
+            // DFAgent Middleware
+            // @TODO for a better SoC DFAgent Middleware should be separated from Grid Element in order to use GridSim entities without requiring a class like GridElement
             super.send(super.output, GridSimTags.SCHEDULE_NOW, tag,
                     new IO_data(request, SIZE, request.getDst_resID()));
         } else {
@@ -740,7 +740,7 @@ public abstract class Agent extends AbstractAgent {
 
     /**
      * This methos is responsible for sending ACK/NACK
-     * through requesting agent's Agent Middleware
+     * through requesting agent's DFAgent Middleware
      * 
      * @param ev received event
      * @param agentRequest agent's request
@@ -768,7 +768,7 @@ public abstract class Agent extends AbstractAgent {
 
     /**
      * This methos is responsible for sending ACK 
-     * through requesting agent's Agent Middleware
+     * through requesting agent's DFAgent Middleware
      * 
      * @param ev
      * @param agentRequest
@@ -802,7 +802,7 @@ public abstract class Agent extends AbstractAgent {
 
     /**
      * This method is responsible for syncronously notifying to DF service
-     * which is located on Agent Platform, all agent's requests related to:
+     * which is located on DFAgent Platform, all agent's requests related to:
      * - REGISTER
      * - DEREGISTER
      * - PAUSE
