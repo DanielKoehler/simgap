@@ -26,6 +26,7 @@ import java.util.TreeSet;
  *
  * @author Giovanni Novelli
  */
+@SuppressWarnings("serial")
 public class ReFProximityList extends TreeSet<ReFTriple>{
     
     /**
