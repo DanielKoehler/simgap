@@ -26,9 +26,9 @@ package net.sf.gap.agents.middleware;
 
 import gridsim.GridSim;
 import gridsim.util.SimReport;
+import net.sf.gap.factories.LinkFactory;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.AbstractGridElement;
-import net.sf.gap.grid.factories.LinkFactory;
 
 /**
  * 

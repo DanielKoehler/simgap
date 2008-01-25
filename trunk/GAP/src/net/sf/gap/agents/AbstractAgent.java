@@ -31,8 +31,8 @@ import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
+import net.sf.gap.factories.LinkFactory;
 import net.sf.gap.grid.components.AbstractGridElement;
-import net.sf.gap.grid.factories.LinkFactory;
 import net.sf.gap.util.EntitiesCounter;
 
 /**

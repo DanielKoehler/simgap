@@ -19,6 +19,7 @@
 
 package net.sf.gap.factories;
 
+import gridsim.ParameterException;
 import gridsim.net.Link;
 import gridsim.net.SimpleLink;
 
@@ -79,7 +80,24 @@ public class LinkFactory {
 		}
 	}
 
-	public static int getCounter() {
+	public static SimpleLink getMiddlewareLink(String name)
+			throws ParameterException {
+		return new SimpleLink("mw_link_" + name, 800000000000.0,
+				0.000000000001, Link.DEFAULT_MTU);
+	}
+
+	public static SimpleLink getGELink(String name) throws ParameterException {
+		return new SimpleLink("ge_link_" + name, 800000000000.0,
+				0.000000000001, Link.DEFAULT_MTU);
+	}
+
+	public static SimpleLink getAgentLink(String name)
+			throws ParameterException {
+		return new SimpleLink("ag_link_" + name, 800000000000.0,
+				0.000000000001, Link.DEFAULT_MTU);
+	}
+
+        public static int getCounter() {
 		return counter;
 	}
 
