@@ -38,10 +38,29 @@ import net.sf.gap.xml.parsing.impl.VOSParser;
 import net.sf.gap.xml.parsing.impl.TopologyParser;
 
 /**
- *
+ * <p>
+ * This class is responsible for reading a simulation scenario from an XML file
+ * which have to comply to a given XML schema represented with an .xsd file.
+ * </p>
+ * <p>
+ * Before parsing the XML file this class checks its validity against its schema
+ * </p>
+ * <p>
+ * The organization of this class is quite simple:
+ * <ul>
+ *  <li>It is initialized with the path to an XSD and an XML file through
+ * its constructor public XMLReader(String xsd, String xml)
+ *  </li>
+ *  <li> It exposes public method ScenarioType getScenario() which extracts 
+ * from the XML input file an instance of ScenarioType class
+ *  </li>
+ * </ul>
+ * </p>
+ * 
  * @author Giovanni Novelli
- */
-public class XMLReader {
+ * @see net.sf.gap.xml.types.ScenarioType
+ *
+ */public class XMLReader {
     private String _xsd;
     private String _xml;
     
@@ -60,6 +79,11 @@ public class XMLReader {
        System.out.println("Scenario's name: " + scenario.getName());
     }
     
+    /**
+     * Extracts from the XML input file an instance of ScenarioType class
+     * 
+     * @return scenario from current XML input file
+     */
     public ScenarioType getScenario() {
         Document document = this.getDocument();
  
@@ -83,7 +107,7 @@ public class XMLReader {
         return scenario;
     }
     
-    public Document getDocument() {
+    private Document getDocument() {
         Document document = null;
         try {
             // define the type of schema - we use W3C:
@@ -116,19 +140,19 @@ public class XMLReader {
         return document;
     }
 
-    public String get_xsd() {
+    private String get_xsd() {
         return _xsd;
     }
 
-    public void set_xsd(String xsd) {
+    private void set_xsd(String xsd) {
         this._xsd = xsd;
     }
 
-    public String get_xml() {
+    private String get_xml() {
         return _xml;
     }
 
-    public void set_xml(String xml) {
+    private void set_xml(String xml) {
         this._xml = xml;
     }
 }
