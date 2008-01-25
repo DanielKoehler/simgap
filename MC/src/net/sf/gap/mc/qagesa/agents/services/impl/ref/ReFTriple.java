@@ -25,6 +25,7 @@ import java.util.Comparator;
  *
  * @author gnovelli
  */
+@SuppressWarnings("unchecked")
 public class ReFTriple implements Comparator, Comparable<ReFTriple> {
     private Double proximity;
     private ReFCouple couple;

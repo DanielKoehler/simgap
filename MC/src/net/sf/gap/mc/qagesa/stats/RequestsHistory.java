@@ -29,7 +29,12 @@ import java.util.LinkedList;
  * @author Giovanni Novelli
  */
 public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
-    private int numCEs;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3973086405868206555L;
+
+	private int numCEs;
     
     private int playRequests;
     
@@ -40,7 +45,8 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
         //System.out.println("FILEFORMAT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;TIMESTAMP;REQUESTS");
     }
     
-    public String toString() {
+    @SuppressWarnings("unchecked")
+	public String toString() {
         String str = "";
         Iterator it = this.iterator();
         while (it.hasNext()) {
