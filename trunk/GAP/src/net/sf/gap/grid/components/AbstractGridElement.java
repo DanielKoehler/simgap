@@ -39,18 +39,14 @@ import gridsim.net.FIFOScheduler;
 import gridsim.net.InfoPacket;
 import gridsim.net.Link;
 import gridsim.net.RIPRouter;
-import gridsim.net.Router;
-
-import java.util.HashMap;
-
 import net.sf.gap.agents.AbstractAgent;
-import net.sf.gap.constants.Tags;
-import net.sf.gap.messages.impl.AgentReply;
-import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.Service;
+import net.sf.gap.constants.Tags;
 import net.sf.gap.grid.LocalDirectory;
 import net.sf.gap.grid.factories.LinkFactory;
+import net.sf.gap.messages.impl.AgentReply;
+import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.messages.impl.PingReply;
 import net.sf.gap.messages.impl.PingRequest;
 

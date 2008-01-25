@@ -34,8 +34,8 @@ import gridsim.net.SimpleLink;
 import java.util.HashMap;
 import java.util.Vector;
 
-import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
+import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.grid.components.AbstractGridElement;
 
 /**

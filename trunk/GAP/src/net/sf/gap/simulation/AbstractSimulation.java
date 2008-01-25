@@ -25,9 +25,8 @@
 
 package net.sf.gap.simulation;
 
-import eduni.simjava.Sim_system;
-
 import net.sf.gap.util.EntitiesCounter;
+import eduni.simjava.Sim_system;
 /**
  *
  * @author Giovanni Novelli
@@ -43,6 +42,7 @@ public abstract class AbstractSimulation {
 	 * Creates a new instance of AbstractSimulation
 	 */
 	public AbstractSimulation() {
+		@SuppressWarnings("unused")
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(1);
 		this.setMaxReplications(1);
@@ -52,6 +52,7 @@ public abstract class AbstractSimulation {
 	 * Creates a new instance of AbstractSimulation
 	 */
 	public AbstractSimulation(int replications) {
+		@SuppressWarnings("unused")
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(replications);
 		this.setMaxReplications(replications);
@@ -62,6 +63,7 @@ public abstract class AbstractSimulation {
 	 * Creates a new instance of AbstractSimulation
 	 */
 	public AbstractSimulation(int replications, double confidence, double accuracy) {
+		@SuppressWarnings("unused")
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(replications);
                 this.setMaxReplications(replications);
@@ -73,6 +75,7 @@ public abstract class AbstractSimulation {
 	 * Creates a new instance of AbstractSimulation
 	 */
 	public AbstractSimulation(int minReplications, int maxReplications, double confidence) {
+		@SuppressWarnings("unused")
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(minReplications);
                 this.setMaxReplications(maxReplications);

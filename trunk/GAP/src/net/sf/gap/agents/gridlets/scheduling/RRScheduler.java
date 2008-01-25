@@ -24,8 +24,10 @@
 
 package net.sf.gap.agents.gridlets.scheduling;
 
-import java.util.concurrent.LinkedBlockingQueue;
 import gridsim.Gridlet;
+
+import java.util.concurrent.LinkedBlockingQueue;
+
 import net.sf.gap.agents.GridAgent;
 
 

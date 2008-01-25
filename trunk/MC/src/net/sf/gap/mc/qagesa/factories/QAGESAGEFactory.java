@@ -16,7 +16,6 @@
 
 package net.sf.gap.mc.qagesa.factories;
 
-import net.sf.gap.factories.*;
 import gridsim.Machine;
 import gridsim.MachineList;
 import gridsim.PE;
@@ -33,6 +32,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import net.sf.gap.distributions.Uniform_int;
+import net.sf.gap.factories.ResourceFactory;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 
 /**

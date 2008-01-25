@@ -20,7 +20,6 @@
 package net.sf.gap.grid;
 
 import eduni.simjava.Sim_system;
-
 import gridsim.GridSim;
 import gridsim.net.FIFOScheduler;
 import gridsim.net.Link;
@@ -30,8 +29,6 @@ import java.util.Calendar;
 import java.util.Vector;
 
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.grid.NetworkTopology;
-
 import net.sf.gap.factories.LinkFactory;
 
 /**
@@ -87,11 +84,12 @@ public class RingsChain extends NetworkTopology {
         }
 
 	@Override
-    @SuppressWarnings("empty-statement")
 	public void create(boolean trace) throws Exception {
+		@SuppressWarnings("unused")
 		Uniform_int r = new Uniform_int("RingsChain");
                 int N = this.getNumRouters();
 		for (int i = 0; i < N; i++) {
+			@SuppressWarnings("unused")
 			RIPRouter router = new RIPRouter("ROUTER_"+i,trace);
 		}
 		for (int i = 0; i < this.getClouds(); i++) {

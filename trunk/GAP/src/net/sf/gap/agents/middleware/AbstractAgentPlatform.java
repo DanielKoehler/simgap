@@ -25,16 +25,16 @@
 package net.sf.gap.agents.middleware;
 
 import net.sf.gap.agents.AbstractAgent;
-import net.sf.gap.constants.Tags;
-import net.sf.gap.messages.impl.ServicesListReply;
-import net.sf.gap.messages.impl.ServicesListRequest;
 import net.sf.gap.agents.services.ServicesList;
 import net.sf.gap.agents.services.hardcoded.DirectoryFacilitator;
 import net.sf.gap.agents.services.hardcoded.NetworkMonitor;
 import net.sf.gap.agents.services.impl.GISService;
 import net.sf.gap.agents.services.impl.NMService;
 import net.sf.gap.agents.services.impl.TestService;
+import net.sf.gap.constants.Tags;
 import net.sf.gap.grid.components.AbstractGridElement;
+import net.sf.gap.messages.impl.ServicesListReply;
+import net.sf.gap.messages.impl.ServicesListRequest;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_predicate;

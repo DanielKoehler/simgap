@@ -26,9 +26,9 @@
 package net.sf.gap.messages.impl;
 
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
-import eduni.simjava.Sim_event;
 import net.sf.gap.messages.Message;
 import net.sf.gap.messages.Request;
+import eduni.simjava.Sim_event;
 
 /**
  * 

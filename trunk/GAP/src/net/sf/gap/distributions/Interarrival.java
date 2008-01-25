@@ -18,7 +18,8 @@
  */
 
 package net.sf.gap.distributions;
-import eduni.simjava.distributions.*;
+import eduni.simjava.distributions.Sim_negexp_obj;
+import eduni.simjava.distributions.Sim_uniform_obj;
 
 /**
  *

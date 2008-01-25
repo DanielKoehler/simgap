@@ -16,17 +16,11 @@
 
 package net.sf.gap.xml;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import org.xml.sax.SAXException;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.IOException;
-import java.io.SequenceInputStream;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,10 +30,17 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import net.sf.gap.xml.types.*;
 import net.sf.gap.xml.parsing.impl.GridParser;
-import net.sf.gap.xml.parsing.impl.VOSParser;
 import net.sf.gap.xml.parsing.impl.TopologyParser;
+import net.sf.gap.xml.parsing.impl.VOSParser;
+import net.sf.gap.xml.types.GridType;
+import net.sf.gap.xml.types.NetworkTopologyType;
+import net.sf.gap.xml.types.ScenarioType;
+import net.sf.gap.xml.types.VOSType;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  * <p>

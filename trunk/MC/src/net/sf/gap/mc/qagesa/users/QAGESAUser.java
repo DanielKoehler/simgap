@@ -26,12 +26,12 @@ import gridsim.IO_data;
 import gridsim.net.Link;
 import junit.framework.Assert;
 import net.sf.gap.agents.predicates.Predicate;
+import net.sf.gap.mc.qagesa.constants.QAGESATags;
+import net.sf.gap.mc.qagesa.messages.MuMSearchReply;
+import net.sf.gap.mc.qagesa.messages.MuMSearchRequest;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
 import net.sf.gap.users.AbstractUser;
-import net.sf.gap.mc.qagesa.messages.MuMSearchReply;
-import net.sf.gap.mc.qagesa.messages.MuMSearchRequest;
-import net.sf.gap.mc.qagesa.constants.QAGESATags;
 
 /**
  * 

@@ -28,11 +28,7 @@ package net.sf.gap.measures;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_stat;
 import eduni.simjava.Sim_system;
-
 import gridsim.GridSim;
-
-import java.util.concurrent.ConcurrentHashMap;
-
 import net.sf.gap.AbstractGAP;
 import net.sf.gap.messages.MeasureReply;
 import net.sf.gap.messages.MeasureRequest;

@@ -25,8 +25,6 @@
 
 package net.sf.gap.messages;
 
-import net.sf.gap.messages.Message;
-import net.sf.gap.messages.Reply;
 import eduni.simjava.Sim_event;
 
 /**

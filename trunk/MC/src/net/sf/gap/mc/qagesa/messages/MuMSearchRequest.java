@@ -19,12 +19,10 @@
 
 package net.sf.gap.mc.qagesa.messages;
 
-import eduni.simjava.Sim_event;
-
+import net.sf.gap.mc.qagesa.agents.services.impl.mum.GEList;
 import net.sf.gap.messages.Message;
 import net.sf.gap.messages.Request;
-
-import net.sf.gap.mc.qagesa.agents.services.impl.mum.GEList;
+import eduni.simjava.Sim_event;
 
 /**
  * 

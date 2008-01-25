@@ -20,16 +20,13 @@
 package net.sf.gap.mc.qagesa.grid.components;
 
 import eduni.simjava.Sim_event;
-
-import gridsim.IO_data;
 import gridsim.GridSimTags;
+import gridsim.IO_data;
 import gridsim.ResourceCalendar;
 import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
-
 import net.sf.gap.grid.components.GridElement;
-
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.messages.ChunkReply;
 import net.sf.gap.mc.qagesa.messages.ChunkRequest;

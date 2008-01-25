@@ -16,12 +16,14 @@
 
 package net.sf.gap.xml.parsing.impl;
 
-import net.sf.gap.xml.parsing.*;
-import org.w3c.dom.*;
-
-import net.sf.gap.xml.types.*;
-
 import net.sf.gap.xml.parsing.Parser;
+import net.sf.gap.xml.types.GridType;
+import net.sf.gap.xml.types.VOSType;
+import net.sf.gap.xml.types.VOType;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *

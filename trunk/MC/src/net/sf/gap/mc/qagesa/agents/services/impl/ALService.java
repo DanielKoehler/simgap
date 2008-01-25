@@ -19,18 +19,14 @@
 
 package net.sf.gap.mc.qagesa.agents.services.impl;
 
-import eduni.simjava.Sim_event;
-
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
-import net.sf.gap.agents.services.hardcoded.df.AgentsMap;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.hardcoded.df.AgentsMap;
-
-import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
+import net.sf.gap.mc.qagesa.constants.QAGESATags;
+import eduni.simjava.Sim_event;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
 
 /**
  * AL service

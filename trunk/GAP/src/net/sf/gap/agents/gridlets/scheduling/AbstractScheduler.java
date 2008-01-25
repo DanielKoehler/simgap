@@ -24,10 +24,9 @@
 package net.sf.gap.agents.gridlets.scheduling;
 
 import gridsim.Gridlet;
-
 import net.sf.gap.agents.GridAgent;
-import net.sf.gap.agents.gridlets.GridletsBag;
 import net.sf.gap.agents.gridlets.GAPGridletList;
+import net.sf.gap.agents.gridlets.GridletsBag;
 
 /**
  *

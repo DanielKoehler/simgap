@@ -34,17 +34,15 @@ import gridsim.net.InfoPacket;
 import java.util.Iterator;
 
 import junit.framework.Assert;
-
-import net.sf.gap.constants.Tags;
-import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
+import net.sf.gap.constants.Tags;
 import net.sf.gap.grid.components.AbstractGridElement;
+import net.sf.gap.messages.impl.NetworkMapReply;
+import net.sf.gap.messages.impl.NetworkMapRequest;
 import net.sf.gap.messages.impl.PingReply;
 import net.sf.gap.messages.impl.PingRequest;
-import net.sf.gap.messages.impl.NetworkMapRequest;
-import net.sf.gap.messages.impl.NetworkMapReply;
 
 /**
  * 
@@ -124,6 +122,7 @@ public class NetworkMonitor {
 		PingRequest request = new PingRequest(this.get_id(), this.get_id(),
 				src_id, dst_id);
 		int requestID = request.getRequestID();
+		@SuppressWarnings("unused")
 		int reqrepID = request.getReqrepID();
 		this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
 				new IO_data(request, SIZE, src_id));
@@ -142,11 +141,13 @@ public class NetworkMonitor {
 		return reply;
 	}
 
+	@SuppressWarnings("unused")
 	private PingReply requestPing(int src_id, int dst_id) {
 		int SIZE = 10;
 		PingRequest request = new PingRequest(this.get_id(), this.get_id(),
 				src_id, dst_id);
 		int requestID = request.getRequestID();
+		@SuppressWarnings("unused")
 		int reqrepID = request.getReqrepID();
 		this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
 				new IO_data(request, SIZE, src_id));

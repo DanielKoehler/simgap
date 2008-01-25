@@ -24,10 +24,10 @@
 
 package net.sf.gap.agents.services.impl;
 
-import net.sf.gap.constants.Tags;
-import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
+import net.sf.gap.constants.Tags;
+import net.sf.gap.messages.impl.AgentRequest;
 import eduni.simjava.Sim_event;
 
 /**

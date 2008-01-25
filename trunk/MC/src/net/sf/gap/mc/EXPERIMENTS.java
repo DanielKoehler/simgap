@@ -16,7 +16,7 @@
 
 package net.sf.gap.mc;
 
-import net.sf.gap.mc.experiments.simulation.specs.*;
+import net.sf.gap.mc.experiments.simulation.specs.Experiment01;
 
 /**
  * This class is responsible of main entry method of EXPERIMENTS's simulation

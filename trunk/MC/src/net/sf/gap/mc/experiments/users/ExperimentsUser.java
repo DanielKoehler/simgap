@@ -16,21 +16,16 @@
 package net.sf.gap.mc.experiments.users;
 
 import eduni.simjava.Sim_event;
-
-
 import gridsim.Gridlet;
 import gridsim.net.Link;
-
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.messages.impl.GridletReply;
-import net.sf.gap.messages.impl.AgentReply;
-import net.sf.gap.util.EntitiesCounter;
-
 import net.sf.gap.grid.components.GridElement;
-import net.sf.gap.users.User;
-
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
 import net.sf.gap.mc.experiments.users.impl.Measure;
+import net.sf.gap.messages.impl.AgentReply;
+import net.sf.gap.messages.impl.GridletReply;
+import net.sf.gap.users.User;
+import net.sf.gap.util.EntitiesCounter;
 
 /**
  * @author Giovanni Novelli

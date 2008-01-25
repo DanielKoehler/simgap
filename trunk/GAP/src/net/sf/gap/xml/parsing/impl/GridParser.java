@@ -16,10 +16,19 @@
 
 package net.sf.gap.xml.parsing.impl;
 
-import org.w3c.dom.*;
+import net.sf.gap.xml.parsing.Parser;
+import net.sf.gap.xml.types.GridElementType;
+import net.sf.gap.xml.types.GridType;
+import net.sf.gap.xml.types.HardDiskListType;
+import net.sf.gap.xml.types.HardDiskType;
+import net.sf.gap.xml.types.MachineType;
+import net.sf.gap.xml.types.StorageType;
+import net.sf.gap.xml.types.TapeListType;
+import net.sf.gap.xml.types.TapeType;
 
-import net.sf.gap.xml.parsing.*;
-import net.sf.gap.xml.types.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *
