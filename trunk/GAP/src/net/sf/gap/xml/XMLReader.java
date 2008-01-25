@@ -21,8 +21,12 @@ import org.w3c.dom.Element;
 
 import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.IOException;
+import java.io.SequenceInputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -71,6 +75,7 @@ import net.sf.gap.xml.parsing.impl.TopologyParser;
     
     public static void main(String[] args) {
        String xsd = "xml/schema.xsd";
+       //String xml = "xml/flatgrid";
        String xml = "xml/manyvos.xml";
        
        XMLReader reader = new XMLReader(xsd, xml);
@@ -118,14 +123,26 @@ import net.sf.gap.xml.parsing.impl.TopologyParser;
             Schema schema = factory.newSchema(new StreamSource(this.get_xsd()));
             Validator validator = schema.newValidator();
 
-            validator.validate(new StreamSource(this.get_xml()));
-            // Parse the XML as a W3C document.
-            DocumentBuilder builder =
-                    DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            document = builder.parse(new File(this.get_xml()));
-            boolean valid = (document!=null);
-            if (!valid) {
-              System.err.println(this.get_xml() + " is NOT valid against schema " + this.get_xsd());
+            if (this.get_xml().endsWith(".xml")) {
+                validator.validate(new StreamSource(this.get_xml()));
+                // Parse the XML as a W3C document.
+                DocumentBuilder builder =
+                        DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                document = builder.parse(new File(this.get_xml()));
+                boolean valid = (document!=null);
+                if (!valid) {
+                  System.err.println(this.get_xml() + " is NOT valid against schema " + this.get_xsd());
+                }
+            } else { //@TODO Fixit
+                InputStream win = new CompositeInputStream(this.get_xml());
+                win.read();
+                DocumentBuilder builder =
+                        DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                document = builder.parse(win);
+                boolean valid = (document!=null);
+                if (!valid) {
+                  System.err.println("NOT valid against schema " + this.get_xsd());
+                }
             }
         } catch (ParserConfigurationException e) {
             System.err.println("ParserConfigurationException caught...");
@@ -154,5 +171,37 @@ import net.sf.gap.xml.parsing.impl.TopologyParser;
 
     private void set_xml(String xml) {
         this._xml = xml;
+    }
+}
+
+class CompositeInputStream extends InputStream
+{
+    private final InputStream[] in;
+    private final InputStream inProlog;
+    private final InputStream inEpilog;
+    public CompositeInputStream(String path)
+    {
+        this.inProlog = new ByteArrayInputStream(
+            "<scenario  name=\"flatgrid\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"schema.xsd\" xsi:type=\"SimulationScenarioType\">".getBytes());
+        this.inEpilog = new ByteArrayInputStream("</scenario>".getBytes());
+        this.in = new InputStream[2];
+        try {
+        this.in[0] = new FileInputStream(path+"/topology.xml");
+        this.in[1] = new FileInputStream(path+"/grid.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int read() throws IOException
+    {
+        int result = this.inProlog.read();
+        if (result == -1)
+            result = this.in[0].read();
+        if (result == -1)
+            result = this.in[1].read();
+        if (result == -1)
+            result = this.inEpilog.read();
+        return result;
     }
 }
