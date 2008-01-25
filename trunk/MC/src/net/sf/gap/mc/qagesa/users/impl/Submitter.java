@@ -73,6 +73,7 @@ public class Submitter extends QAGESAUser {
 		QAGESAGridElement agentsEnabledGridElement = null;
 		QAGESAGridElement next_agentsEnabledGridElement = null;
 		int aegeResourceID;
+		@SuppressWarnings("unused")
 		int next_aegeResourceID;
 		int i = 0;
 		int ii = 0;

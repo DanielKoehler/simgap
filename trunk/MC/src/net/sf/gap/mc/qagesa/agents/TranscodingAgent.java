@@ -65,7 +65,8 @@ public class TranscodingAgent extends GridAgent {
                 //this.setupStatGTS();
 	}
 
-    private void setupStatGTS() {
+    @SuppressWarnings("unused")
+	private void setupStatGTS() {
         Sim_stat stat = new Sim_stat();
         int[] tags = { QAGESATags.TRANSCODE_CHUNKS_REQ };
         stat.measure_for(tags);
@@ -156,7 +157,8 @@ public class TranscodingAgent extends GridAgent {
                         if (!previouslyTranscoded && this.isEnabledCaching()) {
                             transcodeRequest.setSequence(transcodedSequence);
                             double evsend_time = 0;
-                            int requestID = transcodeRequest.getRequestID();
+                            @SuppressWarnings("unused")
+							int requestID = transcodeRequest.getRequestID();
                             int reqrepID = transcodeRequest.getReqrepID();
                             super.send(super.output, GridSimTags.SCHEDULE_NOW,
                                             QAGESATags.CACHE_CHUNKS_REQ, new IO_data(transcodeRequest, transcodeRequest.getSequence().getInputSize(), transcodeRequest.getStorageElementID()));
@@ -233,6 +235,7 @@ public class TranscodingAgent extends GridAgent {
                                 playReqrepID,
 				userID, movieTag, sequenceNumber, seID);
                 request.setChunk(chunk);
+		@SuppressWarnings("unused")
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
 		request.setChunk(chunk);
@@ -279,6 +282,7 @@ public class TranscodingAgent extends GridAgent {
 		ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
                                 playReqrepID,
 				userID, movieTag, 0, seID);
+		@SuppressWarnings("unused")
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
                 int SIZE = 500;

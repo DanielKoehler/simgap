@@ -109,6 +109,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 				mList.add(new Machine(i, peList)); // Machine i
 			}
 		} else {
+			@SuppressWarnings("unused")
 			int wm = (this.getMmax() - this.getMmin() + 1);
 			m = 1; // Number of machines in the SE
 			for (int i = 0; i < m; i++) {
