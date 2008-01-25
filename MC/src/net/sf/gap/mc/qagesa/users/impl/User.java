@@ -156,7 +156,8 @@ public class User extends QAGESAUser {
         this.setStatFirst(stat);
     }
     
-    private void printStatFirst() {
+    @SuppressWarnings("unchecked")
+	private void printStatFirst() {
         List[] list = this.getStatFirst().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
@@ -168,7 +169,8 @@ public class User extends QAGESAUser {
         }
     }
 
-    private void printStatStreaming() {
+    @SuppressWarnings("unchecked")
+	private void printStatStreaming() {
         List[] list = this.getStatStreaming().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
@@ -180,7 +182,8 @@ public class User extends QAGESAUser {
         }
     }
     
-    private void printStatResponseTime() {
+    @SuppressWarnings("unchecked")
+	private void printStatResponseTime() {
         List[] list = this.getStatResponseTime().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
@@ -212,7 +215,8 @@ public class User extends QAGESAUser {
         int userID = this.get_id();
         ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this
                 .get_id(), userID, movieTag, this.isRandomSelection());
-        int requestID = request.getRequestID();
+        @SuppressWarnings("unused")
+		int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
                 QAGESATags.REF_PLAY_REQ, new IO_data(request, SIZE, QAGESAUser
@@ -311,7 +315,8 @@ public class User extends QAGESAUser {
         switch (ev.get_tag()) {
             case QAGESATags.SENT_LAST_CHUNK_REQ:
                 ChunkRequest chunkRequest = ChunkRequest.get_data(ev);
-                int playReqrepID = chunkRequest.getPlayReqrepID();
+                @SuppressWarnings("unused")
+				int playReqrepID = chunkRequest.getPlayReqrepID();
                 int reqrepID = chunkRequest.getReqrepID();
                 double evrecv_time = GridSim.clock();
                 String msg = String.format(
@@ -368,7 +373,8 @@ public class User extends QAGESAUser {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
         }
-        double start_clock = User.clock();
+        @SuppressWarnings("unused")
+		double start_clock = User.clock();
         for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
                 int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
                 int maxUsers = cycle*ratio;
@@ -382,7 +388,8 @@ public class User extends QAGESAUser {
                 QAGESAStat.decRequests(User.clock());
         }
         for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
-                int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
+                @SuppressWarnings("unused")
+				int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
                 Sim_negexp_obj negexp = new Sim_negexp_obj("interval",1.0);
                 double diff_time = negexp.sample();
                 double start_time = diff_time;
@@ -395,10 +402,12 @@ public class User extends QAGESAUser {
     
     private void repeatedRandomRequest() {
         if (this.isRepeated()) {
-            ReFPlayReply playReply = this.playRequest(this.getRepeatedMovieTag());
+            @SuppressWarnings("unused")
+			ReFPlayReply playReply = this.playRequest(this.getRepeatedMovieTag());
         } else {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
-            ReFPlayReply playReply = this.playRequest(movieTag);
+            @SuppressWarnings("unused")
+			ReFPlayReply playReply = this.playRequest(movieTag);
         }
     }
     

@@ -130,7 +130,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     }
     
     private void initializeCEs() {
-        int N = this.getTopology().getNumRouters();
+        @SuppressWarnings("unused")
+		int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
             GridElement computingElement = (GridElement) Sim_system.get_entity("CE_"+i);
             this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
@@ -221,7 +222,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachAgentPlatform() throws Exception {
-        Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
         GridElement ce = (GridElement) Sim_system.get_entity("CE_"+index);
         this.setPlatform(new QAGESAPlatform(false));
@@ -260,7 +262,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachSubmitters() throws Exception {
-        Uniform_int r = new Uniform_int("createAndAttachSubmitters");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachSubmitters");
         int N = this.getTopology().getNumRouters();
         int index;
         RIPRouter router = null;
@@ -278,7 +281,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachUsers() throws Exception {
         this.setTranscodingSet(new TranscodingSet("measures/videos.csv",
                 "measures/chunks.csv"));
-        Uniform_int r = new Uniform_int("createAndAttachUsers");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachUsers");
         int N = this.getTopology().getNumRouters();
         int index;
         RIPRouter router = null;
@@ -355,7 +359,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                 computingElement.attachRouter(router);
             }
         } else {
-            Uniform_int r = new Uniform_int("createAndAttachCEs");
+            @SuppressWarnings("unused")
+			Uniform_int r = new Uniform_int("createAndAttachCEs");
             int N = this.getTopology().getNumRouters();
             int index;
             for (int i = 0; i < this.getNumCEs(); i++) {
@@ -381,7 +386,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
             storageElement.attachRouter(router);
         }
         } else {
-        Uniform_int r = new Uniform_int("createAndAttachSEs");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachSEs");
         int N = this.getTopology().getNumRouters();
         int index;
         for (int i = 0; i < this.getNumSEs(); i++) {

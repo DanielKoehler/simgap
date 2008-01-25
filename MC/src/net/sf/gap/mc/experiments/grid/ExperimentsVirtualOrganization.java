@@ -60,7 +60,8 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
     }
     
     public void createAndAttachAgentPlatform() throws Exception {
-        Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
         GridElement ce = (GridElement) Sim_system.get_entity("CE_"+index);
         this.setPlatform(new ExperimentsPlatform(false));
@@ -99,7 +100,8 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
     }
     
     public void createAndAttachUsers() throws Exception {
-        Uniform_int r = new Uniform_int("createAndAttachUsers");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachUsers");
         int N = this.getTopology().getNumRouters();
         int index;
         RIPRouter router = null;

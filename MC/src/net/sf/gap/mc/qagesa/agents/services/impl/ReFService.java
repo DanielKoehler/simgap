@@ -116,7 +116,8 @@ public class ReFService extends PlatformService {
         this.setStatPlayStart(stat);
     }
     
-    private void printStatPlayStart() {
+	@SuppressWarnings("unchecked")
+	private void printStatPlayStart() {
         List[] list = this.getStatPlayStart().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
@@ -178,7 +179,8 @@ public class ReFService extends PlatformService {
                     this.get_id(),
                     this.get_id(),
                     playRequest, seID);
-            int requestID = transcodeRequest.getRequestID();
+            @SuppressWarnings("unused")
+			int requestID = transcodeRequest.getRequestID();
             int reqrepID = transcodeRequest.getReqrepID();
             int SIZE = 500;
             super.send(super.output, GridSimTags.SCHEDULE_NOW,
@@ -208,7 +210,8 @@ public class ReFService extends PlatformService {
             int numFreeAgents = gisEntry.getNumFreeAgents();
             if (numFreeAgents>0) {
                 int totalMIPS = gisEntry.getTotalMIPS();
-                double load = (gisEntry.getLoad().getMean())*totalMIPS;
+                @SuppressWarnings("unused")
+				double load = (gisEntry.getLoad().getMean())*totalMIPS;
                 RTTMap rttMap = this.getNetworkMapCache().get(ceID);
                 Iterator<Integer> itnm = rttMap.keySet().iterator();
                 InfoPacket userPkt = rttMap.get(userID);
@@ -298,7 +301,8 @@ public class ReFService extends PlatformService {
     
     private void sendPlayEndReply(ReFPlayReply playReply) {
         int SIZE = 500;
-        double evsend_time = 0;
+        @SuppressWarnings("unused")
+		double evsend_time = 0;
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
                         QAGESATags.REF_PLAY_END_REP, new IO_data(playReply, SIZE, playReply.getRequest()
                                         .getUserID()));
@@ -314,7 +318,8 @@ public class ReFService extends PlatformService {
                 
             case QAGESATags.TRANSCODE_CHUNKS_REP:
                 TranscodeReply reply = TranscodeReply.get_data(ev);
-                int agentID = reply.getAgentID();
+                @SuppressWarnings("unused")
+				int agentID = reply.getAgentID();
                 ReFPlayReply playReply = new ReFPlayReply(QAGESATags.REF_PLAY_REQ, reply.isOk(), reply.getRequest().getPlayRequest());
                 AgentRequest agentRequest = this.getAlDirectory().removeAgent(reply.getAgentID());
                 this.killAgent(agentRequest);

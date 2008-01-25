@@ -84,7 +84,8 @@ public class ExperimentsUser extends User {
                 aegeResourceID, 10000);
         if (agentReply.isOk()) {
             for (int j = 0; j < 1; j++) {
-                GridletReply gridletReply = null;
+                @SuppressWarnings("unused")
+				GridletReply gridletReply = null;
                 gridletReply = this.newGridlet(agentReply);
             }
             /*
