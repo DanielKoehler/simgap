@@ -75,7 +75,7 @@ import org.xml.sax.SAXException;
     }
     
     public static void main(String[] args) {
-       String xsd = "xml/schema.xsd";
+       String xsd = "xml/scenario.xsd";
        //String xml = "xml/flatgrid";
        String xml = "xml/manyvos.xml";
        
