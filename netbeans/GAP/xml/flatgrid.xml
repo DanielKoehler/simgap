@@ -1,11 +1,11 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 
 <!--
-    Document   : data.xml
-    Created on : 21 gennaio 2008, 9.50
-    Author     : giovanni
+    Document   : flatgrid.xml
+    Created on : 21 January 2008, 9.50
+    Author     : Giovanni Novelli
     Description:
-        Purpose of the document follows.
+        A simple example of scenario with a flat grid (single implicit VO)
 -->
 
 <scenario  name="flatgrid" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
