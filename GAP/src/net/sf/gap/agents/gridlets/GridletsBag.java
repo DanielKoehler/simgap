@@ -25,7 +25,6 @@
 package net.sf.gap.agents.gridlets;
 
 import gridsim.Gridlet;
-
 import net.sf.gap.messages.impl.GridletRequest;
 
 /**

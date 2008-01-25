@@ -26,7 +26,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Giovanni Novelli
  */
 public class Sim_eventListenerList extends ConcurrentHashMap<Integer,Sim_eventListener>{
-   public Sim_eventListener addListener(int tag, Sim_eventListener listener) {
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -12890086293389621L;
+
+public Sim_eventListener addListener(int tag, Sim_eventListener listener) {
        return this.put(tag, listener);
    } 
    

@@ -19,7 +19,6 @@
 
 package net.sf.gap;
 
-import net.sf.gap.AbstractGAP;
 
 /**
  * 

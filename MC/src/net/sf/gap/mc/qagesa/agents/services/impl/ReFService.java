@@ -19,40 +19,24 @@
 
 package net.sf.gap.mc.qagesa.agents.services.impl;
 
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_stat;
-import eduni.simjava.Sim_system;
-
-import gridsim.GridSim;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-import gridsim.net.InfoPacket;
-
 import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Assert;
-
-import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
+import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.impl.gis.GISEntry;
-import net.sf.gap.constants.Tags;
-import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.messages.impl.AgentReply;
-import net.sf.gap.messages.impl.GISReply;
-import net.sf.gap.messages.impl.GISRequest;
-import net.sf.gap.messages.impl.NetworkMapReply;
-import net.sf.gap.messages.impl.NetworkMapRequest;
 import net.sf.gap.agents.services.impl.gis.GISRepository;
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
 import net.sf.gap.agents.services.impl.nm.RTTMap;
-import net.sf.gap.mc.qagesa.agents.services.impl.mum.GEList;
+import net.sf.gap.constants.Tags;
+import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.mc.qagesa.agents.services.impl.al.AgentsLocatorDirectory;
+import net.sf.gap.mc.qagesa.agents.services.impl.mum.GEList;
+import net.sf.gap.mc.qagesa.agents.services.impl.ref.ReFCouple;
 import net.sf.gap.mc.qagesa.agents.services.impl.ref.ReFProximityList;
 import net.sf.gap.mc.qagesa.agents.services.impl.ref.ReFTriple;
-import net.sf.gap.mc.qagesa.agents.services.impl.ref.ReFCouple;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
@@ -63,6 +47,19 @@ import net.sf.gap.mc.qagesa.messages.ReFPlayRequest;
 import net.sf.gap.mc.qagesa.messages.TranscodeReply;
 import net.sf.gap.mc.qagesa.messages.TranscodeRequest;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
+import net.sf.gap.messages.impl.AgentReply;
+import net.sf.gap.messages.impl.AgentRequest;
+import net.sf.gap.messages.impl.GISReply;
+import net.sf.gap.messages.impl.GISRequest;
+import net.sf.gap.messages.impl.NetworkMapReply;
+import net.sf.gap.messages.impl.NetworkMapRequest;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_stat;
+import eduni.simjava.Sim_system;
+import gridsim.GridSim;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
+import gridsim.net.InfoPacket;
 
 /**
  * ReF service

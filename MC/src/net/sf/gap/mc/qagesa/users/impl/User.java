@@ -19,25 +19,7 @@
 
 package net.sf.gap.mc.qagesa.users.impl;
 
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
-import gridsim.GridSim;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-import gridsim.net.Link;
 import java.util.List;
-import net.sf.gap.agents.predicates.Predicate;
-import net.sf.gap.mc.qagesa.messages.ChunkRequest;
-import net.sf.gap.mc.qagesa.messages.ReFPlayRequest;
-import net.sf.gap.mc.qagesa.constants.QAGESATags;
-import eduni.simjava.Sim_event;
-import eduni.simjava.distributions.*;
-import eduni.simjava.Sim_stat;
-import eduni.simjava.Sim_system;
-
-import gridsim.GridSim;
-import gridsim.net.InfoPacket;
-import gridsim.net.Link;
 
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
@@ -48,6 +30,15 @@ import net.sf.gap.mc.qagesa.messages.ReFPlayReply;
 import net.sf.gap.mc.qagesa.messages.ReFPlayRequest;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.mc.qagesa.users.QAGESAUser;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_stat;
+import eduni.simjava.Sim_system;
+import eduni.simjava.distributions.Sim_negexp_obj;
+import gridsim.GridSim;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
+import gridsim.net.InfoPacket;
+import gridsim.net.Link;
 
 /**
  * @author Giovanni Novelli

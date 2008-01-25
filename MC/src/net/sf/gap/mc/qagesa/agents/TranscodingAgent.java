@@ -19,22 +19,10 @@
 
 package net.sf.gap.mc.qagesa.agents;
 
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_stat;
-import eduni.simjava.Sim_system;
-
-import gridsim.Gridlet;
-import gridsim.GridSim;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-
 import junit.framework.Assert;
-
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.grid.components.AbstractGridElement;
-import net.sf.gap.util.EntitiesCounter;
-
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.messages.ChunkReply;
@@ -43,6 +31,14 @@ import net.sf.gap.mc.qagesa.messages.TranscodeReply;
 import net.sf.gap.mc.qagesa.messages.TranscodeRequest;
 import net.sf.gap.mc.qagesa.multimedia.Chunk;
 import net.sf.gap.mc.qagesa.multimedia.ChunksSequence;
+import net.sf.gap.util.EntitiesCounter;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_stat;
+import eduni.simjava.Sim_system;
+import gridsim.GridSim;
+import gridsim.GridSimTags;
+import gridsim.Gridlet;
+import gridsim.IO_data;
 
 /**
  * 

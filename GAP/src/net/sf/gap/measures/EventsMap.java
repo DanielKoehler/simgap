@@ -25,6 +25,7 @@
 package net.sf.gap.measures;
 
 import java.util.concurrent.ConcurrentHashMap;
+
 import net.sf.gap.messages.MeasureRequest;
 
 /**
@@ -32,4 +33,9 @@ import net.sf.gap.messages.MeasureRequest;
  * @author Giovanni Novelli
  */
 public class EventsMap extends ConcurrentHashMap<Integer, MeasureRequest> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8333068968961785789L;
 }

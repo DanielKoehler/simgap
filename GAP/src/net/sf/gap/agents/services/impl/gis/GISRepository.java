@@ -24,16 +24,14 @@
 
 package net.sf.gap.agents.services.impl.gis;
 
-import eduni.simjava.Sim_system;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
-import net.sf.gap.agents.services.impl.gis.GISEntry;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.grid.components.AbstractGridElement;
+import eduni.simjava.Sim_system;
 
 /**
  * 

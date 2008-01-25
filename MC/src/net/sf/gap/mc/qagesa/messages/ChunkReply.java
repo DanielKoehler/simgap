@@ -19,10 +19,10 @@
 
 package net.sf.gap.mc.qagesa.messages;
 
+import net.sf.gap.mc.qagesa.multimedia.Chunk;
 import net.sf.gap.messages.Message;
 import net.sf.gap.messages.Reply;
 import eduni.simjava.Sim_event;
-import net.sf.gap.mc.qagesa.multimedia.Chunk;
 
 /**
  * 

@@ -17,9 +17,9 @@
 package net.sf.gap.mc.qagesa;
 
 import net.sf.gap.AbstractGAP;
+import net.sf.gap.GAP;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.GAP;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 

@@ -24,8 +24,6 @@
 
 package net.sf.gap.messages;
 
-import net.sf.gap.messages.Message;
-import net.sf.gap.messages.Request;
 import eduni.simjava.Sim_event;
 
 /**
@@ -33,7 +31,8 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class MeasureRequest extends Request {
-     private int ID;
+     @SuppressWarnings("unused")
+	private int ID;
      
      private double timestamp;
      

@@ -32,7 +32,6 @@ import gridsim.net.InfoPacket;
 import java.util.Iterator;
 
 import junit.framework.Assert;
-
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.PlatformService;
@@ -163,6 +162,7 @@ public class NMService extends PlatformService {
 		PingRequest request = new PingRequest(this.get_id(), this.get_id(),
 				src_id, dst_id);
 		int requestID = request.getRequestID();
+		@SuppressWarnings("unused")
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
 				new IO_data(request, SIZE, src_id));
@@ -186,6 +186,7 @@ public class NMService extends PlatformService {
 		PingRequest request = new PingRequest(this.get_id(), this.get_id(),
 				src_id, dst_id);
 		int requestID = request.getRequestID();
+		@SuppressWarnings("unused")
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
 				new IO_data(request, SIZE, src_id));

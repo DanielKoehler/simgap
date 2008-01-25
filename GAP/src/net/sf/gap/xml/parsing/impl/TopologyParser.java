@@ -16,10 +16,13 @@
 
 package net.sf.gap.xml.parsing.impl;
 
-import org.w3c.dom.*;
+import net.sf.gap.xml.parsing.Parser;
+import net.sf.gap.xml.types.LinkType;
+import net.sf.gap.xml.types.NetworkTopologyType;
 
-import net.sf.gap.xml.parsing.*;
-import net.sf.gap.xml.types.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *

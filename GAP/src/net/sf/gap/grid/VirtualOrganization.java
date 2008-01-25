@@ -20,7 +20,6 @@
 package net.sf.gap.grid;
 
 import eduni.simjava.Sim_system;
-
 import gridsim.net.FIFOScheduler;
 import gridsim.net.Link;
 import gridsim.net.RIPRouter;
@@ -30,11 +29,9 @@ import java.util.Vector;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.grid.AbstractVirtualOrganization;
-import net.sf.gap.grid.components.AbstractGridElement;
-
 import net.sf.gap.factories.COREGEFactory;
 import net.sf.gap.factories.LinkFactory;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.grid.components.GridElement;
 
 /**
@@ -112,7 +109,8 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
     }
     
     private void initializeCEs() {
-        int N = this.getTopology().getNumRouters();
+        @SuppressWarnings("unused")
+		int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
             GridElement computingElement = (GridElement) Sim_system.get_entity("CE_"+i);
             this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
@@ -207,7 +205,8 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
                 computingElement.attachRouter(router);
             }
         } else {
-            Uniform_int r = new Uniform_int("createAndAttachCEs");
+            @SuppressWarnings("unused")
+			Uniform_int r = new Uniform_int("createAndAttachCEs");
             int N = this.getTopology().getNumRouters();
             int index;
             for (int i = 0; i < this.getNumCEs(); i++) {
@@ -233,7 +232,8 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
             storageElement.attachRouter(router);
         }
         } else {
-        Uniform_int r = new Uniform_int("createAndAttachSEs");
+        @SuppressWarnings("unused")
+		Uniform_int r = new Uniform_int("createAndAttachSEs");
         int N = this.getTopology().getNumRouters();
         int index;
         for (int i = 0; i < this.getNumSEs(); i++) {

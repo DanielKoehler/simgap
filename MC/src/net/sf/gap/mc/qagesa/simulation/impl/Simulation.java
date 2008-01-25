@@ -19,16 +19,15 @@
 
 package net.sf.gap.mc.qagesa.simulation.impl;
 
-import eduni.simjava.Sim_system;
 import eduni.simjava.Sim_stat;
-
+import eduni.simjava.Sim_system;
 import gridsim.GridSim;
 
 import java.util.Calendar;
 
 import net.sf.gap.mc.qagesa.QAGESA;
-import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
+import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.simulation.AbstractSimulation;
 
 /**

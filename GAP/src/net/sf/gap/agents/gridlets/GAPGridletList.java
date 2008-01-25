@@ -31,7 +31,11 @@ import gridsim.GridletList;
  * @author Giovanni Novelli
  */
 public class GAPGridletList extends GridletList {
-    private double MIPS;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3695668616762663229L;
+	private double MIPS;
     private long inputSize;
     private long outputSize;
     private double processingCost;

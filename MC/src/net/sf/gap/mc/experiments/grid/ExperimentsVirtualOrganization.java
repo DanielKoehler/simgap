@@ -16,20 +16,16 @@
 
 package net.sf.gap.mc.experiments.grid;
 
-import eduni.simjava.Sim_system;
-
-import gridsim.net.Link;
-import gridsim.net.RIPRouter;
-
 import net.sf.gap.distributions.Uniform_int;
-
 import net.sf.gap.factories.LinkFactory;
 import net.sf.gap.grid.VirtualOrganization;
 import net.sf.gap.grid.components.GridElement;
-
 import net.sf.gap.mc.experiments.agents.TESTAgent;
 import net.sf.gap.mc.experiments.agents.middleware.ExperimentsPlatform;
 import net.sf.gap.mc.experiments.users.ExperimentsUser;
+import eduni.simjava.Sim_system;
+import gridsim.net.Link;
+import gridsim.net.RIPRouter;
 
 /**
  *

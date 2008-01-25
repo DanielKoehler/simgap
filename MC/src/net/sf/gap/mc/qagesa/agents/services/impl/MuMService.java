@@ -19,20 +19,17 @@
 
 package net.sf.gap.mc.qagesa.agents.services.impl;
 
-import eduni.simjava.Sim_event;
-
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
-
 import net.sf.gap.mc.qagesa.agents.services.impl.mum.MuMRepository;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.messages.MuMSearchReply;
 import net.sf.gap.mc.qagesa.messages.MuMSearchRequest;
 import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
+import eduni.simjava.Sim_event;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
 
 /**
  * MuM service

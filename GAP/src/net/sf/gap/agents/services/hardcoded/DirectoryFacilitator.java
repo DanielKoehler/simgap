@@ -26,12 +26,6 @@ package net.sf.gap.agents.services.hardcoded;
 
 import java.util.HashMap;
 
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_port;
-
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-
 import net.sf.gap.AbstractGAP;
 import net.sf.gap.agents.AbstractAgent;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
@@ -40,9 +34,13 @@ import net.sf.gap.agents.services.hardcoded.df.DFMap;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.grid.components.AbstractGridElement;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_port;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
 
 /**
  * 

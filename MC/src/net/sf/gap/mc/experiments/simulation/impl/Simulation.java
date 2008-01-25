@@ -16,18 +16,15 @@
 
 package net.sf.gap.mc.experiments.simulation.impl;
 
-import eduni.simjava.Sim_stat;
 import eduni.simjava.Sim_system;
-
 import gridsim.GridSim;
 
 import java.util.Calendar;
 
-import net.sf.gap.simulation.AbstractSimulation;
-
 import net.sf.gap.mc.experiments.EXPERIMENTS;
 import net.sf.gap.mc.experiments.grid.ExperimentsVirtualOrganization;
 import net.sf.gap.mc.experiments.users.ExperimentsUser;
+import net.sf.gap.simulation.AbstractSimulation;
 
 /**
  * 

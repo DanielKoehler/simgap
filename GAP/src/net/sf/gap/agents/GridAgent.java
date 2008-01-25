@@ -25,24 +25,21 @@
 package net.sf.gap.agents;
 
 import junit.framework.Assert;
-
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
-
-import gridsim.Gridlet;
-import gridsim.GridSim;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-
 import net.sf.gap.AbstractGAP;
+import net.sf.gap.agents.gridlets.scheduling.RRScheduler;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.agents.gridlets.scheduling.RRScheduler;
-import net.sf.gap.messages.impl.GridletReply;
-import net.sf.gap.messages.impl.GridletRequest;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.grid.components.AbstractGridElement;
+import net.sf.gap.messages.impl.GridletReply;
+import net.sf.gap.messages.impl.GridletRequest;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
+import gridsim.GridSim;
+import gridsim.GridSimTags;
+import gridsim.Gridlet;
+import gridsim.IO_data;
 
 /**
  * This abstract class is mainly responsible in simulating basic behaviour 
@@ -353,6 +350,7 @@ public abstract class GridAgent extends DFAgent {
          * @param gridletRequest
          * @param gridlet
          */
+	@SuppressWarnings("unused")
 	private void sendSTATUSACK(Sim_event ev, GridletRequest gridletRequest,
 			Gridlet gridlet) {
 		this.sendSTATUSACKNACK(ev, gridletRequest, true, gridlet);
@@ -366,6 +364,7 @@ public abstract class GridAgent extends DFAgent {
          * @param gridletRequest
          * @param gridlet
          */
+	@SuppressWarnings("unused")
 	private void sendSTATUSNACK(Sim_event ev, GridletRequest gridletRequest,
 			Gridlet gridlet) {
 		this.sendSTATUSACKNACK(ev, gridletRequest, false, gridlet);
@@ -390,7 +389,8 @@ public abstract class GridAgent extends DFAgent {
 		replyToID = gridletRequest.getSrc_ID();
 		gridletReply = new GridletReply(ev.get_tag(), flag, gridletRequest,
 				gridlet);
-                double evsend_time = GridSim.clock();
+                @SuppressWarnings("unused")
+				double evsend_time = GridSim.clock();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
 				Tags.GRIDLET_SUBMIT_REP, new IO_data(gridletReply, SIZE,
 						replyToID));

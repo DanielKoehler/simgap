@@ -19,8 +19,8 @@
 
 package net.sf.gap.mc.qagesa.measures;
 
-import net.sf.gap.measures.Measure;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
+import net.sf.gap.measures.Measure;
 
 /**
  *

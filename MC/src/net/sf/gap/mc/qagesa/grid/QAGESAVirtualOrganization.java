@@ -19,10 +19,7 @@
 
 package net.sf.gap.mc.qagesa.grid;
 
-import net.sf.gap.grid.StaticTopology;
-import net.sf.gap.grid.RingsChain;
 import eduni.simjava.Sim_system;
-
 import gridsim.net.FIFOScheduler;
 import gridsim.net.Link;
 import gridsim.net.RIPRouter;
@@ -32,15 +29,15 @@ import java.util.Vector;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.grid.AbstractVirtualOrganization;
-import net.sf.gap.grid.components.AbstractGridElement;
-
-import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
 import net.sf.gap.factories.LinkFactory;
+import net.sf.gap.grid.AbstractVirtualOrganization;
+import net.sf.gap.grid.RingsChain;
+import net.sf.gap.grid.StaticTopology;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.grid.components.GridElement;
-
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
+import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
 import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
 import net.sf.gap.mc.qagesa.users.impl.Submitter;
 import net.sf.gap.mc.qagesa.users.impl.User;

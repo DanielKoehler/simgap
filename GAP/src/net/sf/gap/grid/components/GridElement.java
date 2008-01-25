@@ -20,13 +20,10 @@
 package net.sf.gap.grid.components;
 
 import eduni.simjava.Sim_event;
-
 import gridsim.ResourceCalendar;
 import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
-
-import net.sf.gap.grid.components.AbstractGridElement;
 
 
 /**

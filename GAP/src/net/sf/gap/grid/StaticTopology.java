@@ -20,15 +20,12 @@
 package net.sf.gap.grid;
 
 import eduni.simjava.Sim_system;
-
 import gridsim.net.FIFOScheduler;
 import gridsim.net.Link;
 import gridsim.net.RIPRouter;
 import gridsim.net.SimpleLink;
 
 import java.util.Vector;
-
-import net.sf.gap.grid.NetworkTopology;
 
 import net.sf.gap.factories.LinkFactory;
 
@@ -38,6 +35,10 @@ import net.sf.gap.factories.LinkFactory;
  */
 public class StaticTopology extends NetworkTopology {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2551567789402105486L;
+	/**
      *
      * Field used to equally scale delays of all links between routers
      *
@@ -55,7 +56,8 @@ public class StaticTopology extends NetworkTopology {
     public void create(boolean trace) throws Exception {
         int N = this.getNumRouters();
         for (int i = 0; i < N; i++) {
-                RIPRouter router = new RIPRouter("ROUTER_"+i,trace);
+                @SuppressWarnings("unused")
+				RIPRouter router = new RIPRouter("ROUTER_"+i,trace);
         }
         this.linkRouters(0,4,0.008*this.getFactor(),3000);
         this.linkRouters(4,0,0.008*this.getFactor(),800);

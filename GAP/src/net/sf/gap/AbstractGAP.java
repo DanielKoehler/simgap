@@ -26,7 +26,6 @@ package net.sf.gap;
 import org.junit.Assert;
 
 import eduni.simjava.Sim_system;
-
 import gridsim.GridSim;
 
 /**

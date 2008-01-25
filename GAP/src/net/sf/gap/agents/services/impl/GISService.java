@@ -24,23 +24,19 @@
 
 package net.sf.gap.agents.services.impl;
 
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
-
-import gridsim.Accumulator;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
-
-import java.util.Iterator;
-
-import net.sf.gap.constants.Tags;
-import net.sf.gap.agents.services.impl.gis.GISEntry;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
+import net.sf.gap.agents.services.impl.gis.GISEntry;
 import net.sf.gap.agents.services.impl.gis.GISRepository;
+import net.sf.gap.constants.Tags;
 import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
+import gridsim.Accumulator;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
 
 /**
  * This class is responsible for a sample test subclass of PlatformService

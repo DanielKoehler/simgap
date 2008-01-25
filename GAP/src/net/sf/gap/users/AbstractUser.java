@@ -38,20 +38,20 @@ import gridsim.net.Link;
 import gridsim.util.SimReport;
 import junit.framework.Assert;
 import net.sf.gap.AbstractGAP;
+import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
+import net.sf.gap.grid.AbstractVirtualOrganization;
+import net.sf.gap.messages.impl.AgentReply;
+import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
 import net.sf.gap.messages.impl.GridletReply;
 import net.sf.gap.messages.impl.GridletRequest;
-import net.sf.gap.messages.impl.AgentReply;
-import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.messages.impl.ServicesListReply;
-import net.sf.gap.messages.impl.ServicesListRequest;
-import net.sf.gap.agents.predicates.Predicate;
-import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.messages.impl.PingReply;
 import net.sf.gap.messages.impl.PingRequest;
+import net.sf.gap.messages.impl.ServicesListReply;
+import net.sf.gap.messages.impl.ServicesListRequest;
 
 /**
  * 

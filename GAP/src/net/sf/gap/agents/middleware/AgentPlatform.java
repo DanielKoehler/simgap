@@ -19,12 +19,9 @@
 
 package net.sf.gap.agents.middleware;
 
+import net.sf.gap.GAP;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
-
-import net.sf.gap.agents.middleware.AbstractAgentPlatform;
-
-import net.sf.gap.GAP;
 
 /**
  * 

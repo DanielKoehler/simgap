@@ -24,14 +24,14 @@
 package net.sf.gap.agents;
 
 import junit.framework.Assert;
+import net.sf.gap.agents.history.AgentHistory;
+import net.sf.gap.agents.history.AgentHistoryEntry;
 import net.sf.gap.constants.AgentStates;
 import net.sf.gap.constants.EntityTypes;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.agents.history.AgentHistory;
-import net.sf.gap.agents.history.AgentHistoryEntry;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.AgentRequest;
-import net.sf.gap.grid.components.AbstractGridElement;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_type_p;
 import gridsim.GridSim;

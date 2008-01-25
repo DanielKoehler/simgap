@@ -18,13 +18,13 @@
 
 package net.sf.gap.mc.qagesa.agents.middleware;
 
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_system;
 import net.sf.gap.agents.middleware.AgentPlatform;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.agents.services.impl.ReFService;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
 
 /**
  *

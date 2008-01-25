@@ -20,17 +20,15 @@
 package net.sf.gap.mc.qagesa.users.impl;
 
 import eduni.simjava.Sim_event;
-
 import gridsim.Gridlet;
 import gridsim.net.Link;
-
 import net.sf.gap.distributions.Uniform_int;
-import net.sf.gap.messages.impl.GridletReply;
-import net.sf.gap.messages.impl.AgentReply;
-import net.sf.gap.util.EntitiesCounter;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.users.QAGESAUser;
+import net.sf.gap.messages.impl.AgentReply;
+import net.sf.gap.messages.impl.GridletReply;
+import net.sf.gap.util.EntitiesCounter;
 
 /**
  * @author Giovanni Novelli

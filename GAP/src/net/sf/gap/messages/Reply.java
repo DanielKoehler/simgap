@@ -25,9 +25,8 @@
 
 package net.sf.gap.messages;
 
-import eduni.simjava.Sim_event;
-import net.sf.gap.messages.Message;
 import net.sf.gap.util.EntitiesCounter;
+import eduni.simjava.Sim_event;
 
 /**
  * 
