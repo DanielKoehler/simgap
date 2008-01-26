@@ -108,7 +108,7 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
         this.initializeAgents();
     }
     
-    private void initializeCEs() {
+    protected void initializeCEs() {
         @SuppressWarnings("unused")
 		int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
@@ -118,15 +118,13 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
         }
     }
     
-    private void initializeSEs() {
+    protected void initializeSEs() {
         for (int i = 0; i < this.getNumSEs(); i++) {
             GridElement storageElement = (GridElement) Sim_system.get_entity("SE_"+i);
             this.mapSEs.put(storageElement.get_id(), storageElement.getExternalRouter());
             this.getSEs().add(storageElement);
         }
     }
-    
-    abstract protected void initializeAgents();
     
     private void initParameters(boolean traceFlag, int numCE, int MIPS,
             int PEMax, int MMin, int MMax, int numSE, int GBMin,
@@ -253,10 +251,6 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
     
     public void setSeFactory(COREGEFactory seFactory) {
         this.seFactory = seFactory;
-    }
-    
-    public int getNumAMs() {
-        return this.getNumCEs() + this.getNumSEs();
     }
     
     public int getNumUsers() {

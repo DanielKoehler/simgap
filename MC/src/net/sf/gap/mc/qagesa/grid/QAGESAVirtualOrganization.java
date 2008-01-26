@@ -129,7 +129,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         this.initializeAgents();
     }
     
-    private void initializeCEs() {
+    protected void initializeCEs() {
         @SuppressWarnings("unused")
 		int N = this.getTopology().getNumRouters();
         for (int i = 0; i < this.getNumCEs(); i++) {
@@ -139,7 +139,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         }
     }
     
-    private void initializeSEs() {
+    protected void initializeSEs() {
         for (int i = 0; i < this.getNumSEs(); i++) {
             GridElement storageElement = (GridElement) Sim_system.get_entity("SE_"+i);
             this.mapSEs.put(storageElement.get_id(), storageElement.getExternalRouter());
@@ -147,7 +147,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         }
     }
     
-    private void initializeAgents() {
+    protected void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
             GridElement computingElement = (GridElement) Sim_system.get_entity("CE_"+i);
