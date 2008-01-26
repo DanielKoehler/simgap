@@ -17,6 +17,7 @@
 package net.sf.gap.xml.types;
 
 import java.util.LinkedList;
+import java.util.HashMap;
 
 /**
  *
@@ -26,11 +27,13 @@ public class NetworkTopologyType {
     private LinkedList<RouterType> routers;
     private LinkedList<String> ges;
     private LinkedList<LinkType> links;
+    private HashMap<String, LinkType> mapLinks;
 
     public NetworkTopologyType() {
         this.setRouters(new LinkedList<RouterType>());
         this.setGes(new LinkedList<String>());
         this.setLinks(new LinkedList<LinkType>());
+        this.setMapLinks(new HashMap<String, LinkType>());
     }
     
     public boolean addRouter(String routerName) {
@@ -46,6 +49,7 @@ public class NetworkTopologyType {
     }
     
     public boolean addLink(LinkType link) {
+        this.getMapLinks().put(link.getName(), link);
         return this.getLinks().add(link);
     }
     
@@ -71,6 +75,14 @@ public class NetworkTopologyType {
 
     public void setGes(LinkedList<String> ges) {
         this.ges = ges;
+    }
+
+    public HashMap<String, LinkType> getMapLinks() {
+        return mapLinks;
+    }
+
+    public void setMapLinks(HashMap<String, LinkType> mapLinks) {
+        this.mapLinks = mapLinks;
     }
     
     

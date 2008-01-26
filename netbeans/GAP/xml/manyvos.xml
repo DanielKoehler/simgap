@@ -89,14 +89,14 @@
                 <toEntity>R_3</toEntity>
             </geLinkItem>
             <geLinkItem name="L_SE_0">
-                <Baudrate>100000000.0</Baudrate>
+                <Baudrate>100.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>SE_0</fromEntity>
                 <toEntity>R_0</toEntity>
             </geLinkItem>
             <geLinkItem name="L_SE_1">
-                <Baudrate>100000000.0</Baudrate>
+                <Baudrate>100.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>SE_1</fromEntity>
