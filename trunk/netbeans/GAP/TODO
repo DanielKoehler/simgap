@@ -1,4 +1,11 @@
+- Restudy Workload and SpaceShared classes in GridSim for GAP
+- Handle multiple VOs
+- Complete clean grid management by agents
+-- Review combinations (see previous notes) and their possible impact on XSD
+   optional agents section
 - Create factories for XML data
+-- Refactor code to include a create factory method in top net.sf.gap.xml.types
+-- Debug and fix, if needed, the code
 -- Topology
 -- VOs
 -- Scenario as many VOs
