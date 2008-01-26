@@ -83,6 +83,10 @@ public class ScenarioType {
         this.setVos(vos);
     }
     
+    public int getNumRouters() {
+        return this.getTopology().getRouters().size();
+    }
+    
     public NetworkTopologyType getTopology() {
         return topology;
     }
