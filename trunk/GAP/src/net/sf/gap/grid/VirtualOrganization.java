@@ -48,8 +48,6 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
     
     private int networkType;
     
-    private boolean traceFlag;
-    
     private int routersPerCloud;
     
     private int clouds;
@@ -259,14 +257,6 @@ public abstract class VirtualOrganization extends AbstractVirtualOrganization {
     
     public void setNumUsers(int numUsers) {
         this.numUsers = numUsers;
-    }
-    
-    public boolean isTraceFlag() {
-        return traceFlag;
-    }
-    
-    public void setTraceFlag(boolean traceFlag) {
-        this.traceFlag = traceFlag;
     }
     
     public int getRoutersPerCloud() {

@@ -43,6 +43,8 @@ import net.sf.gap.grid.components.AbstractGridElement;
  * @author Giovanni Novelli
  */
 public abstract class AbstractVirtualOrganization {
+        private boolean traceFlag;
+    
 	private AbstractAgentPlatform platform;
 
 	private Vector<AbstractGridElement> ces;
@@ -196,4 +198,12 @@ public abstract class AbstractVirtualOrganization {
     public abstract void createAndAttachSEs() throws Exception;
 
     public abstract void createAndAttachUsers() throws Exception;
+    
+    public boolean isTraceFlag() {
+        return traceFlag;
+    }
+    
+    public void setTraceFlag(boolean traceFlag) {
+        this.traceFlag = traceFlag;
+    }
 }

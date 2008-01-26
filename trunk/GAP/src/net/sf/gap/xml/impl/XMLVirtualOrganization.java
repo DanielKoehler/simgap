@@ -16,28 +16,49 @@
  * $Id$
  *
  */
-
 package net.sf.gap.xml.impl;
 
-import gridsim.net.RIPRouter;
+import eduni.simjava.*;
 
-import java.util.HashMap;
-import java.util.Vector;
+import gridsim.*;
+import gridsim.datagrid.*;
+import gridsim.datagrid.index.*;
+import gridsim.datagrid.storage.*;
+import gridsim.net.*;
+
+import java.util.*;
 
 import net.sf.gap.agents.middleware.AgentMiddleware;
-import net.sf.gap.grid.AbstractVirtualOrganization;
-import net.sf.gap.grid.components.AbstractGridElement;
-import net.sf.gap.xml.types.ScenarioType;
+import net.sf.gap.grid.*;
+import net.sf.gap.grid.components.*;
+import net.sf.gap.xml.types.*;
 
 /**
  *
  * @author Giovanni Novelli
  */
 public abstract class XMLVirtualOrganization extends AbstractVirtualOrganization {
+
     private ScenarioType scenario;
-    
-    public XMLVirtualOrganization(ScenarioType scenario) {
+
+    public XMLVirtualOrganization(ScenarioType scenario, boolean trace_flag)
+            throws Exception {
         this.setScenario(scenario);
+        int numGEs = scenario.getGrid().getGridElements().size();
+        int countSEs = 0;
+        int countCEs = 0;
+        for (int i = 0; i < numGEs; i++) {
+            GridElementType ge = scenario.getGrid().getGridElements().get(i);
+            if (ge.isSE()) {
+                countSEs++;
+            } else {
+                countCEs++;
+            }
+        }
+        this.setTraceFlag(trace_flag);
+        this.setNumCEs(countCEs);
+        this.setNumSEs(countSEs);
+        this.createEntities();
     }
 
     @Override
@@ -67,7 +88,17 @@ public abstract class XMLVirtualOrganization extends AbstractVirtualOrganization
 
     @Override
     protected void createEntities() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.setDataGIS(this.createDataGIS());
+        this.setTopRegionalRC(this.createTopRegionalRC());
+        this.setTopology(new XMLNetworkTopology(this.getScenario(), this.isTraceFlag()));
+        FIFOScheduler rcSched = new FIFOScheduler("trrc_sched");
+        RIPRouter router = this.getTopology().get(0);
+        router.attachHost(this.getTopRegionalRC(), rcSched);
+        this.createAndAttachCEs();
+        this.createAndAttachSEs();
+        this.createAndAttachAgentPlatform();
+        this.createAndAttachAgents();
+        this.createAndAttachUsers();
     }
 
     @Override
@@ -82,6 +113,92 @@ public abstract class XMLVirtualOrganization extends AbstractVirtualOrganization
 
     @Override
     public void createAndAttachCEs() throws Exception {
+        for (int i = 0; i < this.getNumCEs(); i++) {
+            GridElementType geItem = scenario.getGrid().getGridElements().get(i);
+            String linkName = geItem.getLink();
+            if (scenario.getTopology().getMapLinks().containsKey(linkName)) {
+                LinkType linkItem = scenario.getTopology().getMapLinks().get(linkName);
+                String from = linkItem.getFromEntity();
+                String to = linkItem.getToEntity();
+                if (linkItem.isBidirectional()) {
+                    FIFOScheduler resSched1 =
+                            new FIFOScheduler("sched_" + from + "_" + to);
+                    FIFOScheduler resSched2 =
+                            new FIFOScheduler("sched_" + to + "_" + from);
+                    Link link =
+                            new SimpleLink(
+                            linkItem.getName(),
+                            linkItem.getBaudrate(),
+                            linkItem.getDelay(),
+                            linkItem.getMTU());
+
+                    String arch = "System Architecture"; // system architecture
+                    String os = "Operating System"; // operating system
+                    double time_zone = 12.0; // time zone this resource located
+                    double cost = 1.0; // the cost of using this resource
+                    MachineListType mListType = geItem.getMachineList();
+                    MachineList mList = new MachineList();
+                    int np = 0;
+                    int m = mListType.getItems().size();
+                    for (int j = 0; i < m; j++) {
+                        MachineType mType = mListType.getItems().get(j);
+                        PEList peList = new PEList();
+                        for (int k = 0; k < mType.getPeList().getItems().size(); k++) {
+                            PEType peType = mType.getPeList().getItems().get(k);
+                            peList.add(new PE(k, peType.getMIPS()));
+                            np++;
+                        }
+                        mList.add(new Machine(j, peList));
+                    }
+                    ResourceCharacteristics resConfig = new ResourceCharacteristics(arch,
+                            os, mList, ResourceCharacteristics.SPACE_SHARED, time_zone, cost);
+                    String geName = geItem.getName();
+                    long seed = 11L * 13 * 17 * 19 * 23 + 1;
+                    double peakLoad = 0.0; // the resource load during peak hour
+                    double offPeakLoad = 0.0; // the resource load during off-peak hr
+                    double holidayLoad = 0.0; // the resource load during holiday
+                    // incorporates weekends so the grid resource is on 7 days a week
+                    LinkedList<Integer> Weekends = new LinkedList<Integer>();
+                    Weekends.add(new Integer(Calendar.SATURDAY));
+                    Weekends.add(new Integer(Calendar.SUNDAY));
+                    // incorporates holidays. However, no holidays are set in this example
+                    LinkedList Holidays = new LinkedList();
+                    GridElement ge = null;
+                    try {
+                        // create the resource calendar
+                        ResourceCalendar cal = new ResourceCalendar(time_zone, peakLoad,
+                                offPeakLoad, holidayLoad, Weekends, Holidays, seed);
+
+                        // create the replica manager
+
+                        SimpleReplicaManager rm = new SimpleReplicaManager("RM_" + geName,
+                                geName); // create a storage
+                        ge = new GridElement(geName, link, resConfig, cal, rm);
+                        if (geItem.isSE()) {
+                            ge.setSE(true);
+                            for (int ihd=0;ihd<geItem.getStorage().getHardDiskList().getItems().size();ihd++) {
+                                HardDiskType hdType = geItem.getStorage().getHardDiskList().getItems().get(ihd);
+                                Storage storage = new HarddriveStorage(hdType.getName(),
+                                    hdType.getCapacity()*1000000000);
+                                ge.addStorage(storage);
+                            }
+                        } else {
+                            ge.setSE(false);
+                        }
+                        ge.createLocalRC();
+                        ge.setHigherReplicaCatalogue(TopRegionalRC.DEFAULT_NAME);
+                        ge.setNumPE(np);
+                        ge.setNumWN(m);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    RIPRouter router = (RIPRouter) Sim_system.get_entity(linkItem.getToEntity());
+                    ge.attachRouter(router);
+                } else {
+                    throw new Exception("Missing link to network for GE " + geItem.getName());
+                }
+            }
+        }
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -94,7 +211,7 @@ public abstract class XMLVirtualOrganization extends AbstractVirtualOrganization
     public void createAndAttachUsers() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     private ScenarioType getScenario() {
         return scenario;
     }
