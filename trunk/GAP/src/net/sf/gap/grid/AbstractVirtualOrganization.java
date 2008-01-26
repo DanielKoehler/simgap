@@ -72,6 +72,10 @@ public abstract class AbstractVirtualOrganization {
 	}
 
         public abstract void initialize();
+
+        protected abstract void initializeCEs();
+        protected abstract void initializeSEs();
+        protected abstract void initializeAgents();
         
         protected abstract void createEntities() throws Exception;
         
@@ -179,6 +183,10 @@ public abstract class AbstractVirtualOrganization {
 		this.ams = AMs;
 	}
 
+    public int getNumAMs() {
+        return (this.getNumCEs()+this.getNumSEs());
+    }
+    
     public abstract void createAndAttachAgentPlatform() throws Exception;
 
     public abstract void createAndAttachAgents() throws Exception;
