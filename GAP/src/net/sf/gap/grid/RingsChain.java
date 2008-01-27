@@ -45,20 +45,20 @@ public class RingsChain extends NetworkTopology {
 	private int cloudSize;
 
 	private int clouds;
-        
-        /**
-         * links delay factor
-         */
-        private double factor;
+
+	/**
+	 * links delay factor
+	 */
+	private double factor;
 
 	/**
 	 * Creates a new instance of RingsChain
 	 */
 	public RingsChain(boolean trace) throws Exception {
-		super(4*3);
+		super(4 * 3);
 		this.setCloudSize(4);
 		this.setClouds(3);
-                this.setFactor(1.0);
+		this.setFactor(1.0);
 		this.create(trace);
 	}
 
@@ -67,30 +67,30 @@ public class RingsChain extends NetworkTopology {
 	 */
 	public RingsChain(int m, int c, double factor, boolean trace)
 			throws Exception {
-		super(m*c);
+		super(m * c);
 		this.setCloudSize(m);
 		this.setClouds(c);
-                this.setFactor(factor);
+		this.setFactor(factor);
 		this.create(trace);
 	}
-        
-        public void initialize() {
-                int N = this.getNumRouters();
+
+	public void initialize() {
+		int N = this.getNumRouters();
 		this.setRouters(new Vector<RIPRouter>(N));
 		for (int i = 0; i < N; i++) {
 			RIPRouter router = (RIPRouter) Sim_system.get_entity("ROUTER_" + i);
 			this.addElement(router);
 		}
-        }
+	}
 
 	@Override
 	public void create(boolean trace) throws Exception {
 		@SuppressWarnings("unused")
 		Uniform_int r = new Uniform_int("RingsChain");
-                int N = this.getNumRouters();
+		int N = this.getNumRouters();
 		for (int i = 0; i < N; i++) {
 			@SuppressWarnings("unused")
-			RIPRouter router = new RIPRouter("ROUTER_"+i,trace);
+			RIPRouter router = new RIPRouter("ROUTER_" + i, trace);
 		}
 		for (int i = 0; i < this.getClouds(); i++) {
 			for (int j = 0; j < this.getCloudSize(); j++) {
@@ -107,8 +107,10 @@ public class RingsChain extends NetworkTopology {
 				// (next as
 				// a
 				// polygon)
-				RIPRouter r1 = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-				RIPRouter r2 = (RIPRouter) Sim_system.get_entity("ROUTER_"+nextIndex);
+				RIPRouter r1 = (RIPRouter) Sim_system.get_entity("ROUTER_"
+						+ index);
+				RIPRouter r2 = (RIPRouter) Sim_system.get_entity("ROUTER_"
+						+ nextIndex);
 				FIFOScheduler resSched1 = new FIFOScheduler("sched_cloud" + i
 						+ "_r" + index + "_r" + nextIndex);
 				FIFOScheduler resSched2 = new FIFOScheduler("sched_cloud" + i
@@ -127,13 +129,16 @@ public class RingsChain extends NetworkTopology {
 			// router in cloud
 			// i+1 (next as a
 			// polygon)
-			RIPRouter r1 = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);;
-			RIPRouter r2 = (RIPRouter) Sim_system.get_entity("ROUTER_"+nextIndex);;
+			RIPRouter r1 = (RIPRouter) Sim_system.get_entity("ROUTER_" + index);
+			;
+			RIPRouter r2 = (RIPRouter) Sim_system.get_entity("ROUTER_"
+					+ nextIndex);
+			;
 			FIFOScheduler resSched1 = new FIFOScheduler("sched_intercloud" + i
 					+ "_r" + index + "_r" + nextIndex);
 			FIFOScheduler resSched2 = new FIFOScheduler("sched_intercloud" + i
 					+ "_r" + nextIndex + "_r" + index);
-        		double delay = 8.0 * this.getFactor();
+			double delay = 8.0 * this.getFactor();
 			Link link = LinkFactory.randomLink(delay);
 			r1.attachRouter(r2, link, resSched1, resSched2);
 		}
@@ -175,19 +180,20 @@ public class RingsChain extends NetworkTopology {
 
 			// ////////////////////////////////////////
 			// Final step: Starts the simulation
-                        Sim_system.set_output_analysis(Sim_system.IND_REPLICATIONS,5,0.95);
-                        GridSim.startGridSimulation();
+			Sim_system
+					.set_output_analysis(Sim_system.IND_REPLICATIONS, 5, 0.95);
+			GridSim.startGridSimulation();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Unwanted errors happen");
 		}
 	}
 
-    public double getFactor() {
-        return factor;
-    }
+	public double getFactor() {
+		return factor;
+	}
 
-    public void setFactor(double factor) {
-        this.factor = factor;
-    }
+	public void setFactor(double factor) {
+		this.factor = factor;
+	}
 }

@@ -26,33 +26,33 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class VOSParser extends Parser {
-    public VOSParser(Document document) {
-        super(document);
-    }
-    
-    public VOSType getVOS(GridType grid) {
-        VOSType vos;
-        NodeList voItems = this.getDocument().getElementsByTagName("voItem");
-        if (voItems.getLength()>0) {
-            vos = new VOSType();
-            for (int i = 0; i < voItems.getLength(); i++) {
-                Element voItem = (Element) voItems.item(i);
-                String voName = voItem.getAttribute("name");
-                VOType aVO = new VOType(voName);
-                NodeList vogeItems = voItem.getElementsByTagName("vogeItem");
-                for (int j = 0; j < vogeItems.getLength(); j++) {
-                    Element vogeItem = (Element) vogeItems.item(j);
-                    aVO.addGE(vogeItem.getAttribute("name"));
-                }
-                vos.addVO(aVO);
-            }
-        } else {
-            vos = new VOSType(grid);
-        }
-        return vos;
-    }
+	public VOSParser(Document document) {
+		super(document);
+	}
+
+	public VOSType getVOS(GridType grid) {
+		VOSType vos;
+		NodeList voItems = this.getDocument().getElementsByTagName("voItem");
+		if (voItems.getLength() > 0) {
+			vos = new VOSType();
+			for (int i = 0; i < voItems.getLength(); i++) {
+				Element voItem = (Element) voItems.item(i);
+				String voName = voItem.getAttribute("name");
+				VOType aVO = new VOType(voName);
+				NodeList vogeItems = voItem.getElementsByTagName("vogeItem");
+				for (int j = 0; j < vogeItems.getLength(); j++) {
+					Element vogeItem = (Element) vogeItems.item(j);
+					aVO.addGE(vogeItem.getAttribute("name"));
+				}
+				vos.addVO(aVO);
+			}
+		} else {
+			vos = new VOSType(grid);
+		}
+		return vos;
+	}
 }

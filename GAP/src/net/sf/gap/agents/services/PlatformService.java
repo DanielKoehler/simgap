@@ -34,20 +34,20 @@ import net.sf.gap.agents.middleware.AbstractAgentPlatform;
  */
 
 public class PlatformService extends Service {
-	public PlatformService(AbstractAgentPlatform ap, String name, boolean trace_flag)
-			throws Exception {
+	public PlatformService(AbstractAgentPlatform ap, String name,
+			boolean trace_flag) throws Exception {
 		super(ap.getGridElement(), name, trace_flag);
-                this.setServiceInfo(new ServiceInfo(name, ap.getGridElement()));
-                this.attachToAgentPlatform();
+		this.setServiceInfo(new ServiceInfo(name, ap.getGridElement()));
+		this.attachToAgentPlatform();
 	}
 
 	public void attachToAgentPlatform() {
 		this.getGridElement().attachService(this);
 	}
-        
+
 	@Override
 	public void initialize() throws Exception {
-            super.initialize();
-            this.getAgentPlatform().getServicesList().add(this.getServiceInfo());
+		super.initialize();
+		this.getAgentPlatform().getServicesList().add(this.getServiceInfo());
 	}
 }

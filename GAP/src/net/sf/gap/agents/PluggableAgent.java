@@ -27,72 +27,69 @@ import eduni.simjava.Sim_event;
 /**
  * 
  * This class is responsible for abstracting new behaviours plugging
- *
+ * 
  * @author Giovanni Novelli
  */
 public abstract class PluggableAgent extends GridAgent {
-        private Sim_eventListenerList evlList;
-        
+	private Sim_eventListenerList evlList;
+
 	/**
 	 * Creates a new instance of PluggableAgent class
 	 * 
-	 * @param name agent name
-	 * @param agentSizeInBytes agent size in bytes
-	 * @param trace_flag trace flag for GridSim
+	 * @param name
+	 *            agent name
+	 * @param agentSizeInBytes
+	 *            agent size in bytes
+	 * @param trace_flag
+	 *            trace flag for GridSim
 	 * @throws Exception
 	 */
-	public PluggableAgent(
-                AbstractGridElement ge, 
-                String name, 
-                int agentSizeInBytes,
-		boolean trace_flag) 
-                throws Exception 
-        {
+	public PluggableAgent(AbstractGridElement ge, String name,
+			int agentSizeInBytes, boolean trace_flag) throws Exception {
 		super(ge, name, agentSizeInBytes, trace_flag);
 	}
 
-        public Sim_eventListener addListener(Sim_eventListener evListener) {
-            return this.getEvlList().addListener(evListener.getTag(), evListener);
-        }
-        
-        public Sim_eventListener removeListener(int tag) {
-            return this.getEvlList().removeListener(tag);
-        }
-        
-        /**
-         * PluggableAgent's Initialization
-         * 
-         * @throws java.lang.Exception
-         */
-    @Override
-	public void initialize() 
-        throws Exception 
-    { 
-            super.initialize();
-            this.setEvlList(new Sim_eventListenerList());
-            this.addListeners();
-        }
+	public Sim_eventListener addListener(Sim_eventListener evListener) {
+		return this.getEvlList().addListener(evListener.getTag(), evListener);
+	}
 
-    public abstract void addListeners();
-    
-    /**
-         * Method used to process extended agent's behaviour
-         * 
-         * @param ev Event triggering agent's actions
-         */
-        public void processOtherEvent(Sim_event ev) {
-            Sim_eventListener listener = this.getEvlList().get(ev.get_tag());
-            
-            if (listener!=null) {
-                listener.eventOccurred(ev);
-            }
-        }
+	public Sim_eventListener removeListener(int tag) {
+		return this.getEvlList().removeListener(tag);
+	}
 
-    public Sim_eventListenerList getEvlList() {
-        return evlList;
-    }
+	/**
+	 * PluggableAgent's Initialization
+	 * 
+	 * @throws java.lang.Exception
+	 */
+	@Override
+	public void initialize() throws Exception {
+		super.initialize();
+		this.setEvlList(new Sim_eventListenerList());
+		this.addListeners();
+	}
 
-    public void setEvlList(Sim_eventListenerList evlList) {
-        this.evlList = evlList;
-    }
+	public abstract void addListeners();
+
+	/**
+	 * Method used to process extended agent's behaviour
+	 * 
+	 * @param ev
+	 *            Event triggering agent's actions
+	 */
+	public void processOtherEvent(Sim_event ev) {
+		Sim_eventListener listener = this.getEvlList().get(ev.get_tag());
+
+		if (listener != null) {
+			listener.eventOccurred(ev);
+		}
+	}
+
+	public Sim_eventListenerList getEvlList() {
+		return evlList;
+	}
+
+	public void setEvlList(Sim_eventListenerList evlList) {
+		this.evlList = evlList;
+	}
 }

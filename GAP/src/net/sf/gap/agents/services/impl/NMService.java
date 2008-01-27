@@ -58,14 +58,15 @@ public class NMService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public NMService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
+	public NMService(AbstractAgentPlatform ap, boolean trace_flag)
+			throws Exception {
 		super(ap, "NMService", trace_flag);
 	}
 
 	@Override
 	public void initialize() throws Exception {
-            super.initialize();
-            this.setNetworkMap(new NetworkMap());
+		super.initialize();
+		this.setNetworkMap(new NetworkMap());
 	}
 
 	@Override
@@ -104,11 +105,11 @@ public class NMService extends PlatformService {
 	}
 
 	public void asyncProcessNetworkMap() {
-		Iterator<AbstractGridElement> it1 = this.getAgentPlatform().getGisService()
-				.getGisRepository().getListGEs().iterator();
+		Iterator<AbstractGridElement> it1 = this.getAgentPlatform()
+				.getGisService().getGisRepository().getListGEs().iterator();
 		while (it1.hasNext()) {
-			Iterator<AbstractGridElement> it2 = this.getAgentPlatform().getGisService()
-					.getGisRepository().getListGEs().iterator();
+			Iterator<AbstractGridElement> it2 = this.getAgentPlatform()
+					.getGisService().getGisRepository().getListGEs().iterator();
 			AbstractGridElement ge1 = it1.next();
 			int ge1id = ge1.get_id();
 			while (it2.hasNext()) {
@@ -122,11 +123,11 @@ public class NMService extends PlatformService {
 	}
 
 	public void processNetworkMap() {
-		Iterator<AbstractGridElement> it1 = this.getAgentPlatform().getGisService()
-				.getGisRepository().getListGEs().iterator();
+		Iterator<AbstractGridElement> it1 = this.getAgentPlatform()
+				.getGisService().getGisRepository().getListGEs().iterator();
 		while (it1.hasNext()) {
-			Iterator<AbstractGridElement> it2 = this.getAgentPlatform().getGisService()
-					.getGisRepository().getListGEs().iterator();
+			Iterator<AbstractGridElement> it2 = this.getAgentPlatform()
+					.getGisService().getGisRepository().getListGEs().iterator();
 			AbstractGridElement ge1 = it1.next();
 			int ge1id = ge1.get_id();
 			while (it2.hasNext()) {

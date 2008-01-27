@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.messages;
 
 import net.sf.gap.util.EntitiesCounter;

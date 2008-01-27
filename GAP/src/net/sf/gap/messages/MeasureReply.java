@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.messages;
 
 import eduni.simjava.Sim_event;
@@ -34,8 +33,8 @@ import eduni.simjava.Sim_event;
 public class MeasureReply extends Reply {
 
 	/**
-     * Creates a new instance of MeasureRequest
-     */
+	 * Creates a new instance of MeasureRequest
+	 */
 	public MeasureReply(int requestTAG, boolean ok, MeasureRequest request) {
 		super(requestTAG, ok, request);
 	}
@@ -59,8 +58,8 @@ public class MeasureReply extends Reply {
 	public void setRequest(MeasureRequest request) {
 		this.request = request;
 	}
-        
-        public int getID() {
-            return this.getRequest().getID();
-        }
+
+	public int getID() {
+		return this.getRequest().getID();
+	}
 }

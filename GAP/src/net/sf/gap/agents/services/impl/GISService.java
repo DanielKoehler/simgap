@@ -54,7 +54,8 @@ public class GISService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public GISService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
+	public GISService(AbstractAgentPlatform ap, boolean trace_flag)
+			throws Exception {
 		super(ap, "GISService", trace_flag);
 	}
 
@@ -65,15 +66,19 @@ public class GISService extends PlatformService {
 
 	@Override
 	public void initialize() throws Exception {
-            super.initialize();
-            this.setGisRepository(new GISRepository(this.getAgentPlatform()));
+		super.initialize();
+		this.setGisRepository(new GISRepository(this.getAgentPlatform()));
 
-		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization().getNumCEs(); i++) {
-			AbstractGridElement ce = (AbstractGridElement) Sim_system.get_entity("CE_"+i);
+		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
+				.getNumCEs(); i++) {
+			AbstractGridElement ce = (AbstractGridElement) Sim_system
+					.get_entity("CE_" + i);
 			this.getGisRepository().addGE(ce);
 		}
-		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization().getNumSEs(); i++) {
-			AbstractGridElement se = (AbstractGridElement) Sim_system.get_entity("SE_"+i);
+		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
+				.getNumSEs(); i++) {
+			AbstractGridElement se = (AbstractGridElement) Sim_system
+					.get_entity("SE_" + i);
 			this.getGisRepository().addGE(se);
 		}
 	}
@@ -114,20 +119,22 @@ public class GISService extends PlatformService {
 	}
 
 	public void processGIS() {
-            int numCEs = this.getAgentPlatform().getVirtualOrganization().getNumCEs();
-            for (int i=0;i<numCEs;i++) {
-                AbstractGridElement ge = (AbstractGridElement) Sim_system.get_entity("CE_"+i);
-                int geid = ge.get_id();
-                int numPEs = ge.getNumPE();
-                int numFreePEs = super.getNumFreePE(ge.get_id());
-                int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
-                int totalMIPS = ge.getTotalMIPS();
-                boolean SE = ge.isSE();
-                double MB_size = ge.getTotalStorageCapacity();
-                this.addEntry(geid, numPEs, numFreePEs, numFreeAgents,
-                                totalMIPS, SE, MB_size, ge.getTotalLoad());
-            }
-            this.getGisRepository().setLastRequestTime(super.clock());
+		int numCEs = this.getAgentPlatform().getVirtualOrganization()
+				.getNumCEs();
+		for (int i = 0; i < numCEs; i++) {
+			AbstractGridElement ge = (AbstractGridElement) Sim_system
+					.get_entity("CE_" + i);
+			int geid = ge.get_id();
+			int numPEs = ge.getNumPE();
+			int numFreePEs = super.getNumFreePE(ge.get_id());
+			int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+			int totalMIPS = ge.getTotalMIPS();
+			boolean SE = ge.isSE();
+			double MB_size = ge.getTotalStorageCapacity();
+			this.addEntry(geid, numPEs, numFreePEs, numFreeAgents, totalMIPS,
+					SE, MB_size, ge.getTotalLoad());
+		}
+		this.getGisRepository().setLastRequestTime(super.clock());
 	}
 
 	public GISEntry addEntry(int geid, int numPEs, int numFreePEs,
@@ -135,18 +142,22 @@ public class GISService extends PlatformService {
 			Accumulator load) {
 		GISEntry entry = new GISEntry(numPEs, numFreePEs, numFreeAgents,
 				totalMIPS, SE, MB_size, load);
-                if (this.getGisRepository()==null) {
-                    this.setGisRepository(new GISRepository(this.getAgentPlatform()));
+		if (this.getGisRepository() == null) {
+			this.setGisRepository(new GISRepository(this.getAgentPlatform()));
 
-                    for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization().getNumCEs(); i++) {
-                            AbstractGridElement ce = (AbstractGridElement) Sim_system.get_entity("CE_"+i);
-                            this.getGisRepository().addGE(ce);
-                    }
-                    for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization().getNumSEs(); i++) {
-                            AbstractGridElement se = (AbstractGridElement) Sim_system.get_entity("SE_"+i);
-                            this.getGisRepository().addGE(se);
-                    }
-                }
+			for (int i = 0; i < this.getAgentPlatform()
+					.getVirtualOrganization().getNumCEs(); i++) {
+				AbstractGridElement ce = (AbstractGridElement) Sim_system
+						.get_entity("CE_" + i);
+				this.getGisRepository().addGE(ce);
+			}
+			for (int i = 0; i < this.getAgentPlatform()
+					.getVirtualOrganization().getNumSEs(); i++) {
+				AbstractGridElement se = (AbstractGridElement) Sim_system
+						.get_entity("SE_" + i);
+				this.getGisRepository().addGE(se);
+			}
+		}
 		return this.getGisRepository().put(geid, entry);
 	}
 

@@ -76,10 +76,11 @@ public class NetworkMonitor {
 	}
 
 	public void asyncProcessNetworkMap() {
-		Iterator<AbstractGridElement> it1 = this.getAgentPlatform().getGisService().getGisRepository().getListGEs().iterator();
+		Iterator<AbstractGridElement> it1 = this.getAgentPlatform()
+				.getGisService().getGisRepository().getListGEs().iterator();
 		while (it1.hasNext()) {
-			Iterator<AbstractGridElement> it2 = this.getAgentPlatform().getGisService()
-					.getGisRepository().getListGEs().iterator();
+			Iterator<AbstractGridElement> it2 = this.getAgentPlatform()
+					.getGisService().getGisRepository().getListGEs().iterator();
 			AbstractGridElement ge1 = it1.next();
 			int ge1id = ge1.get_id();
 			while (it2.hasNext()) {
@@ -104,7 +105,7 @@ public class NetworkMonitor {
 							nmRequest.getSrc_ID()));
 			break;
 
-                    default:
+		default:
 			break;
 		}
 	}

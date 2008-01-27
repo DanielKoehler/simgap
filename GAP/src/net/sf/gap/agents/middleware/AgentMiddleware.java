@@ -39,10 +39,10 @@ import net.sf.gap.grid.components.AbstractGridElement;
  */
 
 public class AgentMiddleware extends GridSim {
-        private boolean platform;
-    
-        private boolean traceFlag;
-    
+	private boolean platform;
+
+	private boolean traceFlag;
+
 	private SimReport report_; // logs every events
 
 	private AbstractGridElement gridElement;
@@ -62,17 +62,17 @@ public class AgentMiddleware extends GridSim {
 	 */
 	public AgentMiddleware(String name, boolean trace_flag) throws Exception {
 		super(name, LinkFactory.getMiddlewareLink(name));
-                this.setPlatform(false);
-                this.setTraceFlag(trace_flag);
+		this.setPlatform(false);
+		this.setTraceFlag(trace_flag);
 	}
 
-        public void initialize() throws Exception {
+	public void initialize() throws Exception {
 		// creates a report file
 		if (this.isTraceFlag() == true) {
 			this.setReport_(new SimReport(this.get_name()));
 		}
-        }
-        
+	}
+
 	public SimReport getReport_() {
 		return this.report_;
 	}
@@ -118,19 +118,19 @@ public class AgentMiddleware extends GridSim {
 		return gridElement;
 	}
 
-    public boolean isTraceFlag() {
-        return traceFlag;
-    }
+	public boolean isTraceFlag() {
+		return traceFlag;
+	}
 
-    public void setTraceFlag(boolean traceFlag) {
-        this.traceFlag = traceFlag;
-    }
+	public void setTraceFlag(boolean traceFlag) {
+		this.traceFlag = traceFlag;
+	}
 
-    public boolean isPlatform() {
-        return platform;
-    }
+	public boolean isPlatform() {
+		return platform;
+	}
 
-    public void setPlatform(boolean platform) {
-        this.platform = platform;
-    }
+	public void setPlatform(boolean platform) {
+		this.platform = platform;
+	}
 }

@@ -38,12 +38,12 @@ public abstract class EntityTypes {
 	public EntityTypes() {
 	}
 
-        public static final int ENTITYBASE = 200;
+	public static final int ENTITYBASE = 200;
 
-        /*
-         * @TODO Somewhere in the code NOBODY tag is used as value 0, fix it
-         * 
-         */
+	/*
+	 * @TODO Somewhere in the code NOBODY tag is used as value 0, fix it
+	 * 
+	 */
 	public static final int NOBODY = 0;
 
 	public static final int AGENT_ZOMBIE = 1 + ENTITYBASE;

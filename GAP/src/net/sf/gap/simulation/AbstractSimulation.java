@@ -22,21 +22,24 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.simulation;
 
 import net.sf.gap.util.EntitiesCounter;
 import eduni.simjava.Sim_system;
+
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public abstract class AbstractSimulation {
-    // Parameters for Sim_system.IND_REPLICATIONS output analysis method
-    private int replications; // The number of replications to perform
-    private int maxReplications; // The max number of replications to perform in BATCH_MEANS
-    private double confidence; // The confidence level that will be used to produce the simulation's measures' confidence intervals
-    private double accuracy;
+	// Parameters for Sim_system.IND_REPLICATIONS output analysis method
+	private int replications; // The number of replications to perform
+	private int maxReplications; // The max number of replications to perform
+									// in BATCH_MEANS
+	private double confidence; // The confidence level that will be used to
+								// produce the simulation's measures' confidence
+								// intervals
+	private double accuracy;
 
 	/**
 	 * Creates a new instance of AbstractSimulation
@@ -56,78 +59,82 @@ public abstract class AbstractSimulation {
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(replications);
 		this.setMaxReplications(replications);
-                this.setConfidence(0.95);
+		this.setConfidence(0.95);
 	}
 
 	/**
 	 * Creates a new instance of AbstractSimulation
 	 */
-	public AbstractSimulation(int replications, double confidence, double accuracy) {
+	public AbstractSimulation(int replications, double confidence,
+			double accuracy) {
 		@SuppressWarnings("unused")
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(replications);
-                this.setMaxReplications(replications);
-                this.setConfidence(confidence);
-                this.setAccuracy(accuracy);
+		this.setMaxReplications(replications);
+		this.setConfidence(confidence);
+		this.setAccuracy(accuracy);
 	}
 
 	/**
 	 * Creates a new instance of AbstractSimulation
 	 */
-	public AbstractSimulation(int minReplications, int maxReplications, double confidence) {
+	public AbstractSimulation(int minReplications, int maxReplications,
+			double confidence) {
 		@SuppressWarnings("unused")
 		EntitiesCounter entitiesCounter = new EntitiesCounter();
 		this.setReplications(minReplications);
-                this.setMaxReplications(maxReplications);
-                this.setConfidence(confidence);
+		this.setMaxReplications(maxReplications);
+		this.setConfidence(confidence);
 	}
-    public abstract void start();
 
-    public boolean useReplications() {
-        return this.getReplications()>2;
-    }
-    
-    public void setupOutputAnalysis() {
-			if (useReplications()) {
-                            if (this.getMaxReplications() > this.getReplications()) {
-                                    Sim_system.set_output_analysis(Sim_system.BATCH_MEANS,
-                                                    this.getReplications(), this.getMaxReplications(), this.getConfidence());
-                            } else {
-                                    Sim_system.set_output_analysis(Sim_system.IND_REPLICATIONS,
-                                                    this.getReplications(), this.getConfidence());
-                            }
-                        }
-    }
-    
-    public int getReplications() {
-        return replications;
-    }
+	public abstract void start();
 
-    public void setReplications(int replications) {
-        this.replications = replications;
-    }
+	public boolean useReplications() {
+		return this.getReplications() > 2;
+	}
 
-    public double getConfidence() {
-        return confidence;
-    }
+	public void setupOutputAnalysis() {
+		if (useReplications()) {
+			if (this.getMaxReplications() > this.getReplications()) {
+				Sim_system.set_output_analysis(Sim_system.BATCH_MEANS, this
+						.getReplications(), this.getMaxReplications(), this
+						.getConfidence());
+			} else {
+				Sim_system.set_output_analysis(Sim_system.IND_REPLICATIONS,
+						this.getReplications(), this.getConfidence());
+			}
+		}
+	}
 
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
-    }
+	public int getReplications() {
+		return replications;
+	}
 
-    public int getMaxReplications() {
-        return maxReplications;
-    }
+	public void setReplications(int replications) {
+		this.replications = replications;
+	}
 
-    public void setMaxReplications(int maxReplications) {
-        this.maxReplications = maxReplications;
-    }
+	public double getConfidence() {
+		return confidence;
+	}
 
-    public double getAccuracy() {
-        return accuracy;
-    }
+	public void setConfidence(double confidence) {
+		this.confidence = confidence;
+	}
 
-    public void setAccuracy(double accuracy) {
-        this.accuracy = accuracy;
-    }
+	public int getMaxReplications() {
+		return maxReplications;
+	}
+
+	public void setMaxReplications(int maxReplications) {
+		this.maxReplications = maxReplications;
+	}
+
+	public double getAccuracy() {
+		return accuracy;
+	}
+
+	public void setAccuracy(double accuracy) {
+		this.accuracy = accuracy;
+	}
 }

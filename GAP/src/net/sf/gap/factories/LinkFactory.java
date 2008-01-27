@@ -41,7 +41,7 @@ public class LinkFactory {
 	}
 
 	public static Link randomLink(double delay) throws Exception {
-		double bps=1000000000.0;
+		double bps = 1000000000.0;
 		Link link;
 		link = new SimpleLink("link_" + LinkFactory.incCounter(), bps, delay,
 				LinkFactory.getMTU());
@@ -56,7 +56,7 @@ public class LinkFactory {
 
 	private static Link CELink() throws Exception {
 		double bps;
-                bps = 1000000000;
+		bps = 1000000000;
 		double delay = 2.0;
 		Link link = new SimpleLink("celink_" + LinkFactory.incCounter(), bps,
 				delay, LinkFactory.getMTU());
@@ -65,7 +65,7 @@ public class LinkFactory {
 
 	private static Link SELink() throws Exception {
 		double bps;
-                bps = 10000000000.0;
+		bps = 10000000000.0;
 		double delay = 2.0;
 		Link link = new SimpleLink("selink_" + LinkFactory.incCounter(), bps,
 				delay, LinkFactory.getMTU());
@@ -97,7 +97,7 @@ public class LinkFactory {
 				0.000000000001, Link.DEFAULT_MTU);
 	}
 
-        public static int getCounter() {
+	public static int getCounter() {
 		return counter;
 	}
 

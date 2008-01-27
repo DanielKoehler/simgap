@@ -25,7 +25,6 @@ import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
 
-
 /**
  * 
  * @author Giovanni Novelli

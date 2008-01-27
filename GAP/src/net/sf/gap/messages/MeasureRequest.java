@@ -31,20 +31,20 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class MeasureRequest extends Request {
-     @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int ID;
-     
-     private double timestamp;
-     
-     private Sim_event event;
-     
-     /**
-     * Creates a new instance of MeasureRequest
-     */
+
+	private double timestamp;
+
+	private Sim_event event;
+
+	/**
+	 * Creates a new instance of MeasureRequest
+	 */
 	public MeasureRequest(int src_ID, int ID, double timestamp, Sim_event event) {
 		super(src_ID, ID);
-                this.setTimestamp(timestamp);
-                this.setEvent(event);
+		this.setTimestamp(timestamp);
+		this.setEvent(event);
 	}
 
 	public static MeasureRequest get_data(Sim_event ev) {
@@ -54,26 +54,27 @@ public class MeasureRequest extends Request {
 
 	@Override
 	public MeasureRequest clone() {
-		return new MeasureRequest(this.getSrc_ID(), this.getID(), this.getTimestamp(), this.getEvent());
+		return new MeasureRequest(this.getSrc_ID(), this.getID(), this
+				.getTimestamp(), this.getEvent());
 	}
 
-    public int getID() {
-        return this.getSrc_resID();
-    }
+	public int getID() {
+		return this.getSrc_resID();
+	}
 
-    public Sim_event getEvent() {
-        return event;
-    }
+	public Sim_event getEvent() {
+		return event;
+	}
 
-    public void setEvent(Sim_event event) {
-        this.event = event;
-    }
+	public void setEvent(Sim_event event) {
+		this.event = event;
+	}
 
-    public double getTimestamp() {
-        return timestamp;
-    }
+	public double getTimestamp() {
+		return timestamp;
+	}
 
-    public void setTimestamp(double timestamp) {
-        this.timestamp = timestamp;
-    }
+	public void setTimestamp(double timestamp) {
+		this.timestamp = timestamp;
+	}
 }
