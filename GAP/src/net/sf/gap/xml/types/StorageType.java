@@ -16,51 +16,49 @@
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class StorageType {
-    private ReplicaManagerType RM;
-    private HardDiskListType HardDiskList;
-    private TapeListType TapeList;
-    
-    public StorageType(
-            String RM_name
-            ) {
-        this.setRM(new ReplicaManagerType(RM_name));
-        this.setHardDiskList(new HardDiskListType());
-        this.setTapeList(new TapeListType());
-    }
+	private ReplicaManagerType RM;
+	private HardDiskListType HardDiskList;
+	private TapeListType TapeList;
 
-    public boolean addHardDisk(HardDiskType hd) {
-        return this.getHardDiskList().addHardDisk(hd);
-    }
-    
-    public boolean addTape(TapeType tape) {
-        return this.getTapeList().addTape(tape);
-    }
-    
-    public ReplicaManagerType getRM() {
-        return RM;
-    }
+	public StorageType(String RM_name) {
+		this.setRM(new ReplicaManagerType(RM_name));
+		this.setHardDiskList(new HardDiskListType());
+		this.setTapeList(new TapeListType());
+	}
 
-    public void setRM(ReplicaManagerType RM) {
-        this.RM = RM;
-    }
+	public boolean addHardDisk(HardDiskType hd) {
+		return this.getHardDiskList().addHardDisk(hd);
+	}
 
-    public HardDiskListType getHardDiskList() {
-        return HardDiskList;
-    }
+	public boolean addTape(TapeType tape) {
+		return this.getTapeList().addTape(tape);
+	}
 
-    public void setHardDiskList(HardDiskListType HardDiskList) {
-        this.HardDiskList = HardDiskList;
-    }
+	public ReplicaManagerType getRM() {
+		return RM;
+	}
 
-    public TapeListType getTapeList() {
-        return TapeList;
-    }
+	public void setRM(ReplicaManagerType RM) {
+		this.RM = RM;
+	}
 
-    public void setTapeList(TapeListType TapeList) {
-        this.TapeList = TapeList;
-    }
+	public HardDiskListType getHardDiskList() {
+		return HardDiskList;
+	}
+
+	public void setHardDiskList(HardDiskListType HardDiskList) {
+		this.HardDiskList = HardDiskList;
+	}
+
+	public TapeListType getTapeList() {
+		return TapeList;
+	}
+
+	public void setTapeList(TapeListType TapeList) {
+		this.TapeList = TapeList;
+	}
 }

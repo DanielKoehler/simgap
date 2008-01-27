@@ -17,75 +17,70 @@
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class HardDiskType {
-    private String name;
-    private double Capacity;
-    private double Latency;
-    private double AvgSeekTime;
-    private double MaxTransferRate;
+	private String name;
+	private double Capacity;
+	private double Latency;
+	private double AvgSeekTime;
+	private double MaxTransferRate;
 
-    public HardDiskType(String name) {
-        this.setName(name);
-        this.setCapacity(100000.0);
-        this.setLatency(4.17);
-        this.setAvgSeekTime(9.0);
-        this.setMaxTransferRate(133.0);
-    }
-    
-    public HardDiskType(
-            String name,
-            double Capacity,
-            double Latency,
-            double AvgSeekTime,
-            double MaxTransferRate
-            ) {
-        this.setName(name);
-        this.setCapacity(Capacity);
-        this.setLatency(Latency);
-        this.setAvgSeekTime(AvgSeekTime);
-        this.setMaxTransferRate(MaxTransferRate);
-    }
+	public HardDiskType(String name) {
+		this.setName(name);
+		this.setCapacity(100000.0);
+		this.setLatency(4.17);
+		this.setAvgSeekTime(9.0);
+		this.setMaxTransferRate(133.0);
+	}
 
-    public String getName() {
-        return name;
-    }
+	public HardDiskType(String name, double Capacity, double Latency,
+			double AvgSeekTime, double MaxTransferRate) {
+		this.setName(name);
+		this.setCapacity(Capacity);
+		this.setLatency(Latency);
+		this.setAvgSeekTime(AvgSeekTime);
+		this.setMaxTransferRate(MaxTransferRate);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public double getCapacity() {
-        return Capacity;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setCapacity(double Capacity) {
-        this.Capacity = Capacity;
-    }
+	public double getCapacity() {
+		return Capacity;
+	}
 
-    public double getLatency() {
-        return Latency;
-    }
+	public void setCapacity(double Capacity) {
+		this.Capacity = Capacity;
+	}
 
-    public void setLatency(double Latency) {
-        this.Latency = Latency;
-    }
+	public double getLatency() {
+		return Latency;
+	}
 
-    public double getAvgSeekTime() {
-        return AvgSeekTime;
-    }
+	public void setLatency(double Latency) {
+		this.Latency = Latency;
+	}
 
-    public void setAvgSeekTime(double AvgSeekTime) {
-        this.AvgSeekTime = AvgSeekTime;
-    }
+	public double getAvgSeekTime() {
+		return AvgSeekTime;
+	}
 
-    public double getMaxTransferRate() {
-        return MaxTransferRate;
-    }
+	public void setAvgSeekTime(double AvgSeekTime) {
+		this.AvgSeekTime = AvgSeekTime;
+	}
 
-    public void setMaxTransferRate(double MaxTransferRate) {
-        this.MaxTransferRate = MaxTransferRate;
-    }
+	public double getMaxTransferRate() {
+		return MaxTransferRate;
+	}
+
+	public void setMaxTransferRate(double MaxTransferRate) {
+		this.MaxTransferRate = MaxTransferRate;
+	}
 }

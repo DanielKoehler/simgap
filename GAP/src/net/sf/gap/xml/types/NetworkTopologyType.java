@@ -16,74 +16,73 @@
 
 package net.sf.gap.xml.types;
 
-import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class NetworkTopologyType {
-    private LinkedList<RouterType> routers;
-    private LinkedList<String> ges;
-    private LinkedList<LinkType> links;
-    private HashMap<String, LinkType> mapLinks;
+	private LinkedList<RouterType> routers;
+	private LinkedList<String> ges;
+	private LinkedList<LinkType> links;
+	private HashMap<String, LinkType> mapLinks;
 
-    public NetworkTopologyType() {
-        this.setRouters(new LinkedList<RouterType>());
-        this.setGes(new LinkedList<String>());
-        this.setLinks(new LinkedList<LinkType>());
-        this.setMapLinks(new HashMap<String, LinkType>());
-    }
-    
-    public boolean addRouter(String routerName) {
-        return this.getRouters().add(new RouterType(routerName));
-    }
+	public NetworkTopologyType() {
+		this.setRouters(new LinkedList<RouterType>());
+		this.setGes(new LinkedList<String>());
+		this.setLinks(new LinkedList<LinkType>());
+		this.setMapLinks(new HashMap<String, LinkType>());
+	}
 
-    public boolean addGE(String geName) {
-        return this.getGes().add(geName);
-    }
-    
-    public boolean addRouter(RouterType router) {
-        return this.getRouters().add(router);
-    }
-    
-    public boolean addLink(LinkType link) {
-        this.getMapLinks().put(link.getName(), link);
-        return this.getLinks().add(link);
-    }
-    
-    public LinkedList<RouterType> getRouters() {
-        return routers;
-    }
+	public boolean addRouter(String routerName) {
+		return this.getRouters().add(new RouterType(routerName));
+	}
 
-    public void setRouters(LinkedList<RouterType> routers) {
-        this.routers = routers;
-    }
+	public boolean addGE(String geName) {
+		return this.getGes().add(geName);
+	}
 
-    public LinkedList<LinkType> getLinks() {
-        return links;
-    }
+	public boolean addRouter(RouterType router) {
+		return this.getRouters().add(router);
+	}
 
-    public void setLinks(LinkedList<LinkType> links) {
-        this.links = links;
-    }
+	public boolean addLink(LinkType link) {
+		this.getMapLinks().put(link.getName(), link);
+		return this.getLinks().add(link);
+	}
 
-    public LinkedList<String> getGes() {
-        return ges;
-    }
+	public LinkedList<RouterType> getRouters() {
+		return routers;
+	}
 
-    public void setGes(LinkedList<String> ges) {
-        this.ges = ges;
-    }
+	public void setRouters(LinkedList<RouterType> routers) {
+		this.routers = routers;
+	}
 
-    public HashMap<String, LinkType> getMapLinks() {
-        return mapLinks;
-    }
+	public LinkedList<LinkType> getLinks() {
+		return links;
+	}
 
-    public void setMapLinks(HashMap<String, LinkType> mapLinks) {
-        this.mapLinks = mapLinks;
-    }
-    
-    
+	public void setLinks(LinkedList<LinkType> links) {
+		this.links = links;
+	}
+
+	public LinkedList<String> getGes() {
+		return ges;
+	}
+
+	public void setGes(LinkedList<String> ges) {
+		this.ges = ges;
+	}
+
+	public HashMap<String, LinkType> getMapLinks() {
+		return mapLinks;
+	}
+
+	public void setMapLinks(HashMap<String, LinkType> mapLinks) {
+		this.mapLinks = mapLinks;
+	}
+
 }

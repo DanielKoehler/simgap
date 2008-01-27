@@ -17,11 +17,11 @@
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
-public class RouterType extends EntityType{
-    public RouterType(String name) {
-        super(name);
-    }
+public class RouterType extends EntityType {
+	public RouterType(String name) {
+		super(name);
+	}
 }

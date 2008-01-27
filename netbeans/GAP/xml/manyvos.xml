@@ -8,8 +8,8 @@
         A simple example of scenario with grid elements belonging to two VOs
 -->
 
-<scenario  name="manyvos" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="schema.xsd"
+<scenario  name="manyvos" trace="false" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="scenario.xsd"
         xsi:type="SimulationScenarioType">
     <topology>
         <routers>

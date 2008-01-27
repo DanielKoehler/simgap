@@ -17,25 +17,25 @@
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class PEType {
-    private int MIPS;
+	private int MIPS;
 
-    public PEType() {
-        this.setMIPS(1000);
-    }
-    
-    public PEType(int MIPS) {
-        this.setMIPS(MIPS);
-    }
-    
-    public int getMIPS() {
-        return MIPS;
-    }
+	public PEType() {
+		this.setMIPS(1000);
+	}
 
-    public void setMIPS(int MIPS) {
-        this.MIPS = MIPS;
-    }
+	public PEType(int MIPS) {
+		this.setMIPS(MIPS);
+	}
+
+	public int getMIPS() {
+		return MIPS;
+	}
+
+	public void setMIPS(int MIPS) {
+		this.MIPS = MIPS;
+	}
 }

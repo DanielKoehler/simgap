@@ -17,22 +17,22 @@
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public abstract class EntityType {
-    private String name;
+	private String name;
 
-    public EntityType(String name) {
-        this.setName(name);
-    }
-    
-    public String getName() {
-        return name;
-    }
+	public EntityType(String name) {
+		this.setName(name);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
