@@ -19,7 +19,6 @@
 
 package net.sf.gap;
 
-
 /**
  * 
  * @author Giovanni Novelli
@@ -31,24 +30,24 @@ public abstract class GAP extends AbstractGAP {
 		super(true);
 	}
 
-	/** 
-         * Creates a new instance of GAP indicating preference about graphing
-         */
+	/**
+	 * Creates a new instance of GAP indicating preference about graphing
+	 */
 	public GAP(boolean aGraphing) {
 		super(aGraphing);
 	}
 
-	/** 
-         * Starts simulation
-         */
+	/**
+	 * Starts simulation
+	 */
 	public static void startSimulation() {
 		System.out.println("Starting simulation");
 		AbstractGAP.startSimulation();
 	}
 
-	/** 
-         * Stops simulation
-         */
+	/**
+	 * Stops simulation
+	 */
 	public static void stopSimulation() {
 		System.out.println("Stopping simulation");
 		AbstractGAP.stopSimulation();

@@ -53,156 +53,156 @@ import org.xml.sax.SAXException;
  * <p>
  * The organization of this class is quite simple:
  * <ul>
- *  <li>It is initialized with the path to an XSD and an XML file through
- * its constructor public XMLReader(String xsd, String xml)
- *  </li>
- *  <li> It exposes public method ScenarioType getScenario() which extracts 
- * from the XML input file an instance of ScenarioType class
- *  </li>
+ * <li>It is initialized with the path to an XSD and an XML file through its
+ * constructor public XMLReader(String xsd, String xml) </li>
+ * <li> It exposes public method ScenarioType getScenario() which extracts from
+ * the XML input file an instance of ScenarioType class </li>
  * </ul>
  * </p>
  * 
  * @author Giovanni Novelli
  * @see net.sf.gap.xml.types.ScenarioType
- *
- */public class XMLReader {
-    private String _xsd;
-    private String _xml;
-    
-    public XMLReader(String xsd, String xml) {
-        this.set_xsd(xsd);
-        this.set_xml(xml);
-    }
-    
-    public static void main(String[] args) {
-       String xsd = "xml/scenario.xsd";
-       //String xml = "xml/flatgrid";
-       String xml = "xml/manyvos.xml";
-       
-       XMLReader reader = new XMLReader(xsd, xml);
- 
-       ScenarioType scenario = reader.getScenario();
-       System.out.println("Scenario's name: " + scenario.getName());
-    }
-    
-    /**
-     * Extracts from the XML input file an instance of ScenarioType class
-     * 
-     * @return scenario from current XML input file
-     */
-    public ScenarioType getScenario() {
-        Document document = this.getDocument();
- 
-        Element scenarioElement = (Element) this.getDocument().getElementsByTagName("scenario").item(0);
-        String scenarioName = scenarioElement.getAttribute("name");
-        ScenarioType scenario = new ScenarioType(scenarioName);
-        
-        TopologyParser topologyParser = new TopologyParser(document);
-        NetworkTopologyType topology = topologyParser.getTopology();
+ * 
+ */
+public class XMLReader {
+	private String _xsd;
+	private String _xml;
 
-        scenario.setTopology(topology);
-        
-        GridParser gridParser = new GridParser(document);
-        GridType grid = gridParser.getGrid();
-        scenario.setGrid(grid);
-            
-        VOSParser vosParser = new VOSParser(document);
-        VOSType vos = vosParser.getVOS(grid);
-        scenario.setVos(vos);
+	public XMLReader(String xsd, String xml) {
+		this.set_xsd(xsd);
+		this.set_xml(xml);
+	}
 
-        return scenario;
-    }
-    
-    private Document getDocument() {
-        Document document = null;
-        try {
-            // define the type of schema - we use W3C:
-            String schemaLang = "http://www.w3.org/2001/XMLSchema";
-            
-            SchemaFactory factory =
-                    SchemaFactory.newInstance(schemaLang);
-            Schema schema = factory.newSchema(new StreamSource(this.get_xsd()));
-            Validator validator = schema.newValidator();
+	public static void main(String[] args) {
+		String xsd = "xml/scenario.xsd";
+		// String xml = "xml/flatgrid";
+		String xml = "xml/manyvos.xml";
 
-            if (this.get_xml().endsWith(".xml")) {
-                validator.validate(new StreamSource(this.get_xml()));
-                // Parse the XML as a W3C document.
-                DocumentBuilder builder =
-                        DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                document = builder.parse(new File(this.get_xml()));
-                boolean valid = (document!=null);
-                if (!valid) {
-                  System.err.println(this.get_xml() + " is NOT valid against schema " + this.get_xsd());
-                }
-            } else { //@TODO Fixit
-                InputStream win = new CompositeInputStream(this.get_xml());
-                win.read();
-                DocumentBuilder builder =
-                        DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                document = builder.parse(win);
-                boolean valid = (document!=null);
-                if (!valid) {
-                  System.err.println("NOT valid against schema " + this.get_xsd());
-                }
-            }
-        } catch (ParserConfigurationException e) {
-            System.err.println("ParserConfigurationException caught...");
-            e.printStackTrace();
-        } catch (SAXException e) {
-            System.err.println("SAXException caught...");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.err.println("IOException caught...");
-            e.printStackTrace();
-        }
-        return document;
-    }
+		XMLReader reader = new XMLReader(xsd, xml);
 
-    private String get_xsd() {
-        return _xsd;
-    }
+		ScenarioType scenario = reader.getScenario();
+		System.out.println("Scenario's name: " + scenario.getName());
+	}
 
-    private void set_xsd(String xsd) {
-        this._xsd = xsd;
-    }
+	/**
+	 * Extracts from the XML input file an instance of ScenarioType class
+	 * 
+	 * @return scenario from current XML input file
+	 */
+	public ScenarioType getScenario() {
+		Document document = this.getDocument();
 
-    private String get_xml() {
-        return _xml;
-    }
+		Element scenarioElement = (Element) this.getDocument()
+				.getElementsByTagName("scenario").item(0);
+		String scenarioName = scenarioElement.getAttribute("name");
+		ScenarioType scenario = new ScenarioType(scenarioName);
 
-    private void set_xml(String xml) {
-        this._xml = xml;
-    }
+		TopologyParser topologyParser = new TopologyParser(document);
+		NetworkTopologyType topology = topologyParser.getTopology();
+
+		scenario.setTopology(topology);
+
+		GridParser gridParser = new GridParser(document);
+		GridType grid = gridParser.getGrid();
+		scenario.setGrid(grid);
+
+		VOSParser vosParser = new VOSParser(document);
+		VOSType vos = vosParser.getVOS(grid);
+		scenario.setVos(vos);
+
+		return scenario;
+	}
+
+	private Document getDocument() {
+		Document document = null;
+		try {
+			// define the type of schema - we use W3C:
+			String schemaLang = "http://www.w3.org/2001/XMLSchema";
+
+			SchemaFactory factory = SchemaFactory.newInstance(schemaLang);
+			Schema schema = factory.newSchema(new StreamSource(this.get_xsd()));
+			Validator validator = schema.newValidator();
+
+			if (this.get_xml().endsWith(".xml")) {
+				validator.validate(new StreamSource(this.get_xml()));
+				// Parse the XML as a W3C document.
+				DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+						.newDocumentBuilder();
+				document = builder.parse(new File(this.get_xml()));
+				boolean valid = (document != null);
+				if (!valid) {
+					System.err.println(this.get_xml()
+							+ " is NOT valid against schema " + this.get_xsd());
+				}
+			} else { // @TODO Fixit
+				InputStream win = new CompositeInputStream(this.get_xml());
+				win.read();
+				DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+						.newDocumentBuilder();
+				document = builder.parse(win);
+				boolean valid = (document != null);
+				if (!valid) {
+					System.err.println("NOT valid against schema "
+							+ this.get_xsd());
+				}
+			}
+		} catch (ParserConfigurationException e) {
+			System.err.println("ParserConfigurationException caught...");
+			e.printStackTrace();
+		} catch (SAXException e) {
+			System.err.println("SAXException caught...");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("IOException caught...");
+			e.printStackTrace();
+		}
+		return document;
+	}
+
+	private String get_xsd() {
+		return _xsd;
+	}
+
+	private void set_xsd(String xsd) {
+		this._xsd = xsd;
+	}
+
+	private String get_xml() {
+		return _xml;
+	}
+
+	private void set_xml(String xml) {
+		this._xml = xml;
+	}
 }
 
-class CompositeInputStream extends InputStream
-{
-    private final InputStream[] in;
-    private final InputStream inProlog;
-    private final InputStream inEpilog;
-    public CompositeInputStream(String path)
-    {
-        this.inProlog = new ByteArrayInputStream(
-            "<scenario  name=\"flatgrid\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"schema.xsd\" xsi:type=\"SimulationScenarioType\">".getBytes());
-        this.inEpilog = new ByteArrayInputStream("</scenario>".getBytes());
-        this.in = new InputStream[2];
-        try {
-        this.in[0] = new FileInputStream(path+"/topology.xml");
-        this.in[1] = new FileInputStream(path+"/grid.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+class CompositeInputStream extends InputStream {
+	private final InputStream[] in;
+	private final InputStream inProlog;
+	private final InputStream inEpilog;
 
-    public int read() throws IOException
-    {
-        int result = this.inProlog.read();
-        if (result == -1)
-            result = this.in[0].read();
-        if (result == -1)
-            result = this.in[1].read();
-        if (result == -1)
-            result = this.inEpilog.read();
-        return result;
-    }
+	public CompositeInputStream(String path) {
+		this.inProlog = new ByteArrayInputStream(
+				"<scenario  name=\"flatgrid\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"schema.xsd\" xsi:type=\"SimulationScenarioType\">"
+						.getBytes());
+		this.inEpilog = new ByteArrayInputStream("</scenario>".getBytes());
+		this.in = new InputStream[2];
+		try {
+			this.in[0] = new FileInputStream(path + "/topology.xml");
+			this.in[1] = new FileInputStream(path + "/grid.xml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int read() throws IOException {
+		int result = this.inProlog.read();
+		if (result == -1)
+			result = this.in[0].read();
+		if (result == -1)
+			result = this.in[1].read();
+		if (result == -1)
+			result = this.inEpilog.read();
+		return result;
+	}
 }

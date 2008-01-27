@@ -8,8 +8,8 @@
         A simple example of scenario with a flat grid (single implicit VO)
 -->
 
-<scenario  name="flatgrid" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="schema.xsd"
+<scenario  name="flatgrid" trace="false" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="scenario.xsd"
         xsi:type="SimulationScenarioType">
     <topology>
         <routers>

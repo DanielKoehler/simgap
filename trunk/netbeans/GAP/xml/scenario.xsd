@@ -262,6 +262,7 @@
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="name" type="xsd:string"/>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="trace" type="xsd:boolean" use="optional"/>
     </xsd:complexType>
 </xsd:schema>

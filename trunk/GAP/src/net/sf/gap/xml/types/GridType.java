@@ -19,30 +19,30 @@ package net.sf.gap.xml.types;
 import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class GridType {
-    private LinkedList<GridElementType> gridElements;
-    
-    public GridType() {
-        this.setGridElements(new LinkedList<GridElementType>());
-    }
+	private LinkedList<GridElementType> gridElements;
 
-    public int size() {
-        return this.getGridElements().size();
-    }
-    
-    public boolean addGridElement(GridElementType gridElement) {
-        return this.getGridElements().add(gridElement);
-    }
-    
-    public LinkedList<GridElementType> getGridElements() {
-        return gridElements;
-    }
+	public GridType() {
+		this.setGridElements(new LinkedList<GridElementType>());
+	}
 
-    public void setGridElements(LinkedList<GridElementType> gridElements) {
-        this.gridElements = gridElements;
-    }
-    
+	public int size() {
+		return this.getGridElements().size();
+	}
+
+	public boolean addGridElement(GridElementType gridElement) {
+		return this.getGridElements().add(gridElement);
+	}
+
+	public LinkedList<GridElementType> getGridElements() {
+		return gridElements;
+	}
+
+	public void setGridElements(LinkedList<GridElementType> gridElements) {
+		this.gridElements = gridElements;
+	}
+
 }

@@ -19,45 +19,45 @@ package net.sf.gap.xml.types;
 import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class PEListType {
-    private LinkedList<PEType> items;
-    
-    private int MIPS;
+	private LinkedList<PEType> items;
 
-    public PEListType() {
-        this.setItems(new LinkedList<PEType>());
-        this.setMIPS(0);
-    }
-    
-    public PEListType(LinkedList<PEType> items) {
-        this.setItems(items);
-        for (int i=0;i<items.size();i++) {
-            this.MIPS += items.get(i).getMIPS();
-        }
-    }
-    
-    public boolean add(PEType PE) {
-        this.MIPS += PE.getMIPS();
-        return this.getItems().add(PE);
-    }
-    
-    public LinkedList<PEType> getItems() {
-        return items;
-    }
+	private int MIPS;
 
-    public void setItems(LinkedList<PEType> items) {
-        this.items = items;
-    }
+	public PEListType() {
+		this.setItems(new LinkedList<PEType>());
+		this.setMIPS(0);
+	}
 
-    public int getMIPS() {
-        return MIPS;
-    }
+	public PEListType(LinkedList<PEType> items) {
+		this.setItems(items);
+		for (int i = 0; i < items.size(); i++) {
+			this.MIPS += items.get(i).getMIPS();
+		}
+	}
 
-    public void setMIPS(int MIPS) {
-        this.MIPS = MIPS;
-    }
-    
+	public boolean add(PEType PE) {
+		this.MIPS += PE.getMIPS();
+		return this.getItems().add(PE);
+	}
+
+	public LinkedList<PEType> getItems() {
+		return items;
+	}
+
+	public void setItems(LinkedList<PEType> items) {
+		this.items = items;
+	}
+
+	public int getMIPS() {
+		return MIPS;
+	}
+
+	public void setMIPS(int MIPS) {
+		this.MIPS = MIPS;
+	}
+
 }

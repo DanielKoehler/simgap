@@ -14,15 +14,14 @@
  *
  */
 
-
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class ReplicaManagerType extends EntityType {
-    public ReplicaManagerType(String name) {
-        super(name);
-    }
+	public ReplicaManagerType(String name) {
+		super(name);
+	}
 }

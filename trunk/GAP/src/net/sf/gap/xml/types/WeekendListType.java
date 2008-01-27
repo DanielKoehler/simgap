@@ -20,28 +20,28 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class WeekendListType {
-    private LinkedList<Integer> items;
+	private LinkedList<Integer> items;
 
-    public WeekendListType() {
-        this.setItems(new LinkedList<Integer>());
-        this.addWeekendDay(Calendar.SUNDAY);
-        this.addWeekendDay(Calendar.SATURDAY);
-    }
+	public WeekendListType() {
+		this.setItems(new LinkedList<Integer>());
+		this.addWeekendDay(Calendar.SUNDAY);
+		this.addWeekendDay(Calendar.SATURDAY);
+	}
 
-    public boolean addWeekendDay(int day) {
-        return this.getItems().add(day);
-    }
-    
-    public LinkedList<Integer> getItems() {
-        return items;
-    }
+	public boolean addWeekendDay(int day) {
+		return this.getItems().add(day);
+	}
 
-    public void setItems(LinkedList<Integer> items) {
-        this.items = items;
-    }
-    
+	public LinkedList<Integer> getItems() {
+		return items;
+	}
+
+	public void setItems(LinkedList<Integer> items) {
+		this.items = items;
+	}
+
 }

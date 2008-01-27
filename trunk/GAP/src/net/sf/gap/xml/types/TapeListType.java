@@ -19,29 +19,29 @@ package net.sf.gap.xml.types;
 import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class TapeListType {
-    private LinkedList<TapeType> items;
-    
-    public TapeListType() {
-        this.setItems(new LinkedList<TapeType>());
-    }
+	private LinkedList<TapeType> items;
 
-    public TapeListType(LinkedList<TapeType> items) {
-        this.setItems(items);
-    }
-    
-    public boolean addTape(TapeType tape) {
-        return this.getItems().add(tape);
-    }
-    
-    public LinkedList<TapeType> getItems() {
-        return items;
-    }
+	public TapeListType() {
+		this.setItems(new LinkedList<TapeType>());
+	}
 
-    public void setItems(LinkedList<TapeType> items) {
-        this.items = items;
-    }
+	public TapeListType(LinkedList<TapeType> items) {
+		this.setItems(items);
+	}
+
+	public boolean addTape(TapeType tape) {
+		return this.getItems().add(tape);
+	}
+
+	public LinkedList<TapeType> getItems() {
+		return items;
+	}
+
+	public void setItems(LinkedList<TapeType> items) {
+		this.items = items;
+	}
 }

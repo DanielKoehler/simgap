@@ -19,29 +19,29 @@ package net.sf.gap.xml.types;
 import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class HardDiskListType {
-    private LinkedList<HardDiskType> items;
-    
-    public HardDiskListType() {
-        this.setItems(new LinkedList<HardDiskType>());
-    }
+	private LinkedList<HardDiskType> items;
 
-    public HardDiskListType(LinkedList<HardDiskType> items) {
-        this.setItems(items);
-    }
-    
-    public boolean addHardDisk(HardDiskType hardDisk) {
-        return this.getItems().add(hardDisk);
-    }
-    
-    public LinkedList<HardDiskType> getItems() {
-        return items;
-    }
+	public HardDiskListType() {
+		this.setItems(new LinkedList<HardDiskType>());
+	}
 
-    public void setItems(LinkedList<HardDiskType> items) {
-        this.items = items;
-    }
+	public HardDiskListType(LinkedList<HardDiskType> items) {
+		this.setItems(items);
+	}
+
+	public boolean addHardDisk(HardDiskType hardDisk) {
+		return this.getItems().add(hardDisk);
+	}
+
+	public LinkedList<HardDiskType> getItems() {
+		return items;
+	}
+
+	public void setItems(LinkedList<HardDiskType> items) {
+		this.items = items;
+	}
 }

@@ -19,43 +19,43 @@ package net.sf.gap.xml.types;
 import java.util.LinkedList;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class MachineListType {
-    private LinkedList<MachineType> items;
-    private int MIPS;
-    
-    public MachineListType() {
-        this.setItems(new LinkedList<MachineType>());
-        this.setMIPS(0);
-    }
+	private LinkedList<MachineType> items;
+	private int MIPS;
 
-    public MachineListType(LinkedList<MachineType> items) {
-        this.setItems(items);
-        for (int i=0;i<items.size();i++) {
-            this.MIPS += items.get(i).getMIPS();
-        }
-    }
-    
-    public boolean addMachine(MachineType machine) {
-        this.MIPS += machine.getMIPS();
-        return this.getItems().add(machine);
-    }
-    
-    public LinkedList<MachineType> getItems() {
-        return items;
-    }
+	public MachineListType() {
+		this.setItems(new LinkedList<MachineType>());
+		this.setMIPS(0);
+	}
 
-    public void setItems(LinkedList<MachineType> items) {
-        this.items = items;
-    }
+	public MachineListType(LinkedList<MachineType> items) {
+		this.setItems(items);
+		for (int i = 0; i < items.size(); i++) {
+			this.MIPS += items.get(i).getMIPS();
+		}
+	}
 
-    public int getMIPS() {
-        return MIPS;
-    }
+	public boolean addMachine(MachineType machine) {
+		this.MIPS += machine.getMIPS();
+		return this.getItems().add(machine);
+	}
 
-    public void setMIPS(int MIPS) {
-        this.MIPS = MIPS;
-    }
+	public LinkedList<MachineType> getItems() {
+		return items;
+	}
+
+	public void setItems(LinkedList<MachineType> items) {
+		this.items = items;
+	}
+
+	public int getMIPS() {
+		return MIPS;
+	}
+
+	public void setMIPS(int MIPS) {
+		this.MIPS = MIPS;
+	}
 }

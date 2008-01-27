@@ -19,117 +19,103 @@ package net.sf.gap.xml.types;
 import gridsim.net.Link;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class LinkType {
-    private String name;
-    private double Baudrate;
-    private double Delay;
-    private int MTU;
-    private String fromEntity;
-    private String toEntity;
-    private boolean bidirectional;
-    
-    public LinkType(
-            String name,
-            String fromEntity,
-            String toEntity) {
-        this.setName(name);
-        this.setFromEntity(fromEntity);
-        this.setToEntity(toEntity);
-        this.setBaudrate(Link.DEFAULT_BAUD_RATE);
-        this.setDelay(Link.DEFAULT_PROP_DELAY);
-        this.setMTU(Link.DEFAULT_MTU);
-        this.setBidirectional(true);
-    }
-    
-    public LinkType(
-            String name,
-            double Baudrate,
-            double Delay,
-            int MTU,
-            String fromEntity,
-            String toEntity) {
-        this.setName(name);
-        this.setBaudrate(Baudrate);
-        this.setDelay(Delay);
-        this.setMTU(MTU);
-        this.setFromEntity(fromEntity);
-        this.setToEntity(toEntity);
-        this.setBidirectional(true);
-    }
+	private String name;
+	private double Baudrate;
+	private double Delay;
+	private int MTU;
+	private String fromEntity;
+	private String toEntity;
+	private boolean bidirectional;
 
-    public LinkType(
-            String name,
-            double Baudrate,
-            double Delay,
-            int MTU,
-            String fromEntity,
-            String toEntity,
-            boolean bidirectional) {
-        this.setName(name);
-        this.setBaudrate(Baudrate);
-        this.setDelay(Delay);
-        this.setMTU(MTU);
-        this.setFromEntity(fromEntity);
-        this.setToEntity(toEntity);
-        this.setBidirectional(bidirectional);
-    }
+	public LinkType(String name, String fromEntity, String toEntity) {
+		this.setName(name);
+		this.setFromEntity(fromEntity);
+		this.setToEntity(toEntity);
+		this.setBaudrate(Link.DEFAULT_BAUD_RATE);
+		this.setDelay(Link.DEFAULT_PROP_DELAY);
+		this.setMTU(Link.DEFAULT_MTU);
+		this.setBidirectional(true);
+	}
 
-    public String getName() {
-        return name;
-    }
+	public LinkType(String name, double Baudrate, double Delay, int MTU,
+			String fromEntity, String toEntity) {
+		this.setName(name);
+		this.setBaudrate(Baudrate);
+		this.setDelay(Delay);
+		this.setMTU(MTU);
+		this.setFromEntity(fromEntity);
+		this.setToEntity(toEntity);
+		this.setBidirectional(true);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public LinkType(String name, double Baudrate, double Delay, int MTU,
+			String fromEntity, String toEntity, boolean bidirectional) {
+		this.setName(name);
+		this.setBaudrate(Baudrate);
+		this.setDelay(Delay);
+		this.setMTU(MTU);
+		this.setFromEntity(fromEntity);
+		this.setToEntity(toEntity);
+		this.setBidirectional(bidirectional);
+	}
 
-    public double getBaudrate() {
-        return Baudrate;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setBaudrate(double Baudrate) {
-        this.Baudrate = Baudrate;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public double getDelay() {
-        return Delay;
-    }
+	public double getBaudrate() {
+		return Baudrate;
+	}
 
-    public void setDelay(double Delay) {
-        this.Delay = Delay;
-    }
+	public void setBaudrate(double Baudrate) {
+		this.Baudrate = Baudrate;
+	}
 
-    public int getMTU() {
-        return MTU;
-    }
+	public double getDelay() {
+		return Delay;
+	}
 
-    public void setMTU(int MTU) {
-        this.MTU = MTU;
-    }
+	public void setDelay(double Delay) {
+		this.Delay = Delay;
+	}
 
-    public String getFromEntity() {
-        return fromEntity;
-    }
+	public int getMTU() {
+		return MTU;
+	}
 
-    public void setFromEntity(String fromEntity) {
-        this.fromEntity = fromEntity;
-    }
+	public void setMTU(int MTU) {
+		this.MTU = MTU;
+	}
 
-    public String getToEntity() {
-        return toEntity;
-    }
+	public String getFromEntity() {
+		return fromEntity;
+	}
 
-    public void setToEntity(String toEntity) {
-        this.toEntity = toEntity;
-    }
+	public void setFromEntity(String fromEntity) {
+		this.fromEntity = fromEntity;
+	}
 
-    public boolean isBidirectional() {
-        return bidirectional;
-    }
+	public String getToEntity() {
+		return toEntity;
+	}
 
-    public void setBidirectional(boolean bidirectional) {
-        this.bidirectional = bidirectional;
-    }
+	public void setToEntity(String toEntity) {
+		this.toEntity = toEntity;
+	}
+
+	public boolean isBidirectional() {
+		return bidirectional;
+	}
+
+	public void setBidirectional(boolean bidirectional) {
+		this.bidirectional = bidirectional;
+	}
 }

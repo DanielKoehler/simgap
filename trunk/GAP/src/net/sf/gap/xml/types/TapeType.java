@@ -17,74 +17,70 @@
 package net.sf.gap.xml.types;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class TapeType {
-  private String name;
-  private double Capacity;
-  private double AccessTime;
-  private double RewindTime;
-  private double MaxTransferRate;
+	private String name;
+	private double Capacity;
+	private double AccessTime;
+	private double RewindTime;
+	private double MaxTransferRate;
 
-  public TapeType(String name) {
-      this.setName(name);
-      this.setCapacity(100000.0);
-      this.setAccessTime(142.0);
-      this.setRewindTime(284.0);
-      this.setMaxTransferRate(8.0);
-  }
-  
-  public TapeType(
-          String name, 
-          double Capacity, 
-          double AccessTime,
-          double RewindTime,
-          double MaxTransferRate) {
-      this.setName(name);
-      this.setCapacity(Capacity);
-      this.setAccessTime(AccessTime);
-      this.setRewindTime(RewindTime);
-      this.setMaxTransferRate(MaxTransferRate);
-  }
-  
-    public String getName() {
-        return name;
-    }
+	public TapeType(String name) {
+		this.setName(name);
+		this.setCapacity(100000.0);
+		this.setAccessTime(142.0);
+		this.setRewindTime(284.0);
+		this.setMaxTransferRate(8.0);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public TapeType(String name, double Capacity, double AccessTime,
+			double RewindTime, double MaxTransferRate) {
+		this.setName(name);
+		this.setCapacity(Capacity);
+		this.setAccessTime(AccessTime);
+		this.setRewindTime(RewindTime);
+		this.setMaxTransferRate(MaxTransferRate);
+	}
 
-    public double getCapacity() {
-        return Capacity;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCapacity(double Capacity) {
-        this.Capacity = Capacity;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public double getAccessTime() {
-        return AccessTime;
-    }
+	public double getCapacity() {
+		return Capacity;
+	}
 
-    public void setAccessTime(double AccessTime) {
-        this.AccessTime = AccessTime;
-    }
+	public void setCapacity(double Capacity) {
+		this.Capacity = Capacity;
+	}
 
-    public double getRewindTime() {
-        return RewindTime;
-    }
+	public double getAccessTime() {
+		return AccessTime;
+	}
 
-    public void setRewindTime(double RewindTime) {
-        this.RewindTime = RewindTime;
-    }
+	public void setAccessTime(double AccessTime) {
+		this.AccessTime = AccessTime;
+	}
 
-    public double getMaxTransferRate() {
-        return MaxTransferRate;
-    }
+	public double getRewindTime() {
+		return RewindTime;
+	}
 
-    public void setMaxTransferRate(double MaxTransferRate) {
-        this.MaxTransferRate = MaxTransferRate;
-    }
+	public void setRewindTime(double RewindTime) {
+		this.RewindTime = RewindTime;
+	}
+
+	public double getMaxTransferRate() {
+		return MaxTransferRate;
+	}
+
+	public void setMaxTransferRate(double MaxTransferRate) {
+		this.MaxTransferRate = MaxTransferRate;
+	}
 }
