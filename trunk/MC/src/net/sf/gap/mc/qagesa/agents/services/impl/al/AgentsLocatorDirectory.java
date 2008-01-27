@@ -24,30 +24,32 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.sf.gap.messages.impl.AgentRequest;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class AgentsLocatorDirectory {
-    private ConcurrentHashMap<Integer,AgentRequest> agentsMap; // used Agent Entity ID, ceID
-    
-    /** Creates a new instance of AgentsLocatorDirectory */
-    public AgentsLocatorDirectory() {
-        this.setAgentsMap(new ConcurrentHashMap<Integer,AgentRequest>());
-    }
-    
-    public void addAgent(int agentID, AgentRequest request) {
-        this.getAgentsMap().put(agentID, request);
-    }
-    
-    public AgentRequest removeAgent(int agentID) {
-        return this.getAgentsMap().remove(agentID);
-    }
+	private ConcurrentHashMap<Integer, AgentRequest> agentsMap; // used Agent
+																// Entity ID,
+																// ceID
 
-    public ConcurrentHashMap<Integer, AgentRequest> getAgentsMap() {
-        return agentsMap;
-    }
+	/** Creates a new instance of AgentsLocatorDirectory */
+	public AgentsLocatorDirectory() {
+		this.setAgentsMap(new ConcurrentHashMap<Integer, AgentRequest>());
+	}
 
-    public void setAgentsMap(ConcurrentHashMap<Integer, AgentRequest> agentsMap) {
-        this.agentsMap = agentsMap;
-    }
+	public void addAgent(int agentID, AgentRequest request) {
+		this.getAgentsMap().put(agentID, request);
+	}
+
+	public AgentRequest removeAgent(int agentID) {
+		return this.getAgentsMap().remove(agentID);
+	}
+
+	public ConcurrentHashMap<Integer, AgentRequest> getAgentsMap() {
+		return agentsMap;
+	}
+
+	public void setAgentsMap(ConcurrentHashMap<Integer, AgentRequest> agentsMap) {
+		this.agentsMap = agentsMap;
+	}
 }

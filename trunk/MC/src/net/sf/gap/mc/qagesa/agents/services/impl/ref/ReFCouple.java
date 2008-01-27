@@ -20,42 +20,44 @@
 package net.sf.gap.mc.qagesa.agents.services.impl.ref;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class ReFCouple {
-    private int computingElementID;
-    private int storageElementID;
-    
-    /** Creates a new instance of ReFCouple */
-    public ReFCouple(int computingElementID, int storageElementID) {
-        this.setComputingElementID(computingElementID);
-        this.setStorageElementID(storageElementID);
-    }
+	private int computingElementID;
+	private int storageElementID;
 
-    public String toString() {
-        return "(" + this.getComputingElementID() + ", " + this.getStorageElementID() + ")";
-    }
-    
-    public boolean equals(Object o) {
-        ReFCouple c = (ReFCouple) o;
-        return (this.getComputingElementID()==c.getComputingElementID()) && (this.getStorageElementID()==c.getStorageElementID());
-    }
+	/** Creates a new instance of ReFCouple */
+	public ReFCouple(int computingElementID, int storageElementID) {
+		this.setComputingElementID(computingElementID);
+		this.setStorageElementID(storageElementID);
+	}
 
-    public int getComputingElementID() {
-        return computingElementID;
-    }
+	public String toString() {
+		return "(" + this.getComputingElementID() + ", "
+				+ this.getStorageElementID() + ")";
+	}
 
-    public void setComputingElementID(int computingElementID) {
-        this.computingElementID = computingElementID;
-    }
+	public boolean equals(Object o) {
+		ReFCouple c = (ReFCouple) o;
+		return (this.getComputingElementID() == c.getComputingElementID())
+				&& (this.getStorageElementID() == c.getStorageElementID());
+	}
 
-    public int getStorageElementID() {
-        return storageElementID;
-    }
+	public int getComputingElementID() {
+		return computingElementID;
+	}
 
-    public void setStorageElementID(int storageElementID) {
-        this.storageElementID = storageElementID;
-    }
-    
+	public void setComputingElementID(int computingElementID) {
+		this.computingElementID = computingElementID;
+	}
+
+	public int getStorageElementID() {
+		return storageElementID;
+	}
+
+	public void setStorageElementID(int storageElementID) {
+		this.storageElementID = storageElementID;
+	}
+
 }

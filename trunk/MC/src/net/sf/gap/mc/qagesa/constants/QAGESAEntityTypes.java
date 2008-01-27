@@ -23,14 +23,14 @@ import net.sf.gap.constants.EntityTypes;
 
 /**
  * 
- * @author Giovanni Novelli 
+ * @author Giovanni Novelli
  */
 public class QAGESAEntityTypes extends EntityTypes {
-    public static final int QEBASE = 100 + ENTITYBASE;
-    
+	public static final int QEBASE = 100 + ENTITYBASE;
+
 	public static final int SERVER_PROXY = 1 + QEBASE;
 
-	public static final int SERVICE_AL =  11 + QEBASE;
+	public static final int SERVICE_AL = 11 + QEBASE;
 
 	public static final int SERVICE_CEL = 12 + QEBASE;
 

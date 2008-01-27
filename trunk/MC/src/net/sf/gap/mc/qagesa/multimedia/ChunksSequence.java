@@ -39,7 +39,7 @@ public class ChunksSequence extends Vector<Chunk> {
 	private String operationParameters; // Transcoding operation parameters
 
 	private String messageDigest; // MD5 Message Digest used to identify any
-									// chunk sequence
+	// chunk sequence
 
 	/**
 	 * 
@@ -68,52 +68,53 @@ public class ChunksSequence extends Vector<Chunk> {
 		return sequence;
 	}
 
-        public int getInputSize() {
-            int inputSize = 0;
+	public int getInputSize() {
+		int inputSize = 0;
 		int chunks = this.size();
 		for (int j = 0; j < chunks; j++) {
 			Chunk chunk = this.get(j);
 			inputSize += chunk.getInputSize();
 		}
-                return inputSize;
-        }
-        
-        public boolean isTranscoded() {
-            boolean size = true;
-            boolean transcoded = true;
-            boolean result = size && transcoded;
+		return inputSize;
+	}
+
+	public boolean isTranscoded() {
+		boolean size = true;
+		boolean transcoded = true;
+		boolean result = size && transcoded;
 		int chunks = this.size();
 		for (int j = 0; j < chunks; j++) {
 			Chunk chunk = this.get(j);
-                        result = result && (chunk.getInputSize()==chunk.getOutputSize()) && (chunk.getMIPS()==0);
+			result = result && (chunk.getInputSize() == chunk.getOutputSize())
+					&& (chunk.getMIPS() == 0);
 		}
-                return result;
-        }
-        
-        public int getOutputSize() {
-            int outputSize = 0;
+		return result;
+	}
+
+	public int getOutputSize() {
+		int outputSize = 0;
 		int chunks = this.size();
 		for (int j = 0; j < chunks; j++) {
 			Chunk chunk = this.get(j);
 			outputSize += chunk.getOutputSize();
 		}
-                return outputSize;
-        }
-        
-        public int getTotalMIPS() {
-            int totalMIPS = 0;
+		return outputSize;
+	}
+
+	public int getTotalMIPS() {
+		int totalMIPS = 0;
 		int chunks = this.size();
 		for (int j = 0; j < chunks; j++) {
 			Chunk chunk = this.get(j);
 			totalMIPS += chunk.getMIPS();
 		}
-                return totalMIPS;
-        }
-        
+		return totalMIPS;
+	}
+
 	@Override
 	public boolean add(Chunk chunk) {
 		boolean ok = super.add(chunk);
-                String str = this.getMovie().getName() + " " + this.getAlgorithm();
+		String str = this.getMovie().getName() + " " + this.getAlgorithm();
 		String md5 = MD5Checksum.get(str);
 		this.setMessageDigest(md5);
 		return ok;

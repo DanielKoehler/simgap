@@ -74,9 +74,9 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
 		int ns = transcodingSet.size();
 		System.out.println(ns + " random chunks sequences:");
 		Iterator<String> it = transcodingSet.keySet().iterator();
-                int i=0;
-                while (it.hasNext()) {
-                    i++;
+		int i = 0;
+		while (it.hasNext()) {
+			i++;
 			ChunksSequence acs = transcodingSet.get(it.next());
 			System.out.println("{i=" + i + ", " + " md5="
 					+ acs.getMessageDigest() + " " + acs);
@@ -133,7 +133,8 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
 				chunksSequence.add(chunk);
 
 				if (iSequenceNumber == 1) {
-					this.addSequence(chunksSequence.getMessageDigest(), chunksSequence);
+					this.addSequence(chunksSequence.getMessageDigest(),
+							chunksSequence);
 				}
 
 			}
@@ -145,17 +146,17 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
 	}
 
 	public ChunksSequence addSequence(String movieTag, ChunksSequence sequence) {
-                this.getMoviesSet().put(movieTag, sequence.getMovie());
+		this.getMoviesSet().put(movieTag, sequence.getMovie());
 		return this.put(movieTag, sequence);
 	}
 
 	public String selectRandomTag() {
-                int index = this.random.sample(this.size());
-                String md5 = (String) (this.keySet().toArray()[index]);
+		int index = this.random.sample(this.size());
+		String md5 = (String) (this.keySet().toArray()[index]);
 		return md5;
 	}
 
-        public ChunksSequence selectRandomChunksSequence(String movieName) {
+	public ChunksSequence selectRandomChunksSequence(String movieName) {
 		ChunksSequence aChunksSequence;
 		do {
 			int index = this.random.sample(this.size());

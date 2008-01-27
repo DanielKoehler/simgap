@@ -20,90 +20,91 @@
 package net.sf.gap.mc.qagesa.stats;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class QAGESAStat {
-    private static int replication = 0;
-    
-    private static int numUsers;
-    
-    private static int activeUsers;
-    
-    private static boolean cachingEnabled;
-    
-    private static int whichMeasure;
-    
-    private static RequestsHistory requestsHistory;
-    
-    /**
-     * Creates a new instance of QAGESAStat
-     */
-    public QAGESAStat() {
-    }
-    
-    public synchronized static void reset(int numCEs) {
-        QAGESAStat.replication++;
-        QAGESAStat.setRequestsHistory(new RequestsHistory(numCEs));
-    }
-    
-    public synchronized static void incRequests(double clock) {
-        QAGESAStat.getRequestsHistory().inc(clock);
-    }
+	private static int replication = 0;
 
-    public synchronized static void decRequests(double clock) {
-        QAGESAStat.getRequestsHistory().dec(clock);
-    }
+	private static int numUsers;
 
-    public synchronized static int getRequests() {
-        return QAGESAStat.getRequestsHistory().getPlayRequests();
-    }
+	private static int activeUsers;
 
-    public synchronized static RequestsHistory getRequestsHistory() {
-        return requestsHistory;
-    }
+	private static boolean cachingEnabled;
 
-    public synchronized static void setRequestsHistory(RequestsHistory aRequestsHistory) {
-        requestsHistory = aRequestsHistory;
-    }
+	private static int whichMeasure;
 
-    public static int getReplication() {
-        return replication;
-    }
+	private static RequestsHistory requestsHistory;
 
-    public static void setReplication(int aReplication) {
-        replication = aReplication;
-    }
+	/**
+	 * Creates a new instance of QAGESAStat
+	 */
+	public QAGESAStat() {
+	}
 
-    public static int getNumUsers() {
-        return numUsers;
-    }
+	public synchronized static void reset(int numCEs) {
+		QAGESAStat.replication++;
+		QAGESAStat.setRequestsHistory(new RequestsHistory(numCEs));
+	}
 
-    public static void setNumUsers(int aNumUsers) {
-        numUsers = aNumUsers;
-    }
+	public synchronized static void incRequests(double clock) {
+		QAGESAStat.getRequestsHistory().inc(clock);
+	}
 
-    public static boolean isCachingEnabled() {
-        return cachingEnabled;
-    }
+	public synchronized static void decRequests(double clock) {
+		QAGESAStat.getRequestsHistory().dec(clock);
+	}
 
-    public static void setCachingEnabled(boolean aCachingEnabled) {
-        cachingEnabled = aCachingEnabled;
-    }
+	public synchronized static int getRequests() {
+		return QAGESAStat.getRequestsHistory().getPlayRequests();
+	}
 
-    public static int getWhichMeasure() {
-        return whichMeasure;
-    }
+	public synchronized static RequestsHistory getRequestsHistory() {
+		return requestsHistory;
+	}
 
-    public static void setWhichMeasure(int aWhichMeasure) {
-        whichMeasure = aWhichMeasure;
-    }
+	public synchronized static void setRequestsHistory(
+			RequestsHistory aRequestsHistory) {
+		requestsHistory = aRequestsHistory;
+	}
 
-    public static int getActiveUsers() {
-        return activeUsers;
-    }
+	public static int getReplication() {
+		return replication;
+	}
 
-    public static void setActiveUsers(int aActiveUsers) {
-        activeUsers = aActiveUsers;
-    }
+	public static void setReplication(int aReplication) {
+		replication = aReplication;
+	}
+
+	public static int getNumUsers() {
+		return numUsers;
+	}
+
+	public static void setNumUsers(int aNumUsers) {
+		numUsers = aNumUsers;
+	}
+
+	public static boolean isCachingEnabled() {
+		return cachingEnabled;
+	}
+
+	public static void setCachingEnabled(boolean aCachingEnabled) {
+		cachingEnabled = aCachingEnabled;
+	}
+
+	public static int getWhichMeasure() {
+		return whichMeasure;
+	}
+
+	public static void setWhichMeasure(int aWhichMeasure) {
+		whichMeasure = aWhichMeasure;
+	}
+
+	public static int getActiveUsers() {
+		return activeUsers;
+	}
+
+	public static void setActiveUsers(int aActiveUsers) {
+		activeUsers = aActiveUsers;
+	}
 }

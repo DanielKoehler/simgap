@@ -26,20 +26,21 @@ import net.sf.gap.constants.Tags;
  * @author Giovanni Novelli
  */
 public class QAGESATags extends Tags {
-        public static final int QTAGS = 2000;
-        public static final int TATAGS = 100 + QTAGS;
-        
-        public static final int RESPONSE_TIME_REQ = 1 + QTAGS;
-        public static final int RESPONSE_TIME_REP = 2 + QTAGS;
-        
+	public static final int QTAGS = 2000;
+	public static final int TATAGS = 100 + QTAGS;
+
+	public static final int RESPONSE_TIME_REQ = 1 + QTAGS;
+	public static final int RESPONSE_TIME_REP = 2 + QTAGS;
+
 	// ReF Service
-	public static final int REF_PLAY_REQ      = 11 + QTAGS; // From USER to ReF
+	public static final int REF_PLAY_REQ = 11 + QTAGS; // From USER to ReF
 
-	public static final int REF_PLAY_START_REP        = 12 + QTAGS; // From ReF to USER
+	public static final int REF_PLAY_START_REP = 12 + QTAGS; // From ReF to
+																// USER
 
-	public static final int REF_PLAY_END_REP     = 13 + QTAGS; // From ReF to USER
+	public static final int REF_PLAY_END_REP = 13 + QTAGS; // From ReF to USER
 
-        // MuM Service
+	// MuM Service
 	public static final int MUM_SEARCH_REQ = 21 + QTAGS; // From ReF to MuM
 
 	public static final int MUM_SEARCH_REP = 22 + QTAGS; // From MuM to ReF
@@ -62,21 +63,27 @@ public class QAGESATags extends Tags {
 	// Getting a chunk of a movie from the SE containing the movie
 	public static final int GET_CHUNK_REQ = 11 + TATAGS; // From TA to
 
-	public static final int GET_CHUNK_REP = 12 + TATAGS; // From QAGESAGridElement of
+	public static final int GET_CHUNK_REP = 12 + TATAGS; // From
+															// QAGESAGridElement
+															// of
 
 	// Sending chunk to SE
-	public static final int SENDING_FIRST_CHUNK_REQ = 21 + TATAGS;     // From TA to USER
-	public static final int TRANSCODED_FIRST_CHUNK_REQ = 22 + TATAGS;  // From TA to USER
+	public static final int SENDING_FIRST_CHUNK_REQ = 21 + TATAGS; // From TA
+																	// to USER
+	public static final int TRANSCODED_FIRST_CHUNK_REQ = 22 + TATAGS; // From
+																		// TA to
+																		// USER
 
-        public static final int SEND_CHUNK_REQ = 31 + TATAGS;              // From TA to USER
+	public static final int SEND_CHUNK_REQ = 31 + TATAGS; // From TA to USER
 
-	public static final int SEND_CHUNK_REP = 32 + TATAGS;              // From USER to TA
+	public static final int SEND_CHUNK_REP = 32 + TATAGS; // From USER to TA
 
-	public static final int SENT_LAST_CHUNK_REQ  = 33 + TATAGS;        // From TA to USER
+	public static final int SENT_LAST_CHUNK_REQ = 33 + TATAGS; // From TA to
+																// USER
 
 	// Caching chunks to SE
-	public static final int CACHE_CHUNKS_REQ = 41 + TATAGS;            // From TA to
-													// QAGESAGridElement of type
+	public static final int CACHE_CHUNKS_REQ = 41 + TATAGS; // From TA to
+	// QAGESAGridElement of type
 	/*
 	 * 
 	 * TRANSCODE_CHUNKS_REQ tag is used to activate a transcoding agent on a
@@ -96,11 +103,13 @@ public class QAGESATags extends Tags {
 	 * the submission of gridlets to local CE and obtaining back gridlets
 	 * results) - streaming them to the user
 	 */
-	public static final int TRANSCODE_CHUNKS_REQ = 51 + TATAGS; // From ReF to TA
+	public static final int TRANSCODE_CHUNKS_REQ = 51 + TATAGS; // From ReF to
+																// TA
 
-        public static final int TRANSCODE_CHUNKS_REP = 52 + TATAGS; // From TA to ReF
+	public static final int TRANSCODE_CHUNKS_REP = 52 + TATAGS; // From TA to
+																// ReF
 
-        /**
+	/**
 	 * Creates a new instance of QAGESATags
 	 */
 	public QAGESATags() {
@@ -139,7 +148,7 @@ public class QAGESATags extends Tags {
 			str = "MUM_SEARCH_REPLY";
 			break;
 
-                // TA (Transcoding Agent)
+		// TA (Transcoding Agent)
 		case QAGESATags.GET_CHUNK_REQ:
 			str = "GET_CHUNK_REQUEST";
 			break;
