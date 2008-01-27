@@ -29,76 +29,76 @@ import eduni.simjava.Sim_system;
  */
 public abstract class AgentPlatform extends AbstractAgentPlatform {
 
-
 	/** Creates a new instance of AgentPlatform */
 	public AgentPlatform(String name, boolean trace) throws Exception {
 		super(name, trace);
 	}
 
-    @Override
-        public void initialize() throws Exception {
-            super.initialize();
-            this.initPlatform();
-            this.initAgents();
-        }
-        
-        public abstract void initializeServices() throws Exception;
-        
-        public abstract void initAgents() throws Exception;
-        
+	@Override
+	public void initialize() throws Exception {
+		super.initialize();
+		this.initPlatform();
+		this.initAgents();
+	}
+
+	public abstract void initializeServices() throws Exception;
+
+	public abstract void initAgents() throws Exception;
+
 	@Override
 	public void initPlatform() throws Exception {
 		super.initPlatform();
 
-                this.getVirtualOrganization().initialize();
+		this.getVirtualOrganization().initialize();
 
-                this.initializeServices();
+		this.initializeServices();
 	}
-        
-    public abstract void preprocess();
-    public abstract void postprocess();
 
-    public void end() {
-        // this.getNetworkMonitor().showNetworkMap();
-        // //////////////////////////////////////////////////////
-        // shut down I/O ports
-        this.shutdownUserEntity();
-        this.terminateIOEntities();
+	public abstract void preprocess();
 
-        // don't forget to close the file
-        if (this.getReport_() != null) {
-            this.getReport_().finalWrite();
-        }
-    }
+	public abstract void postprocess();
 
-    public void init() {
-        // wait for a little while for about 3 seconds.
-        // This to give a time for GridResource entities to register their
-        // services to GIS (GridInformationService) entity.
-        super.gridSimHold(GAP.getPlatformStartTime());
-        try {
-            this.initialize();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	public void end() {
+		// this.getNetworkMonitor().showNetworkMap();
+		// //////////////////////////////////////////////////////
+		// shut down I/O ports
+		this.shutdownUserEntity();
+		this.terminateIOEntities();
 
-    public void process() {
-        Sim_event ev = new Sim_event();
-        while (GAP.isRunning()) {
-            super.sim_wait_for(Sim_system.SIM_ANY, 10.0, ev);
+		// don't forget to close the file
+		if (this.getReport_() != null) {
+			this.getReport_().finalWrite();
+		}
+	}
 
-            this.processEvent(ev);
-            while (super.sim_waiting() > 0) {
-                this.processEvents();
-            }
-        }
-    }
+	public void init() {
+		// wait for a little while for about 3 seconds.
+		// This to give a time for GridResource entities to register their
+		// services to GIS (GridInformationService) entity.
+		super.gridSimHold(GAP.getPlatformStartTime());
+		try {
+			this.initialize();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    protected void processEvents() {
-        Sim_event ev = new Sim_event();
+	public void process() {
+		Sim_event ev = new Sim_event();
+		while (GAP.isRunning()) {
+			super.sim_wait_for(Sim_system.SIM_ANY, 10.0, ev);
 
-        super.sim_get_next(ev);
-        this.processEvent(ev);
-    }
+			this.processEvent(ev);
+			while (super.sim_waiting() > 0) {
+				this.processEvents();
+			}
+		}
+	}
+
+	protected void processEvents() {
+		Sim_event ev = new Sim_event();
+
+		super.sim_get_next(ev);
+		this.processEvent(ev);
+	}
 }

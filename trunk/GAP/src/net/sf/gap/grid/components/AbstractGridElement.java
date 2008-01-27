@@ -64,8 +64,8 @@ public abstract class AbstractGridElement extends DataGridResource {
 	private Link externalLink;
 
 	private RIPRouter internalRouter;
-        
-        private RIPRouter externalRouter;
+
+	private RIPRouter externalRouter;
 
 	private boolean SE; // to know if this is an SE or a CE
 
@@ -90,9 +90,9 @@ public abstract class AbstractGridElement extends DataGridResource {
 		this.setLocalDirectory(new LocalDirectory(this));
 	}
 
-        protected void registerOtherEntity() {
-        }
-        
+	protected void registerOtherEntity() {
+	}
+
 	public AllocPolicy getAllocPolicy() {
 		return this.policy_;
 	}
@@ -221,8 +221,7 @@ public abstract class AbstractGridElement extends DataGridResource {
 
 	private void pingReply(Sim_event ev) {
 		PingRequest request = PingRequest.get_data(ev);
-		InfoPacket pkt = super.pingBlockingCall(request.getPing_dst_ID(),
-				50);
+		InfoPacket pkt = super.pingBlockingCall(request.getPing_dst_ID(), 50);
 		PingReply reply = new PingReply(ev.get_tag(), true, request, pkt);
 		if (pkt != null) {
 			super.send(super.output, GridSimTags.SCHEDULE_NOW, Tags.PING_REP,
@@ -341,7 +340,7 @@ public abstract class AbstractGridElement extends DataGridResource {
 					+ "_sched_out");
 			this.getInternalRouter().attachRouter(router,
 					this.getExternalLink(), sched_in, sched_out);
-                        this.setExternalRouter(router);
+			this.setExternalRouter(router);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -359,11 +358,11 @@ public abstract class AbstractGridElement extends DataGridResource {
 		return this.resource_.getMIPSRating();
 	}
 
-    public RIPRouter getExternalRouter() {
-        return externalRouter;
-    }
+	public RIPRouter getExternalRouter() {
+		return externalRouter;
+	}
 
-    public void setExternalRouter(RIPRouter externalRouter) {
-        this.externalRouter = externalRouter;
-    }
+	public void setExternalRouter(RIPRouter externalRouter) {
+		this.externalRouter = externalRouter;
+	}
 }

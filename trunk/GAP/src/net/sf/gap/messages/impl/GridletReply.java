@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.messages.impl;
 
 import eduni.simjava.Sim_event;

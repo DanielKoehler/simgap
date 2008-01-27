@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.users;
 
 import eduni.simjava.Sim_event;
@@ -58,8 +57,8 @@ import net.sf.gap.messages.impl.ServicesListRequest;
  * @author Giovanni Novelli
  */
 public abstract class AbstractUser extends DataGridUser {
-        private boolean traceFlag;
-    
+	private boolean traceFlag;
+
 	private SimReport report_; // logs every events
 
 	private FIFOScheduler userSched;
@@ -118,8 +117,8 @@ public abstract class AbstractUser extends DataGridUser {
 		evsend_time = GridSim.clock();
 		String msg = String.format(
 				"%1$f %2$d %3$s --> %4$s SERVICES_LIST_REQUEST", evsend_time,
-				reqrepID, this.get_name(), this.getVirtualOrganization().getPlatform()
-						.get_name());
+				reqrepID, this.get_name(), this.getVirtualOrganization()
+						.getPlatform().get_name());
 		this.write(msg);
 
 		Sim_event ev = new Sim_event();
@@ -130,11 +129,10 @@ public abstract class AbstractUser extends DataGridUser {
 		Assert.assertEquals(Tags.AP_SERVICES_LIST_REQ, reply.getRequestTAG());
 		Assert.assertEquals(Tags.AP_SERVICES_LIST_REP, ev.get_tag());
 		double evrecv_time = GridSim.clock();
-		msg = String
-				.format("%1$f %2$d %3$s <-- %4$s SERVICES_LIST_REPLY %5$s",
-						evrecv_time, reqrepID, this.get_name(), this.getVirtualOrganization()
-								.getPlatform().get_name(), reply
-								.getServicesList());
+		msg = String.format("%1$f %2$d %3$s <-- %4$s SERVICES_LIST_REPLY %5$s",
+				evrecv_time, reqrepID, this.get_name(), this
+						.getVirtualOrganization().getPlatform().get_name(),
+				reply.getServicesList());
 		this.write(msg);
 		return reply;
 	}
@@ -302,10 +300,11 @@ public abstract class AbstractUser extends DataGridUser {
 		int SIZE = 500;
 		AgentRequest request = null;
 		request = new AgentRequest(this.get_id(), this.get_id(), null, this
-				.getVirtualOrganization().getPlatform().getGridElement().get_id(),
-				Sim_system.get_entity_id("TestService"),
-				EntityTypes.AGENT_ZOMBIE, SIZE, this.getVirtualOrganization().getPlatform()
-						.getGridElement().get_id(), EntityTypes.NOBODY);
+				.getVirtualOrganization().getPlatform().getGridElement()
+				.get_id(), Sim_system.get_entity_id("TestService"),
+				EntityTypes.AGENT_ZOMBIE, SIZE, this.getVirtualOrganization()
+						.getPlatform().getGridElement().get_id(),
+				EntityTypes.NOBODY);
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
@@ -328,8 +327,8 @@ public abstract class AbstractUser extends DataGridUser {
 
 		double evrecv_time = GridSim.clock();
 
-		msg = String.format("%1$f %2$d %3$s <-- %4$s", evrecv_time, reqrepID, this.get_name(),
-				"TestService");
+		msg = String.format("%1$f %2$d %3$s <-- %4$s", evrecv_time, reqrepID,
+				this.get_name(), "TestService");
 		this.write(msg);
 
 		return reply;
@@ -373,25 +372,25 @@ public abstract class AbstractUser extends DataGridUser {
 		super.sim_get_next(ptag, ev); // only look for this type of ack
 		AgentReply agentReply = AgentReply.get_data(ev);
 
-                if (agentReply!=null) {
-		Assert.assertEquals(requestID, agentReply.getRequestID());
-		Assert.assertEquals(tag, agentReply.getRequestTAG());
-		Assert.assertEquals(ev.get_tag(), tag + 1);
+		if (agentReply != null) {
+			Assert.assertEquals(requestID, agentReply.getRequestID());
+			Assert.assertEquals(tag, agentReply.getRequestTAG());
+			Assert.assertEquals(ev.get_tag(), tag + 1);
 
-		double evrecv_time = GridSim.clock();
-		msg = String
-				.format(
-						"%1$f %2$d %3$s <-- AM_%4$s::%7$s %8$s (%6$s AID %10$d) %5$s AM_%9$s",
-						evrecv_time, reqrepID, this.get_name(), super
-								.getEntityName(agentReply.getRequest()
-										.getDst_resID()), EntityTypes
-								.toString(agentType), super
-								.getEntityName(request.getDst_agentID()),
-						agentReply.isOk(), Tags.toString(tag), super
-								.getEntityName(request.getDst_moveToresID()),
-						request.getDst_AID());
-		this.write(msg);
-                }
+			double evrecv_time = GridSim.clock();
+			msg = String
+					.format(
+							"%1$f %2$d %3$s <-- AM_%4$s::%7$s %8$s (%6$s AID %10$d) %5$s AM_%9$s",
+							evrecv_time, reqrepID, this.get_name(), super
+									.getEntityName(agentReply.getRequest()
+											.getDst_resID()), EntityTypes
+									.toString(agentType), super
+									.getEntityName(request.getDst_agentID()),
+							agentReply.isOk(), Tags.toString(tag),
+							super.getEntityName(request.getDst_moveToresID()),
+							request.getDst_AID());
+			this.write(msg);
+		}
 		return agentReply;
 	}
 
@@ -423,9 +422,9 @@ public abstract class AbstractUser extends DataGridUser {
 		Sim_event ev = new Sim_event();
 		super.sim_get_next(ptag, ev); // only look for this type of ack
 		AgentReply agentReply = AgentReply.get_data(ev);
-                if (agentReply==null) {
-                    Assert.fail();
-                }
+		if (agentReply == null) {
+			Assert.fail();
+		}
 		Assert.assertEquals(requestID, agentReply.getRequestID());
 		Assert.assertEquals(Tags.HASGRIDLETS_REQUEST, agentReply
 				.getRequestTAG());
@@ -478,7 +477,8 @@ public abstract class AbstractUser extends DataGridUser {
 		this.userSched = userSched;
 	}
 
-	public void setVirtualOrganization(AbstractVirtualOrganization virtualOrganization) {
+	public void setVirtualOrganization(
+			AbstractVirtualOrganization virtualOrganization) {
 		this.virtualOrganization = virtualOrganization;
 	}
 
@@ -496,23 +496,23 @@ public abstract class AbstractUser extends DataGridUser {
 		}
 	}
 
-        public void initialize() throws Exception {
+	public void initialize() throws Exception {
 		// creates a report file
 		if (this.isTraceFlag() == true) {
 			this.setReport_(new SimReport(this.get_name()));
 		}
-        }
-        
-        public abstract void printStats();
-        
+	}
+
+	public abstract void printStats();
+
 	@Override
 	public void body() {
 		super.gridSimHold(AbstractGAP.getStartTime());
-                try {
-                this.initialize();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+		try {
+			this.initialize();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		try {
 			this.initWork();
@@ -529,7 +529,7 @@ public abstract class AbstractUser extends DataGridUser {
 			}
 		}
 
-                this.printStats();
+		this.printStats();
 		// //////////////////////////////////////////////////////
 		// shut down I/O ports
 		this.shutdownUserEntity();
@@ -543,11 +543,11 @@ public abstract class AbstractUser extends DataGridUser {
 
 	public abstract void initWork();
 
-    public boolean isTraceFlag() {
-        return traceFlag;
-    }
+	public boolean isTraceFlag() {
+		return traceFlag;
+	}
 
-    public void setTraceFlag(boolean traceFlag) {
-        this.traceFlag = traceFlag;
-    }
+	public void setTraceFlag(boolean traceFlag) {
+		this.traceFlag = traceFlag;
+	}
 }

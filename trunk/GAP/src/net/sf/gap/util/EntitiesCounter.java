@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.util;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -57,10 +56,10 @@ public class EntitiesCounter {
 
 	public static Integer inc(String key) {
 		if (!contains(key)) {
-                    return create(key);
-                } else {
-        		return getMap().put(key, getMap().get(key) + 1);
-                }
+			return create(key);
+		} else {
+			return getMap().put(key, getMap().get(key) + 1);
+		}
 	}
 
 	public static Integer get(String key) {

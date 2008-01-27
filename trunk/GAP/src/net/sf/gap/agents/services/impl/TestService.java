@@ -44,13 +44,14 @@ public class TestService extends PlatformService {
 	 * @param trace_flag
 	 * @throws Exception
 	 */
-	public TestService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
+	public TestService(AbstractAgentPlatform ap, boolean trace_flag)
+			throws Exception {
 		super(ap, "TestService", trace_flag);
 	}
 
 	@Override
 	public void initialize() throws Exception {
-            super.initialize();
+		super.initialize();
 	}
 
 	@Override

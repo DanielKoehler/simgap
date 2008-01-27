@@ -37,79 +37,100 @@ public abstract class Tags {
 	public Tags() {
 	}
 
-        public static final int TAGSBASE = 1000;
+	public static final int TAGSBASE = 1000;
 
-        public static final int AGENTBASE = 100 + TAGSBASE;
-                
-        public static final int SSBASE = 200 + TAGSBASE;
+	public static final int AGENTBASE = 100 + TAGSBASE;
 
-        public static final int GRIDLETSBASE = 300 + TAGSBASE;
-        
+	public static final int SSBASE = 200 + TAGSBASE;
+
+	public static final int GRIDLETSBASE = 300 + TAGSBASE;
+
 	// AgentPlatform
-	public static final int AP_SERVICES_LIST_REQ = 1 + TAGSBASE; // From any source
-															// entity to
-															// AgentPlatform
+	public static final int AP_SERVICES_LIST_REQ = 1 + TAGSBASE; // From any
+																	// source
+	// entity to
+	// AgentPlatform
 
 	public static final int AP_SERVICES_LIST_REP = 2 + TAGSBASE; // From
-															// AgentPlatform to
-															// any source entity
+	// AgentPlatform to
+	// any source entity
 
 	// TestService
-	public static final int TEST_SERVICE_REQ = 11 + TAGSBASE; // To TestService
+	public static final int TEST_SERVICE_REQ = 11 + TAGSBASE; // To
+																// TestService
 
-	public static final int TEST_SERVICE_REP = 12 + TAGSBASE; // From TestService
+	public static final int TEST_SERVICE_REP = 12 + TAGSBASE; // From
+																// TestService
 
 	// Agent
-	public static final int AGENT_RUN_REQ = 1 + AGENTBASE; // Final destination is an
-													// Agent
+	public static final int AGENT_RUN_REQ = 1 + AGENTBASE; // Final destination
+															// is an
+	// Agent
 
 	public static final int AGENT_RUN_REP = 2 + AGENTBASE;
 
-	public static final int AGENT_RESUME_REQ = 11 + AGENTBASE; // Final destination is
-														// an Agent
+	public static final int AGENT_RESUME_REQ = 11 + AGENTBASE; // Final
+																// destination
+																// is
+	// an Agent
 
 	public static final int AGENT_RESUME_REP = 12 + AGENTBASE;
 
-	public static final int AGENT_PAUSE_REQ = 21 + AGENTBASE; // Final destination is an
-													// Agent
+	public static final int AGENT_PAUSE_REQ = 21 + AGENTBASE; // Final
+																// destination
+																// is an
+	// Agent
 
 	public static final int AGENT_PAUSE_REP = 22 + AGENTBASE;
 
-	public static final int AGENT_KILL_REQ = 31 + AGENTBASE; // Final destination is an
-													// Agent
+	public static final int AGENT_KILL_REQ = 31 + AGENTBASE; // Final
+																// destination
+																// is an
+	// Agent
 	public static final int AGENT_KILL_REP = 32 + AGENTBASE;
 
-	public static final int AGENT_KILLAWAIT_REQ = 41 + AGENTBASE; // Final destination is
-														// an Agent
+	public static final int AGENT_KILLAWAIT_REQ = 41 + AGENTBASE; // Final
+																	// destination
+																	// is
+	// an Agent
 	public static final int AGENT_KILLAWAIT_REP = 42 + AGENTBASE;
 
-	public static final int AGENT_MOVE_REQ = 51 + AGENTBASE; // Final destination is an
-													// Agent
+	public static final int AGENT_MOVE_REQ = 51 + AGENTBASE; // Final
+																// destination
+																// is an
+	// Agent
 	public static final int AGENT_MOVE_REP = 52 + AGENTBASE;
 
 	// DirectoryFacilitator
-	public static final int DF_REGISTER_REQ = 1 + SSBASE; // Final destination is
-													// DirectoryFacilitator
+	public static final int DF_REGISTER_REQ = 1 + SSBASE; // Final destination
+															// is
+	// DirectoryFacilitator
 
 	public static final int DF_REGISTER_REP = 2 + SSBASE;
 
-	public static final int DF_DEREGISTER_REQ = 11 + SSBASE; // Final destination is
-														// DirectoryFacilitator
+	public static final int DF_DEREGISTER_REQ = 11 + SSBASE; // Final
+																// destination
+																// is
+	// DirectoryFacilitator
 
 	public static final int DF_DEREGISTER_REP = 12 + SSBASE;
 
-	public static final int DF_PAUSED_REQ = 21 + SSBASE; // Final destination is
-													// DirectoryFacilitator
+	public static final int DF_PAUSED_REQ = 21 + SSBASE; // Final destination
+															// is
+	// DirectoryFacilitator
 
 	public static final int DF_PAUSED_REP = 22 + SSBASE;
 
-	public static final int DF_RESUMED_REQ = 31 + SSBASE; // Final destination is
-													// DirectoryFacilitator
+	public static final int DF_RESUMED_REQ = 31 + SSBASE; // Final destination
+															// is
+	// DirectoryFacilitator
 	public static final int DF_RESUMED_REP = 32 + SSBASE;
 
 	// NetworkMonitor
-	public static final int NM_NETWORKMAP_REQ = 41 + SSBASE; // Final destination is
-														// NetworkMonitor
+	public static final int NM_NETWORKMAP_REQ = 41 + SSBASE; // Final
+																// destination
+																// is
+	// NetworkMonitor
 	public static final int NM_NETWORKMAP_REP = 42 + SSBASE;
 
 	// TODO: REVIEW ALL
@@ -117,20 +138,23 @@ public abstract class Tags {
 
 	public static final int GIS_REPLY = 52 + SSBASE; // Reply from GIS
 
-	public static final int PING_REQ = 61 + SSBASE; // Mainly from NetworkMonitor to
-										// any GridElement
+	public static final int PING_REQ = 61 + SSBASE; // Mainly from
+													// NetworkMonitor to
+	// any GridElement
 	public static final int PING_REP = 62 + SSBASE; // From a GridElement to,
-												// mainly, NetworkMonitor
+	// mainly, NetworkMonitor
 
-        public static final int GRIDLET_SUBMIT_REQ = 11 + GRIDLETSBASE; // Destination is any
-														// Agent
-	public static final int GRIDLET_SUBMIT_REP = 12 + GRIDLETSBASE; // Source of reply is an
-														// Agent
+	public static final int GRIDLET_SUBMIT_REQ = 11 + GRIDLETSBASE; // Destination
+																	// is any
+	// Agent
+	public static final int GRIDLET_SUBMIT_REP = 12 + GRIDLETSBASE; // Source of
+																	// reply is
+																	// an
+	// Agent
 
 	public static final int GRIDLET_STATUS_REQ = 21 + GRIDLETSBASE;
 
 	public static final int GRIDLET_STATUS_REP = 22 + GRIDLETSBASE;
-        
 
 	public static final int HASGRIDLETS_REQUEST = 31 + GRIDLETSBASE;
 

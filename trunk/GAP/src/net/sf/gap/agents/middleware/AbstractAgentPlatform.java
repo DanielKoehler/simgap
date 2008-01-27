@@ -46,8 +46,8 @@ import gridsim.IO_data;
  * @author Giovanni Novelli
  */
 public abstract class AbstractAgentPlatform extends AgentMiddleware {
-        private int totalAgents;    // Total number of agent entities
-    
+	private int totalAgents; // Total number of agent entities
+
 	private ServicesList servicesList; // list of services
 
 	private NetworkMonitor networkMonitor; // Network monitor
@@ -68,15 +68,15 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 	 */
 	public AbstractAgentPlatform(String name, boolean trace) throws Exception {
 		super(name, trace);
-                this.setPlatform(true);
+		this.setPlatform(true);
 	}
 
-        public void createServices() throws Exception {
-                this.setTestService(new TestService(this, false));
+	public void createServices() throws Exception {
+		this.setTestService(new TestService(this, false));
 		this.setGisService(new GISService(this, false));
 		this.setNMService(new NMService(this, false));
-        }
-        
+	}
+
 	public void addAgent(AbstractAgent agent, AbstractGridElement ge) {
 		this.getDirectoryFacilitator().addAgent(agent, ge);
 	}
@@ -118,9 +118,9 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 	}
 
 	public void initPlatform() throws Exception {
-                this.setNetworkMonitor(new NetworkMonitor(this));
+		this.setNetworkMonitor(new NetworkMonitor(this));
 		this.setDirectoryFacilitator(new DirectoryFacilitator(this));
-                
+
 		this.setServicesList(new ServicesList());
 
 		this.getTestService().initialize();
@@ -130,7 +130,7 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 		this.getNMService().initialize();
 	}
 
-        public abstract void initAgents() throws Exception;
+	public abstract void initAgents() throws Exception;
 
 	public ServicesList getServicesList() {
 		return servicesList;
@@ -196,11 +196,11 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 		this.nmService = nmService;
 	}
 
-    public int getTotalAgents() {
-        return totalAgents;
-    }
+	public int getTotalAgents() {
+		return totalAgents;
+	}
 
-    public void setTotalAgents(int totalAgents) {
-        this.totalAgents = totalAgents;
-    }
+	public void setTotalAgents(int totalAgents) {
+		this.totalAgents = totalAgents;
+	}
 }

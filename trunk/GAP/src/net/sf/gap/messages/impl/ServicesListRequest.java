@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.messages.impl;
 
 import net.sf.gap.agents.services.ServicesList;

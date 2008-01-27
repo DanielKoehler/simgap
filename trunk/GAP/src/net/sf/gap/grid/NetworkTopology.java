@@ -22,7 +22,6 @@
  *****************************************************************************************
  */
 
-
 package net.sf.gap.grid;
 
 import gridsim.net.RIPRouter;
@@ -34,26 +33,26 @@ import java.util.Vector;
  * @author Giovanni Novelli
  */
 public abstract class NetworkTopology extends Vector<RIPRouter> {
-        private int numRouters;
+	private int numRouters;
 
 	/** Creates a new instance of NetworkTopology */
 	public NetworkTopology(int numRouters) {
-            this.setNumRouters(numRouters);
+		this.setNumRouters(numRouters);
 	}
 
-        public abstract void initialize();
-        
+	public abstract void initialize();
+
 	public abstract void create(boolean trace) throws Exception;
 
 	public void setRouters(Vector<RIPRouter> routers) {
 		this.addAll(routers);
 	}
 
-    public int getNumRouters() {
-        return numRouters;
-    }
+	public int getNumRouters() {
+		return numRouters;
+	}
 
-    public void setNumRouters(int numRouters) {
-        this.numRouters = numRouters;
-    }
+	public void setNumRouters(int numRouters) {
+		this.numRouters = numRouters;
+	}
 }

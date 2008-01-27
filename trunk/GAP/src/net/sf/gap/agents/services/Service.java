@@ -36,7 +36,8 @@ import eduni.simjava.Sim_event;
  */
 
 public class Service extends GridAgent {
-    private ServiceInfo serviceInfo;
+	private ServiceInfo serviceInfo;
+
 	public Service(AbstractGridElement ge, String name, boolean trace_flag)
 			throws Exception {
 		super(ge, name, 0, trace_flag);
@@ -44,7 +45,7 @@ public class Service extends GridAgent {
 
 	@Override
 	public void initialize() throws Exception {
-            super.initialize();
+		super.initialize();
 	}
 
 	@Override
@@ -57,12 +58,12 @@ public class Service extends GridAgent {
 
 	}
 
-    public ServiceInfo getServiceInfo() {
-        return serviceInfo;
-    }
+	public ServiceInfo getServiceInfo() {
+		return serviceInfo;
+	}
 
-    public void setServiceInfo(ServiceInfo serviceInfo) {
-        this.serviceInfo = serviceInfo;
-    }
+	public void setServiceInfo(ServiceInfo serviceInfo) {
+		this.serviceInfo = serviceInfo;
+	}
 
 }

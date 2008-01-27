@@ -19,22 +19,22 @@ package net.sf.gap.xml.parsing;
 import org.w3c.dom.Document;
 
 /**
- *
+ * 
  * @author Giovanni Novelli
  */
 public class Parser {
 
-    public Parser(Document document) {
-        this.setDocument(document);
-    }
+	public Parser(Document document) {
+		this.setDocument(document);
+	}
 
-    private Document document;
-    
-    public Document getDocument() {
-        return document;
-    }
+	private Document document;
 
-    public void setDocument(Document document) {
-        this.document = document;
-    }
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
+	}
 }

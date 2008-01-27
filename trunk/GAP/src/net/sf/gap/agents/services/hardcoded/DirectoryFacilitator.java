@@ -132,7 +132,8 @@ public class DirectoryFacilitator {
 		if (this.getMapAIDs().containsKey(AID)) {
 			int aid = this.getMapAIDs().get(AID);
 			if (this.getMapZombieAgents().containsKey(aid)) {
-				resID = AbstractGAP.NOWHERE * this.getMapZombieAgents().get(aid);
+				resID = AbstractGAP.NOWHERE
+						* this.getMapZombieAgents().get(aid);
 			} else {
 				int entityType = this.getMapEntityTypes().get(aid);
 				resID = this.getAgentResourceID(entityType, aid);

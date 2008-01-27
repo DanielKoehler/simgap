@@ -31,5 +31,6 @@ public abstract class ResourceFactory {
 	public ResourceFactory() {
 	}
 
-	public abstract GridElement create(boolean fixed, int geIndex, Link link, boolean isSE);
+	public abstract GridElement create(boolean fixed, int geIndex, Link link,
+			boolean isSE);
 }

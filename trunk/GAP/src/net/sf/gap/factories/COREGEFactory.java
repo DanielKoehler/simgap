@@ -71,8 +71,8 @@ public class COREGEFactory extends ResourceFactory {
 	}
 
 	/** Creates a new instance of CEFactory */
-	public COREGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin, int MMax,
-			int GBMin, int GBMax) {
+	public COREGEFactory(TopRegionalRC rc, int MIPS, int PEMax, int MMin,
+			int MMax, int GBMin, int GBMax) {
 		this.setTopRegionalRC(rc);
 		this.setMIPS(MIPS);
 		this.setPEmax(PEMax);
@@ -85,7 +85,8 @@ public class COREGEFactory extends ResourceFactory {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public GridElement create(boolean fixed, int geIndex, Link link, boolean isSE) {
+	public GridElement create(boolean fixed, int geIndex, Link link,
+			boolean isSE) {
 		MachineList mList = new MachineList();
 		Uniform_int r = this.getRand();
 		int np = 0;
@@ -93,16 +94,16 @@ public class COREGEFactory extends ResourceFactory {
 		if (!isSE) {
 			int wm = (this.getMmax() - this.getMmin() + 1);
 			m = r.sample(wm) + this.getMmin(); // Number of machines in the CE
-                        if (fixed) {
-                            m = this.getMmin();
-                        }
+			if (fixed) {
+				m = this.getMmin();
+			}
 			for (int i = 0; i < m; i++) {
 				PEList peList = new PEList();
 				int MIPSRating = this.getMIPS();
 				int p = r.sample(this.getPEmax()) + 1;
-                                if (fixed) {
-                                    p = this.getPEmax();
-                                }
+				if (fixed) {
+					p = this.getPEmax();
+				}
 				np = np + p;
 				for (int j = 0; j < p; j++) {
 					peList.add(new PE(j, MIPSRating)); // store PE id and MIPS
@@ -133,7 +134,8 @@ public class COREGEFactory extends ResourceFactory {
 		double cost = 1.0; // the cost of using this resource
 
 		ResourceCharacteristics resConfig = new ResourceCharacteristics(arch,
-				os, mList, ResourceCharacteristics.SPACE_SHARED, time_zone, cost);
+				os, mList, ResourceCharacteristics.SPACE_SHARED, time_zone,
+				cost);
 
 		// 7. Finally, we need to create a GridResource object.
 		String name = null;

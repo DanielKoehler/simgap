@@ -36,30 +36,30 @@ public class Predicate extends Sim_predicate {
 
 	/** Creates a new instance of Predicate */
 	public Predicate(int tag) {
-            int[] atag = {tag};
-            this.setTags(atag);
+		int[] atag = { tag };
+		this.setTags(atag);
 	}
 
 	/** Creates a new instance of Predicate */
 	public Predicate(int[] tags) {
-            this.setTags(tags);
+		this.setTags(tags);
 	}
 
 	@Override
 	public boolean match(Sim_event ev) {
-            int nt = this.getTags().length;
-            boolean matched = false;
-            for (int i=0;i<nt;i++) {
-                  matched = matched || (this.getTags()[i]==ev.get_tag());
-            }
-            return matched;
+		int nt = this.getTags().length;
+		boolean matched = false;
+		for (int i = 0; i < nt; i++) {
+			matched = matched || (this.getTags()[i] == ev.get_tag());
+		}
+		return matched;
 	}
 
-    public int[] getTags() {
-        return tags;
-    }
+	public int[] getTags() {
+		return tags;
+	}
 
-    public void setTags(int[] tags) {
-        this.tags = tags;
-    }
+	public void setTags(int[] tags) {
+		this.tags = tags;
+	}
 }

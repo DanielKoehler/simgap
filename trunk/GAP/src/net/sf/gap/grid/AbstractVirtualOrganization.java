@@ -43,8 +43,8 @@ import net.sf.gap.grid.components.AbstractGridElement;
  * @author Giovanni Novelli
  */
 public abstract class AbstractVirtualOrganization {
-        private boolean traceFlag;
-    
+	private boolean traceFlag;
+
 	private AbstractAgentPlatform platform;
 
 	private Vector<AbstractGridElement> ces;
@@ -73,14 +73,16 @@ public abstract class AbstractVirtualOrganization {
 	public AbstractVirtualOrganization() {
 	}
 
-        public abstract void initialize();
+	public abstract void initialize();
 
-        protected abstract void initializeCEs();
-        protected abstract void initializeSEs();
-        protected abstract void initializeAgents();
-        
-        protected abstract void createEntities() throws Exception;
-        
+	protected abstract void initializeCEs();
+
+	protected abstract void initializeSEs();
+
+	protected abstract void initializeAgents();
+
+	protected abstract void createEntities() throws Exception;
+
 	public AbstractAgentPlatform getPlatform() {
 		return this.platform;
 	}
@@ -185,25 +187,25 @@ public abstract class AbstractVirtualOrganization {
 		this.ams = AMs;
 	}
 
-    public int getNumAMs() {
-        return (this.getNumCEs()+this.getNumSEs());
-    }
-    
-    public abstract void createAndAttachAgentPlatform() throws Exception;
+	public int getNumAMs() {
+		return (this.getNumCEs() + this.getNumSEs());
+	}
 
-    public abstract void createAndAttachAgents() throws Exception;
+	public abstract void createAndAttachAgentPlatform() throws Exception;
 
-    public abstract void createAndAttachCEs() throws Exception;
+	public abstract void createAndAttachAgents() throws Exception;
 
-    public abstract void createAndAttachSEs() throws Exception;
+	public abstract void createAndAttachCEs() throws Exception;
 
-    public abstract void createAndAttachUsers() throws Exception;
-    
-    public boolean isTraceFlag() {
-        return traceFlag;
-    }
-    
-    public void setTraceFlag(boolean traceFlag) {
-        this.traceFlag = traceFlag;
-    }
+	public abstract void createAndAttachSEs() throws Exception;
+
+	public abstract void createAndAttachUsers() throws Exception;
+
+	public boolean isTraceFlag() {
+		return traceFlag;
+	}
+
+	public void setTraceFlag(boolean traceFlag) {
+		this.traceFlag = traceFlag;
+	}
 }

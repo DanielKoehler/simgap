@@ -45,7 +45,7 @@ package net.sf.gap.constants;
  * @author Giovanni Novelli
  */
 public class AgentStates {
-        public static final int STATESBASE = 100;
+	public static final int STATESBASE = 100;
 	public static final int RUNNING = 1 + STATESBASE;
 
 	public static final int PAUSED = 2 + STATESBASE;
