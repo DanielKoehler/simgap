@@ -60,7 +60,7 @@ public abstract class XMLVirtualOrganization extends
 
 	private ScenarioType scenario;
 
-	public XMLVirtualOrganization(ScenarioType scenario, boolean trace_flag)
+	public XMLVirtualOrganization(ScenarioType scenario)
 			throws Exception {
 		this.setScenario(scenario);
 		int numGEs = scenario.getGrid().getGridElements().size();
@@ -74,7 +74,7 @@ public abstract class XMLVirtualOrganization extends
 				countCEs++;
 			}
 		}
-		this.setTraceFlag(trace_flag);
+		this.setTraceFlag(scenario.isTrace());
 		this.setNumCEs(countCEs);
 		this.setNumSEs(countSEs);
 		this.createEntities();
