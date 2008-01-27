@@ -29,6 +29,7 @@ import gridsim.datagrid.SimpleReplicaManager;
 import gridsim.datagrid.index.TopRegionalRC;
 import gridsim.datagrid.storage.HarddriveStorage;
 import gridsim.datagrid.storage.Storage;
+import gridsim.datagrid.storage.TapeStorage;
 import gridsim.net.FIFOScheduler;
 import gridsim.net.Link;
 import gridsim.net.RIPRouter;
@@ -50,6 +51,7 @@ import net.sf.gap.xml.types.MachineListType;
 import net.sf.gap.xml.types.MachineType;
 import net.sf.gap.xml.types.PEType;
 import net.sf.gap.xml.types.ScenarioType;
+import net.sf.gap.xml.types.TapeType;
 
 /**
  * 
@@ -207,6 +209,15 @@ public abstract class XMLVirtualOrganization extends
 								Storage storage = new HarddriveStorage(hdType
 										.getName(),
 										hdType.getCapacity() * 1000000000);
+								ge.addStorage(storage);
+							}
+							for (int it = 0; it < geItem.getStorage()
+									.getHardDiskList().getItems().size(); it++) {
+								TapeType tapeType = geItem.getStorage()
+										.getTapeList().getItems().get(it);
+								Storage storage = new TapeStorage(tapeType
+										.getName(),
+										tapeType.getCapacity() * 1000000000);
 								ge.addStorage(storage);
 							}
 						} else {
