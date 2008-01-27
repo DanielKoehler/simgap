@@ -48,11 +48,13 @@ public class XMLNetworkTopology extends NetworkTopology {
 	 */
 	private static final long serialVersionUID = -8875327992608003476L;
 	private ScenarioType scenario;
+        private boolean trace;
 
 	public XMLNetworkTopology(ScenarioType scenario, boolean trace_flag)
 			throws Exception {
 		super(scenario.getNumRouters());
 		this.setScenario(scenario);
+                this.setTrace(trace_flag);
 		this.create(trace_flag);
 	}
 
@@ -64,7 +66,7 @@ public class XMLNetworkTopology extends NetworkTopology {
 				.getRouters();
 		for (int i = 0; i < N; i++) {
 			String routerName = routerItems.get(i).getName();
-			RIPRouter router = (RIPRouter) Sim_system.get_entity(routerName);
+			RIPRouter router = new RIPRouter(routerName,this.isTrace());
 			this.addElement(router);
 		}
 	}
@@ -77,7 +79,7 @@ public class XMLNetworkTopology extends NetworkTopology {
 				.getRouters();
 		for (int i = 0; i < N; i++) {
 			String routerName = routerItems.get(i).getName();
-			RIPRouter router = (RIPRouter) Sim_system.get_entity(routerName);
+			RIPRouter router = new RIPRouter(routerName, trace);
 			this.addElement(router);
 		}
 
@@ -123,4 +125,12 @@ public class XMLNetworkTopology extends NetworkTopology {
 	private void setScenario(ScenarioType scenario) {
 		this.scenario = scenario;
 	}
+
+    public boolean isTrace() {
+        return trace;
+    }
+
+    public void setTrace(boolean trace) {
+        this.trace = trace;
+    }
 }
