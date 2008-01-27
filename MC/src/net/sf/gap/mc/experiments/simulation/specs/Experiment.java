@@ -17,9 +17,9 @@
 package net.sf.gap.mc.experiments.simulation.specs;
 
 /**
- *
+ * 
  * @author giovanni
  */
 public class Experiment {
-    public static int _01_JOB_SUBMISSION = 1;
+	public static int _01_JOB_SUBMISSION = 1;
 }

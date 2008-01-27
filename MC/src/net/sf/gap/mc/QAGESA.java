@@ -38,7 +38,7 @@ public class QAGESA {
 			if (args[0].compareTo("--ui") == 0) {
 				swing = true;
 			}
-                        Integer whichMeasure = 3;
+			Integer whichMeasure = 3;
 			if (args[1].compareTo("--MS") == 0) {
 				whichMeasure = QAGESAVirtualOrganization.MS;
 			}
@@ -57,34 +57,38 @@ public class QAGESA {
 			if (args[1].compareTo("--RMR") == 0) {
 				whichMeasure = QAGESAVirtualOrganization.RMR;
 			}
-                        Integer numUsers = Integer.parseInt(args[2]);
-                        Integer numRequests = Integer.parseInt(args[3]);
-                        
-                        Integer numReplications = Integer.parseInt(args[4]);
-                        Double confidence = Double.parseDouble(args[5]);
-                        Double accuracy = Double.parseDouble(args[6]);
-		try {
-			if (swing) {
-				java.awt.EventQueue.invokeAndWait(new Runnable() {
-					public void run() {
-						new UserInterface("QAGESA Simulation").setVisible(true);
-					}
-				});
+			Integer numUsers = Integer.parseInt(args[2]);
+			Integer numRequests = Integer.parseInt(args[3]);
+
+			Integer numReplications = Integer.parseInt(args[4]);
+			Double confidence = Double.parseDouble(args[5]);
+			Double accuracy = Double.parseDouble(args[6]);
+			try {
+				if (swing) {
+					java.awt.EventQueue.invokeAndWait(new Runnable() {
+						public void run() {
+							new UserInterface("QAGESA Simulation")
+									.setVisible(true);
+						}
+					});
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Unwanted errors happen");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Unwanted errors happen");
-		}
-                
-        	      QAGESA.simulate(numUsers,numRequests,false,whichMeasure,numReplications,confidence,accuracy,swing);
+
+			QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
+					numReplications, confidence, accuracy, swing);
 		}
 	}
 
-	private static void simulate(int numUsers, int numRequests, boolean caching, int whichMeasure, 
-                                     int replications, double confidence, double accuracy, boolean swing) {
+	private static void simulate(int numUsers, int numRequests,
+			boolean caching, int whichMeasure, int replications,
+			double confidence, double accuracy, boolean swing) {
 
-                        Simulation simulation;
-                        simulation = new Simulation(numUsers, numRequests, caching, whichMeasure, replications, confidence, accuracy);
-                        simulation.start();
+		Simulation simulation;
+		simulation = new Simulation(numUsers, numRequests, caching,
+				whichMeasure, replications, confidence, accuracy);
+		simulation.start();
 	}
 }

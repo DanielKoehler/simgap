@@ -28,22 +28,24 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class ReFPlayRequest extends Request {
-        // Used to disable ReF metric based selection process
-        // ceID and seID selected randomly from available CEs and from SEs containing movieTag
-        private boolean randomSelection; // Used in request
+	// Used to disable ReF metric based selection process
+	// ceID and seID selected randomly from available CEs and from SEs
+	// containing movieTag
+	private boolean randomSelection; // Used in request
 
-        private int userID; // Used in request
-        
+	private int userID; // Used in request
+
 	private String movieTag; // Used in request
 
-        /**
+	/**
 	 * Creates a new instance of ReFPlayRequest
 	 */
-	public ReFPlayRequest(int src_ID, int src_resID, int userID, String movieTag, boolean randomSelection) {
+	public ReFPlayRequest(int src_ID, int src_resID, int userID,
+			String movieTag, boolean randomSelection) {
 		super(src_ID, src_resID);
-                this.setUserID(userID);
+		this.setUserID(userID);
 		this.setMovieTag(movieTag);
-                this.setRandomSelection(randomSelection);
+		this.setRandomSelection(randomSelection);
 	}
 
 	public static ReFPlayRequest get_data(Sim_event ev) {
@@ -53,8 +55,8 @@ public class ReFPlayRequest extends Request {
 
 	@Override
 	public ReFPlayRequest clone() {
-		return new ReFPlayRequest(this.getSrc_ID(), this.getSrc_resID(), this.getUserID(), this
-				.getMovieTag(), this.isRandomSelection());
+		return new ReFPlayRequest(this.getSrc_ID(), this.getSrc_resID(), this
+				.getUserID(), this.getMovieTag(), this.isRandomSelection());
 	}
 
 	public String getMovieTag() {
@@ -65,19 +67,19 @@ public class ReFPlayRequest extends Request {
 		this.movieTag = movieTag;
 	}
 
-    public boolean isRandomSelection() {
-        return randomSelection;
-    }
+	public boolean isRandomSelection() {
+		return randomSelection;
+	}
 
-    public void setRandomSelection(boolean randomSelection) {
-        this.randomSelection = randomSelection;
-    }
+	public void setRandomSelection(boolean randomSelection) {
+		this.randomSelection = randomSelection;
+	}
 
-    public int getUserID() {
-        return userID;
-    }
+	public int getUserID() {
+		return userID;
+	}
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 }

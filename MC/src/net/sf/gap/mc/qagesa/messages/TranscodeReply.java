@@ -32,19 +32,20 @@ public class TranscodeReply extends Reply {
 	/**
 	 * Creates a new instance of TranscodeRequest
 	 */
-	public TranscodeReply(int requestTAG, boolean ok, TranscodeRequest request, int agentID) {
+	public TranscodeReply(int requestTAG, boolean ok, TranscodeRequest request,
+			int agentID) {
 		super(requestTAG, ok, request);
-                this.setAgentID(agentID);
+		this.setAgentID(agentID);
 	}
 
+	public int getAgentID() {
+		return this.getRequest().getAgentID();
+	}
 
-    public int getAgentID() {
-        return this.getRequest().getAgentID();
-    }
+	public void setAgentID(int agentID) {
+		this.getRequest().setAgentID(agentID);
+	}
 
-    public void setAgentID(int agentID) {
-        this.getRequest().setAgentID(agentID);
-    }
 	@Override
 	public TranscodeReply clone() {
 		return new TranscodeReply(this.getRequestTAG(), this.isOk(), this

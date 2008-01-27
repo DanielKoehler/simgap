@@ -34,8 +34,8 @@ package net.sf.gap.mc.qagesa.multimedia;
  * @author Giovanni Novelli
  */
 public class Chunk {
-        private boolean transcoded; // Used to mark a chunk as transcoded 
-    
+	private boolean transcoded; // Used to mark a chunk as transcoded
+
 	private int sequenceNumber; // Sequence number of chunk in a ChunksSequence
 
 	private int inputSize; // Input size of chunk
@@ -49,19 +49,20 @@ public class Chunk {
 	public Chunk() {
 	}
 
-        public Chunk(int sequenceNumber, int inputSize, int outputSize, int MIPS,
+	public Chunk(int sequenceNumber, int inputSize, int outputSize, int MIPS,
 			int duration) {
 		this.setSequenceNumber(sequenceNumber);
 		this.setInputSize(inputSize);
 		this.setOutputSize(outputSize);
 		this.setMIPS(MIPS);
 		this.setDuration(duration);
-                this.setTranscoded(false);
+		this.setTranscoded(false);
 	}
-        
+
 	@Override
 	public Chunk clone() {
-		return new Chunk(this.getSequenceNumber(), this.getInputSize(), this.getOutputSize(), this.getMIPS(), this.getDuration());
+		return new Chunk(this.getSequenceNumber(), this.getInputSize(), this
+				.getOutputSize(), this.getMIPS(), this.getDuration());
 	}
 
 	/**
@@ -71,7 +72,7 @@ public class Chunk {
 	public Chunk transcode() {
 		Chunk chunk = new Chunk(this.getSequenceNumber(), this.getOutputSize(),
 				this.getOutputSize(), 0, this.getDuration());
-                chunk.setTranscoded(true);
+		chunk.setTranscoded(true);
 		return chunk;
 	}
 
@@ -125,11 +126,11 @@ public class Chunk {
 		this.duration = duration;
 	}
 
-    public boolean isTranscoded() {
-        return transcoded;
-    }
+	public boolean isTranscoded() {
+		return transcoded;
+	}
 
-    public void setTranscoded(boolean transcoded) {
-        this.transcoded = transcoded;
-    }
+	public void setTranscoded(boolean transcoded) {
+		this.transcoded = transcoded;
+	}
 }

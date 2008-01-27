@@ -23,7 +23,7 @@ import net.sf.gap.constants.EntityTypes;
  * @author Giovanni Novelli
  */
 public class ExperimentsEntityTypes extends EntityTypes {
-    public static final int EEBASE = 200 + ENTITYBASE;
+	public static final int EEBASE = 200 + ENTITYBASE;
 	public static final int AGENT_AGENT = 11 + EEBASE;
 	public static final int USER_USER = 21 + EEBASE;
 
