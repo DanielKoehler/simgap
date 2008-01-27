@@ -95,7 +95,8 @@ public class XMLReader {
 		Element scenarioElement = (Element) this.getDocument()
 				.getElementsByTagName("scenario").item(0);
 		String scenarioName = scenarioElement.getAttribute("name");
-		ScenarioType scenario = new ScenarioType(scenarioName);
+                boolean scenarioTrace = Boolean.parseBoolean(scenarioElement.getAttribute("trace"));
+		ScenarioType scenario = new ScenarioType(scenarioName, scenarioTrace);
 
 		TopologyParser topologyParser = new TopologyParser(document);
 		NetworkTopologyType topology = topologyParser.getTopology();
