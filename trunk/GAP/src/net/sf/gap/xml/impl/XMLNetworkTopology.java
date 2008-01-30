@@ -62,11 +62,12 @@ public class XMLNetworkTopology extends NetworkTopology {
 	public void initialize() {
 		int N = this.getNumRouters();
 		this.setRouters(new Vector<RIPRouter>(N));
-		LinkedList<RouterType> routerItems = this.getScenario().getTopology()
-				.getRouters();
+		LinkedList<RouterType> routerItems = 
+                        this.getScenario().getTopology().getRouters();
 		for (int i = 0; i < N; i++) {
 			String routerName = routerItems.get(i).getName();
-			RIPRouter router = new RIPRouter(routerName,this.isTrace());
+			RIPRouter router = 
+                                new RIPRouter(routerName,this.isTrace());
 			this.addElement(router);
 		}
 	}
@@ -75,43 +76,71 @@ public class XMLNetworkTopology extends NetworkTopology {
 	public void create(boolean trace) throws Exception {
 		int N = this.getNumRouters();
 		this.setRouters(new Vector<RIPRouter>(N));
-		LinkedList<RouterType> routerItems = this.getScenario().getTopology()
-				.getRouters();
+		LinkedList<RouterType> routerItems = 
+                        this.getScenario().getTopology().getRouters();
 		for (int i = 0; i < N; i++) {
 			String routerName = routerItems.get(i).getName();
 			RIPRouter router = new RIPRouter(routerName, trace);
 			this.addElement(router);
 		}
 
-		LinkedList<LinkType> linkItems = this.getScenario().getTopology()
-				.getLinks();
+		LinkedList<LinkType> linkItems = 
+                        this.getScenario().getTopology().getLinks();
 		for (int i = 0; i < linkItems.size(); i++) {
 			LinkType linkItem = linkItems.get(i);
 			String from = linkItem.getFromEntity();
 			String to = linkItem.getToEntity();
-			boolean isNetworkLink = (routerItems.contains(from) && routerItems
-					.contains(to));
+			boolean isNetworkLink = 
+                                (
+                                    routerItems.contains(from) 
+                                    && 
+                                    routerItems.contains(to)
+                                );
 			if (isNetworkLink) {
-				RIPRouter r1 = (RIPRouter) Sim_system.get_entity(from);
-				RIPRouter r2 = (RIPRouter) Sim_system.get_entity(to);
+				RIPRouter r1 = 
+                                        (RIPRouter) Sim_system.get_entity(from);
+				RIPRouter r2 = 
+                                        (RIPRouter) Sim_system.get_entity(to);
 				if (linkItem.isBidirectional()) {
-					FIFOScheduler resSched1 = new FIFOScheduler("sched_" + from
-							+ "_" + to);
-					FIFOScheduler resSched2 = new FIFOScheduler("sched_" + to
-							+ "_" + from);
-					Link link = new SimpleLink(linkItem.getName(), linkItem
-							.getBaudrate(), linkItem.getDelay(), linkItem
-							.getMTU());
-					r1.attachRouter(r2, link, resSched1, resSched2);
+					FIFOScheduler resSched1 = 
+                                                new FIFOScheduler(
+                                                "sched_" + 
+                                                from + 
+                                                "_" + 
+                                                to);
+					FIFOScheduler resSched2 = 
+                                                new FIFOScheduler(
+                                                "sched_" + 
+                                                to + 
+                                                "_" + 
+                                                from);
+					Link link = 
+                                                new SimpleLink(
+                                                linkItem.getName(), 
+                                                linkItem.getBaudrate(), 
+                                                linkItem.getDelay(), 
+                                                linkItem.getMTU());
+					r1.attachRouter(
+                                                r2, 
+                                                link, 
+                                                resSched1, 
+                                                resSched2);
 				} else {
 					/*
 					 * @TODO check this part of code
 					 */
-					FIFOScheduler resSched1 = new FIFOScheduler("sched_" + from
-							+ "_" + to);
-					Link link = new SimpleLink(linkItem.getName(), linkItem
-							.getBaudrate(), linkItem.getDelay(), linkItem
-							.getMTU());
+					FIFOScheduler resSched1 = 
+                                                new FIFOScheduler(
+                                                "sched_" + 
+                                                from + 
+                                                "_" + 
+                                                to);
+					Link link = 
+                                                new SimpleLink(
+                                                linkItem.getName(), 
+                                                linkItem.getBaudrate(), 
+                                                linkItem.getDelay(), 
+                                                linkItem.getMTU());
 					r1.attachRouter(r2, link, resSched1);
 				}
 			}
