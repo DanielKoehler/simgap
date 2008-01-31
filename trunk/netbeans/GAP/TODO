@@ -1,4 +1,7 @@
-- Restudy Workload and SpaceShared classes in GridSim for GAP
+- Workload class in GridSim for GAP (DONE)
+- SpaceShared class in GridSim for GAP
+-- See ResGridletList
+-- See AllocPolicy.griletMigrate
 - Handle multiple VOs
 - Complete clean grid management by agents
 -- Review combinations (see previous notes) and their possible impact on XSD
