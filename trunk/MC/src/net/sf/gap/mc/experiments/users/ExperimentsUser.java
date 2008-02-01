@@ -16,11 +16,17 @@
 package net.sf.gap.mc.experiments.users;
 
 import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
 import gridsim.Gridlet;
+import gridsim.GridSim;
+import gridsim.GridSimTags;
+import gridsim.IO_data;
 import gridsim.net.Link;
+import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.mc.experiments.constants.ExperimentsEntityTypes;
+import net.sf.gap.mc.experiments.constants.ExperimentsTags;
 import net.sf.gap.mc.experiments.users.impl.Measure;
 import net.sf.gap.messages.impl.AgentReply;
 import net.sf.gap.messages.impl.GridletReply;
@@ -82,6 +88,28 @@ public class ExperimentsUser extends User {
         aegeResourceID = agentsEnabledGridElement.get_id();
         agentReply = this.submitAgent(ExperimentsEntityTypes.AGENT_AGENT,
                 aegeResourceID, 10000);
+        /*
+        int agentid = agentReply.getRequest().getDst_agentID();
+        super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                ExperimentsTags.TEST_REQ, new IO_data(ExperimentsTags.TEST_REQ, 10, agentid));
+        double evsend_time = GridSim.clock();
+        String msg = String.format(
+                "%1$f TEST_REQ %2$d --> %3$d", evsend_time,
+               this.get_id(), agentid);
+        this.write(msg);
+
+        Sim_event ev = new Sim_event();
+        Predicate predicate = new Predicate(ExperimentsTags.TEST_REP);
+        super.sim_get_next(predicate, ev); // only look for this type of ack
+        double evrecv_time = GridSim.clock();
+        msg = String.format(
+                "%1$f %2$d <-- TEST_REP %3$d",
+                evrecv_time, 
+                ev.get_dest(),
+                ev.get_src());
+        this.write(msg);
+        */
+        
         if (agentReply.isOk()) {
             for (int j = 0; j < 1; j++) {
                 @SuppressWarnings("unused")
