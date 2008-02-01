@@ -19,6 +19,8 @@
 
 package net.sf.gap.agents;
 
+import eduni.simjava.Sim_port;
+
 import net.sf.gap.agents.behaviours.Sim_eventListener;
 import net.sf.gap.agents.behaviours.Sim_eventListenerList;
 import net.sf.gap.grid.components.AbstractGridElement;
@@ -91,5 +93,28 @@ public abstract class PluggableAgent extends GridAgent {
 
 	public void setEvlList(Sim_eventListenerList evlList) {
 		this.evlList = evlList;
+	}
+        
+        public Sim_port getOutput() {
+            return super.output;
+        }
+
+        public void send(Sim_port destPort, double delay, int gridSimTag,
+            Object data) {
+            super.send(destPort, delay, gridSimTag, data);
+        }
+
+	/**
+	 * Prints out the given message into stdout. In addition, writes it into a
+	 * file.
+	 * 
+	 * @param msg
+	 *            a message
+	 */
+	public void write(String msg) {
+		System.out.println(msg);
+		if (this.getReport_() != null) {
+			this.getReport_().write(msg);
+		}
 	}
 }
