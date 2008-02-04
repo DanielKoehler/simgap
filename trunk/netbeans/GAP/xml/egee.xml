@@ -280,16 +280,113 @@
             <machineList>
                 <items>
                     <Machine>
+                        <repeatMachine>300</repeatMachine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>2400</count>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
                             </PE>
                         </peList>
                     </Machine>
                 </items>
             </machineList>
             <link>L_Torino</link>
+        </gridElement>
+        <gridElement name="Pisa">
+            <machineList>
+                <items>
+                    <Machine>
+                        <repeatMachine>330</repeatMachine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_Pisa</link>
+        </gridElement>
+        <gridElement name="Bologna">
+            <machineList>
+                <items>
+                    <Machine>
+                        <repeatMachine>280</repeatMachine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_Bologna</link>
+        </gridElement>
+        <gridElement name="Firenze">
+            <machineList>
+                <items>
+                    <Machine>
+                        <repeatMachine>305</repeatMachine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_Firenze</link>
+        </gridElement>
+        <gridElement name="Roma">
+            <machineList>
+                <items>
+                    <Machine>
+                        <repeatMachine>310</repeatMachine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_Roma</link>
+        </gridElement>
+        <gridElement name="Catania">
+            <machineList>
+                <items>
+                    <Machine>
+                        <repeatMachine>390</repeatMachine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_Catania</link>
+        </gridElement>
+        <gridElement name="Perugia">
+            <machineList>
+                <items>
+                    <Machine>
+                        <repeatMachine>360</repeatMachine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_Perugia</link>
         </gridElement>
     </grid>
 </scenario>

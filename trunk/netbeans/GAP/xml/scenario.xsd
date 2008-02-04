@@ -48,6 +48,7 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
+            <xsd:element name="repeatMachine" minOccurs="0" type="xsd:int"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="PEType">
