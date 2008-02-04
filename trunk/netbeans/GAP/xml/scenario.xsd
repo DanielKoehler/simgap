@@ -53,6 +53,7 @@
     <xsd:complexType name="PEType">
         <xsd:sequence>
             <xsd:element name="MIPS" default="1000" type="xsd:int"/>
+            <xsd:element name="count" minOccurs="0" type="xsd:int"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="StorageType">
