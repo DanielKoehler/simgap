@@ -304,14 +304,31 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>2000</MIPS>
+                                <MIPS>1000</MIPS>
                                 <count>4</count>
                             </PE>
                         </peList>
-                        <repeatMachine>300</repeatMachine>
+                        <repeatMachine>41</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
+            <storage>
+                <RM name="RM-torino-site"/>
+                <hdList>
+                    <hdItem name="HD-1-torino-site">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-torino-site">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
             <link>l-torino-site</link>
         </gridElement>
         <gridElement name="padova-site">
@@ -320,15 +337,251 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>2000</MIPS>
+                                <MIPS>1000</MIPS>
                                 <count>4</count>
                             </PE>
                         </peList>
-                        <repeatMachine>300</repeatMachine>
+                        <repeatMachine>54</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
+            <storage>
+                <RM name="RM-padova-site"/>
+                <hdList>
+                    <hdItem name="HD-1-padova-site">
+                        <Capacity>4000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-padova-site">
+                        <Capacity>4000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
             <link>l-padova-site</link>
+        </gridElement>
+        <gridElement name="pisa-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>64</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-pisa-site"/>
+                <hdList>
+                    <hdItem name="HD-1-pisa-site">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-pisa-site">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-pisa-site</link>
+        </gridElement>
+        <gridElement name="bologna-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>40</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-bologna-site"/>
+                <hdList>
+                    <hdItem name="HD-1-bologna-site">
+                        <Capacity>70.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-bologna-site</link>
+        </gridElement>
+        <gridElement name="firenze-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>11</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-firenze-site"/>
+                <hdList>
+                    <hdItem name="HD-1-firenze-site">
+                        <Capacity>350.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-firenze-site">
+                        <Capacity>350.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-firenze-site</link>
+        </gridElement>
+        <gridElement name="roma-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>25</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-roma-site"/>
+                <hdList>
+                    <hdItem name="HD-1-roma-site">
+                        <Capacity>50.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-roma-site">
+                        <Capacity>50.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-roma-site</link>
+        </gridElement>
+        <gridElement name="catania-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>74</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-catania-site"/>
+                <hdList>
+                    <hdItem name="HD-1-catania-site">
+                        <Capacity>8000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-catania-site">
+                        <Capacity>8000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-catania-site</link>
+        </gridElement>
+        <gridElement name="perugia-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>54</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-perugia-site"/>
+                <hdList>
+                    <hdItem name="HD-1-perugia-site">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-perugia-site">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-perugia-site</link>
+        </gridElement>
+        <gridElement name="bari-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>45</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-bari-site"/>
+                <hdList>
+                    <hdItem name="HD-0-bari-site">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-bari-site</link>
         </gridElement>
     </grid>
 </scenario>
