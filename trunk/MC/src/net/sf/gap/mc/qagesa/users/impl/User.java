@@ -469,12 +469,12 @@ public class User extends QAGESAUser {
     
 	private void pingCEs() {
             for (int i=0;i<this.getVirtualOrganization().getNumCEs();i++) {
-                int ceID = Sim_system.get_entity("CE_"+i).get_id();
-		InfoPacket pkt = super.pingBlockingCall(ceID,
-				50);
-		if (pkt != null) {
+                int ceID = this.getVirtualOrganization().getCEs().get(i).get_id();
+                InfoPacket pkt = super.pingBlockingCall(ceID,
+                                50);
+                if (pkt != null) {
                         this.getVirtualOrganization().getPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID,this.get_id(),pkt);
-		}
+                }
             }
 	}
 
