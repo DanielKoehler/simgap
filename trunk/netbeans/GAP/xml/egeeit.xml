@@ -407,7 +407,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                         <repeatMachine>40</repeatMachine>
@@ -422,11 +422,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>53</repeatMachine>
+                        <repeatMachine>24</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -439,11 +439,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>63</repeatMachine>
+                        <repeatMachine>32</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -455,11 +455,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>39</repeatMachine>
+                        <repeatMachine>20</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -471,11 +471,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>10</repeatMachine>
+                        <repeatMachine>5</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -487,11 +487,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>24</repeatMachine>
+                        <repeatMachine>12</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -503,11 +503,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>73</repeatMachine>
+                        <repeatMachine>36</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -519,11 +519,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>53</repeatMachine>
+                        <repeatMachine>26</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -535,11 +535,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>44</repeatMachine>
+                        <repeatMachine>22</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -553,7 +553,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -585,7 +585,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -617,7 +617,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -649,7 +649,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -676,7 +676,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -708,7 +708,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -740,7 +740,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -772,7 +772,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
@@ -804,7 +804,7 @@
                         <peList>
                             <PE>
                                 <MIPS>1000</MIPS>
-                                <count>4</count>
+                                <count>1</count>
                             </PE>
                         </peList>
                     </Machine>
