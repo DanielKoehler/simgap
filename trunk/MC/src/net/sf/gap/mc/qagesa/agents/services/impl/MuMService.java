@@ -19,6 +19,8 @@
 
 package net.sf.gap.mc.qagesa.agents.services.impl;
 
+import eduni.simjava.Sim_system;
+
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.mc.qagesa.agents.services.impl.mum.MuMRepository;
@@ -64,17 +66,37 @@ public class MuMService extends PlatformService {
 	public void createAndStoreAllMovies() {
 		this.setTranscodingSet(new TranscodingSet("measures/videos.csv",
 				"measures/chunks.csv"));
-		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
-				.getNumSEs(); i++) {
-			QAGESAGridElement se = (QAGESAGridElement) this.getAgentPlatform()
-					.getVirtualOrganization().getSEs().get(i);
-			for (int j = 0; j < this.getTranscodingSet().size(); j++) {
-				String movieTag = (String) this.getTranscodingSet().keySet()
-						.toArray()[j];
-				this.getRepository().put(movieTag, se.get_id());
-                                se.addSequence(movieTag,this.getTranscodingSet().get(movieTag));
-			}
-		}
+                if (this.getAgentPlatform().getVirtualOrganization().getScenario()==null) {
+                    for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
+                                    .getNumSEs(); i++) {
+                            QAGESAGridElement se = (QAGESAGridElement) this.getAgentPlatform()
+                                            .getVirtualOrganization().getSEs().get(i);
+                            for (int j = 0; j < this.getTranscodingSet().size(); j++) {
+                                    String movieTag = (String) this.getTranscodingSet().keySet()
+                                                    .toArray()[j];
+                                    this.getRepository().put(movieTag, se.get_id());
+                                    se.addSequence(movieTag,this.getTranscodingSet().get(movieTag));
+                            }
+                    }
+                } else {
+                    for (int i = 0; i < 
+                            this.getAgentPlatform().getVirtualOrganization().getNumCEs()
+                            +
+                            this.getAgentPlatform().getVirtualOrganization().getNumSEs()
+                            ; i++) {
+                            if (this.getAgentPlatform().getVirtualOrganization().getScenario().getGrid().getGridElements().get(i).isSE()) {
+                                String sename = this.getAgentPlatform().getVirtualOrganization().getScenario().getGrid().getGridElements().get(i).getName();
+                                QAGESAGridElement se = 
+                                        (QAGESAGridElement) Sim_system.get_entity(sename);
+                                for (int j = 0; j < this.getTranscodingSet().size(); j++) {
+                                        String movieTag = (String) this.getTranscodingSet().keySet()
+                                                        .toArray()[j];
+                                        this.getRepository().put(movieTag, se.get_id());
+                                        se.addSequence(movieTag,this.getTranscodingSet().get(movieTag));
+                                }
+                            }
+                    }
+                }
 	}
 
 	@Override
