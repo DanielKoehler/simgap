@@ -37,6 +37,7 @@ import java.util.Vector;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.middleware.AgentMiddleware;
 import net.sf.gap.grid.components.AbstractGridElement;
+import net.sf.gap.xml.types.ScenarioType;
 
 /**
  * 
@@ -68,6 +69,7 @@ public abstract class AbstractVirtualOrganization {
 	private Vector<AgentMiddleware> ams;
         
         private String RBname;
+    private ScenarioType scenario;
 
 	/**
 	 * Creates a new instance of AbstractVirtualOrganization
@@ -217,5 +219,13 @@ public abstract class AbstractVirtualOrganization {
 
     public void setRBname(String RBname) {
         this.RBname = RBname;
+    }
+
+    public ScenarioType getScenario() {
+        return scenario;
+    }
+
+    public void setScenario(ScenarioType scenario) {
+        this.scenario = scenario;
     }
 }

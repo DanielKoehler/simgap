@@ -69,18 +69,31 @@ public class GISService extends PlatformService {
 		super.initialize();
 		this.setGisRepository(new GISRepository(this.getAgentPlatform()));
 
-		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
-				.getNumCEs(); i++) {
-			AbstractGridElement ce = (AbstractGridElement) Sim_system
-					.get_entity("CE_" + i);
-			this.getGisRepository().addGE(ce);
-		}
-		for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
-				.getNumSEs(); i++) {
-			AbstractGridElement se = (AbstractGridElement) Sim_system
-					.get_entity("SE_" + i);
-			this.getGisRepository().addGE(se);
-		}
+                if (this.getAgentPlatform().getVirtualOrganization().getScenario()==null) {
+                    for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
+                                    .getNumCEs(); i++) {
+                            AbstractGridElement ce = (AbstractGridElement) Sim_system
+                                            .get_entity("CE_" + i);
+                            this.getGisRepository().addGE(ce);
+                    }
+                    for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
+                                    .getNumSEs(); i++) {
+                            AbstractGridElement se = (AbstractGridElement) Sim_system
+                                            .get_entity("SE_" + i);
+                            this.getGisRepository().addGE(se);
+                    }
+                } else {
+                    for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
+                                    .getNumCEs()
+                                    +this.getAgentPlatform().getVirtualOrganization()
+                                    .getNumSEs(); i++) {
+                        String gename = 
+                                this.getAgentPlatform().getVirtualOrganization().getScenario().getGrid().getGridElements().get(i).getName();
+                            AbstractGridElement ge = (AbstractGridElement) Sim_system
+                                            .get_entity(gename);
+                            this.getGisRepository().addGE(ge);
+                    }
+                }
 	}
 
 	@Override
