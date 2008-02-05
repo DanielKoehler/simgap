@@ -189,6 +189,7 @@
     </xsd:complexType>
     <xsd:complexType name="GridElementType">
         <xsd:sequence>
+            <xsd:element name="isRB" type="xsd:boolean" minOccurs="0"/>
             <xsd:element name="resourceCalendar" type="xsd:string" 
                          minOccurs="0"/>
             <xsd:element name="resourceCharacteristics" type="xsd:string" 
