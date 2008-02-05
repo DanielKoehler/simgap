@@ -579,7 +579,6 @@
             <link>l-to-se</link>
         </gridElement>
         <gridElement name="pi-se">
-            <isRB>true</isRB>
             <machineList>
                 <items>
                     <Machine>
