@@ -9,7 +9,7 @@
             svn://scm.gforge.inria.fr/svn/simgrid/contrib/trunk/platform_manager/platforms/Egee.xml
 -->
 
-<scenario  name="egee" trace="false" 
+<scenario  name="egee" trace="true" 
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:noNamespaceSchemaLocation="scenario.xsd"
            xsi:type="SimulationScenarioType">
