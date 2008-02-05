@@ -273,7 +273,7 @@ public class ReFService extends PlatformService {
             Uniform_int r = new Uniform_int("ReFService");
             int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
             int seidx = r.sample(seList.size());
-            ceID = Sim_system.get_entity("CE_"+ceidx).get_id();
+            ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
             seID = seList.get(seidx);
             agentReply = this.activateAgents(playRequest, playReqrepID, userID, movieTag, ceID, seID);
         }
