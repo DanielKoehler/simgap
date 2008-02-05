@@ -54,7 +54,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2swbo">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>8.0</Delay>
+                <Delay>12.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swbo</toEntity>
@@ -62,7 +62,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2swrm">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>8.0</Delay>
+                <Delay>16.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swrm</toEntity>
@@ -78,7 +78,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2r-padova">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>6.0</Delay>
+                <Delay>10.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>padova-r</toEntity>
@@ -86,7 +86,7 @@
             </netLinkItem>
             <netLinkItem name="l-swto2r-torino">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swto</fromEntity>
                 <toEntity>torino-r</toEntity>
@@ -102,7 +102,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2r-pisa">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>6.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>pisa-r</toEntity>
@@ -110,7 +110,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2r-firenze">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>6.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>firenze-r</toEntity>
@@ -134,7 +134,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2r-bari">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>6.0</Delay>
+                <Delay>10.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>bari-r</toEntity>
@@ -142,7 +142,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2r-catania">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>8.0</Delay>
+                <Delay>16.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>catania-r</toEntity>
