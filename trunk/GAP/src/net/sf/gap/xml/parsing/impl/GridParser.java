@@ -124,6 +124,13 @@ public class GridParser extends Parser {
 	private GridElementType getGridElement(Element geItem) {
 		GridElementType gridElementInstance = new GridElementType();
 		gridElementInstance.setName(geItem.getAttribute("name"));
+                gridElementInstance.setRB(false);
+		NodeList isRBListItems = geItem.getElementsByTagName("isRB");
+		for (int i = 0; i < isRBListItems.getLength(); i++) {
+        		Element isRBItem = (Element) isRBListItems.item(i);
+                        gridElementInstance.setRB(true);
+                        //gridElementInstance.setRB(Boolean.parseBoolean(isRBItem.getTextContent()));
+                }
 		NodeList machineListItems = geItem.getElementsByTagName("Machine");
 		for (int i = 0; i < machineListItems.getLength(); i++) {
 			Element machineItem = (Element) machineListItems.item(i);

@@ -27,6 +27,7 @@ public class GridElementType {
 	private MachineListType machineList;
 	private StorageType storage;
 	private String link;
+        private boolean RB;
 
 	public GridElementType() {
 		this.setMachineList(new MachineListType());
@@ -99,4 +100,12 @@ public class GridElementType {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public boolean isRB() {
+        return RB;
+    }
+
+    public void setRB(boolean RB) {
+        this.RB = RB;
+    }
 }
