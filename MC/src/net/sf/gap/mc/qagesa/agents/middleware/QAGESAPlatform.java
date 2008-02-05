@@ -25,6 +25,8 @@ import net.sf.gap.mc.qagesa.agents.services.impl.ReFService;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
+import java.util.Iterator;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 /**
  *
@@ -53,9 +55,20 @@ public class QAGESAPlatform extends AgentPlatform {
     private void asyncProcessNetworkMap() {
         this.getNetworkMonitor().asyncProcessNetworkMap();
     }
+    
+    private void asyncProcessNetworkMap(AbstractGridElement ge1) {
+        this.getNetworkMonitor().asyncProcessNetworkMap(ge1);
+    }
+    
     public void preprocess() {
         QAGESAStat.reset(this.getVirtualOrganization().getNumCEs());
-        this.asyncProcessNetworkMap();
+        Iterator<AbstractGridElement> it1 = this.getGisService().getGisRepository().getListGEs().iterator();
+        while (it1.hasNext()) {
+                AbstractGridElement ge1 = it1.next();
+                super.gridSimHold(2.0);
+                this.asyncProcessNetworkMap(ge1);
+                super.gridSimHold(2.0);
+        }
     }
     public void postprocess() {
     }
