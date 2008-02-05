@@ -1,0 +1,588 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<!--
+    Document   : infn.xml
+    Created on : 4 February 2008, 13.55
+    Author     : Giovanni Novelli
+    Description:
+        EGEE scenario based on
+            svn://scm.gforge.inria.fr/svn/simgrid/contrib/trunk/platform_manager/platforms/Egee.xml
+-->
+
+<scenario  name="egee" trace="false" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="scenario.xsd"
+           xsi:type="SimulationScenarioType">
+    <topology>
+        <routers>
+            <!-- Routers to which GEs are attached to -->
+            <routerItem name="torino-r"/>
+            <routerItem name="pisa-r"/>
+            <routerItem name="bologna-r"/>
+            <routerItem name="firenze-r"/>
+            <routerItem name="roma-r"/>
+            <routerItem name="catania-r"/>
+            <routerItem name="perugia-r"/>
+            <routerItem name="bari-r"/>
+            <routerItem name="padova-r"/>
+            <!-- Backbones & switches -->
+            <routerItem name="it-sw-bb"/>
+            <routerItem name="torino-bb"/>
+            <routerItem name="pisa-bb"/>
+            <routerItem name="bologna-bb"/>
+            <routerItem name="firenze-bb"/>
+            <routerItem name="roma-bb"/>
+            <routerItem name="catania-bb"/>
+            <routerItem name="perugia-bb"/>
+            <routerItem name="bari-bb"/>
+            <routerItem name="padova-bb"/>
+            <routerItem name="swmi"/>
+            <routerItem name="swto"/>
+            <routerItem name="swbo"/>
+            <routerItem name="swrm"/>
+            <routerItem name="swna"/>
+        </routers>
+        <ges>
+            <geItem name="torino-site"/>
+            <geItem name="pisa-site"/>
+            <geItem name="bologna-site"/>
+            <geItem name="firenze-site"/>
+            <geItem name="roma-site"/>
+            <geItem name="catania-site"/>
+            <geItem name="perugia-site"/>
+            <geItem name="bari-site"/>
+            <geItem name="padova-site"/>
+        </ges>
+        <netLinks>
+            <netLinkItem name="l-torino-r2bb">
+                <Baudrate>45000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>torino-r</fromEntity>
+                <toEntity>torino-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-pisa-r2bb">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pisa-r</fromEntity>
+                <toEntity>pisa-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-bologna-r2bb">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>bologna-r</fromEntity>
+                <toEntity>bologna-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-firenze-r2bb">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>firenze-r</fromEntity>
+                <toEntity>firenze-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-roma-r2bb">
+                <Baudrate>45000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>roma-r</fromEntity>
+                <toEntity>roma-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-catania-r2bb">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>catania-r</fromEntity>
+                <toEntity>catania-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-perugia-r2bb">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>perugia-r</fromEntity>
+                <toEntity>perugia-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-bari-r2bb">
+                <Baudrate>45000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>bari-r</fromEntity>
+                <toEntity>bari-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-padova-r2bb">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>padova-r</fromEntity>
+                <toEntity>padova-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2swto">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swto</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2swbo">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swbo</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2swrm">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swrm</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2swna">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>swna</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swto2mi-padova">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>padova-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swto2bb-torino">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swto</fromEntity>
+                <toEntity>torino-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2bb-bologna">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>bologna-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2bb-pisa">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>pisa-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2bb-firenze">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>firenze-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2bb-roma">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>roma-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2bb-perugia">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>perugia-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swna2bb-bari">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swna</fromEntity>
+                <toEntity>bari-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swna2bb-catania">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swna</fromEntity>
+                <toEntity>catania-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+        </netLinks>
+        <geLinks>
+            <geLinkItem name="l-torino-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>torino-site</fromEntity>
+                <toEntity>torino-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-pisa-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pisa-site</fromEntity>
+                <toEntity>pisa-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-bologna-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>bologna-site</fromEntity>
+                <toEntity>bologna-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-firenze-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>firenze-site</fromEntity>
+                <toEntity>firenze-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-roma-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>roma-site</fromEntity>
+                <toEntity>roma-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-catania-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>catania-site</fromEntity>
+                <toEntity>catania-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-perugia-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>perugia-site</fromEntity>
+                <toEntity>perugia-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-bari-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>bari-site</fromEntity>
+                <toEntity>bari-r</toEntity>
+            </geLinkItem>
+            <geLinkItem name="l-padova-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>padova-site</fromEntity>
+                <toEntity>padova-r</toEntity>
+            </geLinkItem>
+        </geLinks>
+    </topology>
+    <grid>
+        <gridElement name="torino-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>41</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-torino-site"/>
+                <hdList>
+                    <hdItem name="HD-1-torino-site">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-torino-site">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-torino-site</link>
+        </gridElement>
+        <gridElement name="padova-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>54</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-padova-site"/>
+                <hdList>
+                    <hdItem name="HD-1-padova-site">
+                        <Capacity>4000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-padova-site">
+                        <Capacity>4000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-padova-site</link>
+        </gridElement>
+        <gridElement name="pisa-site">
+            <isRB>true</isRB>
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>64</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-pisa-site"/>
+                <hdList>
+                    <hdItem name="HD-1-pisa-site">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-pisa-site">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-pisa-site</link>
+        </gridElement>
+        <gridElement name="bologna-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>40</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-bologna-site"/>
+                <hdList>
+                    <hdItem name="HD-1-bologna-site">
+                        <Capacity>70.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-bologna-site</link>
+        </gridElement>
+        <gridElement name="firenze-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>11</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-firenze-site"/>
+                <hdList>
+                    <hdItem name="HD-1-firenze-site">
+                        <Capacity>350.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-firenze-site">
+                        <Capacity>350.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-firenze-site</link>
+        </gridElement>
+        <gridElement name="roma-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>25</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-roma-site"/>
+                <hdList>
+                    <hdItem name="HD-1-roma-site">
+                        <Capacity>50.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-roma-site">
+                        <Capacity>50.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-roma-site</link>
+        </gridElement>
+        <gridElement name="catania-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>74</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-catania-site"/>
+                <hdList>
+                    <hdItem name="HD-1-catania-site">
+                        <Capacity>8000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-catania-site">
+                        <Capacity>8000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-catania-site</link>
+        </gridElement>
+        <gridElement name="perugia-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>54</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-perugia-site"/>
+                <hdList>
+                    <hdItem name="HD-1-perugia-site">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-perugia-site">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-perugia-site</link>
+        </gridElement>
+        <gridElement name="bari-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>45</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-bari-site"/>
+                <hdList>
+                    <hdItem name="HD-0-bari-site">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-bari-site</link>
+        </gridElement>
+    </grid>
+</scenario>
