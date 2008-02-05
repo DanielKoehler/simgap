@@ -58,7 +58,6 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.util.LinkedList;
 
-import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.xml.XMLReader;
 import net.sf.gap.xml.impl.XMLNetworkTopology;
 import net.sf.gap.xml.types.GridElementType;
@@ -147,7 +146,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     protected void initializeCEs() {
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             if (!getScenario().getGrid().getGridElements().get(i).isSE()) {
-                GridElement computingElement = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+                QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
                 this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
                 this.getCEs().add(computingElement);
             }
@@ -157,7 +156,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     protected void initializeSEs() {
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             if (getScenario().getGrid().getGridElements().get(i).isSE()) {
-                GridElement computingElement = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+                QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
                 this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
                 this.getCEs().add(computingElement);
             }
@@ -185,7 +184,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     protected void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            GridElement computingElement = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+            QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
             int numAgents = computingElement.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
@@ -281,7 +280,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     Weekends.add(
                             new Integer(Calendar.SUNDAY));
                     LinkedList Holidays = new LinkedList();
-                    GridElement ge = null;
+                    QAGESAGridElement ge = null;
                     try {
                         // create the resource calendar
                         ResourceCalendar cal =
@@ -300,7 +299,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                                 new SimpleReplicaManager(
                                 "RM_" + geName,
                                 geName);
-                        ge = new GridElement(
+                        ge = new QAGESAGridElement(
                                 geName,
                                 link,
                                 resConfig,
@@ -363,7 +362,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         @SuppressWarnings("unused")
 		Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         int index = 0;
-        GridElement ce = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(index).getName());
+        QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(index).getName());
         this.setPlatform(new QAGESAPlatform(false));
         QAGESAPlatform agent = (QAGESAPlatform) this.getPlatform();
         
@@ -374,14 +373,14 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             if (!getScenario().getGrid().getGridElements().get(i).isSE()) {
-                ce = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+                ce = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
                 ce.setAgentPlatform(agent);
             }
         }
 
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             if (getScenario().getGrid().getGridElements().get(i).isSE()) {
-                ce = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+                ce = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
                 ce.setAgentPlatform(agent);
             }
         }
@@ -392,7 +391,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgents() throws Exception {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
-            GridElement se = (GridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
             int numAgents = se.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = new TranscodingAgent(se, "AGENT_"
