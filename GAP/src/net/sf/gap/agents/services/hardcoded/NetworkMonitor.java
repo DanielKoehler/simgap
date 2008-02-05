@@ -33,13 +33,13 @@ import gridsim.IO_data;
 import gridsim.net.InfoPacket;
 
 import java.util.Iterator;
+import net.sf.gap.grid.components.AbstractGridElement;
 
 import junit.framework.Assert;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.impl.nm.NetworkMap;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.NetworkMapReply;
 import net.sf.gap.messages.impl.NetworkMapRequest;
 import net.sf.gap.messages.impl.PingReply;
@@ -94,7 +94,20 @@ public class NetworkMonitor {
 		}
 	}
 
-	public void processEvent(Sim_event ev) {
+	public void asyncProcessNetworkMap(AbstractGridElement ge1) {
+            int ge1id = ge1.get_id();
+            Iterator<AbstractGridElement> it2 = this.getAgentPlatform()
+                            .getGisService().getGisRepository().getListGEs().iterator();
+            while (it2.hasNext()) {
+                    AbstractGridElement ge2 = it2.next();
+                    int ge2id = ge2.get_id();
+                    if (ge1id != ge2id) {
+                            this.asyncRequestPing(ge1id, ge2id);
+                    }
+            }
+	}
+
+        public void processEvent(Sim_event ev) {
 		switch (ev.get_tag()) {
 		case Tags.NM_NETWORKMAP_REQ:
 			int SIZE = 500;
