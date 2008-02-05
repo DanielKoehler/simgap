@@ -218,6 +218,9 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             GridElementType geItem =
                     getScenario().getGrid().getGridElements().get(i);
+            if (geItem.isRB()) {
+                this.setRBname(geItem.getName());
+            }
             String linkName = geItem.getLink();
             if (getScenario().getTopology().getMapLinks().
                     containsKey(linkName)) {
