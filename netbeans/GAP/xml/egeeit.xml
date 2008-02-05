@@ -238,6 +238,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>torino-site</fromEntity>
                 <toEntity>torino-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-pisa-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -245,6 +246,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>pisa-site</fromEntity>
                 <toEntity>pisa-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-bologna-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -252,6 +254,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>bologna-site</fromEntity>
                 <toEntity>bologna-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-firenze-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -259,6 +262,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>firenze-site</fromEntity>
                 <toEntity>firenze-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-roma-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -266,6 +270,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>roma-site</fromEntity>
                 <toEntity>roma-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-catania-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -273,6 +278,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>catania-site</fromEntity>
                 <toEntity>catania-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-perugia-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -280,6 +286,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>perugia-site</fromEntity>
                 <toEntity>perugia-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-bari-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -287,6 +294,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>bari-site</fromEntity>
                 <toEntity>bari-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-padova-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -294,6 +302,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>padova-site</fromEntity>
                 <toEntity>padova-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
         </geLinks>
     </topology>
