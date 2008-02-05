@@ -178,7 +178,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         this.createAndAttachSEs();
         this.createAndAttachAgentPlatform();
         this.createAndAttachAgents();
-        //this.createAndAttachUsers();
+        this.createAndAttachUsers();
     }
 
     protected void initializeAgents() {
