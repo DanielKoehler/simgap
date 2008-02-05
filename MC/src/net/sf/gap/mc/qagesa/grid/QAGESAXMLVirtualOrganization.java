@@ -215,7 +215,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     @SuppressWarnings("unchecked")
     @Override
     public void createAndAttachCEs() throws Exception {
-        for (int i = 0; i < this.getNumCEs(); i++) {
+        for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             GridElementType geItem =
                     getScenario().getGrid().getGridElements().get(i);
             String linkName = geItem.getLink();
@@ -241,7 +241,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     MachineList mList = new MachineList();
                     int np = 0;
                     int m = mListType.getItems().size();
-                    for (int j = 0; i < m; j++) {
+                    for (int j = 0; j < m; j++) {
                         MachineType mType =
                                 mListType.getItems().
                                 get(j);
@@ -321,7 +321,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                                 ge.addStorage(storage);
                             }
                             for (int it = 0; 
-                                 it < geItem.getStorage().getHardDiskList().
+                                 it < geItem.getStorage().getTapeList().
                                  getItems().size(); it++) {
                                 TapeType tapeType = 
                                         geItem.getStorage().getTapeList().
