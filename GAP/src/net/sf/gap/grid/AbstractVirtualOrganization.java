@@ -66,6 +66,8 @@ public abstract class AbstractVirtualOrganization {
 	private NetworkTopology topology;
 
 	private Vector<AgentMiddleware> ams;
+        
+        private String RBname;
 
 	/**
 	 * Creates a new instance of AbstractVirtualOrganization
@@ -208,4 +210,12 @@ public abstract class AbstractVirtualOrganization {
 	public void setTraceFlag(boolean traceFlag) {
 		this.traceFlag = traceFlag;
 	}
+
+    public String getRBname() {
+        return RBname;
+    }
+
+    public void setRBname(String RBname) {
+        this.RBname = RBname;
+    }
 }
