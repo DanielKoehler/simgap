@@ -77,7 +77,7 @@ public class QAGESAXML {
 				System.out.println("Unwanted errors happen");
 			}
 
-			QAGESAXML.simulate("xml/simple.xml","xml/scenario.xsd",numUsers, numRequests, false, whichMeasure,
+			QAGESAXML.simulate("xml/egeeit.xml","xml/scenario.xsd",numUsers, numRequests, false, whichMeasure,
 					numReplications, confidence, accuracy, swing);
 		}
 	}
