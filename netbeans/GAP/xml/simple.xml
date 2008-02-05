@@ -19,11 +19,8 @@
             <routerItem name="torino-r"/>
             <routerItem name="pisa-r"/>
             <!-- Backbones & switches -->
-            <routerItem name="it-sw-bb"/>
             <routerItem name="torino-bb"/>
             <routerItem name="pisa-bb"/>
-            <routerItem name="swto"/>
-            <routerItem name="swbo"/>
         </routers>
         <ges>
             <geItem name="torino-site"/>
@@ -46,27 +43,11 @@
                 <toEntity>pisa-bb</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swto2swbo">
-                <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>swto</fromEntity>
-                <toEntity>swbo</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-swto2bb-torino">
+            <netLinkItem name="l-torino-bb2bb-pisa">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>swto</fromEntity>
-                <toEntity>torino-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-swbo2bb-pisa">
-                <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>swbo</fromEntity>
+                <fromEntity>torino-bb</fromEntity>
                 <toEntity>pisa-bb</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
@@ -78,6 +59,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>torino-site</fromEntity>
                 <toEntity>torino-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
             <geLinkItem name="l-pisa-site">
                 <Baudrate>155000000.0</Baudrate>
@@ -85,6 +67,7 @@
                 <MTU>1512</MTU>
                 <fromEntity>pisa-site</fromEntity>
                 <toEntity>pisa-r</toEntity>
+                <bidirectional>true</bidirectional>
             </geLinkItem>
         </geLinks>
     </topology>
