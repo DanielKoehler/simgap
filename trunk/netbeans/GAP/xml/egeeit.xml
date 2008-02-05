@@ -16,15 +16,15 @@
     <topology>
         <routers>
             <!-- Routers to which GEs are attached to -->
-            <routerItem name="torino-r"/>
-            <routerItem name="pisa-r"/>
-            <routerItem name="bologna-r"/>
-            <routerItem name="firenze-r"/>
-            <routerItem name="roma-r"/>
-            <routerItem name="catania-r"/>
-            <routerItem name="perugia-r"/>
-            <routerItem name="bari-r"/>
-            <routerItem name="padova-r"/>
+            <routerItem name="to-ce-r"/>
+            <routerItem name="pi-ce-r"/>
+            <routerItem name="bo-ce-r"/>
+            <routerItem name="fi-ce-r"/>
+            <routerItem name="rm-ce-r"/>
+            <routerItem name="ct-ce-r"/>
+            <routerItem name="pg-ce-r"/>
+            <routerItem name="ba-ce-r"/>
+            <routerItem name="pd-ce-r"/>
             <!-- Backbones & switches -->
             <routerItem name="swmi"/>
             <routerItem name="swto"/>
@@ -33,15 +33,25 @@
             <routerItem name="swna"/>
         </routers>
         <ges>
-            <geItem name="torino-site"/>
-            <geItem name="pisa-site"/>
-            <geItem name="bologna-site"/>
-            <geItem name="firenze-site"/>
-            <geItem name="roma-site"/>
-            <geItem name="catania-site"/>
-            <geItem name="perugia-site"/>
-            <geItem name="bari-site"/>
-            <geItem name="padova-site"/>
+            <geItem name="to-ce"/>
+            <geItem name="pi-ce"/>
+            <geItem name="bo-ce"/>
+            <geItem name="fi-ce"/>
+            <geItem name="rm-ce"/>
+            <geItem name="ct-ce"/>
+            <geItem name="pg-ce"/>
+            <geItem name="ba-ce"/>
+            <geItem name="pd-ce"/>
+            
+            <geItem name="to-se"/>
+            <geItem name="pi-se"/>
+            <geItem name="bo-se"/>
+            <geItem name="fi-se"/>
+            <geItem name="rm-se"/>
+            <geItem name="ct-se"/>
+            <geItem name="pg-se"/>
+            <geItem name="ba-se"/>
+            <geItem name="pd-se"/>
         </ges>
         <netLinks>
             <netLinkItem name="l-swmi2swto">
@@ -76,156 +86,156 @@
                 <toEntity>swna</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swmi2r-padova">
+            <netLinkItem name="l-swmi2pd-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>10.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
-                <toEntity>padova-r</toEntity>
+                <toEntity>pd-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swto2r-torino">
+            <netLinkItem name="l-swto2to-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swto</fromEntity>
-                <toEntity>torino-r</toEntity>
+                <toEntity>to-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2r-bologna">
+            <netLinkItem name="l-swbo2bo-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
-                <toEntity>bologna-r</toEntity>
+                <toEntity>bo-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2r-pisa">
+            <netLinkItem name="l-swbo2pi-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>6.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
-                <toEntity>pisa-r</toEntity>
+                <toEntity>pi-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2r-firenze">
+            <netLinkItem name="l-swbo2fi-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>6.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
-                <toEntity>firenze-r</toEntity>
+                <toEntity>fi-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swrm2r-roma">
+            <netLinkItem name="l-swrm2rm-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
-                <toEntity>roma-r</toEntity>
+                <toEntity>rm-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swrm2r-perugia">
+            <netLinkItem name="l-swrm2pg-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
-                <toEntity>perugia-r</toEntity>
+                <toEntity>pg-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swna2r-bari">
+            <netLinkItem name="l-swna2ba-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>10.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
-                <toEntity>bari-r</toEntity>
+                <toEntity>ba-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swna2r-catania">
+            <netLinkItem name="l-swna2ct-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>16.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
-                <toEntity>catania-r</toEntity>
+                <toEntity>ct-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
         </netLinks>
         <geLinks>
-            <geLinkItem name="l-torino-site">
+            <geLinkItem name="l-to-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>torino-site</fromEntity>
-                <toEntity>torino-r</toEntity>
+                <fromEntity>to-ce</fromEntity>
+                <toEntity>to-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-pisa-site">
+            <geLinkItem name="l-pi-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>pisa-site</fromEntity>
-                <toEntity>pisa-r</toEntity>
+                <fromEntity>pi-ce</fromEntity>
+                <toEntity>pi-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-bologna-site">
+            <geLinkItem name="l-bo-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>bologna-site</fromEntity>
-                <toEntity>bologna-r</toEntity>
+                <fromEntity>bo-ce</fromEntity>
+                <toEntity>bo-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-firenze-site">
+            <geLinkItem name="l-fi-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>firenze-site</fromEntity>
-                <toEntity>firenze-r</toEntity>
+                <fromEntity>fi-ce</fromEntity>
+                <toEntity>fi-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-roma-site">
+            <geLinkItem name="l-ce-rm-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>roma-site</fromEntity>
-                <toEntity>roma-r</toEntity>
+                <fromEntity>rm-ce</fromEntity>
+                <toEntity>rm-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-catania-site">
+            <geLinkItem name="l-ct-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>catania-site</fromEntity>
-                <toEntity>catania-r</toEntity>
+                <fromEntity>ct-ce</fromEntity>
+                <toEntity>ct-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-perugia-site">
+            <geLinkItem name="l-pg-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>perugia-site</fromEntity>
-                <toEntity>perugia-r</toEntity>
+                <fromEntity>pg-ce</fromEntity>
+                <toEntity>pg-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-bari-site">
+            <geLinkItem name="l-ba-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>bari-site</fromEntity>
-                <toEntity>bari-r</toEntity>
+                <fromEntity>ba-ce</fromEntity>
+                <toEntity>ba-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <geLinkItem name="l-padova-site">
+            <geLinkItem name="l-pd-ce">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>padova-site</fromEntity>
-                <toEntity>padova-r</toEntity>
+                <fromEntity>pd-ce</fromEntity>
+                <toEntity>pd-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
         </geLinks>
     </topology>
     <grid>
-        <gridElement name="torino-site">
+        <gridElement name="to-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -240,15 +250,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-torino-site"/>
+                <RM name="RM-to-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-torino-site">
+                    <hdItem name="HD-1-to-ce">
                         <Capacity>1000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-torino-site">
+                    <hdItem name="HD-2-to-ce">
                         <Capacity>1000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -256,9 +266,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-torino-site</link>
+            <link>l-to-ce</link>
         </gridElement>
-        <gridElement name="padova-site">
+        <gridElement name="pd-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -273,15 +283,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-padova-site"/>
+                <RM name="RM-pd-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-padova-site">
+                    <hdItem name="HD-1-pd-ce">
                         <Capacity>4000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-padova-site">
+                    <hdItem name="HD-2-pd-ce">
                         <Capacity>4000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -289,9 +299,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-padova-site</link>
+            <link>l-pd-ce</link>
         </gridElement>
-        <gridElement name="pisa-site">
+        <gridElement name="pi-ce">
             <isRB>true</isRB>
             <machineList>
                 <items>
@@ -307,15 +317,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-pisa-site"/>
+                <RM name="RM-pi-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-pisa-site">
+                    <hdItem name="HD-1-pi-ce">
                         <Capacity>2000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-pisa-site">
+                    <hdItem name="HD-2-pi-ce">
                         <Capacity>2000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -323,9 +333,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-pisa-site</link>
+            <link>l-pi-ce</link>
         </gridElement>
-        <gridElement name="bologna-site">
+        <gridElement name="bo-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -340,9 +350,9 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-bologna-site"/>
+                <RM name="RM-bo-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-bologna-site">
+                    <hdItem name="HD-1-bo-ce">
                         <Capacity>70.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -350,9 +360,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-bologna-site</link>
+            <link>l-bo-ce</link>
         </gridElement>
-        <gridElement name="firenze-site">
+        <gridElement name="fi-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -367,15 +377,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-firenze-site"/>
+                <RM name="RM-fi-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-firenze-site">
+                    <hdItem name="HD-1-fi-ce">
                         <Capacity>350.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-firenze-site">
+                    <hdItem name="HD-2-fi-ce">
                         <Capacity>350.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -383,9 +393,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-firenze-site</link>
+            <link>l-fi-ce</link>
         </gridElement>
-        <gridElement name="roma-site">
+        <gridElement name="rm-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -400,15 +410,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-roma-site"/>
+                <RM name="RM-ce-rm-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-roma-site">
+                    <hdItem name="HD-1-ce-rm-ce">
                         <Capacity>50.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-roma-site">
+                    <hdItem name="HD-2-ce-rm-ce">
                         <Capacity>50.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -416,9 +426,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-roma-site</link>
+            <link>l-ce-rm-ce</link>
         </gridElement>
-        <gridElement name="catania-site">
+        <gridElement name="ct-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -433,15 +443,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-catania-site"/>
+                <RM name="RM-ct-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-catania-site">
+                    <hdItem name="HD-1-ct-ce">
                         <Capacity>8000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-catania-site">
+                    <hdItem name="HD-2-ct-ce">
                         <Capacity>8000.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -449,9 +459,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-catania-site</link>
+            <link>l-ct-ce</link>
         </gridElement>
-        <gridElement name="perugia-site">
+        <gridElement name="pg-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -466,15 +476,15 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-perugia-site"/>
+                <RM name="RM-pg-ce"/>
                 <hdList>
-                    <hdItem name="HD-1-perugia-site">
+                    <hdItem name="HD-1-pg-ce">
                         <Capacity>100.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
                         <MaxTransferRate>133.0</MaxTransferRate>
                     </hdItem>
-                    <hdItem name="HD-2-perugia-site">
+                    <hdItem name="HD-2-pg-ce">
                         <Capacity>100.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -482,9 +492,9 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-perugia-site</link>
+            <link>l-pg-ce</link>
         </gridElement>
-        <gridElement name="bari-site">
+        <gridElement name="ba-ce">
             <machineList>
                 <items>
                     <Machine>
@@ -499,9 +509,9 @@
                 </items>
             </machineList>
             <storage>
-                <RM name="RM-bari-site"/>
+                <RM name="RM-ba-ce"/>
                 <hdList>
-                    <hdItem name="HD-0-bari-site">
+                    <hdItem name="HD-0-ba-ce">
                         <Capacity>100.0</Capacity>
                         <Latency>4.17</Latency>
                         <AvgSeekTime>9.0</AvgSeekTime>
@@ -509,7 +519,7 @@
                     </hdItem>
                 </hdList>
             </storage>
-            <link>l-bari-site</link>
+            <link>l-ba-ce</link>
         </gridElement>
     </grid>
 </scenario>
