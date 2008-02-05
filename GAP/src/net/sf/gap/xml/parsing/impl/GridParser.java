@@ -135,15 +135,32 @@ public class GridParser extends Parser {
 		for (int i = 0; i < machineListItems.getLength(); i++) {
 			Element machineItem = (Element) machineListItems.item(i);
 			MachineType machine = new MachineType();
+			NodeList rmListItems = machineItem.getElementsByTagName("repeatMachine");
+                        int repeatMachine = 1;
+			for (int j = 0; j < rmListItems.getLength(); j++) {
+ 			  Element rmItem = (Element) rmListItems.item(j);
+                          repeatMachine = Integer.parseInt(rmItem.getTextContent());
+                        }
 			NodeList peListItems = machineItem.getElementsByTagName("PE");
 			for (int j = 0; j < peListItems.getLength(); j++) {
 				Element peItem = (Element) peListItems.item(j);
 				Element mipsItem = (Element) peItem
 						.getElementsByTagName("MIPS").item(0);
 				int MIPS = Integer.parseInt(mipsItem.getTextContent());
-				machine.addPE(MIPS);
+        			NodeList countListItems = machineItem.getElementsByTagName("count");
+                                int count = 1;
+        			for (int jj = 0; jj < countListItems.getLength(); jj++) {
+                                    Element countItem = (Element) countListItems.item(jj);
+                                    count = Integer.parseInt(countItem.getTextContent());
+                                    for (int k=0;k<count;k++) {
+                                            machine.addPE(MIPS);
+                                    }
+                                }
+                                
 			}
-			gridElementInstance.addMachine(machine);
+                        for (int k=0;k<repeatMachine;k++) {
+        			gridElementInstance.addMachine(machine);
+                        }
 		}
 		NodeList storageNodeList = geItem.getElementsByTagName("storage");
 		if (storageNodeList.getLength() > 0) {
