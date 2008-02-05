@@ -135,8 +135,7 @@ public class GISService extends PlatformService {
 		int numCEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumCEs();
 		for (int i = 0; i < numCEs; i++) {
-			AbstractGridElement ge = (AbstractGridElement) Sim_system
-					.get_entity("CE_" + i);
+			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
 			int geid = ge.get_id();
 			int numPEs = ge.getNumPE();
 			int numFreePEs = super.getNumFreePE(ge.get_id());
@@ -160,14 +159,12 @@ public class GISService extends PlatformService {
 
 			for (int i = 0; i < this.getAgentPlatform()
 					.getVirtualOrganization().getNumCEs(); i++) {
-				AbstractGridElement ce = (AbstractGridElement) Sim_system
-						.get_entity("CE_" + i);
+				AbstractGridElement ce = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
 				this.getGisRepository().addGE(ce);
 			}
 			for (int i = 0; i < this.getAgentPlatform()
 					.getVirtualOrganization().getNumSEs(); i++) {
-				AbstractGridElement se = (AbstractGridElement) Sim_system
-						.get_entity("SE_" + i);
+				AbstractGridElement se = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
 				this.getGisRepository().addGE(se);
 			}
 		}
