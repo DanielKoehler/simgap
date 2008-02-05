@@ -26,16 +26,6 @@
             <routerItem name="bari-r"/>
             <routerItem name="padova-r"/>
             <!-- Backbones & switches -->
-            <routerItem name="it-sw-bb"/>
-            <routerItem name="torino-bb"/>
-            <routerItem name="pisa-bb"/>
-            <routerItem name="bologna-bb"/>
-            <routerItem name="firenze-bb"/>
-            <routerItem name="roma-bb"/>
-            <routerItem name="catania-bb"/>
-            <routerItem name="perugia-bb"/>
-            <routerItem name="bari-bb"/>
-            <routerItem name="padova-bb"/>
             <routerItem name="swmi"/>
             <routerItem name="swto"/>
             <routerItem name="swbo"/>
@@ -54,78 +44,6 @@
             <geItem name="padova-site"/>
         </ges>
         <netLinks>
-            <netLinkItem name="l-torino-r2bb">
-                <Baudrate>45000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>torino-r</fromEntity>
-                <toEntity>torino-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-pisa-r2bb">
-                <Baudrate>100000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>pisa-r</fromEntity>
-                <toEntity>pisa-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-bologna-r2bb">
-                <Baudrate>155000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>bologna-r</fromEntity>
-                <toEntity>bologna-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-firenze-r2bb">
-                <Baudrate>100000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>firenze-r</fromEntity>
-                <toEntity>firenze-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-roma-r2bb">
-                <Baudrate>45000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>roma-r</fromEntity>
-                <toEntity>roma-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-catania-r2bb">
-                <Baudrate>100000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>catania-r</fromEntity>
-                <toEntity>catania-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-perugia-r2bb">
-                <Baudrate>100000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>perugia-r</fromEntity>
-                <toEntity>perugia-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-bari-r2bb">
-                <Baudrate>45000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>bari-r</fromEntity>
-                <toEntity>bari-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
-            <netLinkItem name="l-padova-r2bb">
-                <Baudrate>155000000.0</Baudrate>
-                <Delay>4.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>padova-r</fromEntity>
-                <toEntity>padova-bb</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
             <netLinkItem name="l-swmi2swto">
                 <Baudrate>10000000000.0</Baudrate>
                 <Delay>4.0</Delay>
@@ -158,76 +76,76 @@
                 <toEntity>swna</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swto2mi-padova">
+            <netLinkItem name="l-swmi2r-padova">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
-                <toEntity>padova-bb</toEntity>
+                <toEntity>padova-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swto2bb-torino">
+            <netLinkItem name="l-swto2r-torino">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swto</fromEntity>
-                <toEntity>torino-bb</toEntity>
+                <toEntity>torino-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2bb-bologna">
+            <netLinkItem name="l-swbo2r-bologna">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
-                <toEntity>bologna-bb</toEntity>
+                <toEntity>bologna-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2bb-pisa">
+            <netLinkItem name="l-swbo2r-pisa">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
-                <toEntity>pisa-bb</toEntity>
+                <toEntity>pisa-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2bb-firenze">
+            <netLinkItem name="l-swbo2r-firenze">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
-                <toEntity>firenze-bb</toEntity>
+                <toEntity>firenze-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swrm2bb-roma">
+            <netLinkItem name="l-swrm2r-roma">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
-                <toEntity>roma-bb</toEntity>
+                <toEntity>roma-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swrm2bb-perugia">
+            <netLinkItem name="l-swrm2r-perugia">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
-                <toEntity>perugia-bb</toEntity>
+                <toEntity>perugia-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swna2bb-bari">
+            <netLinkItem name="l-swna2r-bari">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
-                <toEntity>bari-bb</toEntity>
+                <toEntity>bari-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swna2bb-catania">
+            <netLinkItem name="l-swna2r-catania">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
-                <toEntity>catania-bb</toEntity>
+                <toEntity>catania-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
         </netLinks>
