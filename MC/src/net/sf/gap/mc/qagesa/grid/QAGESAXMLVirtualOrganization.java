@@ -156,9 +156,9 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     protected void initializeSEs() {
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
             if (getScenario().getGrid().getGridElements().get(i).isSE()) {
-                QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
-                this.mapCEs.put(computingElement.get_id(), computingElement.getExternalRouter());
-                this.getCEs().add(computingElement);
+                QAGESAGridElement storageElement = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+                this.mapSEs.put(storageElement.get_id(), storageElement.getExternalRouter());
+                this.getSEs().add(storageElement);
             }
         }
     }
@@ -184,7 +184,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     protected void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs(); i++) {
-            QAGESAGridElement computingElement = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+            QAGESAGridElement computingElement = (QAGESAGridElement) this.getCEs().get(i);
             int numAgents = computingElement.getNumPE();
             for (int j = 0; j < numAgents; j++) {
                 TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
@@ -360,28 +360,38 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     
     public void createAndAttachAgentPlatform() throws Exception {
         @SuppressWarnings("unused")
-		Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
-        int index = 0;
-        QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(index).getName());
+        Uniform_int r = new Uniform_int("createAndAttachAgentPlatform");
         this.setPlatform(new QAGESAPlatform(false));
         QAGESAPlatform agent = (QAGESAPlatform) this.getPlatform();
-        
-        agent.setGridElement(ce);
-        agent.setVirtualOrganization(this);
-        
-        ce.attachPlatform(agent);
+        for (int i=0;i<this.getNumCEs()+this.getNumSEs();i++) {
+            if (this.getScenario().getGrid().getGridElements().get(i).isRB()) {
+                String cename = this.getScenario().getGrid().getGridElements().get(i).getName();
+                QAGESAGridElement ce = 
+                        (QAGESAGridElement) Sim_system.get_entity(cename);
+
+                agent.setGridElement(ce);
+                agent.setVirtualOrganization(this);
+
+                ce.attachPlatform(agent);
+                break;
+            }
+        }
         
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
-            if (!getScenario().getGrid().getGridElements().get(i).isSE()) {
-                ce = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
+            if (!this.getScenario().getGrid().getGridElements().get(i).isSE()) {
+                String cename = this.getScenario().getGrid().getGridElements().get(i).getName();
+                QAGESAGridElement ce = 
+                        (QAGESAGridElement) Sim_system.get_entity(cename);
                 ce.setAgentPlatform(agent);
             }
         }
 
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
-            if (getScenario().getGrid().getGridElements().get(i).isSE()) {
-                ce = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
-                ce.setAgentPlatform(agent);
+            if (this.getScenario().getGrid().getGridElements().get(i).isSE()) {
+                String sename = this.getScenario().getGrid().getGridElements().get(i).getName();
+                QAGESAGridElement se = 
+                        (QAGESAGridElement) Sim_system.get_entity(sename);
+                se.setAgentPlatform(agent);
             }
         }
         
@@ -391,13 +401,17 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgents() throws Exception {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
-            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(getScenario().getGrid().getGridElements().get(i).getName());
-            int numAgents = se.getNumPE();
-            for (int j = 0; j < numAgents; j++) {
-                TranscodingAgent agent = new TranscodingAgent(se, "AGENT_"
-                        + totalAgents, 0, false, this.isCachingEnabled());
-                totalAgents++;
-                se.attachAgent(agent);
+            if (this.getScenario().getGrid().getGridElements().get(i).isSE()) {
+                String cename = this.getScenario().getGrid().getGridElements().get(i).getName();
+                QAGESAGridElement ce = 
+                        (QAGESAGridElement) Sim_system.get_entity(cename);
+                int numAgents = ce.getNumPE();
+                for (int j = 0; j < numAgents; j++) {
+                    TranscodingAgent agent = new TranscodingAgent(ce, "AGENT_"
+                            + totalAgents, 0, false, this.isCachingEnabled());
+                    totalAgents++;
+                    ce.attachAgent(agent);
+                }
             }
         }
         this.getPlatform().setTotalAgents(totalAgents);
