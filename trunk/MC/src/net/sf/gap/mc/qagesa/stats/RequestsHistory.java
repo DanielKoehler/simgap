@@ -42,7 +42,7 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
     public RequestsHistory(int numCEs) {
         this.setPlayRequests(0.0,0);
         this.setNumCEs(numCEs);
-        //System.out.println("FILEFORMAT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;TIMESTAMP;REQUESTS");
+        System.out.println("CSV;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;TIMESTAMP;REQUESTS");
     }
     
     @SuppressWarnings("unchecked")
