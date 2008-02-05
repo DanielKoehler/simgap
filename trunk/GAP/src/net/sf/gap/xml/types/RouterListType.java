@@ -6,9 +6,9 @@
  *
  * License:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
- * EntityType.java
+ * RouterListType.java
  *
- * Created on 22 January 2008, 09.00 by Giovanni Novelli
+ * Created on 5 February 2008, 09.00 by Giovanni Novelli
  *
  * $Id$
  *
@@ -16,25 +16,22 @@
 
 package net.sf.gap.xml.types;
 
+import java.util.LinkedList;
+
 /**
- * 
+ *
  * @author Giovanni Novelli
  */
-public abstract class EntityType {
-	private String name;
-
-	public EntityType(String name) {
-		this.setName(name);
-	}
-        public boolean equals(EntityType obj) {
-            return this.getName().equalsIgnoreCase(obj.getName());
+public class RouterListType extends LinkedList<RouterType> {
+    public boolean contains(RouterType o) {
+        int n = this.size();
+        boolean result = false;
+        for (int i=0;i<n;i++) {
+           if (this.get(i).equals(o)) {
+               result=true;
+               break;
+           }
         }
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+        return result;
+    }
 }

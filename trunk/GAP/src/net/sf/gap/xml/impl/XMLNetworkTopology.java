@@ -35,6 +35,7 @@ import java.util.Vector;
 import net.sf.gap.grid.NetworkTopology;
 import net.sf.gap.xml.types.LinkType;
 import net.sf.gap.xml.types.RouterType;
+import net.sf.gap.xml.types.RouterListType;
 import net.sf.gap.xml.types.ScenarioType;
 
 /**
@@ -62,7 +63,7 @@ public class XMLNetworkTopology extends NetworkTopology {
 	public void initialize() {
 		int N = this.getNumRouters();
 		this.setRouters(new Vector<RIPRouter>(N));
-		LinkedList<RouterType> routerItems = 
+		RouterListType routerItems = 
                         this.getScenario().getTopology().getRouters();
 		for (int i = 0; i < N; i++) {
 			String routerName = routerItems.get(i).getName();
@@ -76,10 +77,11 @@ public class XMLNetworkTopology extends NetworkTopology {
 	public void create(boolean trace) throws Exception {
 		int N = this.getNumRouters();
 		this.setRouters(new Vector<RIPRouter>(N));
-		LinkedList<RouterType> routerItems = 
+		RouterListType routerItems = 
                         this.getScenario().getTopology().getRouters();
 		for (int i = 0; i < N; i++) {
 			String routerName = routerItems.get(i).getName();
+                        System.out.println(i + " " + routerName);
 			RIPRouter router = new RIPRouter(routerName, trace);
 			this.addElement(router);
 		}
@@ -92,9 +94,9 @@ public class XMLNetworkTopology extends NetworkTopology {
 			String to = linkItem.getToEntity();
 			boolean isNetworkLink = 
                                 (
-                                    routerItems.contains(from) 
+                                    routerItems.contains(new RouterType(from)) 
                                     && 
-                                    routerItems.contains(to)
+                                    routerItems.contains(new RouterType(to)) 
                                 );
 			if (isNetworkLink) {
 				RIPRouter r1 = 

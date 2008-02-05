@@ -24,4 +24,5 @@ public class RouterType extends EntityType {
 	public RouterType(String name) {
 		super(name);
 	}
+        
 }
