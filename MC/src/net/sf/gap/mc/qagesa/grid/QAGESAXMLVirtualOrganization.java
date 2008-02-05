@@ -184,7 +184,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     protected void initializeAgents() {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
-            if (this.getScenario().getGrid().getGridElements().get(i).isSE()) {
+            if (!this.getScenario().getGrid().getGridElements().get(i).isSE()) {
                 String cename = this.getScenario().getGrid().getGridElements().get(i).getName();
                 QAGESAGridElement computingElement = 
                         (QAGESAGridElement) Sim_system.get_entity(cename);
@@ -405,7 +405,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     public void createAndAttachAgents() throws Exception {
         int totalAgents = 0;
         for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
-            if (this.getScenario().getGrid().getGridElements().get(i).isSE()) {
+            if (!this.getScenario().getGrid().getGridElements().get(i).isSE()) {
                 String cename = this.getScenario().getGrid().getGridElements().get(i).getName();
                 QAGESAGridElement ce = 
                         (QAGESAGridElement) Sim_system.get_entity(cename);
