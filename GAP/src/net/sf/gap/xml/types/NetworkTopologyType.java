@@ -24,13 +24,13 @@ import java.util.LinkedList;
  * @author Giovanni Novelli
  */
 public class NetworkTopologyType {
-	private LinkedList<RouterType> routers;
+	private RouterListType routers;
 	private LinkedList<String> ges;
 	private LinkedList<LinkType> links;
 	private HashMap<String, LinkType> mapLinks;
 
 	public NetworkTopologyType() {
-		this.setRouters(new LinkedList<RouterType>());
+		this.setRouters(new RouterListType());
 		this.setGes(new LinkedList<String>());
 		this.setLinks(new LinkedList<LinkType>());
 		this.setMapLinks(new HashMap<String, LinkType>());
@@ -53,11 +53,11 @@ public class NetworkTopologyType {
 		return this.getLinks().add(link);
 	}
 
-	public LinkedList<RouterType> getRouters() {
+	public RouterListType getRouters() {
 		return routers;
 	}
 
-	public void setRouters(LinkedList<RouterType> routers) {
+	public void setRouters(RouterListType routers) {
 		this.routers = routers;
 	}
 
