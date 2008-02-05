@@ -35,6 +35,9 @@ import net.sf.gap.simulation.AbstractSimulation;
  * @author Giovanni Novelli
  */
 public class XMLSimulation extends AbstractSimulation {
+        private String _XML;
+        private String _XSD;
+    
         private int numUsers;
         private int numRequests;
         private boolean caching;
@@ -45,8 +48,10 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public XMLSimulation(String xml, String xsd, int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications, confidence, accuracy);
+            this.setXML(xml);
+            this.setXSD(xsd);
             this.setNumUsers(numUsers);
             this.setNumRequests(numRequests);
             this.setCaching(caching);
@@ -61,8 +66,10 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(int numUsers, boolean caching, int whichMeasure, int replications) {
+	public XMLSimulation(String xml, String xsd, int numUsers, boolean caching, int whichMeasure, int replications) {
             super(replications);
+            this.setXML(xml);
+            this.setXSD(xsd);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -74,8 +81,10 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public XMLSimulation(String xml, String xsd, int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications,confidence, accuracy);
+            this.setXML(xml);
+            this.setXSD(xsd);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -86,8 +95,10 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(int numUsers, boolean caching, int whichMeasure, int minReplications, int maxReplications, double confidence) {
+	public XMLSimulation(String xml, String xsd, int numUsers, boolean caching, int whichMeasure, int minReplications, int maxReplications, double confidence) {
             super(minReplications,maxReplications,confidence);
+            this.setXML(xml);
+            this.setXSD(xsd);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -106,8 +117,8 @@ public class XMLSimulation extends AbstractSimulation {
 		QAGESA.initialize(500.0, 1000.0, 5000.0);
 		this.setVirtualOrganization(
                         new QAGESAXMLVirtualOrganization(
-                            "xml/egeeit.xml", 
-                            "xml/scenario.xsd",
+                            this.getXML(), 
+                            this.getXSD(),
                             1.0,
                             this.getNumUsers(), 
                             this.isCaching(), 
@@ -197,5 +208,21 @@ public class XMLSimulation extends AbstractSimulation {
 
     public void setNumRequests(int numRequests) {
         this.numRequests = numRequests;
+    }
+
+    public String getXML() {
+        return _XML;
+    }
+
+    public void setXML(String XML) {
+        this._XML = XML;
+    }
+
+    public String getXSD() {
+        return _XSD;
+    }
+
+    public void setXSD(String XSD) {
+        this._XSD = XSD;
     }
 }
