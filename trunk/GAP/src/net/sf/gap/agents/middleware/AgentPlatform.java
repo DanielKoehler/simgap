@@ -47,7 +47,7 @@ public abstract class AgentPlatform extends AbstractAgentPlatform {
 
 	@Override
 	public void initPlatform() throws Exception {
-		super.initPlatform();
+                super.initPlatform();
 
 		this.getVirtualOrganization().initialize();
 
