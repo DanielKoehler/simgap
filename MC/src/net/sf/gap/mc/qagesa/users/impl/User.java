@@ -174,7 +174,7 @@ public class User extends QAGESAUser {
         List[] list = this.getStatStreaming().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
-        System.out.println("CSV;USERS_ST;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;STREAMING_TIME");
+        //System.out.println("CSV;USERS_ST;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;STREAMING_TIME");
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
