@@ -109,7 +109,7 @@ public class XMLSimulation extends AbstractSimulation {
 
 	private void initialize() throws Exception {
 		Calendar calendar = Calendar.getInstance();
-		boolean trace_flag = false; // mean trace GridSim events/activities
+		boolean trace_flag = true; // mean trace GridSim events/activities
 		boolean default_gis = false;
 
 		System.out.println("Initializing GridSim package");
