@@ -27,6 +27,7 @@ package net.sf.gap.agents.services.hardcoded;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_predicate;
+import gridsim.GridSim;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
 import gridsim.net.InfoPacket;
