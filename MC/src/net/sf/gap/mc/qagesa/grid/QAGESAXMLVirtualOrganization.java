@@ -74,7 +74,6 @@ import net.sf.gap.xml.types.TapeType;
  * @author Giovanni Novelli
  */
 public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
-    private ScenarioType scenario;
 
     /**
      * links delay factor
@@ -549,13 +548,5 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
 
     public void setMaxRequests(int maxRequests) {
         this.maxRequests = maxRequests;
-    }
-
-    public ScenarioType getScenario() {
-        return scenario;
-    }
-
-    public void setScenario(ScenarioType scenario) {
-        this.scenario = scenario;
     }
 }
