@@ -77,17 +77,17 @@ public class QAGESAXML {
 				System.out.println("Unwanted errors happen");
 			}
 
-			QAGESAXML.simulate(numUsers, numRequests, false, whichMeasure,
+			QAGESAXML.simulate("xml/simple.xml","xml/scenario.xsd",numUsers, numRequests, false, whichMeasure,
 					numReplications, confidence, accuracy, swing);
 		}
 	}
 
-	private static void simulate(int numUsers, int numRequests,
+	private static void simulate(String xml, String xsd, int numUsers, int numRequests,
 			boolean caching, int whichMeasure, int replications,
 			double confidence, double accuracy, boolean swing) {
 
 		XMLSimulation simulation;
-		simulation = new XMLSimulation(numUsers, numRequests, caching,
+		simulation = new XMLSimulation(xml, xsd, numUsers, numRequests, caching,
 				whichMeasure, replications, confidence, accuracy);
 		simulation.start();
 	}
