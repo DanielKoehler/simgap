@@ -365,6 +365,7 @@
             <link>l-padova-site</link>
         </gridElement>
         <gridElement name="pisa-site">
+            <isRB>true</isRB>
             <machineList>
                 <items>
                     <Machine>
