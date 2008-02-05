@@ -183,13 +183,17 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
 
     protected void initializeAgents() {
         int totalAgents = 0;
-        for (int i = 0; i < this.getNumCEs(); i++) {
-            QAGESAGridElement computingElement = (QAGESAGridElement) this.getCEs().get(i);
-            int numAgents = computingElement.getNumPE();
-            for (int j = 0; j < numAgents; j++) {
-                TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
-                this.getPlatform().addAgent(agent, computingElement);
-                totalAgents++;
+        for (int i = 0; i < this.getNumCEs()+this.getNumSEs(); i++) {
+            if (this.getScenario().getGrid().getGridElements().get(i).isSE()) {
+                String cename = this.getScenario().getGrid().getGridElements().get(i).getName();
+                QAGESAGridElement computingElement = 
+                        (QAGESAGridElement) Sim_system.get_entity(cename);
+                int numAgents = computingElement.getNumPE();
+                for (int j = 0; j < numAgents; j++) {
+                    TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_"+totalAgents);
+                    this.getPlatform().addAgent(agent, computingElement);
+                    totalAgents++;
+                }
             }
         }
     }
