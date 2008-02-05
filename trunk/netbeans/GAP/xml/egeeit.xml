@@ -29,8 +29,8 @@
             <routerItem name="to-se-r"/>
             <routerItem name="pi-se-r"/>
             <routerItem name="ct-se-r"/>
-            <!--
             <routerItem name="bo-se-r"/>
+            <!--
             <routerItem name="fi-se-r"/>
             <routerItem name="rm-se-r"/>
             <routerItem name="pg-se-r"/>
@@ -59,8 +59,8 @@
             <geItem name="to-se"/>
             <geItem name="pi-se"/>
             <geItem name="ct-se"/>
-            <!--
             <geItem name="bo-se"/>
+            <!--
             <geItem name="fi-se"/>
             <geItem name="rm-se"/>
             <geItem name="pg-se"/>
@@ -198,7 +198,6 @@
                 <toEntity>ct-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <!--
             <netLinkItem name="l-swbo2bo-se-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>2.0</Delay>
@@ -207,6 +206,7 @@
                 <toEntity>bo-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
+            <!--
             <netLinkItem name="l-swmi2pd-se-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>10.0</Delay>
@@ -347,7 +347,6 @@
                 <toEntity>ct-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <!--
             <geLinkItem name="l-bo-se">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
@@ -356,6 +355,7 @@
                 <toEntity>bo-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
+            <!--
             <geLinkItem name="l-fi-se">
                 <Baudrate>155000000.0</Baudrate>
                 <Delay>1.0</Delay>
@@ -642,7 +642,6 @@
             </storage>
             <link>l-ct-se</link>
         </gridElement>
-        <!--
         <gridElement name="bo-se">
             <machineList>
                 <items>
@@ -669,6 +668,7 @@
             </storage>
             <link>l-bo-se</link>
         </gridElement>
+        <!--
         <gridElement name="pd-se">
             <machineList>
                 <items>
