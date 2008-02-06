@@ -217,8 +217,8 @@ public class QAGESA {
             outReF_RT.close();
             outReF_CR.close();
             outUSER.close();
-            QAGESA.copy("sim_trace", getOutputPath()+"/sim_trace");
-            QAGESA.copy("sim_report", getOutputPath()+"/sim_report");
+            QAGESA.copy("sim_trace", getOutputPath()+"/sim_trace.txt");
+            QAGESA.copy("sim_report", getOutputPath()+"/sim_report.txt");
         } catch(IOException e) {
             e.printStackTrace();
         }
