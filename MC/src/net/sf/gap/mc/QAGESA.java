@@ -19,8 +19,13 @@
 
 package net.sf.gap.mc;
 
+import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
+import net.sf.gap.mc.qagesa.simulation.impl.XMLSimulation;
 import net.sf.gap.ui.UserInterface;
 
 /**
@@ -30,56 +35,85 @@ import net.sf.gap.ui.UserInterface;
  */
 public class QAGESA {
 	public static void main(String[] args) {
-		boolean swing = false;
-		if (args.length > 0) {
-			if (args[0].compareTo("--noui") == 0) {
-				swing = false;
-			}
-			if (args[0].compareTo("--ui") == 0) {
-				swing = true;
-			}
-			Integer whichMeasure = 3;
-			if (args[1].compareTo("--MS") == 0) {
-				whichMeasure = QAGESAVirtualOrganization.MS;
-			}
-			if (args[1].compareTo("--MF") == 0) {
-				whichMeasure = QAGESAVirtualOrganization.MF;
-			}
-			if (args[1].compareTo("--MR") == 0) {
-				whichMeasure = QAGESAVirtualOrganization.MR;
-			}
-			if (args[1].compareTo("--RMS") == 0) {
-				whichMeasure = QAGESAVirtualOrganization.RMS;
-			}
-			if (args[1].compareTo("--RMF") == 0) {
-				whichMeasure = QAGESAVirtualOrganization.RMF;
-			}
-			if (args[1].compareTo("--RMR") == 0) {
-				whichMeasure = QAGESAVirtualOrganization.RMR;
-			}
-			Integer numUsers = Integer.parseInt(args[2]);
-			Integer numRequests = Integer.parseInt(args[3]);
-
-			Integer numReplications = Integer.parseInt(args[4]);
-			Double confidence = Double.parseDouble(args[5]);
-			Double accuracy = Double.parseDouble(args[6]);
-			try {
-				if (swing) {
-					java.awt.EventQueue.invokeAndWait(new Runnable() {
-						public void run() {
-							new UserInterface("QAGESA Simulation")
-									.setVisible(true);
-						}
-					});
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Unwanted errors happen");
-			}
-
-			QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
-					numReplications, confidence, accuracy, swing);
+		Properties conf = new Properties();
+		try {
+			conf.load(new FileInputStream("QAGESA.conf"));
+		} catch (final IOException e) {
+			e.printStackTrace(System.err);
+			System.exit(1);
 		}
+		boolean swing = false;
+                String prop;
+                prop = conf.getProperty("link");
+                if (prop!=null) {
+                    try {
+                            conf.load(new FileInputStream(prop));
+                    } catch (final IOException e) {
+                            e.printStackTrace(System.err);
+                            System.exit(1);
+                    }
+                }
+                prop = conf.getProperty("ui");
+                if (prop.compareTo("false") == 0) {
+                        swing = false;
+                }
+                if (prop.compareTo("true") == 0) {
+                        swing = true;
+                }
+                prop = conf.getProperty("measure");
+                Integer whichMeasure = 3;
+                if (prop.compareTo("MS") == 0) {
+                        whichMeasure = QAGESAVirtualOrganization.MS;
+                }
+                if (prop.compareTo("MF") == 0) {
+                        whichMeasure = QAGESAVirtualOrganization.MF;
+                }
+                if (prop.compareTo("MR") == 0) {
+                        whichMeasure = QAGESAVirtualOrganization.MR;
+                }
+                if (prop.compareTo("RMS") == 0) {
+                        whichMeasure = QAGESAVirtualOrganization.RMS;
+                }
+                if (prop.compareTo("RMF") == 0) {
+                        whichMeasure = QAGESAVirtualOrganization.RMF;
+                }
+                if (prop.compareTo("RMR") == 0) {
+                        whichMeasure = QAGESAVirtualOrganization.RMR;
+                }
+                prop = conf.getProperty("users");
+                Integer numUsers = Integer.parseInt(prop);
+                prop = conf.getProperty("requests");
+                Integer numRequests = Integer.parseInt(prop);
+
+                prop = conf.getProperty("replications");
+                Integer numReplications = Integer.parseInt(prop);
+                prop = conf.getProperty("confidence");
+                Double confidence = Double.parseDouble(prop);
+                prop = conf.getProperty("accuracy");
+                Double accuracy = Double.parseDouble(prop);
+                try {
+                        if (swing) {
+                                java.awt.EventQueue.invokeAndWait(new Runnable() {
+                                        public void run() {
+                                                new UserInterface("QAGESA Simulation")
+                                                                .setVisible(true);
+                                        }
+                                });
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Unwanted errors happen");
+                }
+
+                String xml = conf.getProperty("xml");
+                String xsd = conf.getProperty("xsd");
+                if (xml!=null) {
+			QAGESA.simulate(xml,xsd,numUsers, numRequests, false, whichMeasure,
+					numReplications, confidence, accuracy, swing);
+                } else  {
+                    QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
+                                numReplications, confidence, accuracy, swing);
+                }
 	}
 
 	private static void simulate(int numUsers, int numRequests,
@@ -88,6 +122,16 @@ public class QAGESA {
 
 		Simulation simulation;
 		simulation = new Simulation(numUsers, numRequests, caching,
+				whichMeasure, replications, confidence, accuracy);
+		simulation.start();
+	}
+
+	private static void simulate(String xml, String xsd, int numUsers, int numRequests,
+			boolean caching, int whichMeasure, int replications,
+			double confidence, double accuracy, boolean swing) {
+
+		XMLSimulation simulation;
+		simulation = new XMLSimulation(xml, xsd, numUsers, numRequests, caching,
 				whichMeasure, replications, confidence, accuracy);
 		simulation.start();
 	}
