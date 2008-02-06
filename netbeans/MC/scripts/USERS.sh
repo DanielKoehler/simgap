@@ -1,1 +1,1 @@
-(cat $1/USERS.csv | sed 's/\_/;/g' | awk -F ";" '{print $4 ", " $9 ", " $10 ", " $11 ", " $12 }') > $1/USERS.dat
+(cat $1.csv | sed 's/\_/;/g' | awk -F ";" '{print $4 ", " $9 ", " $10 ", " $11 ", " $12 }') > $1.dat

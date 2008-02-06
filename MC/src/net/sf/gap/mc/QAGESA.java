@@ -42,6 +42,8 @@ public class QAGESA {
         outputPath = aOutputPath;
     }
     private static String outputPath;
+    private static String usercsvName;
+    
 	public static void main(String[] args) {
 		Properties conf = new Properties();
 		try {
@@ -72,6 +74,8 @@ public class QAGESA {
                 }
                 prop = conf.getProperty("measure");
                 Integer whichMeasure = 3;
+                usercsvName = "USERS_"+prop+".csv";
+                QAGESA.openOutput();
                 if (prop.compareTo("MS") == 0) {
                         whichMeasure = QAGESAVirtualOrganization.MS;
                 }
@@ -188,24 +192,27 @@ public class QAGESA {
     public static PrintStream outUSER;
     
     private static void prepareOutput() {
+        // Create a directory; all non-existent ancestor directories are
+        // automatically created
+        File outputDir = new File(getOutputPath());
+        boolean success = outputDir.mkdirs();
+        if (!success) {
+            success = QAGESA.deleteDir(outputDir);
+            success = outputDir.mkdirs();
+        }
+        if (!success) {
+            System.exit(2);
+        }
+    }
+
+    private static void openOutput() {
         try {
-            // Create a directory; all non-existent ancestor directories are
-            // automatically created
-            File outputDir = new File(getOutputPath());
-            boolean success = outputDir.mkdirs();
-            if (!success) {
-                success = QAGESA.deleteDir(outputDir);
-                success = outputDir.mkdirs();
-            }
-            if (!success) {
-                System.exit(2);
-            }
             File outFile;
             outFile = new File(QAGESA.getOutputPath()+"/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath()+"/ReF_CR.csv");
             outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
-            outFile = new File(QAGESA.getOutputPath()+"/USERS.csv");
+            outFile = new File(QAGESA.getOutputPath()+"/"+usercsvName);
             outUSER = new PrintStream(new FileOutputStream(outFile, true));
         } catch(IOException e) {
             e.printStackTrace();
