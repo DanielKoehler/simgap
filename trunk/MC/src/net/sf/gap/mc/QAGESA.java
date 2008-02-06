@@ -20,7 +20,11 @@
 package net.sf.gap.mc;
 
 import java.util.Properties;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.IOException;
 
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
@@ -35,6 +39,7 @@ import net.sf.gap.ui.UserInterface;
  */
 public class QAGESA {
 	public static void main(String[] args) {
+            String outputPath;
 		Properties conf = new Properties();
 		try {
 			conf.load(new FileInputStream("QAGESA.conf"));
@@ -52,6 +57,18 @@ public class QAGESA {
                             e.printStackTrace(System.err);
                             System.exit(1);
                     }
+                }
+                outputPath = conf.getProperty("output");
+                // Create a directory; all non-existent ancestor directories are
+                // automatically created
+                File outputDir = new File(outputPath);
+                boolean success = outputDir.mkdirs();
+                if (!success) {
+                    success = QAGESA.deleteDir(outputDir);
+                    success = outputDir.mkdirs();
+                }
+                if (!success) {
+                    System.exit(2);
                 }
                 prop = conf.getProperty("ui");
                 if (prop.compareTo("false") == 0) {
@@ -114,6 +131,13 @@ public class QAGESA {
                     QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
                                 numReplications, confidence, accuracy, swing);
                 }
+		try {
+                    QAGESA.copy("sim_trace", outputPath+"/sim_trace");
+                    QAGESA.copy("sim_report", outputPath+"/sim_report");
+		} catch (final IOException e) {
+			e.printStackTrace(System.err);
+			System.exit(1);
+		}
 	}
 
 	private static void simulate(int numUsers, int numRequests,
@@ -135,4 +159,41 @@ public class QAGESA {
 				whichMeasure, replications, confidence, accuracy);
 		simulation.start();
 	}
+        // Deletes all files and subdirectories under dir.
+        // Returns true if all deletions were successful.
+        // If a deletion fails, the method stops attempting to delete and returns false.
+        private static boolean deleteDir(File dir) {
+            if (dir.isDirectory()) {
+                String[] children = dir.list();
+                for (int i=0; i<children.length; i++) {
+                    boolean success = deleteDir(new File(dir, children[i]));
+                    if (!success) {
+                        return false;
+                    }
+                }
+            }
+
+            // The directory is now empty so delete it
+            return dir.delete();
+        }
+
+    // Copies src file to dst file.
+    // If the dst file does not exist, it is created
+    private static void copy(String srcPath, String dstPath) throws IOException {
+        File src = new File(srcPath);
+        File dst = new File(dstPath);
+        InputStream in = new FileInputStream(src);
+        OutputStream out = new FileOutputStream(dst);
+    
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+        src.delete();
+    }
+
 }
