@@ -19,6 +19,8 @@
 
 package net.sf.gap.mc.qagesa.agents.services.impl;
 
+import java.io.*;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -121,11 +123,21 @@ public class ReFService extends PlatformService {
         List[] list = this.getStatPlayStart().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
-        System.out.println("CSV;ReF_RT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;RESPONSE_TIME");
-        int nd = data.size();
-        for (int i=0;i<nd;i++) {
-           double[] times = (double[] ) data.toArray()[i];
-           System.out.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+        try {
+            File outFile = new File("ReF_RT.csv");
+            PrintStream out = new PrintStream(new FileOutputStream(outFile, true));
+            if (QAGESAStat.getReplication()==1) {
+                System.out.println("CSV;ReF_RT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;RESPONSE_TIME");
+                out.println("CSV;ReF_RT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;RESPONSE_TIME");
+            }
+            int nd = data.size();
+            for (int i=0;i<nd;i++) {
+               double[] times = (double[] ) data.toArray()[i];
+               System.out.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+               out.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+            }
+            out.close();
+        } catch (FileNotFoundException e) {
         }
     }
     
@@ -479,3 +491,6 @@ public class ReFService extends PlatformService {
         this.rand = rand;
     }
 }
+
+
+
