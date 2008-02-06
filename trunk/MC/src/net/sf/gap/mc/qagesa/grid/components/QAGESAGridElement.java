@@ -77,7 +77,7 @@ public class QAGESAGridElement extends GridElement {
 	}
 
 	public boolean addSequence(String movieTag, ChunksSequence sequence) {
-		if (this.isSE() && sequence != null) {
+		if (this.isSE() && sequence != null && (!this.getTranscodingSet().containsSequence(movieTag))) {
 			this.getTranscodingSet().addSequence(movieTag, sequence);
 			return true;
 		} else {
@@ -86,7 +86,7 @@ public class QAGESAGridElement extends GridElement {
 	}
 
 	public boolean containsSequence(String movieTag) {
-		return this.getTranscodingSet().containsKey(movieTag);
+		return this.getTranscodingSet().containsSequence(movieTag);
 	}
 
 	public boolean delSequence(String movieTag) {

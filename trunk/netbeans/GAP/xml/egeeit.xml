@@ -40,7 +40,6 @@
             
             <!-- Backbones & switches -->
             <routerItem name="swmi"/>
-            <routerItem name="swto"/>
             <routerItem name="swbo"/>
             <routerItem name="swrm"/>
             <routerItem name="swna"/>
@@ -69,17 +68,9 @@
             -->
         </ges>
         <netLinks>
-            <netLinkItem name="l-swmi2swto">
-                <Baudrate>10000000000.0</Baudrate>
-                <Delay>8.0</Delay>
-                <MTU>1512</MTU>
-                <fromEntity>swmi</fromEntity>
-                <toEntity>swto</toEntity>
-                <bidirectional>true</bidirectional>
-            </netLinkItem>
             <netLinkItem name="l-swmi2swbo">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>12.0</Delay>
+                <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swbo</toEntity>
@@ -87,15 +78,39 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2swrm">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>16.0</Delay>
+                <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swrm</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
+            <netLinkItem name="l-swmi2swna">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swna</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2swrm">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>swrm</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2swna">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>swna</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
             <netLinkItem name="l-swrm2swna">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>8.0</Delay>
+                <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>swna</toEntity>
@@ -103,17 +118,17 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2pd-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>10.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>pd-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swto2to-ce-r">
+            <netLinkItem name="l-swmi2to-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>2.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>swto</fromEntity>
+                <fromEntity>swmi</fromEntity>
                 <toEntity>to-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
@@ -127,17 +142,17 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2pi-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>6.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>pi-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <netLinkItem name="l-swbo2fi-ce-r">
+            <netLinkItem name="l-swrm2fi-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>6.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>swbo</fromEntity>
+                <fromEntity>swrm</fromEntity>
                 <toEntity>fi-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
@@ -151,7 +166,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2pg-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>pg-ce-r</toEntity>
@@ -159,7 +174,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ba-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>10.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ba-ce-r</toEntity>
@@ -167,24 +182,24 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ct-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>16.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ct-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
             
-            <netLinkItem name="l-swto2to-se-r">
+            <netLinkItem name="l-swmi2to-se-r">
                 <Baudrate>1000000000.0</Baudrate>
                 <Delay>2.0</Delay>
                 <MTU>1512</MTU>
-                <fromEntity>swto</fromEntity>
+                <fromEntity>swmi</fromEntity>
                 <toEntity>to-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
             <netLinkItem name="l-swbo2pi-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>6.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>pi-se-r</toEntity>

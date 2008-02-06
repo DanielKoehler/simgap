@@ -453,10 +453,12 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         int numRequests = this.getMaxRequests();
         boolean repeated = true;
         for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % N;
+                //index = i % N;
+                index = r.sample(N);
+                router = this.getTopology().get(index);
+                //router = (RIPRouter) Sim_system.get_entity("swrm");
                 switch (this.getWhichMeasure()) {
                     case RMR:
-                        router = this.getTopology().get(index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmrUser = new User("RMRUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
@@ -464,7 +466,6 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         rmrUser.setVirtualOrganization(this);
                         break;
                     case  MR:
-                        router = this.getTopology().get(index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mruser = new User("MRUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
@@ -472,7 +473,6 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         mruser.setVirtualOrganization(this);
                         break;
                     case RMS:
-                        router = this.getTopology().get(index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmsUser = new User("RMSUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
@@ -480,7 +480,6 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         rmsUser.setVirtualOrganization(this);
                         break;
                     case  MS:
-                        router = this.getTopology().get(index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User msuser = new User("MSUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
@@ -488,7 +487,6 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         msuser.setVirtualOrganization(this);
                         break;
                     case RMF:
-                        router = this.getTopology().get(index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmfUser = new User("RMFUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
@@ -496,7 +494,6 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         rmfUser.setVirtualOrganization(this);
                         break;
                     case MF:
-                        router = this.getTopology().get(index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mfUser = new User("MFUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
