@@ -145,9 +145,22 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
 		}
 	}
 
-	public ChunksSequence addSequence(String movieTag, ChunksSequence sequence) {
-		this.getMoviesSet().put(movieTag, sequence.getMovie());
-		return this.put(movieTag, sequence);
+        public boolean containsSequence(String movieTag) {
+            boolean result = false;
+            Iterator it = this.keySet().iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                if (key.equalsIgnoreCase(movieTag)) {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public ChunksSequence addSequence(String movieTag, ChunksSequence sequence) {
+            this.getMoviesSet().put(movieTag, sequence.getMovie());
+            return this.put(movieTag, sequence);
 	}
 
 	public String selectRandomTag() {
