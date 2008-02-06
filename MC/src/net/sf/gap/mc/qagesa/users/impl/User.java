@@ -22,6 +22,7 @@ package net.sf.gap.mc.qagesa.users.impl;
 import java.util.List;
 
 import net.sf.gap.agents.predicates.Predicate;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
@@ -161,11 +162,10 @@ public class User extends QAGESAUser {
         List[] list = this.getStatFirst().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
-        //System.out.println("CSV;USERS_FT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;STREAMING_TIME");
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           System.out.println("CSV;USERS_FT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outUSER.println("CSV;USERS_FT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
         }
     }
 
@@ -174,11 +174,10 @@ public class User extends QAGESAUser {
         List[] list = this.getStatStreaming().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
-        //System.out.println("CSV;USERS_ST;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;STREAMING_TIME");
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           System.out.println("CSV;USERS_ST;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outUSER.println("CSV;USERS_ST;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
         }
     }
     
@@ -187,11 +186,10 @@ public class User extends QAGESAUser {
         List[] list = this.getStatResponseTime().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
-        //System.out.println("CSV;USERS_RT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;RESPONSE_TIME");
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           System.out.println("CSV;USERS_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outUSER.println("CSV;USERS_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
         }
     }
     

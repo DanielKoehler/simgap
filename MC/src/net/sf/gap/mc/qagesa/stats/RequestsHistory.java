@@ -23,6 +23,7 @@ package net.sf.gap.mc.qagesa.stats;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import net.sf.gap.mc.QAGESA;
 
 /**
  *
@@ -42,7 +43,6 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
     public RequestsHistory(int numCEs) {
         this.setPlayRequests(0.0,0);
         this.setNumCEs(numCEs);
-        System.out.println("CSV;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;TIMESTAMP;REQUESTS");
     }
     
     @SuppressWarnings("unchecked")
@@ -69,7 +69,7 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
 
     public synchronized void setPlayRequests(double clock, int playRequests) {
             RequestsHistoryEntry entry = new RequestsHistoryEntry(clock,playRequests);
-            System.out.println("CSV;ReF_CR;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+entry);
+            QAGESA.outReF_CR.println("CSV;ReF_CR;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+entry);
             this.add(entry);
             this.playRequests = playRequests;
     }
