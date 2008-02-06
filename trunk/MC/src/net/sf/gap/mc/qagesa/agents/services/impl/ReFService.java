@@ -34,6 +34,7 @@ import net.sf.gap.agents.services.impl.nm.NetworkMap;
 import net.sf.gap.agents.services.impl.nm.RTTMap;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.distributions.Uniform_int;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.services.impl.al.AgentsLocatorDirectory;
 import net.sf.gap.mc.qagesa.agents.services.impl.mum.GEList;
 import net.sf.gap.mc.qagesa.agents.services.impl.ref.ReFCouple;
@@ -123,22 +124,12 @@ public class ReFService extends PlatformService {
         List[] list = this.getStatPlayStart().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
-        try {
-            File outFile = new File("ReF_RT.csv");
-            PrintStream out = new PrintStream(new FileOutputStream(outFile, true));
-            if (QAGESAStat.getReplication()==1) {
-                System.out.println("CSV;ReF_RT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;RESPONSE_TIME");
-                out.println("CSV;ReF_RT;REPLICATION;NUMUSERS;CACHING;USERTYPE;ENTITY;START_TIME;END_TIME;RESPONSE_TIME");
-            }
-            int nd = data.size();
-            for (int i=0;i<nd;i++) {
-               double[] times = (double[] ) data.toArray()[i];
-               System.out.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
-               out.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
-            }
-            out.close();
-        } catch (FileNotFoundException e) {
+        int nd = data.size();
+        for (int i=0;i<nd;i++) {
+           double[] times = (double[] ) data.toArray()[i];
+           QAGESA.outReF_RT.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
         }
+        QAGESA.outReF_RT.flush();
     }
     
     @Override

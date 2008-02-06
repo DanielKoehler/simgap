@@ -20,12 +20,7 @@
 package net.sf.gap.mc;
 
 import java.util.Properties;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
@@ -38,8 +33,16 @@ import net.sf.gap.ui.UserInterface;
  * @author Giovanni Novelli
  */
 public class QAGESA {
+
+    public static String getOutputPath() {
+        return outputPath;
+    }
+
+    public static void setOutputPath(String aOutputPath) {
+        outputPath = aOutputPath;
+    }
+    private static String outputPath;
 	public static void main(String[] args) {
-            String outputPath;
 		Properties conf = new Properties();
 		try {
 			conf.load(new FileInputStream("QAGESA.conf"));
@@ -58,18 +61,8 @@ public class QAGESA {
                             System.exit(1);
                     }
                 }
-                outputPath = conf.getProperty("output");
-                // Create a directory; all non-existent ancestor directories are
-                // automatically created
-                File outputDir = new File(outputPath);
-                boolean success = outputDir.mkdirs();
-                if (!success) {
-                    success = QAGESA.deleteDir(outputDir);
-                    success = outputDir.mkdirs();
-                }
-                if (!success) {
-                    System.exit(2);
-                }
+                setOutputPath(conf.getProperty("output"));
+                QAGESA.prepareOutput();
                 prop = conf.getProperty("ui");
                 if (prop.compareTo("false") == 0) {
                         swing = false;
@@ -131,13 +124,7 @@ public class QAGESA {
                     QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
                                 numReplications, confidence, accuracy, swing);
                 }
-		try {
-                    QAGESA.copy("sim_trace", outputPath+"/sim_trace");
-                    QAGESA.copy("sim_report", outputPath+"/sim_report");
-		} catch (final IOException e) {
-			e.printStackTrace(System.err);
-			System.exit(1);
-		}
+                QAGESA.closeOutput();
 	}
 
 	private static void simulate(int numUsers, int numRequests,
@@ -195,5 +182,45 @@ public class QAGESA {
         out.close();
         src.delete();
     }
+    
+    public static PrintStream outReF_RT;
+    public static PrintStream outReF_CR;
+    public static PrintStream outUSER;
+    
+    private static void prepareOutput() {
+        try {
+            // Create a directory; all non-existent ancestor directories are
+            // automatically created
+            File outputDir = new File(getOutputPath());
+            boolean success = outputDir.mkdirs();
+            if (!success) {
+                success = QAGESA.deleteDir(outputDir);
+                success = outputDir.mkdirs();
+            }
+            if (!success) {
+                System.exit(2);
+            }
+            File outFile;
+            outFile = new File(QAGESA.getOutputPath()+"/ReF_RT.csv");
+            outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
+            outFile = new File(QAGESA.getOutputPath()+"/ReF_CR.csv");
+            outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
+            outFile = new File(QAGESA.getOutputPath()+"/USERS.csv");
+            outUSER = new PrintStream(new FileOutputStream(outFile, true));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private static void closeOutput() {
+        try {
+            outReF_RT.close();
+            outReF_CR.close();
+            outUSER.close();
+            QAGESA.copy("sim_trace", getOutputPath()+"/sim_trace");
+            QAGESA.copy("sim_report", getOutputPath()+"/sim_report");
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
