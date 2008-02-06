@@ -1,0 +1,1 @@
+(cat $1/ReF_RT.csv | awk -F ";" '{print $3 ", " $8 ", " $10}') > $1/ReF_RT.dat
