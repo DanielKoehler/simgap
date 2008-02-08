@@ -67,7 +67,7 @@
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
                  verbose="Yes"
-                 command="unzip ${zip.filename} -d MC; ls -lR MC"/>
+                 command="unzip ${zip.filename} -d MC"/>
     </target>
     <!--
 
