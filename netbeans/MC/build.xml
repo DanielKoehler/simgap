@@ -40,6 +40,10 @@
         <copy todir="${redist.dir}/xml">
             <fileset dir="xml"/>
         </copy>
+        <copy file="redist-build.xml" tofile="${redist.dir}/build.xml"/>
+        <scp todir="novelli@globud.dmi.unict.it:/home/novelli/MC/">
+          <fileset dir="${redist.dir}"/>
+        </scp>
     </target>
     <!--
 
