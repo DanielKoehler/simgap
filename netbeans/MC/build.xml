@@ -5,6 +5,42 @@
 <project name="MC" default="default" basedir=".">
     <description>Builds, tests, and runs the project MC.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <property name="redist.dir" location="redist"/>
+
+    <target name="post-jar" depends="jar" description="generate the distribution" >
+        <!-- Regenerating redist dir -->
+        <delete dir="${redist.dir}"/>
+        <mkdir dir="${redist.dir}"/>
+        <mkdir dir="${redist.dir}/conf"/>
+        <mkdir dir="${redist.dir}/measures"/>
+        <mkdir dir="${redist.dir}/scripts"/>
+        <mkdir dir="${redist.dir}/xml"/>
+        <mkdir dir="${redist.dir}/output"/>
+        <mkdir dir="${redist.dir}/output/tmp"/>
+        <!-- Copying project's jar and libraries jars -->
+        <copy file="${dist.jar}" todir="${redist.dir}/"/>
+        <mkdir dir="${redist.dir}/libs"/>
+        <copy file="${libs.junit_4.classpath}" todir="${redist.dir}/libs/"/>
+        <copy file="${libs.JavaCSV.classpath}" todir="${redist.dir}/libs/"/>
+        <copy file="${reference.GAP.jar}" todir="${redist.dir}/libs/"/>
+        <copy file="${reference.GridSim.jar}" todir="${redist.dir}/libs/"/>
+        <copy file="${libs.SimJava2.classpath}" todir="${redist.dir}/libs/"/>
+        <!-- Regenerate input and output dirs -->
+        <copy file="QAGESA.conf" todir="${redist.dir}/"/>
+        <copy todir="${redist.dir}/conf">
+            <fileset dir="conf"/>
+        </copy>
+        <copy todir="${redist.dir}/measures">
+            <fileset dir="measures"/>
+        </copy>
+        <copy todir="${redist.dir}/scripts">
+            <fileset dir="scripts"/>
+        </copy>
+        <copy todir="${redist.dir}/xml">
+            <fileset dir="xml"/>
+        </copy>
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 
