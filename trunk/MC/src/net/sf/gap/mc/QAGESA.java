@@ -16,7 +16,6 @@
  * $Id$
  *
  */
-
 package net.sf.gap.mc;
 
 import java.util.Properties;
@@ -43,130 +42,138 @@ public class QAGESA {
     }
     private static String outputPath;
     private static String usercsvName;
-    
-	public static void main(String[] args) {
-		Properties conf = new Properties();
-		try {
-			conf.load(new FileInputStream("QAGESA.conf"));
-		} catch (final IOException e) {
-			e.printStackTrace(System.err);
-			System.exit(1);
-		}
-		boolean swing = false;
-                String prop;
-                prop = conf.getProperty("link");
-                if (prop!=null) {
-                    try {
-                            conf.load(new FileInputStream(prop));
-                    } catch (final IOException e) {
-                            e.printStackTrace(System.err);
-                            System.exit(1);
+
+    public static void main(String[] args) {
+        String confname = "QAGESA.conf";
+        if (args.length == 1) {
+            confname = args[0];
+        }
+        QAGESA.execute(confname);
+    }
+
+    public static void execute(String confname) {
+        Properties conf = new Properties();
+        try {
+            conf.load(new FileInputStream(confname));
+        } catch (final IOException e) {
+            e.printStackTrace(System.err);
+            System.exit(1);
+        }
+        boolean swing = false;
+        String prop;
+        prop = conf.getProperty("link");
+        if (prop != null) {
+            try {
+                conf.load(new FileInputStream(prop));
+            } catch (final IOException e) {
+                e.printStackTrace(System.err);
+                System.exit(1);
+            }
+        }
+        setOutputPath(conf.getProperty("output"));
+        QAGESA.prepareOutput();
+        prop = conf.getProperty("ui");
+        if (prop.compareTo("false") == 0) {
+            swing = false;
+        }
+        if (prop.compareTo("true") == 0) {
+            swing = true;
+        }
+        prop = conf.getProperty("measure");
+        Integer whichMeasure = 3;
+        usercsvName = "USERS_" + prop + ".csv";
+        QAGESA.openOutput();
+        if (prop.compareTo("MS") == 0) {
+            whichMeasure = QAGESAVirtualOrganization.MS;
+        }
+        if (prop.compareTo("MF") == 0) {
+            whichMeasure = QAGESAVirtualOrganization.MF;
+        }
+        if (prop.compareTo("MR") == 0) {
+            whichMeasure = QAGESAVirtualOrganization.MR;
+        }
+        if (prop.compareTo("RMS") == 0) {
+            whichMeasure = QAGESAVirtualOrganization.RMS;
+        }
+        if (prop.compareTo("RMF") == 0) {
+            whichMeasure = QAGESAVirtualOrganization.RMF;
+        }
+        if (prop.compareTo("RMR") == 0) {
+            whichMeasure = QAGESAVirtualOrganization.RMR;
+        }
+        prop = conf.getProperty("users");
+        Integer numUsers = Integer.parseInt(prop);
+        prop = conf.getProperty("requests");
+        Integer numRequests = Integer.parseInt(prop);
+
+        prop = conf.getProperty("replications");
+        Integer numReplications = Integer.parseInt(prop);
+        prop = conf.getProperty("confidence");
+        Double confidence = Double.parseDouble(prop);
+        prop = conf.getProperty("accuracy");
+        Double accuracy = Double.parseDouble(prop);
+        try {
+            if (swing) {
+                java.awt.EventQueue.invokeAndWait(new Runnable() {
+
+                    public void run() {
+                        new UserInterface("QAGESA Simulation").setVisible(true);
                     }
-                }
-                setOutputPath(conf.getProperty("output"));
-                QAGESA.prepareOutput();
-                prop = conf.getProperty("ui");
-                if (prop.compareTo("false") == 0) {
-                        swing = false;
-                }
-                if (prop.compareTo("true") == 0) {
-                        swing = true;
-                }
-                prop = conf.getProperty("measure");
-                Integer whichMeasure = 3;
-                usercsvName = "USERS_"+prop+".csv";
-                QAGESA.openOutput();
-                if (prop.compareTo("MS") == 0) {
-                        whichMeasure = QAGESAVirtualOrganization.MS;
-                }
-                if (prop.compareTo("MF") == 0) {
-                        whichMeasure = QAGESAVirtualOrganization.MF;
-                }
-                if (prop.compareTo("MR") == 0) {
-                        whichMeasure = QAGESAVirtualOrganization.MR;
-                }
-                if (prop.compareTo("RMS") == 0) {
-                        whichMeasure = QAGESAVirtualOrganization.RMS;
-                }
-                if (prop.compareTo("RMF") == 0) {
-                        whichMeasure = QAGESAVirtualOrganization.RMF;
-                }
-                if (prop.compareTo("RMR") == 0) {
-                        whichMeasure = QAGESAVirtualOrganization.RMR;
-                }
-                prop = conf.getProperty("users");
-                Integer numUsers = Integer.parseInt(prop);
-                prop = conf.getProperty("requests");
-                Integer numRequests = Integer.parseInt(prop);
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Unwanted errors happen");
+        }
 
-                prop = conf.getProperty("replications");
-                Integer numReplications = Integer.parseInt(prop);
-                prop = conf.getProperty("confidence");
-                Double confidence = Double.parseDouble(prop);
-                prop = conf.getProperty("accuracy");
-                Double accuracy = Double.parseDouble(prop);
-                try {
-                        if (swing) {
-                                java.awt.EventQueue.invokeAndWait(new Runnable() {
-                                        public void run() {
-                                                new UserInterface("QAGESA Simulation")
-                                                                .setVisible(true);
-                                        }
-                                });
-                        }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("Unwanted errors happen");
-                }
+        String xml = conf.getProperty("xml");
+        String xsd = conf.getProperty("xsd");
+        if (xml != null) {
+            QAGESA.simulate(xml, xsd, numUsers, numRequests, false, whichMeasure,
+                    numReplications, confidence, accuracy, swing);
+        } else {
+            QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
+                    numReplications, confidence, accuracy, swing);
+        }
+        QAGESA.closeOutput();
+    }
 
-                String xml = conf.getProperty("xml");
-                String xsd = conf.getProperty("xsd");
-                if (xml!=null) {
-			QAGESA.simulate(xml,xsd,numUsers, numRequests, false, whichMeasure,
-					numReplications, confidence, accuracy, swing);
-                } else  {
-                    QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
-                                numReplications, confidence, accuracy, swing);
-                }
-                QAGESA.closeOutput();
-	}
+    private static void simulate(int numUsers, int numRequests,
+            boolean caching, int whichMeasure, int replications,
+            double confidence, double accuracy, boolean swing) {
 
-	private static void simulate(int numUsers, int numRequests,
-			boolean caching, int whichMeasure, int replications,
-			double confidence, double accuracy, boolean swing) {
+        Simulation simulation;
+        simulation = new Simulation(numUsers, numRequests, caching,
+                whichMeasure, replications, confidence, accuracy);
+        simulation.start();
+    }
 
-		Simulation simulation;
-		simulation = new Simulation(numUsers, numRequests, caching,
-				whichMeasure, replications, confidence, accuracy);
-		simulation.start();
-	}
+    private static void simulate(String xml, String xsd, int numUsers, int numRequests,
+            boolean caching, int whichMeasure, int replications,
+            double confidence, double accuracy, boolean swing) {
 
-	private static void simulate(String xml, String xsd, int numUsers, int numRequests,
-			boolean caching, int whichMeasure, int replications,
-			double confidence, double accuracy, boolean swing) {
-
-		XMLSimulation simulation;
-		simulation = new XMLSimulation(xml, xsd, numUsers, numRequests, caching,
-				whichMeasure, replications, confidence, accuracy);
-		simulation.start();
-	}
-        // Deletes all files and subdirectories under dir.
-        // Returns true if all deletions were successful.
-        // If a deletion fails, the method stops attempting to delete and returns false.
-        private static boolean deleteDir(File dir) {
-            if (dir.isDirectory()) {
-                String[] children = dir.list();
-                for (int i=0; i<children.length; i++) {
-                    boolean success = deleteDir(new File(dir, children[i]));
-                    if (!success) {
-                        return false;
-                    }
+        XMLSimulation simulation;
+        simulation = new XMLSimulation(xml, xsd, numUsers, numRequests, caching,
+                whichMeasure, replications, confidence, accuracy);
+        simulation.start();
+    }
+    // Deletes all files and subdirectories under dir.
+    // Returns true if all deletions were successful.
+    // If a deletion fails, the method stops attempting to delete and returns false.
+    private static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
                 }
             }
-
-            // The directory is now empty so delete it
-            return dir.delete();
         }
+
+        // The directory is now empty so delete it
+        return dir.delete();
+    }
 
     // Copies src file to dst file.
     // If the dst file does not exist, it is created
@@ -175,7 +182,7 @@ public class QAGESA {
         File dst = new File(dstPath);
         InputStream in = new FileInputStream(src);
         OutputStream out = new FileOutputStream(dst);
-    
+
         // Transfer bytes from in to out
         byte[] buf = new byte[1024];
         int len;
@@ -186,11 +193,10 @@ public class QAGESA {
         out.close();
         src.delete();
     }
-    
     public static PrintStream outReF_RT;
     public static PrintStream outReF_CR;
     public static PrintStream outUSER;
-    
+
     private static void prepareOutput() {
         // Create a directory; all non-existent ancestor directories are
         // automatically created
@@ -208,13 +214,13 @@ public class QAGESA {
     private static void openOutput() {
         try {
             File outFile;
-            outFile = new File(QAGESA.getOutputPath()+"/ReF_RT.csv");
+            outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
-            outFile = new File(QAGESA.getOutputPath()+"/ReF_CR.csv");
+            outFile = new File(QAGESA.getOutputPath() + "/ReF_CR.csv");
             outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
-            outFile = new File(QAGESA.getOutputPath()+"/"+usercsvName);
+            outFile = new File(QAGESA.getOutputPath() + "/" + usercsvName);
             outUSER = new PrintStream(new FileOutputStream(outFile, true));
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -224,9 +230,9 @@ public class QAGESA {
             outReF_RT.close();
             outReF_CR.close();
             outUSER.close();
-            QAGESA.copy("sim_trace", getOutputPath()+"/sim_trace.txt");
-            QAGESA.copy("sim_report", getOutputPath()+"/sim_report.txt");
-        } catch(IOException e) {
+            QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
+            QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
