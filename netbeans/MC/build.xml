@@ -47,6 +47,8 @@
             <fileset dir="xml"/>
         </copy>
         <copy file="redist-build.xml" tofile="${redist.dir}/build.xml"/>
+        <copy file="run.bat" tofile="${redist.dir}/run.bat"/>
+        <copy file="run.sh" tofile="${redist.dir}/run.sh"/>
         <zip destfile="${zip.file}"
              basedir="${redist.dir}"
         />
@@ -58,7 +60,7 @@
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
                  verbose="Yes"
-                 command="rm -fR MC"/>
+                 command="rm ${zip.filename}; rm -fR MC"/>
         <scp todir="novelli@${globus.host}:/home/novelli/"
              keyfile="${user.home}/.ssh/id_dsa"
              passphrase=""
@@ -71,7 +73,7 @@
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
                  verbose="Yes"
-                 command="unzip ${zip.filename} -d MC"/>
+                 command="unzip ${zip.filename} -d MC; chmod +x MC/run.sh"/>
     </target>
      
     <!--

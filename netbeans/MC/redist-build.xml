@@ -1,4 +1,4 @@
-<project name="MC" default="run" basedir=".">
+<project name="MC-redist" default="run" basedir=".">
     <description>Runs MC redistributable</description>
 
     <property name="main-class"  value="net.sf.gap.mc.QAGESA"/>
