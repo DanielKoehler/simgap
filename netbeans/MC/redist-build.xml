@@ -21,4 +21,22 @@
         </classpath>
         </java>
     </target>  
+    
+
+    <condition property="isUnix">
+    <os family="unix" />
+    </condition>
+    <condition property="isWindows">
+    <os family="windows" />
+    </condition>
+    
+    <target name="generate" depends="cond-if,cond-else"/>
+
+    <target name="cond-if" if="isWindows">
+        <echo message="windows"/>
+    </target>
+
+    <target name="cond-else" if="isUnix">
+        <echo message="unix"/>
+    </target>
 </project>
