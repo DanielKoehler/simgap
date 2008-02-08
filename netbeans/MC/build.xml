@@ -7,6 +7,9 @@
     <import file="nbproject/build-impl.xml"/>
 
     <property name="redist.dir" location="redist"/>
+    <property name="zip.dir" location="zip"/>
+    <property name="zip.filename" value="MC.zip"/>
+    <property name="zip.file" location="${zip.dir}/${zip.filename}"/>
 
     <target name="post-jar" depends="jar" description="generate the distribution" >
         <!-- Regenerating redist dir -->
@@ -18,6 +21,8 @@
         <mkdir dir="${redist.dir}/xml"/>
         <mkdir dir="${redist.dir}/output"/>
         <mkdir dir="${redist.dir}/output/tmp"/>
+        <delete dir="${zip.dir}"/>
+        <mkdir dir="${zip.dir}"/>
         <!-- Copying project's jar and libraries jars -->
         <copy file="${dist.jar}" todir="${redist.dir}/"/>
         <mkdir dir="${redist.dir}/libs"/>
@@ -41,9 +46,22 @@
             <fileset dir="xml"/>
         </copy>
         <copy file="redist-build.xml" tofile="${redist.dir}/build.xml"/>
-        <scp todir="novelli@globud.dmi.unict.it:/home/novelli/MC/">
-          <fileset dir="${redist.dir}"/>
+        <zip destfile="${zip.file}"
+             basedir="${redist.dir}"
+        />
+        <scp todir="novelli@globus.dmi.unict.it:/home/novelli/MC/"
+             keyfile="${user.home}/.ssh/id_dsa"
+             passphrase=""
+             verbose="Yes"
+             >
+          <fileset file="${zip.file}"/>
         </scp>
+        <sshexec host="globus.dmi.unict.it"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="ls -l ${zip.filename}"/>
     </target>
     <!--
 
