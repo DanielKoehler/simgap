@@ -10,6 +10,7 @@
     <property name="zip.dir" location="zip"/>
     <property name="zip.filename" value="MC.zip"/>
     <property name="zip.file" location="${zip.dir}/${zip.filename}"/>
+    <property name="globus.host" value="globus.dmi.unict.it"/>
 
     <target name="post-jar" depends="jar" description="generate the distribution" >
         <!-- Regenerating redist dir -->
@@ -49,20 +50,23 @@
         <zip destfile="${zip.file}"
              basedir="${redist.dir}"
         />
-        <sshexec host="globus.dmi.unict.it"
+    </target>
+
+    <target name="globus" depends="post-jar" description="distribute to globus" >
+        <sshexec host="${globus.host}"
                  username="novelli"
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
                  verbose="Yes"
-                 command="rm -fR MC; mkdir MC"/>
-        <scp todir="novelli@globus.dmi.unict.it:/home/novelli/MC/"
+                 command="rm -fR MC"/>
+        <scp todir="novelli@${globus.host}:/home/novelli/"
              keyfile="${user.home}/.ssh/id_dsa"
              passphrase=""
              verbose="Yes"
              >
           <fileset file="${zip.file}"/>
         </scp>
-        <sshexec host="globus.dmi.unict.it"
+        <sshexec host="${globus.host}"
                  username="novelli"
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
