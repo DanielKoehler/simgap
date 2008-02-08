@@ -49,6 +49,12 @@
         <zip destfile="${zip.file}"
              basedir="${redist.dir}"
         />
+        <sshexec host="globus.dmi.unict.it"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="rm -fR MC; mkdir MC"/>
         <scp todir="novelli@globus.dmi.unict.it:/home/novelli/MC/"
              keyfile="${user.home}/.ssh/id_dsa"
              passphrase=""
@@ -61,7 +67,7 @@
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
                  verbose="Yes"
-                 command="ls -l ${zip.filename}"/>
+                 command="unzip ${zip.filename} -d MC; ls -lR MC"/>
     </target>
     <!--
 
