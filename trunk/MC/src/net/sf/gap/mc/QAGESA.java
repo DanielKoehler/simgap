@@ -213,6 +213,20 @@ public class QAGESA {
 
     private static void openOutput() {
         try {
+                // Tee standard output
+                PrintStream out = new PrintStream(new FileOutputStream("sim_out.txt"));
+                PrintStream tee = new TeeStream(System.out, out);
+
+                System.setOut(tee);
+
+                // Tee standard error
+                PrintStream err = new PrintStream(new FileOutputStream("sim_err.txt"));
+                tee = new TeeStream(System.err, err);
+
+                System.setErr(tee);
+            } catch (FileNotFoundException e) {
+            }
+        try {
             File outFile;
             outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
@@ -232,8 +246,30 @@ public class QAGESA {
             outUSER.close();
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
+            QAGESA.copy("sim_out.txt", getOutputPath() + "/sim_out.txt");
+            QAGESA.copy("sim_err.txt", getOutputPath() + "/sim_err.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+}
+
+// All writes to this print stream are copied to two print streams
+class TeeStream extends PrintStream {
+    PrintStream out;
+    public TeeStream(PrintStream out1, PrintStream out2) {
+        super(out1);
+        this.out = out2;
+    }
+    public void write(byte buf[], int off, int len) {
+        try {
+            super.write(buf, off, len);
+            out.write(buf, off, len);
+        } catch (Exception e) {
+        }
+    }
+    public void flush() {
+        super.flush();
+        out.flush();
     }
 }
