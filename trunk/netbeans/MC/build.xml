@@ -49,6 +49,7 @@
         <copy file="redist-build.xml" tofile="${redist.dir}/build.xml"/>
         <copy file="run.bat" tofile="${redist.dir}/run.bat"/>
         <copy file="run.sh" tofile="${redist.dir}/run.sh"/>
+        <copy file="runall.sh" tofile="${redist.dir}/runall.sh"/>
         <zip destfile="${zip.file}"
              basedir="${redist.dir}"
         />
