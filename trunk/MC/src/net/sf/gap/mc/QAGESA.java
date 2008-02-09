@@ -51,7 +51,9 @@ public class QAGESA {
         QAGESA.execute(confname);
     }
 
+    private static String usedConf;
     public static void execute(String confname) {
+        usedConf=confname;
         Properties conf = new Properties();
         try {
             conf.load(new FileInputStream(confname));
@@ -65,6 +67,7 @@ public class QAGESA {
         if (prop != null) {
             try {
                 conf.load(new FileInputStream(prop));
+                usedConf = prop;
             } catch (final IOException e) {
                 e.printStackTrace(System.err);
                 System.exit(1);
@@ -200,7 +203,7 @@ public class QAGESA {
     private static void prepareOutput() {
         // Create a directory; all non-existent ancestor directories are
         // automatically created
-        File outputDir = new File(getOutputPath());
+        File outputDir = new File(getOutputPath()+"/conf");
         boolean success = outputDir.mkdirs();
         if (!success) {
             success = QAGESA.deleteDir(outputDir);
@@ -244,6 +247,7 @@ public class QAGESA {
             outReF_RT.close();
             outReF_CR.close();
             outUSER.close();
+            QAGESA.copy(usedConf, getOutputPath() + "/" + usedConf);
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
             QAGESA.copy("sim_out.txt", getOutputPath() + "/sim_out.txt");
