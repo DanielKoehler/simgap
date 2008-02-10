@@ -1,15 +1,19 @@
-sh run.sh conf/QAGESA_1_1.conf
-sh run.sh conf/QAGESA_16_1.conf
 sh run.sh conf/QAGESA_16_4_MF.conf
 sh run.sh conf/QAGESA_16_4_MR.conf
 sh run.sh conf/QAGESA_16_4_MS.conf
 sh run.sh conf/QAGESA_16_4_RMF.conf
 sh run.sh conf/QAGESA_16_4_RMR.conf
 sh run.sh conf/QAGESA_16_4_RMS.conf
-sh run.sh conf/QAGESAXML_16_1.conf
 sh run.sh conf/QAGESAXML_16_4_MF.conf
 sh run.sh conf/QAGESAXML_16_4_MR.conf
 sh run.sh conf/QAGESAXML_16_4_MS.conf
 sh run.sh conf/QAGESAXML_16_4_RMF.conf
 sh run.sh conf/QAGESAXML_16_4_RMR.conf
 sh run.sh conf/QAGESAXML_16_4_RMS.conf
+sh run.sh conf/QAGESAXML_64_16_MF.conf
+sh run.sh conf/QAGESAXML_64_16_MR.conf
+sh run.sh conf/QAGESAXML_64_16_MS.conf
+sh run.sh conf/QAGESAXML_64_16_RMF.conf
+sh run.sh conf/QAGESAXML_64_16_RMR.conf
+sh run.sh conf/QAGESAXML_64_16_RMS.conf
+
