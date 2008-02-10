@@ -163,7 +163,6 @@ public class XMLSimulation extends AbstractSimulation {
                                                            prefix+"USER_0",
                                                            Sim_stat.SERVICE_TIME);			
                        */
-                      Sim_system.set_output_analysis(Sim_system.IND_REPLICATIONS, this.getMaxReplications(), this.getConfidence());                      
                         QAGESA.startSimulation();
 
 			System.out.println("\nFinished QAGESA Simulation ...");
