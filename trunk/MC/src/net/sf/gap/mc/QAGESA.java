@@ -183,18 +183,20 @@ public class QAGESA {
     private static void copy(String srcPath, String dstPath) throws IOException {
         File src = new File(srcPath);
         File dst = new File(dstPath);
-        InputStream in = new FileInputStream(src);
-        OutputStream out = new FileOutputStream(dst);
+        if (src.exists()) {
+            InputStream in = new FileInputStream(src);
+            OutputStream out = new FileOutputStream(dst);
 
-        // Transfer bytes from in to out
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = in.read(buf)) > 0) {
-            out.write(buf, 0, len);
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+            src.delete();
         }
-        in.close();
-        out.close();
-        src.delete();
     }
     public static PrintStream outReF_RT;
     public static PrintStream outReF_CR;
@@ -248,6 +250,7 @@ public class QAGESA {
             outReF_CR.close();
             outUSER.close();
             QAGESA.copy(usedConf, getOutputPath() + "/" + usedConf);
+            QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
             QAGESA.copy("sim_out.txt", getOutputPath() + "/sim_out.txt");
