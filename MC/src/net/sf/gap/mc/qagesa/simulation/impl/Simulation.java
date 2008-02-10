@@ -103,7 +103,7 @@ public class Simulation extends AbstractSimulation {
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
-		QAGESA.initialize(500.0, 1000.0, 5000.0);
+		QAGESA.initialize(500.0, 1000.0, 11000.0);
 		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, 4,
 				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.isCaching(), this.getWhichMeasure(), this.getNumRequests()));
