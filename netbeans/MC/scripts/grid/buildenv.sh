@@ -1,10 +1,17 @@
-LOCAL_NAME=$1
-REMOTEFILE=$(cat $LOCAL_NAME)
-LOCALFILE=$(basename $REMOTEFILE)
+LOCAL_JRE=$1
+LOCAL_MC=$2
+REMOTEFILE_JRE=$(cat $LOCAL_JRE)
+REMOTEFILE_MC=$(cat $LOCAL_MC)
+LOCALFILE_JRE=$(basename $REMOTEFILE_JRE)
+LOCALFILE_MC=$(basename $REMOTEFILE_MC)
 LFC_HOST=infn-se-01.ct.pi2s2.it
-echo "INFO:  Getting bzipped JRE to $PWD/$LOCALFILE from lfn:$REMOTEFILE at LFC_HOST=$LFC_HOST"
-lcg-cp --vo cometa lfn:$REMOTEFILE file://$PWD/$LOCALFILE
-echo "INFO:  Extracting bzipped JRE $PWD/$LOCALFILE to $PWD/java"
-tar xvjf $LOCALFILE
+echo "INFO:  Getting bzipped JRE to $PWD/$LOCALFILE_JRE from lfn:$REMOTEFILE_JRE at LFC_HOST=$LFC_HOST"
+lcg-cp --vo cometa lfn:$REMOTEFILE_JRE file://$PWD/$LOCALFILE_JRE
+echo "INFO:  Extracting bzipped JRE $PWD/$LOCALFILE_JRE to $PWD/java"
+tar xvjf $LOCALFILE_JRE
 export PATH=$PWD/java/bin:$PATH
+echo "INFO:  Getting zipped MC to $PWD/$LOCALFILE_MC from lfn:$REMOTEFILE_MC at LFC_HOST=$LFC_HOST"
+lcg-cp --vo cometa lfn:$REMOTEFILE_MC file://$PWD/$LOCALFILE_MC
+echo "INFO:  Extracting zipped MC $PWD/$LOCALFILE_MC to $PWD/java"
+unzip $LOCALFILE_MC -f -d MC
 
