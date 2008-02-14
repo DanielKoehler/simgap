@@ -6,4 +6,5 @@ StdError = "sim_err.txt";
 InputSandbox = {"buildenv.sh","jar.txt","jre.txt"};
 OutputSandbox = {"sim_err.txt","sim_out.out","MC/results.tar.bz2"};
 RetryCount = 7;
+Arguments = {"jre.txt","jar.txt","QAGESA.conf","3072","3072"};
 
