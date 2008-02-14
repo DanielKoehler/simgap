@@ -22,3 +22,6 @@ rm -fR $PWD/MC
 unzip $LOCALFILE_MC -d $PWD/MC 
 cd MC
 sh run.sh $CONF $MMIN $MMAX
+tar -cf results.tar results
+bzip2 -9 results.tar
+

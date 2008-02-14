@@ -214,6 +214,15 @@ public class QAGESA {
         if (!success) {
             System.exit(2);
         }
+        outputDir = new File("results"+"/conf");
+        success = outputDir.mkdirs();
+        if (!success) {
+            success = QAGESA.deleteDir(outputDir);
+            success = outputDir.mkdirs();
+        }
+        if (!success) {
+            System.exit(2);
+        }
     }
 
     private static void openOutput() {
