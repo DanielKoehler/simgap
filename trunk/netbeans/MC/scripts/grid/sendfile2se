@@ -3,7 +3,7 @@ LFC_HOST=infn-se-01.ct.pi2s2.it
 USER_DIR=/dpm/ct.pi2s2.it/home/cometa/gap
 CURRENT_VO=cometa 
 FILE_TO_SUBMIT=$1
-
+LOCAL_NAME=$2
 function submitFileToSE() {
     if ! lfc-ls $USER_DIR &>/dev/null
     then
@@ -23,8 +23,8 @@ function submitFileToSE() {
         fi
         echo "INFO:  Executing: lcg-cr -l $REMOTENAME --vo $CURRENT_VO file://$FILE_TO_SUBMIT" 
         OUTFILE=$(lcg-cr -l $REMOTENAME --vo $CURRENT_VO file://$FILE_TO_SUBMIT)
-        echo "$REMOTENAME" > remotefile.txt
-        echo "INFO:  File submitted: $(cat remotefile.txt)"
+        echo "$REMOTENAME" > $LOCAL_NAME
+        echo "INFO:  File submitted: $(cat $LOCAL_NAME)"
    fi
 }
 
