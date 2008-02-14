@@ -258,7 +258,8 @@ public class QAGESA {
             outReF_RT.close();
             outReF_CR.close();
             outUSER.close();
-            QAGESA.copy(usedConf, getOutputPath() + "/" + usedConf);
+            File usedConfFile = new File(usedConf);
+            QAGESA.copy(usedConf, getOutputPath() + "/" + usedConfFile.getName());
             QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
