@@ -89,6 +89,12 @@
                  passphrase=""
                  verbose="Yes"
                  command="ssh novelli@seiya 'scp ${zip.filename} novelli@co2:/home/novelli/'"/>
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="echo 'rm -fR MC ; unzip ${zip.filename} -d MC' | ssh novelli@seiya 'ssh novelli@co2'"/>
     </target>
     <!--
 
