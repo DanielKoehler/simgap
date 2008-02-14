@@ -100,7 +100,7 @@
                  keyfile="${user.home}/.ssh/id_dsa"
                  passphrase=""
                  verbose="Yes"
-                 command="echo 'cd MC/scripts/grid ; sh resetdir ; sh sendfile2se /home/novelli/jre/jre15.tar.bz2 jre.txt ; sh resendfile2se /home/novelli/MC.zip jar.txt' | ssh novelli@seiya 'ssh novelli@co2'"/>
+                 command="echo 'cd MC/scripts/grid ; sh resetdir ; sh sendfile2se /home/novelli/bz2/jre15.tar.bz2 jre.txt ; sh resendfile2se /home/novelli/MC.zip jar.txt' | ssh novelli@seiya 'ssh novelli@co2'"/>
     </target>
     <!--
 
