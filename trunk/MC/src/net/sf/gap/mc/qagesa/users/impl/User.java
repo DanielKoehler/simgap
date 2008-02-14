@@ -21,6 +21,7 @@ package net.sf.gap.mc.qagesa.users.impl;
 
 import java.util.List;
 
+import net.sf.gap.GAP;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
@@ -165,7 +166,7 @@ public class User extends QAGESAUser {
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outUSER.println("CSV;USERS_FT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outUSER.println("CSV;USERS_FT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+(times[0]-GAP.getPlatformStartTime())+";"+(times[1]-GAP.getPlatformStartTime())+";"+(times[1]-times[0]));
         }
     }
 
@@ -177,7 +178,7 @@ public class User extends QAGESAUser {
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outUSER.println("CSV;USERS_ST;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outUSER.println("CSV;USERS_ST;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+(times[0]-GAP.getPlatformStartTime())+";"+(times[1]-GAP.getPlatformStartTime())+";"+(times[1]-times[0]));
         }
     }
     
@@ -189,7 +190,7 @@ public class User extends QAGESAUser {
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outUSER.println("CSV;USERS_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outUSER.println("CSV;USERS_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+(times[0]-GAP.getPlatformStartTime())+";"+(times[1]-GAP.getPlatformStartTime())+";"+(times[1]-times[0]));
         }
     }
     
