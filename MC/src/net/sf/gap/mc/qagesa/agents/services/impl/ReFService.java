@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Assert;
+import net.sf.gap.GAP;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.PlatformService;
@@ -127,7 +128,7 @@ public class ReFService extends PlatformService {
         int nd = data.size();
         for (int i=0;i<nd;i++) {
            double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outReF_RT.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+           QAGESA.outReF_RT.println("CSV;ReF_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+(times[0]-GAP.getPlatformStartTime())+";"+(times[1]-GAP.getPlatformStartTime())+";"+(times[1]-times[0]));
         }
         QAGESA.outReF_RT.flush();
     }
