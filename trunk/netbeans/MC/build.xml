@@ -76,7 +76,20 @@
                  verbose="Yes"
                  command="unzip ${zip.filename} -d MC; chmod +x MC/run.sh"/>
     </target>
-     
+    <target name="co2" depends="globus" description="distribute to co2" >
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="scp ${zip.filename} novelli@seiya:/home/novelli/"/>
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="ssh novelli@seiya 'scp ${zip.filename} novelli@co2:/home/novelli/'"/>
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 
