@@ -1,6 +1,9 @@
 #!/bin/sh
-LOCAL_JRE=$1
-LOCAL_MC=$2
+CONF=$1
+LOCAL_JRE=$2
+LOCAL_MC=$3
+MMIN=$4
+MMAX=$5
 REMOTEFILE_JRE=$(cat $LOCAL_JRE)
 REMOTEFILE_MC=$(cat $LOCAL_MC)
 LOCALFILE_JRE=$(basename $REMOTEFILE_JRE)
@@ -18,4 +21,4 @@ echo "INFO:  Extracting zipped MC $PWD/$LOCALFILE_MC to $PWD/MC"
 rm -fR $PWD/MC 
 unzip $LOCALFILE_MC -d $PWD/MC 
 cd MC
-sh run.sh conf/QAGESA_64_16_MS.conf  512 512
+sh run.sh $CONF $MMIN $MMAX
