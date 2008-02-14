@@ -1,3 +1,4 @@
+#!/bin/sh
 LOCAL_JRE=$1
 LOCAL_MC=$2
 REMOTEFILE_JRE=$(cat $LOCAL_JRE)
