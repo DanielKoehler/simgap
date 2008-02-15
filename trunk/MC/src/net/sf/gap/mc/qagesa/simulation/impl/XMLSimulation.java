@@ -114,7 +114,7 @@ public class XMLSimulation extends AbstractSimulation {
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
-		QAGESA.initialize(500.0, 1000.0, 11000.0);
+		QAGESA.initialize(500.0, 1000.0, 5600.0);
 		this.setVirtualOrganization(
                         new QAGESAXMLVirtualOrganization(
                             this.getXML(), 
