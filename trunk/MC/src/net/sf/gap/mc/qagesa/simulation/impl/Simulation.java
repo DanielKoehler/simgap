@@ -40,14 +40,21 @@ public class Simulation extends AbstractSimulation {
         private int numRequests;
         private boolean caching;
         private int whichMeasure;
+
+        private double pstart;
+        private double start;
+        private double end;
         
 	private QAGESAVirtualOrganization virtualOrganization;
         
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public Simulation(double pstart, double start, double end, int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications, confidence, accuracy);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setNumUsers(numUsers);
             this.setNumRequests(numRequests);
             this.setCaching(caching);
@@ -62,8 +69,11 @@ public class Simulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, boolean caching, int whichMeasure, int replications) {
+	public Simulation(double pstart, double start, double end, int numUsers, boolean caching, int whichMeasure, int replications) {
             super(replications);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -75,8 +85,11 @@ public class Simulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public Simulation(double pstart, double start, double end, int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications,confidence, accuracy);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -87,8 +100,11 @@ public class Simulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(int numUsers, boolean caching, int whichMeasure, int minReplications, int maxReplications, double confidence) {
+	public Simulation(double pstart, double start, double end, int numUsers, boolean caching, int whichMeasure, int minReplications, int maxReplications, double confidence) {
             super(minReplications,maxReplications,confidence);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setNumUsers(numUsers);
             this.setCaching(caching);
             this.setWhichMeasure(whichMeasure);
@@ -104,7 +120,7 @@ public class Simulation extends AbstractSimulation {
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
-		QAGESA.initialize(500.0, 1000.0, 5600.0);
+		QAGESA.initialize(this.getPstart(), this.getStart(), this.getEnd());
 		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, 4,
 				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.isCaching(), this.getWhichMeasure(), this.getNumRequests()));
@@ -194,5 +210,29 @@ public class Simulation extends AbstractSimulation {
 
     public void setNumRequests(int numRequests) {
         this.numRequests = numRequests;
+    }
+
+    public double getPstart() {
+        return pstart;
+    }
+
+    public void setPstart(double pstart) {
+        this.pstart = pstart;
+    }
+
+    public double getStart() {
+        return start;
+    }
+
+    public void setStart(double start) {
+        this.start = start;
+    }
+
+    public double getEnd() {
+        return end;
+    }
+
+    public void setEnd(double end) {
+        this.end = end;
     }
 }

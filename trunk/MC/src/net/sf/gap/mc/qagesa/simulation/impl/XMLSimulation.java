@@ -43,13 +43,20 @@ public class XMLSimulation extends AbstractSimulation {
         private boolean caching;
         private int whichMeasure;
         
+        private double pstart;
+        private double start;
+        private double end;
+        
 	private QAGESAXMLVirtualOrganization virtualOrganization;
         
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(String xml, String xsd, int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public XMLSimulation(String xml, String xsd, double pstart, double start, double end, int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications, confidence, accuracy);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setXML(xml);
             this.setXSD(xsd);
             this.setNumUsers(numUsers);
@@ -66,8 +73,11 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(String xml, String xsd, int numUsers, boolean caching, int whichMeasure, int replications) {
+	public XMLSimulation(String xml, String xsd, double pstart, double start, double end, int numUsers, boolean caching, int whichMeasure, int replications) {
             super(replications);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setXML(xml);
             this.setXSD(xsd);
             this.setNumUsers(numUsers);
@@ -81,8 +91,11 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(String xml, String xsd, int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public XMLSimulation(String xml, String xsd, double pstart, double start, double end, int numUsers, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications,confidence, accuracy);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setXML(xml);
             this.setXSD(xsd);
             this.setNumUsers(numUsers);
@@ -95,8 +108,11 @@ public class XMLSimulation extends AbstractSimulation {
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public XMLSimulation(String xml, String xsd, int numUsers, boolean caching, int whichMeasure, int minReplications, int maxReplications, double confidence) {
+	public XMLSimulation(String xml, String xsd, double pstart, double start, double end, int numUsers, boolean caching, int whichMeasure, int minReplications, int maxReplications, double confidence) {
             super(minReplications,maxReplications,confidence);
+            this.setPstart(pstart);
+            this.setStart(start);
+            this.setEnd(end);
             this.setXML(xml);
             this.setXSD(xsd);
             this.setNumUsers(numUsers);
@@ -114,7 +130,7 @@ public class XMLSimulation extends AbstractSimulation {
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
-		QAGESA.initialize(500.0, 1000.0, 5600.0);
+		QAGESA.initialize(this.getPstart(), this.getStart(), this.getEnd());
 		this.setVirtualOrganization(
                         new QAGESAXMLVirtualOrganization(
                             this.getXML(), 
@@ -226,5 +242,29 @@ public class XMLSimulation extends AbstractSimulation {
 
     public void setXSD(String XSD) {
         this._XSD = XSD;
+    }
+
+    public double getPstart() {
+        return pstart;
+    }
+
+    public void setPstart(double pstart) {
+        this.pstart = pstart;
+    }
+
+    public double getStart() {
+        return start;
+    }
+
+    public void setStart(double start) {
+        this.start = start;
+    }
+
+    public double getEnd() {
+        return end;
+    }
+
+    public void setEnd(double end) {
+        this.end = end;
     }
 }
