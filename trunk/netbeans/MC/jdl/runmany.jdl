@@ -3,7 +3,7 @@
   InputSandbox = {"buildenv.sh","../MC.zip","QAGESA.conf","jre.txt"};
 nodes =
   [
-   n1 =
+   n2 =
      [
       description = 
         [
@@ -12,10 +12,12 @@ nodes =
          Executable = "/bin/sh";
          StdOutput = "output.txt";
          StdError = "error.txt";
-         InputSandbox = {"QAGESA01.conf",root.InputSandbox[0],root.InputSandbox[1],root.InputSandbox[2],root.InputSandbox[3]};
+         InputSandbox = {"QAGESA02.conf",root.InputSandbox[0],root.InputSandbox[1],root.InputSandbox[2],root.InputSandbox[3]};
          OutputSandbox = {"output.txt","error.txt","results.tar.bz2"};
-         Arguments = "buildenv.sh jre.txt ../QAGESA01.conf 1536 1536";
+         Arguments = "buildenv.sh jre.txt ../QAGESA02.conf 1536 1536";
          Requirements =  ( RegExp("-short",other.GlueCEUniqueId));
          RetryCount = 3;
         ];
      ];
+  ];
+]
