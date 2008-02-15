@@ -65,7 +65,7 @@ public abstract class AbstractGAP {
 		return graphing;
 	}
 
-	protected static void setGraphing(boolean aGraphing) {
+	public static void setGraphing(boolean aGraphing) {
 		graphing = aGraphing;
 	}
 

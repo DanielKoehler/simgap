@@ -117,9 +117,11 @@ public class Simulation extends AbstractSimulation {
 		Calendar calendar = Calendar.getInstance();
 		boolean trace_flag = false; // mean trace GridSim events/activities
 		boolean default_gis = false;
+                boolean graphing = true;
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
+                QAGESA.setGraphing(graphing);
 		QAGESA.initialize(this.getPstart(), this.getStart(), this.getEnd());
 		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, 4,
 				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
