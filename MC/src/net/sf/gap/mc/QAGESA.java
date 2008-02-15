@@ -115,6 +115,13 @@ public class QAGESA {
         Double confidence = Double.parseDouble(prop);
         prop = conf.getProperty("accuracy");
         Double accuracy = Double.parseDouble(prop);
+        //prop = conf.getProperty("pstart");
+        //Double pstart = Double.parseDouble(prop);
+        Double pstart = 500.0;
+        prop = conf.getProperty("start");
+        Double start = Double.parseDouble(prop);
+        prop = conf.getProperty("end");
+        Double end = Double.parseDouble(prop);
         try {
             if (swing) {
                 java.awt.EventQueue.invokeAndWait(new Runnable() {
@@ -132,31 +139,31 @@ public class QAGESA {
         String xml = conf.getProperty("xml");
         String xsd = conf.getProperty("xsd");
         if (xml != null) {
-            QAGESA.simulate(xml, xsd, numUsers, numRequests, false, whichMeasure,
+            QAGESA.simulate(xml, xsd, pstart, start, end, numUsers, numRequests, false, whichMeasure,
                     numReplications, confidence, accuracy, swing);
         } else {
-            QAGESA.simulate(numUsers, numRequests, false, whichMeasure,
+            QAGESA.simulate(pstart, start, end, numUsers, numRequests, false, whichMeasure,
                     numReplications, confidence, accuracy, swing);
         }
         QAGESA.closeOutput();
     }
 
-    private static void simulate(int numUsers, int numRequests,
+    private static void simulate(double pstart, double start, double end, int numUsers, int numRequests,
             boolean caching, int whichMeasure, int replications,
             double confidence, double accuracy, boolean swing) {
 
         Simulation simulation;
-        simulation = new Simulation(numUsers, numRequests, caching,
+        simulation = new Simulation(pstart, start, end, numUsers, numRequests, caching,
                 whichMeasure, replications, confidence, accuracy);
         simulation.start();
     }
 
-    private static void simulate(String xml, String xsd, int numUsers, int numRequests,
+    private static void simulate(String xml, String xsd, double pstart, double start, double end, int numUsers, int numRequests,
             boolean caching, int whichMeasure, int replications,
             double confidence, double accuracy, boolean swing) {
 
         XMLSimulation simulation;
-        simulation = new XMLSimulation(xml, xsd, numUsers, numRequests, caching,
+        simulation = new XMLSimulation(xml, xsd, pstart, start, end, numUsers, numRequests, caching,
                 whichMeasure, replications, confidence, accuracy);
         simulation.start();
     }
