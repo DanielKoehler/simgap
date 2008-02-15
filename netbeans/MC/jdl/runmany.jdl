@@ -1,5 +1,5 @@
 [
-  Type = "collection";
+  Type = "dag";
   InputSandbox = {"buildenv.sh","../MC.zip","QAGESA.conf","jre.txt"};
 nodes =
   [
@@ -19,5 +19,6 @@ nodes =
          RetryCount = 3;
         ];
      ];
+     dependencies =  {};
   ];
 ]
