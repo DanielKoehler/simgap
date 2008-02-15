@@ -377,11 +377,18 @@ public class User extends QAGESAUser {
         double time = User.clock();
         while (User.clock()<(GAP.getEndTime()-1000.0)) {
             time=User.clock();
+            /*
             int neededRequests = scalini(
                                         GAP.getStartTime(), 
                                         GAP.getEndTime(),
                                         5,
                                         20,
+                                        time);
+             */
+            int neededRequests = lineare(
+                                        GAP.getStartTime(), 
+                                        GAP.getEndTime(),
+                                        QAGESAStat.getNumUsers(),
                                         time);
                 if (
                         (neededRequests<=(this.getUid()+1))
@@ -407,6 +414,10 @@ public class User extends QAGESAUser {
            return result;
         }
 
+        public int lineare(double a, double b, int maxusers, double currentTime) {
+           int result = (int) Math.round(((currentTime-a)/(b-a))*maxusers);
+           return result;
+        }
     
     private void oldDoIt() {
         this.pingCEs();
