@@ -1,10 +1,10 @@
 Type = "Job";
 JobType = "Normal";
 Executable = "/bin/sh";
-StdOutput = "sim_out.txt";
-StdError = "sim_err.txt";
+StdOutput = "output.txt";
+StdError = "error.txt";
 InputSandbox = {"buildenv.sh","jar.txt","jre.txt"};
-OutputSandbox = {"sim_err.txt","sim_out.out","MC/results.tar.bz2"};
-RetryCount = 7;
-Arguments = {"jre.txt","jar.txt","QAGESA.conf","3072","3072"};
+OutputSandbox = {"output.txt","error.txt","MC/results.tar.bz2"};
+RetryCount = 1;
+Arguments = "jre.txt jar.txt QAGESA.conf 512 512";
 
