@@ -6,5 +6,5 @@ StdError = "error.txt";
 InputSandbox = {"buildenv.sh","../MC.zip","QAGESA.conf","jre.txt"};
 OutputSandbox = {"output.txt","error.txt","results.tar.bz2"};
 Arguments = "buildenv.sh jre.txt ../QAGESA.conf 1536 1536";
-Requirements =  ( RegExp("-short",other.GlueCEUniqueId));
+Requirements =  ( RegExp("-long",other.GlueCEUniqueId));
 RetryCount = 3;
