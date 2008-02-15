@@ -52,6 +52,8 @@ public class User extends QAGESAUser {
     
     private int selectedMeasure;
     
+    private int uid;
+    
     /**
      * 
      * Sim_stat object used to measure SERVICE_TIME between REF_PLAY_REQ and REF_PLAY_REPLY
@@ -372,6 +374,46 @@ public class User extends QAGESAUser {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
         }
+        double time = User.clock();
+        while (time<(GAP.getEndTime()-1000.0)) {
+            int neededRequests = f(
+                                        GAP.getStartTime(), 
+                                        GAP.getEndTime(),
+                                        5,
+                                        20,
+                                        time);
+            
+                if (
+                        (neededRequests<=(this.getUid()+1))
+                        &&
+                        (QAGESAStat.getRequests()<neededRequests)
+                        )
+                {
+                    QAGESAStat.incRequests(User.clock());
+                    this.repeatedRandomRequest();
+                    QAGESAStat.decRequests(User.clock());
+                } else {
+                    super.gridSimHold(10.0);
+                }
+        }
+    }
+
+        public int f(double a, double b, int n, int maxusers, double currentTime) {
+           int result=0;
+           int scalino = (int) Math.round(((currentTime-a)/(b-a))*n);
+           if (scalino<n) {
+               result=scalino*(maxusers/n);
+           }
+           return result;
+        }
+
+    
+    private void oldDoIt() {
+        this.pingCEs();
+        if (this.isRepeated() && this.getRepeatedMovieTag()==null) {
+            String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
+            this.setRepeatedMovieTag(movieTag);
+        }
         @SuppressWarnings("unused")
 		double start_clock = User.clock();
         for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
@@ -483,5 +525,13 @@ public class User extends QAGESAUser {
 
     public void setStatFirst(Sim_stat statFirst) {
         this.statFirst = statFirst;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }

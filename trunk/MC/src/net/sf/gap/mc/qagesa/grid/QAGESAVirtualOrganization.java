@@ -300,6 +300,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                                 true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(rmrUser, rmrUser.getUserSched());
                         rmrUser.setVirtualOrganization(this);
+                        rmrUser.setUid(i);
                         break;
                     case  MR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
@@ -308,6 +309,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                                 false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(mruser, mruser.getUserSched());
                         mruser.setVirtualOrganization(this);
+                        mruser.setUid(i);
                         break;
                     case RMS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
@@ -316,6 +318,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                                 true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(rmsUser, rmsUser.getUserSched());
                         rmsUser.setVirtualOrganization(this);
+                        rmsUser.setUid(i);
                         break;
                     case  MS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
@@ -324,6 +327,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                                 false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(msuser, msuser.getUserSched());
                         msuser.setVirtualOrganization(this);
+                        msuser.setUid(i);
                         break;
                     case RMF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
@@ -332,6 +336,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(rmfUser, rmfUser.getUserSched());
                         rmfUser.setVirtualOrganization(this);
+                        rmfUser.setUid(i);
                         break;
                     case MF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
@@ -340,6 +345,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
                         mfUser.setVirtualOrganization(this);
+                        mfUser.setUid(i);
                         break;
                     default:
                         break;
