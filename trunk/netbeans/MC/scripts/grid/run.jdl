@@ -3,8 +3,7 @@ JobType = "Normal";
 Executable = "/bin/sh";
 StdOutput = "output.txt";
 StdError = "error.txt";
-InputSandbox = {"buildenv.sh","jar.txt","jre.txt"};
-OutputSandbox = {"output.txt","error.txt","MC/results.tar.bz2"};
+InputSandbox = {"buildenv.sh","MC.zip","test.conf","jar.txt","jre.txt"};
+OutputSandbox = {"output.txt","error.txt","results.tar.bz2"};
 RetryCount = 1;
-Arguments = "jre.txt jar.txt QAGESA.conf 512 512";
-
+Arguments = "buildenv.sh jre.txt ../test.conf 512 512";
