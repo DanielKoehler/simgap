@@ -375,14 +375,14 @@ public class User extends QAGESAUser {
             this.setRepeatedMovieTag(movieTag);
         }
         double time = User.clock();
-        while (time<(GAP.getEndTime()-1000.0)) {
-            int neededRequests = f(
+        while (User.clock()<(GAP.getEndTime()-1000.0)) {
+            time=User.clock();
+            int neededRequests = scalini(
                                         GAP.getStartTime(), 
                                         GAP.getEndTime(),
                                         5,
                                         20,
                                         time);
-            
                 if (
                         (neededRequests<=(this.getUid()+1))
                         &&
@@ -398,7 +398,7 @@ public class User extends QAGESAUser {
         }
     }
 
-        public int f(double a, double b, int n, int maxusers, double currentTime) {
+        public int scalini(double a, double b, int n, int maxusers, double currentTime) {
            int result=0;
            int scalino = (int) Math.round(((currentTime-a)/(b-a))*n);
            if (scalino<n) {
