@@ -5,5 +5,6 @@ StdOutput = "output.txt";
 StdError = "error.txt";
 InputSandbox = {"buildenv.sh","MC.zip","test.conf","jar.txt","jre.txt"};
 OutputSandbox = {"output.txt","error.txt","results.tar.bz2"};
-RetryCount = 1;
 Arguments = "buildenv.sh jre.txt ../test.conf 512 512";
+Requirements =  ( RegExp("-short",other.GlueCEUniqueId));
+ShallowRetryCount = 3;
