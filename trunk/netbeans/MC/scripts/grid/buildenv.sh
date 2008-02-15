@@ -17,4 +17,5 @@ cd MC
 sh run.sh $CONF $MMIN $MMAX
 tar -cf results.tar results
 bzip2 -9 results.tar
+cp results.tar.bz2 ..
 
