@@ -127,9 +127,11 @@ public class XMLSimulation extends AbstractSimulation {
 		Calendar calendar = Calendar.getInstance();
 		boolean trace_flag = false; // mean trace GridSim events/activities
 		boolean default_gis = false;
+                boolean graphing = true;
 
 		System.out.println("Initializing GridSim package");
 		GridSim.init(1, calendar, trace_flag, default_gis);
+                QAGESA.setGraphing(graphing);
 		QAGESA.initialize(this.getPstart(), this.getStart(), this.getEnd());
 		this.setVirtualOrganization(
                         new QAGESAXMLVirtualOrganization(
