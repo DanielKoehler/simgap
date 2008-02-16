@@ -401,7 +401,6 @@ public class User extends QAGESAUser {
                 QAGESAStat.getNumUsers(),
                 time);
         boolean result= (this.getUid() < neededRequests);
-        //System.out.println(time +": " + this.getUid() + " HASTOASK: " + result + " for " + neededRequests + " with current " + QAGESAStat.getRequests());
         return result;
     }
     
@@ -430,6 +429,7 @@ public class User extends QAGESAUser {
         } else {
             result = (int) Math.round(((currentTime - a) / (center - a)) * maxusers);
         }
+        System.out.println(center + " " + currentTime +": " + this.getUid() + result + " with current " + QAGESAStat.getRequests());
         return result;
     }
 
