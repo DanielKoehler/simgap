@@ -24,6 +24,7 @@ import java.io.*;
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
 import net.sf.gap.mc.qagesa.simulation.impl.XMLSimulation;
+import net.sf.gap.mc.qagesa.users.impl.User;
 import net.sf.gap.ui.UserInterface;
 
 /**
@@ -108,6 +109,11 @@ public class QAGESA {
         Integer numUsers = Integer.parseInt(prop);
         prop = conf.getProperty("requests");
         Integer numRequests = Integer.parseInt(prop);
+        prop = conf.getProperty("distribution");
+        String distribution = prop;
+        if (prop != null) {
+            User.setDistribution(distribution);
+        }
 
         prop = conf.getProperty("replications");
         Integer numReplications = Integer.parseInt(prop);
