@@ -401,7 +401,7 @@ public class User extends QAGESAUser {
                 QAGESAStat.getNumUsers(),
                 time);
         boolean result= (this.getUid() < neededRequests);
-        System.out.println(time +": " + this.getUid() + " HASTOASK: " + result + " for " + neededRequests + " with current " + QAGESAStat.getRequests());
+        //System.out.println(time +": " + this.getUid() + " HASTOASK: " + result + " for " + neededRequests + " with current " + QAGESAStat.getRequests());
         return result;
     }
     
