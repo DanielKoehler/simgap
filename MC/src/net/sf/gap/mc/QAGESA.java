@@ -107,8 +107,13 @@ public class QAGESA {
         }
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);
+        
+        /*
         prop = conf.getProperty("requests");
         Integer numRequests = Integer.parseInt(prop);
+         */
+        Integer numRequests = 0;
+        
         prop = conf.getProperty("distribution");
         String distribution = prop;
         if (prop != null) {
