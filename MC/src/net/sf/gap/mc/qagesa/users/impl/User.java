@@ -422,14 +422,14 @@ public class User extends QAGESAUser {
     }
 
     private int scaled(double a, double b, int maxusers, double currentTime) {
-        double center = (b-a)/2.0;
+        double center = (b-a)/2.0+a;
         int result;
         if (currentTime>center) {
             result=maxusers;
         } else {
             result = (int) Math.round(((currentTime - a) / (center - a)) * maxusers);
         }
-        System.out.println(center + " " + currentTime +": " + this.getUid() + result + " with current " + QAGESAStat.getRequests());
+        System.out.println(a + " " + b + " " + center + " " + currentTime +": " + this.getUid() + result + " with current " + QAGESAStat.getRequests());
         return result;
     }
 
