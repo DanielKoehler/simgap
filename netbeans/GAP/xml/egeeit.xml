@@ -425,7 +425,7 @@
                                 <count>1</count>
                             </PE>
                         </peList>
-                        <repeatMachine>40</repeatMachine>
+                        <repeatMachine>46</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
