@@ -233,6 +233,7 @@ public class QAGESA {
     }
 
     private static void openOutput() {
+        /*
         try {
                 // Tee standard output
                 PrintStream out = new PrintStream(new FileOutputStream("sim_out.txt"));
@@ -247,6 +248,7 @@ public class QAGESA {
                 System.setErr(tee);
             } catch (FileNotFoundException e) {
             }
+         */
         try {
             File outFile;
             outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
@@ -270,14 +272,17 @@ public class QAGESA {
             QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
+            /*
             QAGESA.copy("sim_out.txt", getOutputPath() + "/sim_out.txt");
             QAGESA.copy("sim_err.txt", getOutputPath() + "/sim_err.txt");
+             */
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
 
+/*
 // All writes to this print stream are copied to two print streams
 class TeeStream extends PrintStream {
     PrintStream out;
@@ -297,3 +302,4 @@ class TeeStream extends PrintStream {
         out.flush();
     }
 }
+*/
