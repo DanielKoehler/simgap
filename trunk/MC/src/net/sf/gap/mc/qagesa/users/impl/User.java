@@ -429,7 +429,7 @@ public class User extends QAGESAUser {
         } else {
             result = (int) Math.round(((currentTime - a) / (center - a)) * maxusers);
         }
-        System.out.println(a + " " + b + " " + center + " " + currentTime +": " + this.getUid() + result + " with current " + QAGESAStat.getRequests());
+        //System.out.println(a + " " + b + " " + center + " " + currentTime +": " + this.getUid() + " " + result + " with current " + QAGESAStat.getRequests());
         return result;
     }
 
