@@ -373,7 +373,7 @@ public class User extends QAGESAUser {
             this.setRepeatedMovieTag(movieTag);
         }
         double time = User.clock();
-        while (User.clock() < (GAP.getEndTime() - 100.0)) {
+        while (User.clock() < (GAP.getEndTime() - 1000.0)) {
             time = User.clock();
             /*
             int neededRequests = scalini(
