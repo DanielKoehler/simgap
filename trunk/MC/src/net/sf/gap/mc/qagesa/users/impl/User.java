@@ -16,7 +16,6 @@
  * $Id$
  *
  */
-
 package net.sf.gap.mc.qagesa.users.impl;
 
 import java.util.List;
@@ -46,32 +45,36 @@ import gridsim.net.Link;
  * @author Giovanni Novelli
  */
 public class User extends QAGESAUser {
-    public static final int MEASURE_RESPONSE  = 1;
+
+    public static final int MEASURE_RESPONSE = 1;
     public static final int MEASURE_STREAMING = 2;
-    public static final int MEASURE_FIRST     = 3;
-    
+    public static final int MEASURE_FIRST = 3;
+    private static String distribution="";
+
+    public static String getDistribution() {
+        return distribution;
+    }
+
+    public static void setDistribution(String aDistribution) {
+        distribution = aDistribution;
+    }
     private int selectedMeasure;
-    
     private int uid;
-    
     /**
      * 
      * Sim_stat object used to measure SERVICE_TIME between REF_PLAY_REQ and REF_PLAY_REPLY
      */
     private Sim_stat statResponseTime;
-    
     /**
      * 
      * Sim_stat object used to measure SERVICE_TIME between SENDING_FIRST_CHUNK_REQ and SENT_LAST_CHUNK_REQ
      */
     private Sim_stat statStreaming;
-    
     /**
      * 
      * Sim_stat object used to measure SERVICE_TIME between SENDING_FIRST_CHUNK_REQ and 1st SEND_CHUNK_REQ
      */
     private Sim_stat statFirst;
-    
     /**
      *
      * Movie tag that can be reiterated in subsequent play requests to measure the effect of chunks caching
@@ -79,7 +82,6 @@ public class User extends QAGESAUser {
      *
      */
     private String repeatedMovieTag;
-    
     /**
      *
      * Flag used to instruct an User entity instance to reiterate subsequent play requests with the same movie tag.
@@ -87,21 +89,19 @@ public class User extends QAGESAUser {
      *
      */
     private boolean repeated;
-    
     /**
      *
      * Field used to instruct an User entit instance about how much max subsequent play requests it has to do.
      *
      */
     private int numRequests;
-    
     /**
      *
      * Flag used to signal to ReF Service to not use its metric to select CE and SE but to do just a random selection of them.
      *
      */
     private boolean randomSelection;
-    
+
     /**
      *
      * Creates a new instance of User
@@ -133,69 +133,70 @@ public class User extends QAGESAUser {
                 break;
         }
     }
-    
+
     private void setupStatPlay() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = { QAGESATags.REF_PLAY_START_REP};
+        int[] tags = {QAGESATags.REF_PLAY_START_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
         this.setStatResponseTime(stat);
     }
+
     private void setupStatStreaming() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = { QAGESATags.SENDING_FIRST_CHUNK_REQ, QAGESATags.SENT_LAST_CHUNK_REQ };
+        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REQ, QAGESATags.SENT_LAST_CHUNK_REQ};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
         this.setStatStreaming(stat);
     }
-    
+
     private void setupStatFirst() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = { QAGESATags.SENDING_FIRST_CHUNK_REQ, QAGESATags.TRANSCODED_FIRST_CHUNK_REQ};
+        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REQ, QAGESATags.TRANSCODED_FIRST_CHUNK_REQ};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
         this.setStatFirst(stat);
     }
-    
+
     @SuppressWarnings("unchecked")
-	private void printStatFirst() {
+    private void printStatFirst() {
         List[] list = this.getStatFirst().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
         int nd = data.size();
-        for (int i=0;i<nd;i++) {
-           double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outUSER.println("CSV;USERS_FT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+        for (int i = 0; i < nd; i++) {
+            double[] times = (double[]) data.toArray()[i];
+            QAGESA.outUSER.println("CSV;USERS_FT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
         }
     }
 
     @SuppressWarnings("unchecked")
-	private void printStatStreaming() {
+    private void printStatStreaming() {
         List[] list = this.getStatStreaming().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
         int nd = data.size();
-        for (int i=0;i<nd;i++) {
-           double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outUSER.println("CSV;USERS_ST;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+        for (int i = 0; i < nd; i++) {
+            double[] times = (double[]) data.toArray()[i];
+            QAGESA.outUSER.println("CSV;USERS_ST;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
         }
     }
-    
+
     @SuppressWarnings("unchecked")
-	private void printStatResponseTime() {
+    private void printStatResponseTime() {
         List[] list = this.getStatResponseTime().get_data();
         List datas = list[1];
         List data = (List) datas.toArray()[0];
         int nd = data.size();
-        for (int i=0;i<nd;i++) {
-           double[] times = (double[] ) data.toArray()[i];
-           QAGESA.outUSER.println("CSV;USERS_RT;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.get_name()+";"+times[0]+";"+times[1]+";"+(times[1]-times[0]));
+        for (int i = 0; i < nd; i++) {
+            double[] times = (double[]) data.toArray()[i];
+            QAGESA.outUSER.println("CSV;USERS_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
         }
     }
-    
+
     public void printStats() {
         switch (this.getSelectedMeasure()) {
             case User.MEASURE_RESPONSE:
@@ -209,25 +210,23 @@ public class User extends QAGESAUser {
                 break;
         }
     }
-     
+
     protected ReFPlayReply playRequest(String movieTag) {
         int SIZE = 500;
         double evsend_time = 0;
         int userID = this.get_id();
-        ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this
-                .get_id(), userID, movieTag, this.isRandomSelection());
+        ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, this.isRandomSelection());
         @SuppressWarnings("unused")
-		int requestID = request.getRequestID();
+        int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                QAGESATags.REF_PLAY_REQ, new IO_data(request, SIZE, QAGESAUser
-                .getEntityId("ReF")));
+                QAGESATags.REF_PLAY_REQ, new IO_data(request, SIZE, QAGESAUser.getEntityId("ReF")));
         evsend_time = GridSim.clock();
         String msg = String.format(
                 "%1$f %2$d %3$s --> ReF REF_PLAY_REQUEST %4$s", evsend_time,
                 reqrepID, this.get_name(), movieTag);
         this.write(msg);
-        
+
         Sim_event ev = new Sim_event();
         Predicate predicate = new Predicate(QAGESATags.REF_PLAY_START_REP);
         super.sim_get_next(predicate, ev); // only look for this type of ack
@@ -276,51 +275,50 @@ public class User extends QAGESAUser {
                     tchunkRequest.getPlayReqrepID(),
                     tchunkRequest.getSequenceNumber());
             this.write(tmsg);
-            if (this.getSelectedMeasure()==User.MEASURE_FIRST) {
+            if (this.getSelectedMeasure() == User.MEASURE_FIRST) {
                 sim_completed(fcev);
-            } 
+            }
 
-            if (this.getSelectedMeasure()==User.MEASURE_RESPONSE) {
+            if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
                 sim_completed(ev);
             }
-            
+
             Sim_event tev = new Sim_event();
             int[] tags = {QAGESATags.SENT_LAST_CHUNK_REQ, QAGESATags.SEND_CHUNK_REQ};
             predicate = new Predicate(tags);
-            super.sim_get_next(predicate,tev);
+            super.sim_get_next(predicate, tev);
             this.processEvent(tev);
-            for (int i=0;i<6;i++) {
+            for ( int i = 0; i < 6; i++) {
                 Sim_event anev = new Sim_event();
-                super.sim_get_next(predicate,anev);
+                super.sim_get_next(predicate, anev);
                 this.processEvent(anev);
             }
-            if (this.getSelectedMeasure()==User.MEASURE_STREAMING) {
+            if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
                 sim_completed(fcev);
             }
-            
+
             Sim_event perev = new Sim_event();
             predicate = new Predicate(QAGESATags.REF_PLAY_END_REP);
-            super.sim_get_next(predicate,perev);
+            super.sim_get_next(predicate, perev);
             this.processEvent(perev);
-            
+
         } else {
-            if (this.getSelectedMeasure()==User.MEASURE_RESPONSE) {
+            if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
                 sim_completed(ev);
             }
         }
         return playReply;
     }
-    
+
     @Override
     public void processOtherEvent(Sim_event ev) {
         switch (ev.get_tag()) {
             case QAGESATags.SENT_LAST_CHUNK_REQ:
                 ChunkRequest chunkRequest = ChunkRequest.get_data(ev);
-                @SuppressWarnings("unused")
-				int playReqrepID = chunkRequest.getPlayReqrepID();
-                int reqrepID = chunkRequest.getReqrepID();
-                double evrecv_time = GridSim.clock();
-                String msg = String.format(
+                @SuppressWarnings("unused") int playReqrepID = chunkRequest.getPlayReqrepID();
+                 int reqrepID = chunkRequest.getReqrepID();
+                 double evrecv_time = GridSim.clock();
+                 String msg = String.format(
                         "%1$f %2$d %3$s <-- %4$s SENT_LAST_CHUNK %5$d",
                         evrecv_time, reqrepID, this.get_name(),
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
@@ -340,8 +338,8 @@ public class User extends QAGESAUser {
                 this.write(msg);
                 break;
             case QAGESATags.REF_PLAY_END_REP:
-                ReFPlayReply playReply = ReFPlayReply.get_data(ev);
-                ReFPlayRequest request = playReply.getRequest();
+                 ReFPlayReply playReply = ReFPlayReply.get_data(ev);
+                 ReFPlayRequest request = playReply.getRequest();
                 evrecv_time = GridSim.clock();
                 if (playReply.isOk()) {
                     msg = String.format(
@@ -362,143 +360,159 @@ public class User extends QAGESAUser {
                 break;
         }
     }
-    
+
     @Override
     public void initWork() {
         this.DoIt();
     }
-    
+
     private void DoIt() {
         this.pingCEs();
-        if (this.isRepeated() && this.getRepeatedMovieTag()==null) {
+        if (this.isRepeated() && this.getRepeatedMovieTag() == null) {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
         }
         double time = User.clock();
-        while (User.clock()<(GAP.getEndTime()-100.0)) {
-            time=User.clock();
+        while (User.clock() < (GAP.getEndTime() - 100.0)) {
+            time = User.clock();
             /*
             int neededRequests = scalini(
-                                        GAP.getStartTime(), 
-                                        GAP.getEndTime(),
-                                        5,
-                                        20,
-                                        time);
+            GAP.getStartTime(), 
+            GAP.getEndTime(),
+            5,
+            20,
+            time);
              */
-            int neededRequests = lineare(
-                                        GAP.getStartTime(), 
-                                        GAP.getEndTime(),
-                                        QAGESAStat.getNumUsers(),
-                                        time);
-                if (
-                        (neededRequests<=(this.getUid()+1))
-                        &&
-                        (QAGESAStat.getRequests()<neededRequests)
-                        )
-                {
-                    QAGESAStat.incRequests(User.clock());
-                    this.repeatedRandomRequest();
-                    QAGESAStat.decRequests(User.clock());
-                } else {
-                    super.gridSimHold(10.0);
-                }
+            if (this.hastoask()) {
+                QAGESAStat.incRequests(User.clock());
+                this.repeatedRandomRequest();
+                QAGESAStat.decRequests(User.clock());
+            } else {
+                super.gridSimHold(1.0);
+            }
         }
     }
 
-        public int scalini(double a, double b, int n, int maxusers, double currentTime) {
-           int result=0;
-           int scalino = (int) Math.round(((currentTime-a)/(b-a))*n);
-           if (scalino<n) {
-               result=scalino*(maxusers/n);
-           }
-           return result;
-        }
-
-        public int lineare(double a, double b, int maxusers, double currentTime) {
-           int result = (int) Math.round(((currentTime-a)/(b-a))*maxusers);
-           return result;
-        }
+    private boolean hastoask() {
+        double time=User.clock();
+        int neededRequests = fr(
+                GAP.getStartTime(),
+                GAP.getEndTime(),
+                QAGESAStat.getNumUsers(),
+                time);
+        boolean result= (this.getUid() < neededRequests);
+        System.out.println(time +": " + this.getUid() + " HASTOASK: " + result + " for " + neededRequests + " with current " + QAGESAStat.getRequests());
+        return result;
+    }
     
+    private int fr(double a, double b, int maxusers, double currentTime) {
+        int result = 0;
+        if (User.distribution.equalsIgnoreCase("linear")) {
+            result = linear(a, b, maxusers, currentTime);
+        } else if (User.distribution.equalsIgnoreCase("scaled")) {
+            result = scaled(a, b, maxusers, currentTime);
+        } else {
+            result = scaled(a, b, maxusers, currentTime);
+        }
+        return result;
+    }
+
+    private int linear(double a, double b, int maxusers, double currentTime) {
+        int result = (int) Math.round(((currentTime - a) / (b - a)) * maxusers);
+        return result;
+    }
+
+    private int scaled(double a, double b, int maxusers, double currentTime) {
+        double center = (b-a)/2.0;
+        int result;
+        if (currentTime>center) {
+            result=maxusers;
+        } else {
+            result = (int) Math.round(((currentTime - a) / (center - a)) * maxusers);
+        }
+        return result;
+    }
+
     private void oldDoIt() {
         this.pingCEs();
-        if (this.isRepeated() && this.getRepeatedMovieTag()==null) {
+        if (this.isRepeated() && this.getRepeatedMovieTag() == null) {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
         }
         @SuppressWarnings("unused")
-		double start_clock = User.clock();
-        for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
-                int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
-                int maxUsers = cycle*ratio;
-                double mean_interarrival = (QAGESAStat.getNumUsers() * 1.0)/maxUsers;
-                Sim_negexp_obj negexp = new Sim_negexp_obj("interval",mean_interarrival);
-                double diff_time = negexp.sample();
-                double start_time = diff_time;
-                super.gridSimHold(start_time);
-                QAGESAStat.incRequests(User.clock());
-                this.repeatedRandomRequest();
-                QAGESAStat.decRequests(User.clock());
+        double start_clock = User.clock();
+        for ( int cycle = 1; cycle <= this.getNumRequests(); cycle++) {
+            int ratio = QAGESAStat.getNumUsers() / this.getNumRequests();
+            int maxUsers = cycle * ratio;
+            double mean_interarrival = (QAGESAStat.getNumUsers() * 1.0) / maxUsers;
+            Sim_negexp_obj negexp = new Sim_negexp_obj("interval", mean_interarrival);
+            double diff_time = negexp.sample();
+            double start_time = diff_time;
+            super.gridSimHold(start_time);
+            QAGESAStat.incRequests(User.clock());
+            this.repeatedRandomRequest();
+            QAGESAStat.decRequests(User.clock());
         }
-        for (int cycle=1;cycle<=this.getNumRequests();cycle++) {
-                @SuppressWarnings("unused")
-				int ratio = QAGESAStat.getNumUsers()/this.getNumRequests();
-                Sim_negexp_obj negexp = new Sim_negexp_obj("interval",1.0);
-                double diff_time = negexp.sample();
-                double start_time = diff_time;
-                super.gridSimHold(start_time);
-                QAGESAStat.incRequests(User.clock());
-                this.repeatedRandomRequest();
-                QAGESAStat.decRequests(User.clock());
+        for ( int cycle = 1; cycle <= this.getNumRequests(); cycle++) {
+            @SuppressWarnings("unused")
+            int ratio = QAGESAStat.getNumUsers() / this.getNumRequests();
+            Sim_negexp_obj negexp = new Sim_negexp_obj("interval", 1.0);
+            double diff_time = negexp.sample();
+            double start_time = diff_time;
+            super.gridSimHold(start_time);
+            QAGESAStat.incRequests(User.clock());
+            this.repeatedRandomRequest();
+            QAGESAStat.decRequests(User.clock());
         }
     }
-    
+
     private void repeatedRandomRequest() {
         if (this.isRepeated()) {
             @SuppressWarnings("unused")
-			ReFPlayReply playReply = this.playRequest(this.getRepeatedMovieTag());
+            ReFPlayReply playReply = this.playRequest(this.getRepeatedMovieTag());
         } else {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             @SuppressWarnings("unused")
-			ReFPlayReply playReply = this.playRequest(movieTag);
+            ReFPlayReply playReply = this.playRequest(movieTag);
         }
     }
-    
+
     public Sim_stat getStatResponseTime() {
         return statResponseTime;
     }
-    
+
     public void setStatResponseTime(Sim_stat statResponseTime) {
         this.statResponseTime = statResponseTime;
     }
-    
+
     public int getNumRequests() {
         return numRequests;
     }
-    
+
     public void setNumRequests(int numRequests) {
         this.numRequests = numRequests;
     }
-    
+
     private String getRepeatedMovieTag() {
         return repeatedMovieTag;
     }
-    
+
     private void setRepeatedMovieTag(String repeatedMovieTag) {
         this.repeatedMovieTag = repeatedMovieTag;
     }
-    
+
     private boolean isRepeated() {
         return repeated;
     }
-    
+
     private void setRepeated(boolean repeated) {
         this.repeated = repeated;
     }
-    
+
     public boolean isRandomSelection() {
         return randomSelection;
     }
-    
+
     public void setRandomSelection(boolean randomSelection) {
         this.randomSelection = randomSelection;
     }
@@ -518,17 +532,17 @@ public class User extends QAGESAUser {
     public void setSelectedMeasure(int selectedMeasure) {
         this.selectedMeasure = selectedMeasure;
     }
-    
-	private void pingCEs() {
-            for (int i=0;i<this.getVirtualOrganization().getNumCEs();i++) {
-                int ceID = this.getVirtualOrganization().getCEs().get(i).get_id();
-                InfoPacket pkt = super.pingBlockingCall(ceID,
-                                50);
-                if (pkt != null) {
-                        this.getVirtualOrganization().getPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID,this.get_id(),pkt);
-                }
+
+    private void pingCEs() {
+        for (int i = 0; i < this.getVirtualOrganization().getNumCEs(); i++) {
+            int ceID = this.getVirtualOrganization().getCEs().get(i).get_id();
+            InfoPacket pkt = super.pingBlockingCall(ceID,
+                    50);
+            if (pkt != null) {
+                this.getVirtualOrganization().getPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID, this.get_id(), pkt);
             }
-	}
+        }
+    }
 
     public Sim_stat getStatFirst() {
         return statFirst;
