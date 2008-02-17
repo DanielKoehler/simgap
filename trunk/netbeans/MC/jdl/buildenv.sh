@@ -1,9 +1,9 @@
 #!/bin/sh
 LOCAL_JRE=$1
 CONF=$2
-MEM=$(cat /proc/meminfo  | grep MemTotal | awk '{print $2"*.68"}' | bc | awk -F "." '{print $1}')
-MMIN=$MEM
-MMAX=$MEM
+#MEM=$(cat /proc/meminfo  | grep MemTotal | awk '{print $2"*.68"}' | bc | awk -F "." '{print $1}')
+MMIN=$3
+MMAX=$4
 REMOTEFILE_JRE=$(cat $LOCAL_JRE)
 LOCALFILE_JRE=$(basename $REMOTEFILE_JRE)
 LFC_HOST=infn-se-01.ct.pi2s2.it
