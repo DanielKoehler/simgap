@@ -1,3 +1,1 @@
-WHICH=$1
-FILE=$2
-(cat $FILE.csv | grep "ReF_CR;$WHICH;" | awk -F ";" '{print $3 " " $8 " " $9}') > $FILE.dat
+(cat $1.csv | grep "ReF_CR;1;" | awk -F ";" '{print $3 " " $8 " " $9}') > $1.dat
