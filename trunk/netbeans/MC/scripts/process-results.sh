@@ -19,9 +19,9 @@ mv results $DEST
 find $DEST -name *.dat | xargs ls -l | awk '{print $8}' | awk -F "." '{print "cat " $1 ".dat | grep \"^1 \" > " $1 "_1.data"}' | bash
 find $DEST -name *.data | xargs ls -l | awk '{print $8}' | awk -F "." '{print "mv " $1 ".data " $1 ".dat"}' | bash
 NN=$(N=$(cat $DEST/ReF_CR_1.dat  | wc | awk '{print $1 " - 1"}') ; echo $N | bc); cat $DEST/ReF_CR_1.dat | tail -n $NN > /tmp/ReF_CR_1.dat
-rm $DEST/ReF_CR_1.dat
+rm $DEST/ReF_CR_1.dat &> /dev/null
 mv /tmp/ReF_CR_1.dat $DEST/ReF_CR_1.dat
-rm $DEST.tar
+rm $DEST.tar &> /dev/null
 tar -cf $DEST.tar $DEST
 rm $DEST.tar.bz2
 bzip2 $DEST.tar
