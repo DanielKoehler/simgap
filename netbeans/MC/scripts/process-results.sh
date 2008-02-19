@@ -23,5 +23,5 @@ rm $DEST/ReF_CR_1.dat &> /dev/null
 mv /tmp/ReF_CR_1.dat $DEST/ReF_CR_1.dat
 rm $DEST.tar &> /dev/null
 tar -cf $DEST.tar $DEST
-rm $DEST.tar.bz2
+rm $DEST.tar.bz2 &> /dev/null
 bzip2 $DEST.tar
