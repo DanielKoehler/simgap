@@ -21,5 +21,7 @@ find $DEST -name *.data | xargs ls -l | awk '{print $8}' | awk -F "." '{print "m
 NN=$(N=$(cat $DEST/ReF_CR_1.dat  | wc | awk '{print $1 " - 1"}') ; echo $N | bc); cat $DEST/ReF_CR_1.dat | tail -n $NN > /tmp/ReF_CR_1.dat
 rm $DEST/ReF_CR_1.dat
 mv /tmp/ReF_CR_1.dat $DEST/ReF_CR_1.dat
+rm $DEST.tar
 tar -cf $DEST.tar $DEST
+rm $DEST.tar.bz2
 bzip2 $DEST.tar
