@@ -1,3 +1,4 @@
 #!/bin/sh
-echo a | edg-job-status -i $HOME/jid
+JID=$1
+echo a | edg-job-status -i $JID
 

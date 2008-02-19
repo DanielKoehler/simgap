@@ -1,4 +1,5 @@
 #!/bin/sh
-sh ga1.sh
-sh ga2.sh
-sh ga3.sh
+JID=$1
+sh ga1.sh $JID
+sh ga2.sh $JID
+sh ga3.sh $JID
