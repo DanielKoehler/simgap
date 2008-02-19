@@ -13,14 +13,12 @@ find tmp/jobOutput/ -name ReF_RT.csv | awk -F "/results/" '{print "sh scripts/Re
 find tmp/jobOutput/ -name USERS_*.csv | awk -F "/results/" '{print "sh scripts/USERS.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/xxx/\"/g | bash
 rm -fR results
 mkdir results
-#find tmp/jobOutput -name *.csv | awk '{print "cp " $1 " results/"}' | bash
-#find tmp/jobOutput -name *.dat | awk '{print "cp " $1 " results/"}' | bash
-#find tmp/jobOutput -name *.conf | awk '{print "cp " $1 " results/"}' | bash
-#mv results $DEST
+find tmp/jobOutput/ -name *.conf | awk -F ".conf" '{print $1}' | awk -F "/results/" '{print "DIR="$1 "; NAME=" $2"; SUFFIX=$(echo $NAME | sed s/QAGESA//g | sed s/_//g | sed s/[0-9]*//g); mkdir -p results/$SUFFIX; cp -fR $DIR/results/* results/$SUFFIX "}' | bash
+mv results $DEST
 #NN=$(N=$(cat $DEST/ReF_CR.dat  | wc | awk '{print $1 " - 1"}') ; echo $N | bc); cat $DEST/ReF_CR.dat | tail -n $NN > /tmp/ReF_CR.dat
 #rm $DEST/ReF_CR.dat &> /dev/null
 #mv /tmp/ReF_CR.dat $DEST/ReF_CR.dat
-#rm $DEST.tar &> /dev/null
-#tar -cf $DEST.tar $DEST
-#rm $DEST.tar.bz2 &> /dev/null
-#bzip2 $DEST.tar
+rm $DEST.tar &> /dev/null
+tar -cf $DEST.tar $DEST
+rm $DEST.tar.bz2 &> /dev/null
+bzip2 $DEST.tar
