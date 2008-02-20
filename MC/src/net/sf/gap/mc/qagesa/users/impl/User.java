@@ -50,6 +50,7 @@ public class User extends QAGESAUser {
     public static final int MEASURE_STREAMING = 2;
     public static final int MEASURE_FIRST = 3;
     private static String distribution="";
+    private static final double relaxTime = 200.0;
 
     public static String getDistribution() {
         return distribution;
@@ -373,7 +374,7 @@ public class User extends QAGESAUser {
             this.setRepeatedMovieTag(movieTag);
         }
         double time = User.clock();
-        while (User.clock() < (GAP.getEndTime() - 100.0)) {
+        while (User.clock() < (GAP.getEndTime() - relaxTime)) {
             time = User.clock();
             /*
             int neededRequests = scalini(
@@ -397,7 +398,7 @@ public class User extends QAGESAUser {
         double time=User.clock();
         int neededRequests = fr(
                 GAP.getStartTime(),
-                GAP.getEndTime(),
+                GAP.getEndTime()-relaxTime,
                 QAGESAStat.getNumUsers(),
                 time);
         boolean result= (this.getUid() < neededRequests);
