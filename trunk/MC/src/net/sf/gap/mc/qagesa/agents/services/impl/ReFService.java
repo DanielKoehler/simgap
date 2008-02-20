@@ -198,9 +198,7 @@ public class ReFService extends PlatformService {
                     userID,
                     movieTag);
             this.write(msg);
-        } else {
-            super.sim_putback(ev);
-        }
+        } 
         return agentReply;
     }
     
