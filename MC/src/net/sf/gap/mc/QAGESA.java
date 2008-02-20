@@ -33,6 +33,7 @@ import net.sf.gap.ui.UserInterface;
  * @author Giovanni Novelli
  */
 public class QAGESA {
+    public static double relaxTime = 200.0;
 
     public static String getOutputPath() {
         return outputPath;
@@ -133,6 +134,8 @@ public class QAGESA {
         Double start = Double.parseDouble(prop);
         prop = conf.getProperty("end");
         Double end = Double.parseDouble(prop);
+        prop = conf.getProperty("relax");
+        relaxTime = Double.parseDouble(prop);
         try {
             if (swing) {
                 java.awt.EventQueue.invokeAndWait(new Runnable() {

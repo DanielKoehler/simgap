@@ -50,7 +50,7 @@ public class User extends QAGESAUser {
     public static final int MEASURE_STREAMING = 2;
     public static final int MEASURE_FIRST = 3;
     private static String distribution="";
-    private static final double relaxTime = 200.0;
+    private static double relaxTime;
 
     public static String getDistribution() {
         return distribution;
@@ -117,6 +117,7 @@ public class User extends QAGESAUser {
      */
     public User(String name, Link link, boolean trace_flag, boolean randomSelection, int numRequests, boolean repeated, String movieTag, int selectedMeasure) throws Exception {
         super(name, link, QAGESAEntityTypes.USER_USER, trace_flag);
+        this.relaxTime = QAGESA.relaxTime;
         this.setRandomSelection(randomSelection);
         this.setNumRequests(numRequests);
         this.setRepeated(repeated);
@@ -401,7 +402,7 @@ public class User extends QAGESAUser {
                 GAP.getEndTime()-relaxTime,
                 QAGESAStat.getNumUsers(),
                 time);
-        boolean result= (this.getUid() < neededRequests);
+        boolean result= ((this.getUid() < neededRequests) || (this.getUid()==0));
         return result;
     }
     
