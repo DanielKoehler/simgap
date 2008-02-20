@@ -263,16 +263,22 @@ public class ReFService extends PlatformService {
             it = list.iterator();
             boolean doing;
             doing = false;
-            while (it.hasNext() &&  !doing) {
+            int maxRetryCount = 3;
+            int retryCount = 0;
+            while (it.hasNext() && (retryCount<maxRetryCount) && !doing) {
+            //while (it.hasNext() &&  !doing) {
                 ReFTriple triple = it.next();
                 ReFCouple couple = triple.getCouple();
                 ceID = couple.getComputingElementID();
                 seID = couple.getStorageElementID();
                 agentReply = this.activateAgents(ev,playRequest, playReqrepID, userID, movieTag, ceID, seID);
                 doing = agentReply.isOk();
+                retryCount++;
+            //}
             }
         } 
-        if ((playRequest.isRandomSelection()) || (agentReply == null)) {
+        //if ((playRequest.isRandomSelection()) || (agentReply == null)) {
+        if ((playRequest.isRandomSelection())) {
             Uniform_int r = new Uniform_int("ReFService");
             int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
             int seidx = r.sample(seList.size());
@@ -280,8 +286,10 @@ public class ReFService extends PlatformService {
             seID = seList.get(seidx);
             agentReply = this.activateAgents(ev,playRequest, playReqrepID, userID, movieTag, ceID, seID);
         }
-        if (!agentReply.isOk()) {
-            this.sendPlayStartReply(userID, playRequest,agentReply.isOk());
+        if ((agentReply == null)) {
+            this.sendPlayStartReply(userID, playRequest,false);
+        } else if (!agentReply.isOk()) {
+            this.sendPlayStartReply(userID, playRequest,false);
         }
         super.sim_completed(ev);
     }
