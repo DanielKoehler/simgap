@@ -256,15 +256,17 @@ public class ReFService extends PlatformService {
         AgentReply agentReply = null;
         this.updateGISCache();
         this.updateNMCache();
+        boolean doing;
+        int maxRetryCount;
+        int retryCount;
         if (!playRequest.isRandomSelection()) {
             ReFProximityList list;
             list = this.computeProximities(userID);
             Iterator<ReFTriple> it;
             it = list.iterator();
-            boolean doing;
             doing = false;
-            int maxRetryCount = 3;
-            int retryCount = 0;
+            maxRetryCount = 3;
+            retryCount = 0;
             while (it.hasNext() && (retryCount<maxRetryCount) && !doing) {
             //while (it.hasNext() &&  !doing) {
                 ReFTriple triple = it.next();
@@ -278,13 +280,18 @@ public class ReFService extends PlatformService {
             }
         } 
         //if ((playRequest.isRandomSelection()) || (agentReply == null)) {
-        if ((playRequest.isRandomSelection())) {
+        doing = false;
+        maxRetryCount = 3;
+        retryCount = 0;
+        while ((playRequest.isRandomSelection()) && (retryCount<maxRetryCount) && !doing) {
             Uniform_int r = new Uniform_int("ReFService");
             int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
             int seidx = r.sample(seList.size());
             ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
             seID = seList.get(seidx);
             agentReply = this.activateAgents(ev,playRequest, playReqrepID, userID, movieTag, ceID, seID);
+            doing = agentReply.isOk();
+            retryCount++;
         }
         if ((agentReply == null)) {
             this.sendPlayStartReply(userID, playRequest,false);
