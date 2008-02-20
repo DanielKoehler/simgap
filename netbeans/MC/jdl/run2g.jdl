@@ -9,4 +9,5 @@ Arguments = "buildenv.sh jre.txt ../QAGESA.conf 2048 2048";
 MyProxyServer = "grid001.ct.infn.it";
 Requirements       = other.GlueCEPolicyMaxCPUTime > 2880 &&
                      other.GlueCEPolicyMaxWallClockTime > 4320;
+RetryCount = 0;
 
