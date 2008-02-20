@@ -167,7 +167,7 @@ public class ReFService extends PlatformService {
         }
     }
     
-    private AgentReply activateAgents(ReFPlayRequest playRequest, int playReqrepID, int userID, String movieTag, int ceID, int seID) {
+    private AgentReply activateAgents(Sim_event ev, ReFPlayRequest playRequest, int playReqrepID, int userID, String movieTag, int ceID, int seID) {
         AgentReply agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
                 ceID,
                 100000);
@@ -198,7 +198,9 @@ public class ReFService extends PlatformService {
                     userID,
                     movieTag);
             this.write(msg);
-        } 
+        } else {
+            super.sim_putback(ev);
+        }
         return agentReply;
     }
     
@@ -268,7 +270,7 @@ public class ReFService extends PlatformService {
                 ReFCouple couple = triple.getCouple();
                 ceID = couple.getComputingElementID();
                 seID = couple.getStorageElementID();
-                agentReply = this.activateAgents(playRequest, playReqrepID, userID, movieTag, ceID, seID);
+                agentReply = this.activateAgents(ev,playRequest, playReqrepID, userID, movieTag, ceID, seID);
                 doing = agentReply.isOk();
             }
         } 
@@ -278,7 +280,7 @@ public class ReFService extends PlatformService {
             int seidx = r.sample(seList.size());
             ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
             seID = seList.get(seidx);
-            agentReply = this.activateAgents(playRequest, playReqrepID, userID, movieTag, ceID, seID);
+            agentReply = this.activateAgents(ev,playRequest, playReqrepID, userID, movieTag, ceID, seID);
         }
         if (!agentReply.isOk()) {
             this.sendPlayStartReply(userID, playRequest,agentReply.isOk());
