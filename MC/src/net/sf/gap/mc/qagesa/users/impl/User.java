@@ -147,7 +147,7 @@ public class User extends QAGESAUser {
 
     private void setupStatStreaming() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REQ, QAGESATags.SENT_LAST_CHUNK_REQ};
+        int[] tags = {QAGESATags.TRANSCODED_FIRST_CHUNK_REQ, QAGESATags.SENT_LAST_CHUNK_REQ};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
