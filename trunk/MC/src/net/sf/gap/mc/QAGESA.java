@@ -109,16 +109,22 @@ public class QAGESA {
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);
         
-        /*
         prop = conf.getProperty("requests");
-        Integer numRequests = Integer.parseInt(prop);
-         */
-        Integer numRequests = 0;
+        Integer numRequests;
+        if (prop!=null) {
+            numRequests = Integer.parseInt(prop);
+        } else {
+            numRequests = 0;
+        }
         
-        prop = conf.getProperty("distribution");
-        String distribution = prop;
-        if (prop != null) {
-            User.setDistribution(distribution);
+        if (numRequests==0) {
+            prop = conf.getProperty("distribution");
+            String distribution = prop;
+            if (prop != null) {
+                User.setDistribution(distribution);
+            }
+        } else {
+            User.setDistribution("throughput");
         }
 
         prop = conf.getProperty("replications");
@@ -221,6 +227,7 @@ public class QAGESA {
     }
     public static PrintStream outReF_RT;
     public static PrintStream outReF_CR;
+    public static PrintStream outReF_PR;
     public static PrintStream outUSER;
 
     private static void prepareOutput() {
@@ -267,6 +274,8 @@ public class QAGESA {
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/ReF_CR.csv");
             outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
+            outFile = new File(QAGESA.getOutputPath() + "/ReF_PR.csv");
+            outReF_PR = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/" + usercsvName);
             outUSER = new PrintStream(new FileOutputStream(outFile, true));
         } catch (IOException e) {
@@ -278,6 +287,7 @@ public class QAGESA {
         try {
             outReF_RT.close();
             outReF_CR.close();
+            outReF_PR.close();
             outUSER.close();
             File usedConfFile = new File(usedConf);
             QAGESA.copy(usedConf, getOutputPath() + "/" + usedConfFile.getName());
