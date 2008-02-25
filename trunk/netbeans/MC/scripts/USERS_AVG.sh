@@ -16,9 +16,9 @@ END {
     #print lines " lines read";
     #print "total is ", total;
     if (lines > 0 ) {
-	print total/lines;
+	print "R"$1 " " total/lines;
     } else {
-	print "0.0";
+	print "R"$1 " 0.0";
     }
 }
 
