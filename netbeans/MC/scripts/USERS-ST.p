@@ -8,6 +8,6 @@ unset label                            	# remove any previous labels
 set xlabel "Simulation Time"
 set ylabel "Streaming Time in seconds"
 #set xrange [1000.0:1400.0]
-plot A.'/USERS_'.A.'.dat' using 2:4 title "Streaming Time" with lines, \
-      B.'/USERS_'.B.'.dat' using 2:4 title "Streaming Time (BE)" with lines
+plot A.'/USERS_'.A.'.dat' using 2:4 title "Streaming Time" linecolor rgb 'green' with lines, \
+      B.'/USERS_'.B.'.dat' using 2:4 title "Streaming Time (BE)" linecolor rgb 'red' with lines
 unset output
