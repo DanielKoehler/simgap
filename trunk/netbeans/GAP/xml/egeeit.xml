@@ -29,14 +29,12 @@
             <routerItem name="to-se-r"/>
             <routerItem name="pi-se-r"/>
             <routerItem name="bo-se-r"/>
-            <!--
             <routerItem name="ct-se-r"/>
             <routerItem name="fi-se-r"/>
             <routerItem name="rm-se-r"/>
             <routerItem name="pg-se-r"/>
             <routerItem name="ba-se-r"/>
             <routerItem name="pd-se-r"/>
-            -->
             
             <!-- Backbones & switches -->
             <routerItem name="swmi"/>
@@ -58,14 +56,12 @@
             <geItem name="to-se"/>
             <geItem name="pi-se"/>
             <geItem name="bo-se"/>
-            <!--
             <geItem name="ct-se"/>
             <geItem name="fi-se"/>
             <geItem name="rm-se"/>
             <geItem name="pg-se"/>
             <geItem name="ba-se"/>
             <geItem name="pd-se"/>
-            -->
         </ges>
         <netLinks>
             <netLinkItem name="l-swmi2swbo">
@@ -118,7 +114,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2pd-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>pd-ce-r</toEntity>
@@ -126,7 +122,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2to-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>to-ce-r</toEntity>
@@ -134,7 +130,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2bo-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>bo-ce-r</toEntity>
@@ -142,7 +138,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2pi-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>pi-ce-r</toEntity>
@@ -150,7 +146,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2fi-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>fi-ce-r</toEntity>
@@ -158,7 +154,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2rm-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>rm-ce-r</toEntity>
@@ -166,7 +162,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2pg-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>pg-ce-r</toEntity>
@@ -174,7 +170,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ba-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>2.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ba-ce-r</toEntity>
@@ -182,16 +178,15 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ct-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ct-ce-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            
             <netLinkItem name="l-swmi2to-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>to-se-r</toEntity>
@@ -199,7 +194,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2pi-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>pi-se-r</toEntity>
@@ -207,16 +202,15 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2bo-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>bo-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            <!--
             <netLinkItem name="l-swna2ct-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>16.0</Delay>
+                <Delay>4.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ct-se-r</toEntity>
@@ -224,7 +218,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2pd-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>10.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>pd-se-r</toEntity>
@@ -232,7 +226,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2fi-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>6.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>fi-se-r</toEntity>
@@ -240,7 +234,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2rm-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>rm-se-r</toEntity>
@@ -248,7 +242,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2pg-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>pg-se-r</toEntity>
@@ -256,13 +250,12 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ba-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>10.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ba-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </netLinkItem>
-            -->
         </netLinks>
         <geLinks>
             <geLinkItem name="l-to-ce">
@@ -275,7 +268,7 @@
             </geLinkItem>
             <geLinkItem name="l-pi-ce">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.8</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>pi-ce</fromEntity>
                 <toEntity>pi-ce-r</toEntity>
@@ -283,7 +276,7 @@
             </geLinkItem>
             <geLinkItem name="l-bo-ce">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>1.2</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>bo-ce</fromEntity>
                 <toEntity>bo-ce-r</toEntity>
@@ -291,7 +284,7 @@
             </geLinkItem>
             <geLinkItem name="l-fi-ce">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.9</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>fi-ce</fromEntity>
                 <toEntity>fi-ce-r</toEntity>
@@ -299,7 +292,7 @@
             </geLinkItem>
             <geLinkItem name="l-rm-ce">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>rm-ce</fromEntity>
                 <toEntity>rm-ce-r</toEntity>
@@ -307,7 +300,7 @@
             </geLinkItem>
             <geLinkItem name="l-ct-ce">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.25</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>ct-ce</fromEntity>
                 <toEntity>ct-ce-r</toEntity>
@@ -323,7 +316,7 @@
             </geLinkItem>
             <geLinkItem name="l-ba-ce">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>ba-ce</fromEntity>
                 <toEntity>ba-ce-r</toEntity>
@@ -340,7 +333,7 @@
             
             <geLinkItem name="l-to-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>to-se</fromEntity>
                 <toEntity>to-se-r</toEntity>
@@ -348,7 +341,7 @@
             </geLinkItem>
             <geLinkItem name="l-pi-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.8</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>pi-se</fromEntity>
                 <toEntity>pi-se-r</toEntity>
@@ -362,10 +355,9 @@
                 <toEntity>bo-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            <!--
             <geLinkItem name="l-ct-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.25</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>ct-se</fromEntity>
                 <toEntity>ct-se-r</toEntity>
@@ -373,7 +365,7 @@
             </geLinkItem>
             <geLinkItem name="l-fi-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.8</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>fi-se</fromEntity>
                 <toEntity>fi-se-r</toEntity>
@@ -381,7 +373,7 @@
             </geLinkItem>
             <geLinkItem name="l-rm-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.8</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>rm-se</fromEntity>
                 <toEntity>rm-se-r</toEntity>
@@ -397,7 +389,7 @@
             </geLinkItem>
             <geLinkItem name="l-ba-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>0.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>ba-se</fromEntity>
                 <toEntity>ba-se-r</toEntity>
@@ -405,13 +397,12 @@
             </geLinkItem>
             <geLinkItem name="l-pd-se">
                 <Baudrate>155000000.0</Baudrate>
-                <Delay>1.0</Delay>
+                <Delay>1.2</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>pd-se</fromEntity>
                 <toEntity>pd-se-r</toEntity>
                 <bidirectional>true</bidirectional>
             </geLinkItem>
-            -->
         </geLinks>
     </topology>
     <grid>
@@ -425,7 +416,7 @@
                                 <count>1</count>
                             </PE>
                         </peList>
-                        <repeatMachine>46</repeatMachine>
+                        <repeatMachine>6</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -441,7 +432,7 @@
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>24</repeatMachine>
+                        <repeatMachine>2</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -454,11 +445,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>2000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>32</repeatMachine>
+                        <repeatMachine>6</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -470,11 +461,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>3000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>20</repeatMachine>
+                        <repeatMachine>3</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -486,11 +477,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>2000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>5</repeatMachine>
+                        <repeatMachine>1</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -502,11 +493,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>8000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>12</repeatMachine>
+                        <repeatMachine>1</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -518,11 +509,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>3000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>36</repeatMachine>
+                        <repeatMachine>5</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -534,11 +525,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>6000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>26</repeatMachine>
+                        <repeatMachine>2</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -550,11 +541,11 @@
                     <Machine>
                         <peList>
                             <PE>
-                                <MIPS>4000</MIPS>
+                                <MIPS>1000</MIPS>
                                 <count>2</count>
                             </PE>
                         </peList>
-                        <repeatMachine>22</repeatMachine>
+                        <repeatMachine>9</repeatMachine>
                     </Machine>
                 </items>
             </machineList>
@@ -651,7 +642,6 @@
             </storage>
             <link>l-bo-se</link>
         </gridElement>
-        <!--
         <gridElement name="ct-se">
             <machineList>
                 <items>
@@ -838,6 +828,5 @@
             </storage>
             <link>l-ba-se</link>
         </gridElement>
-        -->
     </grid>
 </scenario>
