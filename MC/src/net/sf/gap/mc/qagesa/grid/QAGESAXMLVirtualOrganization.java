@@ -453,8 +453,8 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         int numRequests = this.getMaxRequests();
         boolean repeated = true;
         for (int i = 0; i < this.getNumUsers(); i++) {
-                //index = i % N;
-                index = r.sample(N);
+                index = i % N;
+                //index = r.sample(N);
                 router = this.getTopology().get(index);
                 //router = (RIPRouter) Sim_system.get_entity("swrm");
                 switch (this.getWhichMeasure()) {
