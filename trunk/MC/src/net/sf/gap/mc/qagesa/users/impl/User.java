@@ -396,13 +396,18 @@ public class User extends QAGESAUser {
     }
 
     private boolean hastoask() {
+        boolean result;
+        if (!User.distribution.equalsIgnoreCase("throughput")) {
         double time=User.clock();
         int neededRequests = fr(
                 GAP.getStartTime(),
                 GAP.getEndTime()-relaxTime,
                 QAGESAStat.getNumUsers(),
                 time);
-        boolean result= ((this.getUid() < neededRequests) || (this.getUid()==0));
+        result = ((this.getUid() < neededRequests) || (this.getUid()==0));
+        } else {
+            result = QAGESAStat.getProcessedRequests()<QAGESA.requests;
+        }
         return result;
     }
     
