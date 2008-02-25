@@ -68,12 +68,12 @@ public class User extends QAGESAUser {
     private Sim_stat statResponseTime;
     /**
      * 
-     * Sim_stat object used to measure SERVICE_TIME between SENDING_FIRST_CHUNK_REQ and SENT_LAST_CHUNK_REQ
+     * Sim_stat object used to measure SERVICE_TIME between SENDING_FIRST_CHUNK_REP and SENT_LAST_CHUNK_REP
      */
     private Sim_stat statStreaming;
     /**
      * 
-     * Sim_stat object used to measure SERVICE_TIME between SENDING_FIRST_CHUNK_REQ and 1st SEND_CHUNK_REQ
+     * Sim_stat object used to measure SERVICE_TIME between SENDING_FIRST_CHUNK_REP and 1st SEND_CHUNK_REQ
      */
     private Sim_stat statFirst;
     /**
@@ -147,7 +147,7 @@ public class User extends QAGESAUser {
 
     private void setupStatStreaming() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.TRANSCODED_FIRST_CHUNK_REQ, QAGESATags.SENT_LAST_CHUNK_REQ};
+        int[] tags = {QAGESATags.TRANSCODED_FIRST_CHUNK_REP, QAGESATags.SENT_LAST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -156,7 +156,7 @@ public class User extends QAGESAUser {
 
     private void setupStatFirst() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REQ, QAGESATags.TRANSCODED_FIRST_CHUNK_REQ};
+        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.TRANSCODED_FIRST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -251,7 +251,7 @@ public class User extends QAGESAUser {
         this.write(msg);
         if (playReply.isOk()) {
             Sim_event fcev = new Sim_event();
-            predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REQ);
+            predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
             super.sim_get_next(predicate, fcev); // only look for this type of ack
             ChunkRequest chunkRequest = ChunkRequest.get_data(fcev);
             reqrepID = chunkRequest.getReqrepID();
@@ -265,7 +265,7 @@ public class User extends QAGESAUser {
             this.write(msg);
 
             Sim_event tfcev = new Sim_event();
-            predicate = new Predicate(QAGESATags.TRANSCODED_FIRST_CHUNK_REQ);
+            predicate = new Predicate(QAGESATags.TRANSCODED_FIRST_CHUNK_REP);
             super.sim_get_next(predicate, tfcev); // only look for this type of ack
             ChunkRequest tchunkRequest = ChunkRequest.get_data(tfcev);
             int treqrepID = chunkRequest.getReqrepID();
@@ -286,7 +286,7 @@ public class User extends QAGESAUser {
             }
 
             Sim_event tev = new Sim_event();
-            int[] tags = {QAGESATags.SENT_LAST_CHUNK_REQ, QAGESATags.SEND_CHUNK_REQ};
+            int[] tags = {QAGESATags.SENT_LAST_CHUNK_REP, QAGESATags.SEND_CHUNK_REQ};
             predicate = new Predicate(tags);
             super.sim_get_next(predicate, tev);
             this.processEvent(tev);
@@ -315,7 +315,7 @@ public class User extends QAGESAUser {
     @Override
     public void processOtherEvent(Sim_event ev) {
         switch (ev.get_tag()) {
-            case QAGESATags.SENT_LAST_CHUNK_REQ:
+            case QAGESATags.SENT_LAST_CHUNK_REP:
                 ChunkRequest chunkRequest = ChunkRequest.get_data(ev);
                 @SuppressWarnings("unused") int playReqrepID = chunkRequest.getPlayReqrepID();
                  int reqrepID = chunkRequest.getReqrepID();
