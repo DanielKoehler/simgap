@@ -8,10 +8,10 @@ unset label                            	# remove any previous labels
 set xlabel "Attached to router"
 set ylabel "Streaming Time in seconds"
 set boxwidth 1.0 relative
-set style data histograms
-set style fill solid 1.0 border -1
 set style histogram clustered gap 2
+set style data histograms
+set style fill solid 1.0
 set yrange[0.0:]
-plot A.'/USERS_MEAN.dat' using 2:xticlabels(1) title "Streaming Time", \
-      B.'/USERS_MEAN.dat' using 2:xticlabels(1) title "Streaming Time (BE)" 
+plot A.'/USERS_MEAN.dat' using 2:xticlabels(1) linecolor rgb "green" title "Streaming Time", \
+      B.'/USERS_MEAN.dat' using 2:xticlabels(1) linecolor rgb "red" title "Streaming Time (BE)" 
 unset output
