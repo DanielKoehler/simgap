@@ -34,6 +34,7 @@ import net.sf.gap.ui.UserInterface;
  */
 public class QAGESA {
     public static double relaxTime = 200.0;
+    public static int requests;
 
     public static String getOutputPath() {
         return outputPath;
@@ -116,7 +117,7 @@ public class QAGESA {
         } else {
             numRequests = 0;
         }
-        
+        QAGESA.requests=numRequests;
         if (numRequests==0) {
             prop = conf.getProperty("distribution");
             String distribution = prop;

@@ -59,6 +59,10 @@ public class QAGESAStat {
 		return QAGESAStat.getRequestsHistory().getPlayRequests();
 	}
 
+	public synchronized static int getProcessedRequests() {
+		return QAGESAStat.getRequestsHistory().getProcessed();
+	}
+
 	public synchronized static RequestsHistory getRequestsHistory() {
 		return requestsHistory;
 	}
