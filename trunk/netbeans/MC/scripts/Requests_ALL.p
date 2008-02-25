@@ -1,5 +1,5 @@
 set terminal png
-set output 'Requests.png'
+set output 'Requests_ALL.png'
 A='MS'
 B='RMS'
 set autoscale
