@@ -35,7 +35,7 @@ public class QAGESAStat {
 	private static int whichMeasure;
 
 	private static RequestsHistory requestsHistory;
-
+        
 	/**
 	 * Creates a new instance of QAGESAStat
 	 */
@@ -51,8 +51,8 @@ public class QAGESAStat {
 		QAGESAStat.getRequestsHistory().inc(clock);
 	}
 
-	public synchronized static void decRequests(double clock) {
-		QAGESAStat.getRequestsHistory().dec(clock);
+	public synchronized static void decRequests(double clock,boolean success) {
+		QAGESAStat.getRequestsHistory().dec(clock,success);
 	}
 
 	public synchronized static int getRequests() {

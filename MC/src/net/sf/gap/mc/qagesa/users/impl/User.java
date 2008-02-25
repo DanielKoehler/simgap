@@ -147,7 +147,7 @@ public class User extends QAGESAUser {
 
     private void setupStatStreaming() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.TRANSCODED_FIRST_CHUNK_REP, QAGESATags.SENT_LAST_CHUNK_REP};
+        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.SENT_LAST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -387,8 +387,8 @@ public class User extends QAGESAUser {
              */
             if (this.hastoask()) {
                 QAGESAStat.incRequests(User.clock());
-                this.repeatedRandomRequest();
-                QAGESAStat.decRequests(User.clock());
+                boolean success=this.repeatedRandomRequest();
+                QAGESAStat.decRequests(User.clock(),success);
             } else {
                 super.gridSimHold(0.1);
             }
@@ -412,6 +412,8 @@ public class User extends QAGESAUser {
             result = linear(a, b, maxusers, currentTime);
         } else if (User.distribution.equalsIgnoreCase("scaled")) {
             result = scaled(a, b, maxusers, currentTime);
+        } else if (User.distribution.equalsIgnoreCase("top")) {
+            result = maxusers;
         } else {
             result = scaled(a, b, maxusers, currentTime);
         }
@@ -452,8 +454,8 @@ public class User extends QAGESAUser {
             double start_time = diff_time;
             super.gridSimHold(start_time);
             QAGESAStat.incRequests(User.clock());
-            this.repeatedRandomRequest();
-            QAGESAStat.decRequests(User.clock());
+            boolean success=this.repeatedRandomRequest();
+            QAGESAStat.decRequests(User.clock(),success);
         }
         for ( int cycle = 1; cycle <= this.getNumRequests(); cycle++) {
             @SuppressWarnings("unused")
@@ -463,19 +465,21 @@ public class User extends QAGESAUser {
             double start_time = diff_time;
             super.gridSimHold(start_time);
             QAGESAStat.incRequests(User.clock());
-            this.repeatedRandomRequest();
-            QAGESAStat.decRequests(User.clock());
+            boolean success=this.repeatedRandomRequest();
+            QAGESAStat.decRequests(User.clock(),success);
         }
     }
 
-    private void repeatedRandomRequest() {
+    private boolean repeatedRandomRequest() {
         if (this.isRepeated()) {
             @SuppressWarnings("unused")
             ReFPlayReply playReply = this.playRequest(this.getRepeatedMovieTag());
+            return playReply.isOk();
         } else {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             @SuppressWarnings("unused")
             ReFPlayReply playReply = this.playRequest(movieTag);
+            return playReply.isOk();
         }
     }
 
