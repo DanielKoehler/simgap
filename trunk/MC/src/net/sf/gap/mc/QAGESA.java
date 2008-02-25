@@ -253,20 +253,22 @@ public class QAGESA {
     private static void prepareOutput() {
         // Create a directory; all non-existent ancestor directories are
         // automatically created
-        File outputDir = new File(getOutputPath()+"/conf");
-        boolean success = outputDir.mkdirs();
+        File outputDir = new File(getOutputPath());
+        File outputSubdir = new File(getOutputPath()+"/conf");
+        QAGESA.deleteDir(outputDir);
+        boolean success = outputSubdir.mkdirs();
         if (!success) {
-            success = QAGESA.deleteDir(outputDir);
-            success = outputDir.mkdirs();
+            success = QAGESA.deleteDir(outputSubdir);
+            success = outputSubdir.mkdirs();
         }
         if (!success) {
             System.exit(2);
         }
-        outputDir = new File("results"+"/conf");
-        success = outputDir.mkdirs();
+        outputSubdir = new File("results"+"/conf");
+        success = outputSubdir.mkdirs();
         if (!success) {
-            success = QAGESA.deleteDir(outputDir);
-            success = outputDir.mkdirs();
+            success = QAGESA.deleteDir(outputSubdir);
+            success = outputSubdir.mkdirs();
         }
         if (!success) {
             System.exit(2);
