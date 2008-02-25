@@ -254,12 +254,12 @@ public class ReFService extends PlatformService {
         int ceID = -1;
         int seID = -1;
         AgentReply agentReply = null;
-        this.updateGISCache();
-        this.updateNMCache();
         boolean doing;
         int maxRetryCount;
         int retryCount;
         if (!playRequest.isRandomSelection()) {
+            this.updateGISCache();
+            this.updateNMCache();
             ReFProximityList list;
             list = this.computeProximities(userID);
             Iterator<ReFTriple> it;
