@@ -52,7 +52,7 @@ public class TranscodingAgent extends GridAgent {
      *  - get chunk
      *  - process chunk
      *  - send chunk
-     * between receival of TRANSCODE_CHUNKS_REQ and the send of tag SENT_LAST_CHUNK_REQ
+     * between receival of TRANSCODE_CHUNKS_REQ and the send of tag SENT_LAST_CHUNK_REP
      */
         private Sim_stat statGTS;
         
@@ -126,7 +126,7 @@ public class TranscodingAgent extends GridAgent {
                                                     playReqrepID,
                                                     userID, movieTag, sequenceNumber, seID);
                                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                                    QAGESATags.SENDING_FIRST_CHUNK_REQ, 
+                                                    QAGESATags.SENDING_FIRST_CHUNK_REP, 
                                             new IO_data(request, 1, userID));
                                 }
 				ChunkReply getChunkReply = this.getChunk(
@@ -147,7 +147,7 @@ public class TranscodingAgent extends GridAgent {
                                                     playReqrepID,
                                                     userID, movieTag, sequenceNumber, seID);
                                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                                    QAGESATags.TRANSCODED_FIRST_CHUNK_REQ, 
+                                                    QAGESATags.TRANSCODED_FIRST_CHUNK_REP, 
                                             new IO_data(request, 1, userID));
                                 }
  			        this.sendChunk(playReqrepID, userID, movieTag,sequenceNumber, transcodedChunk, seID);
@@ -287,7 +287,7 @@ public class TranscodingAgent extends GridAgent {
 		int reqrepID = request.getReqrepID();
                 int SIZE = 500;
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
-				QAGESATags.SENT_LAST_CHUNK_REQ, new IO_data(request, SIZE, userID));
+				QAGESATags.SENT_LAST_CHUNK_REP, new IO_data(request, SIZE, userID));
 		evsend_time = GridSim.clock();
 		String msg = String.format(
 				"%1$f %2$d %3$s --> %4$s SENT_LAST_CHUNK %5$d %6$s",

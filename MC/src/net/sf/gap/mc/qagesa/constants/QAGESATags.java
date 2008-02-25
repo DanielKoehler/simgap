@@ -68,9 +68,9 @@ public class QAGESATags extends Tags {
 															// of
 
 	// Sending chunk to SE
-	public static final int SENDING_FIRST_CHUNK_REQ = 21 + TATAGS; // From TA
+	public static final int SENDING_FIRST_CHUNK_REP = 21 + TATAGS; // From TA
 																	// to USER
-	public static final int TRANSCODED_FIRST_CHUNK_REQ = 22 + TATAGS; // From
+	public static final int TRANSCODED_FIRST_CHUNK_REP = 22 + TATAGS; // From
 																		// TA to
 																		// USER
 
@@ -78,7 +78,7 @@ public class QAGESATags extends Tags {
 
 	public static final int SEND_CHUNK_REP = 32 + TATAGS; // From USER to TA
 
-	public static final int SENT_LAST_CHUNK_REQ = 33 + TATAGS; // From TA to
+	public static final int SENT_LAST_CHUNK_REP = 33 + TATAGS; // From TA to
 																// USER
 
 	// Caching chunks to SE
