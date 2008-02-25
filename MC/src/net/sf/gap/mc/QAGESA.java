@@ -225,6 +225,25 @@ public class QAGESA {
             src.delete();
         }
     }
+    // Copies src file to dst file.
+    // If the dst file does not exist, it is created
+    private static void copywd(String srcPath, String dstPath) throws IOException {
+        File src = new File(srcPath);
+        File dst = new File(dstPath);
+        if (src.exists()) {
+            InputStream in = new FileInputStream(src);
+            OutputStream out = new FileOutputStream(dst);
+
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        }
+    }
     public static PrintStream outReF_RT;
     public static PrintStream outReF_CR;
     public static PrintStream outReF_PR;
@@ -290,7 +309,7 @@ public class QAGESA {
             outReF_PR.close();
             outUSER.close();
             File usedConfFile = new File(usedConf);
-            QAGESA.copy(usedConf, getOutputPath() + "/" + usedConfFile.getName());
+            QAGESA.copywd(usedConf, getOutputPath() + "/" + usedConfFile.getName());
             QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
