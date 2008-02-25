@@ -11,6 +11,8 @@ cd $HOME
 find tmp/jobOutput/ -name ReF_CR.csv | awk -F "/results/" '{print "sh scripts/ReF_CR.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/ReF_CRxxx/ReF_CR\"/g | bash ; 
 find tmp/jobOutput/ -name ReF_RT.csv | awk -F "/results/" '{print "sh scripts/ReF_RT.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/ReF_RTxxx/ReF_RT\"/g | bash
 find tmp/jobOutput/ -name USERS_*.csv | awk -F "/results/" '{print "sh scripts/USERS.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/xxx/\"/g | bash
+find tmp/jobOutput/ -name USERS_*.csv | awk -F "/results/" '{print "sh scripts/USERS1.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/xxx/\"/g | bash
+find tmp/jobOutput/ -name USERS_*.csv | awk -F "/results/" '{print "sh scripts/USERS1_0.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/xxx/\"/g | bash
 rm -fR results
 mkdir results
 find tmp/jobOutput/ -name *.conf | awk -F ".conf" '{print $1}' | awk -F "/results/" '{print "DIR="$1 "; NAME=" $2"; SUFFIX=$(echo $NAME | sed s/QAGESA//g | sed s/_//g | sed s/[0-9]*//g); mkdir -p results/$SUFFIX; cp -fR $DIR/results/* results/$SUFFIX; sh scripts/trunk.sh results/$SUFFIX "}' | bash
