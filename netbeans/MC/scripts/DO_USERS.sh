@@ -12,3 +12,22 @@ do
   sh $SCRIPTS/USERSperROUTER.sh RMS $NROUTERS $ROUTER
   ROUTER=$(( $ROUTER + 1 ))
 done
+
+rm MF/USERS_MEAN.dat &> /dev/null
+rm MR/USERS_MEAN.dat &> /dev/null
+rm MS/USERS_MEAN.dat &> /dev/null
+rm RMF/USERS_MEAN.dat &> /dev/null
+rm RMR/USERS_MEAN.dat &> /dev/null
+rm RMS/USERS_MEAN.dat &> /dev/null
+
+ROUTER=0
+while [ $ROUTER -ne $NROUTERS ]
+do
+  cat MF/USERS_$ROUTER.dat | $SCRIPTS/USERS_AVG.sh >> MF/USERS_MEAN.dat
+  cat MR/USERS_$ROUTER.dat | $SCRIPTS/USERS_AVG.sh >> MR/USERS_MEAN.dat
+  cat MS/USERS_$ROUTER.dat | $SCRIPTS/USERS_AVG.sh >> MS/USERS_MEAN.dat
+  cat RMF/USERS_$ROUTER.dat | $SCRIPTS/USERS_AVG.sh >> RMF/USERS_MEAN.dat
+  cat RMR/USERS_$ROUTER.dat | $SCRIPTS/USERS_AVG.sh >> RMR/USERS_MEAN.dat
+  cat RMS/USERS_$ROUTER.dat | $SCRIPTS/USERS_AVG.sh >> RMS/USERS_MEAN.dat
+  ROUTER=$(( $ROUTER + 1 ))
+done
