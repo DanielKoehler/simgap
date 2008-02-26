@@ -6,4 +6,4 @@ FNAME=$1/$2.csv
 NROUTERS=$3
 ROUTER=$4
 FINAL=$WHERE/USERS_$ROUTER.dat
-cat $FNAME | grep ";1;" | awk -F ";" '{print $7 " " $8-1000.0 " " $9-1000.0 " " $10}' | awk -F "_" '{print $2}' | awk '{print $1%4 " " $2 " " $3 " " $4}' |  sort -n -k 2 | grep "^$ROUTER" > $FINAL
+cat $FNAME | grep ";1;" | awk -F ";" '{print $7 " " $8-1000.0 " " $9-1000.0 " " $10}' | awk -F "_" '{print $2}' | awk '{print $1%22 " " $2 " " $3 " " $4}' |  sort -n -k 2 | grep "^$ROUTER" > $FINAL

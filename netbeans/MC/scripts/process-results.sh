@@ -20,8 +20,8 @@ find tmp/jobOutput/ -name *.conf | awk -F ".conf" '{print $1}' | awk -F "/result
 rm -fR $DEST &> /dev/null
 mv results $DEST
 find $DEST -name USERS_*.csv | awk -F "/USERS" '{print "mv " $0 " " $1"/USERS.csv"}' | bash
-find $DEST -name USERS.csv | awk -F "/USERS" '{print "sh scripts/DO_USERS.sh scripts " $1 " 4"}' | bash
-find $DEST -name USERS.csv | awk -F "/USERS" '{print "sh scripts/DO_USERS.sh scripts " $1 " 22"}' | bash
+find $DEST -name USERS.csv | awk -F "/USERS" '{print "sh scripts/DO_USERS4.sh scripts " $1 " 4"}' | bash
+find $DEST -name USERS.csv | awk -F "/USERS" '{print "sh scripts/DO_USERS22.sh scripts " $1 " 22"}' | bash
 #NN=$(N=$(cat $DEST/ReF_CR.dat  | wc | awk '{print $1 " - 1"}') ; echo $N | bc); cat $DEST/ReF_CR.dat | tail -n $NN > /tmp/ReF_CR.dat
 #rm $DEST/ReF_CR.dat &> /dev/null
 #mv /tmp/ReF_CR.dat $DEST/ReF_CR.dat
