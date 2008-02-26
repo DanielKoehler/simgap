@@ -213,8 +213,9 @@ public class ReFService extends PlatformService {
             int numFreeAgents = gisEntry.getNumFreeAgents();
             if (numFreeAgents>0) {
                 int totalMIPS = gisEntry.getTotalMIPS();
-                @SuppressWarnings("unused")
-				double load = (gisEntry.getLoad().getMean())*totalMIPS;
+        	//double load = (gisEntry.getLoad().getMean())*totalMIPS;
+                double load = (gisEntry.getNumFreePEs() * 1.0) / (gisEntry.getNumPEs() * 1.0);
+                double weigth = load * totalMIPS;
                 RTTMap rttMap = this.getNetworkMapCache().get(ceID);
                 Iterator<Integer> itnm = rttMap.keySet().iterator();
                 InfoPacket userPkt = rttMap.get(userID);
@@ -234,7 +235,7 @@ public class ReFService extends PlatformService {
                           int seID = eid;
                           InfoPacket pkt = rttMap.get(seID);
                           double latency = pkt.getTotalResponseTime()/2.0;
-                          ReFTriple triple = new ReFTriple(1.0, latency+userLatency, ceID, seID);
+                          ReFTriple triple = new ReFTriple(weigth, latency+userLatency, ceID, seID);
                           list.add(triple);
                         }
                     }
