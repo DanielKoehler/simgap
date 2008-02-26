@@ -1,3 +1,4 @@
+reset
 load "../scripts/Requests.p"
 load "../scripts/Completed.p"
 load "../scripts/USERS-RT.p"
