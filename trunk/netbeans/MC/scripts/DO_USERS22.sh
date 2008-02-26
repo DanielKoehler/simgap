@@ -14,6 +14,6 @@ rm $WHERE/USERS_MEAN_OF_$NROUTERS.dat &> /dev/null
 ROUTER=0
 while [ $ROUTER -ne $NROUTERS ]
 do
-  cat $WHERE/USERS_$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_MEAN_OF_$NROUTERS.dat
+  cat $WHERE/USERS_OF_22_$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_MEAN_OF_$NROUTERS.dat
   ROUTER=$(( $ROUTER + 1 ))
 done

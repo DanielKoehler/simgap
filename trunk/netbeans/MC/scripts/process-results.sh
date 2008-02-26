@@ -26,7 +26,7 @@ find $DEST -name USERS.csv | awk -F "/USERS" '{print "sh scripts/DO_USERS22.sh s
 #rm $DEST/ReF_CR.dat &> /dev/null
 #mv /tmp/ReF_CR.dat $DEST/ReF_CR.dat
 
-#rm $DEST.tar &> /dev/null
-#tar -cf $DEST.tar $DEST
-#rm $DEST.tar.bz2 &> /dev/null
-#bzip2 $DEST.tar
+rm $DEST.tar &> /dev/null
+tar -cf $DEST.tar $DEST
+rm $DEST.tar.bz2 &> /dev/null
+bzip2 $DEST.tar
