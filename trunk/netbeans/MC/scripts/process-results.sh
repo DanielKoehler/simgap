@@ -15,7 +15,7 @@ find tmp/jobOutput/ -name USERS_*.csv | awk -F "/results/" '{print "sh scripts/U
 find tmp/jobOutput/ -name USERS_*.csv | awk -F "/results/" '{print "sh scripts/USERS1_0.sh " $1"/results/"$2"xxx"}' | sed s/\.csvxxx/xxx/g  | sed s/tmp/\"tmp/g | sed s/xxx/\"/g | bash
 rm -fR results
 mkdir results
-find tmp/jobOutput/ -name *.conf | awk -F ".conf" '{print $1}' | awk -F "/results/" '{print "DIR="$1 "; NAME=" $2"; SUFFIX=$(echo $NAME | sed s/QAGESA//g | sed s/_//g | sed s/[0-9]*//g); mkdir -p results/$SUFFIX; cp -fR $DIR/results/* results/$SUFFIX; sh scripts/trunk.sh results/$SUFFIX "}' | bash
+find tmp/jobOutput/ -name *.conf | awk -F ".conf" '{print $1}' | awk -F "/results/" '{print "DIR="$1 "; NAME=" $2"; SUFFIX=$NAME; mkdir -p results/$SUFFIX; cp -fR $DIR/results/* results/$SUFFIX; sh scripts/trunk.sh results/$SUFFIX "}' | bash
 rm -fR $DEST &> /dev/null
 mv results $DEST
 #NN=$(N=$(cat $DEST/ReF_CR.dat  | wc | awk '{print $1 " - 1"}') ; echo $N | bc); cat $DEST/ReF_CR.dat | tail -n $NN > /tmp/ReF_CR.dat
