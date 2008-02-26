@@ -8,7 +8,6 @@ unset label                            	# remove any previous labels
 set xlabel "Simulation Time"
 set ylabel "Response Time in seconds"
 set xrange [1000.0:2000.0]
-set title "Requests linearly grow from 0 to 64"
-plot A.'/USERS_'.A.'.dat' using 2:4 smooth csplines title "Response Time" with lines, \
-      B.'/USERS_'.B.'.dat' using 2:4 smooth csplines title "Response Time (BE)" with lines
+plot A.'/USERS_'.A.'_1.dat' using 2:4 linecolor rgb 'green' title "Response Time" with lines, \
+      B.'/USERS_'.B.'_1.dat' using 2:4 linecolor rgb 'red' title "Response Time (BE)" with lines
 unset output
