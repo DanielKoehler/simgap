@@ -5,7 +5,7 @@ B='RMS'
 set autoscale
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
-set xlabel "Simulation Time"
+set xlabel "Simulation Time in seconds"
 set ylabel "Streaming Time in seconds"
 #set xrange [1000.0:1400.0]
 plot A.'/USERS_'.A.'_1.dat' using 2:4 title "Streaming Time" linecolor rgb 'green' with lines, \
