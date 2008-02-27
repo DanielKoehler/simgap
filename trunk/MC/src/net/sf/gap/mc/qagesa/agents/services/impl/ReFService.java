@@ -223,6 +223,7 @@ public class ReFService extends PlatformService {
             //double load = (gisEntry.getLoad().getMean())*totalMIPS;
             double load = 1.0 - ((gisEntry.getNumFreePEs() * 1.0) / (gisEntry.getNumPEs() * 1.0));
             double weigth = load * totalMIPS;
+            weigth=1.0;
             RTTMap rttMap = this.getNetworkMapCache().get(ceID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);

@@ -72,6 +72,8 @@ public class ExperimentsUser extends User {
     public void initWork() {
         this.DoIt();
     }
+    public void doWork() {
+    }
 
     private void DoIt() {
         this.DoGridlets();
