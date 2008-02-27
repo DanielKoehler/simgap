@@ -23,10 +23,12 @@ import java.util.LinkedList;
  * @author Giovanni Novelli
  */
 public class GridType {
+        private int MIPS;
 	private LinkedList<GridElementType> gridElements;
 
 	public GridType() {
 		this.setGridElements(new LinkedList<GridElementType>());
+                this.setMIPS(0);
 	}
 
 	public int size() {
@@ -34,7 +36,9 @@ public class GridType {
 	}
 
 	public boolean addGridElement(GridElementType gridElement) {
-		return this.getGridElements().add(gridElement);
+		boolean result = this.getGridElements().add(gridElement);
+                this.MIPS+=gridElement.getMIPS();
+                return result;
 	}
 
 	public LinkedList<GridElementType> getGridElements() {
@@ -44,5 +48,13 @@ public class GridType {
 	public void setGridElements(LinkedList<GridElementType> gridElements) {
 		this.gridElements = gridElements;
 	}
+
+    public int getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(int MIPS) {
+        this.MIPS = MIPS;
+    }
 
 }
