@@ -29,16 +29,22 @@ import net.sf.gap.messages.impl.AgentRequest;
  */
 public class AgentsLocatorDirectory {
 	private ConcurrentHashMap<Integer, AgentRequest> agentsMap; // used Agent
-																// Entity ID,
+	private ConcurrentHashMap<Integer, Integer> aceMap; // aid ceid map
+															// Entity ID,
 																// ceID
 
 	/** Creates a new instance of AgentsLocatorDirectory */
 	public AgentsLocatorDirectory() {
 		this.setAgentsMap(new ConcurrentHashMap<Integer, AgentRequest>());
+		this.setAceMap(new ConcurrentHashMap<Integer, Integer>());
 	}
 
 	public void addAgent(int agentID, AgentRequest request) {
 		this.getAgentsMap().put(agentID, request);
+	}
+
+       	public void addAgent(int agentID, int ceID) {
+		this.getAceMap().put(agentID, ceID);
 	}
 
 	public AgentRequest removeAgent(int agentID) {
@@ -52,4 +58,12 @@ public class AgentsLocatorDirectory {
 	public void setAgentsMap(ConcurrentHashMap<Integer, AgentRequest> agentsMap) {
 		this.agentsMap = agentsMap;
 	}
+
+    public ConcurrentHashMap<Integer, Integer> getAceMap() {
+        return aceMap;
+    }
+
+    public void setAceMap(ConcurrentHashMap<Integer, Integer> aceMap) {
+        this.aceMap = aceMap;
+    }
 }

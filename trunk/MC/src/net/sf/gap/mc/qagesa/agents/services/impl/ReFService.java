@@ -171,34 +171,49 @@ public class ReFService extends PlatformService {
         AgentReply agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
                 ceID,
                 100000);
-        if (agentReply.isOk()) {
-            this.sendPlayStartReply(userID, playRequest,agentReply.isOk());
-            int agentID = agentReply.getRequest().getDst_agentID();
-            if (this.getAlDirectory()==null) {
+        int agentID = -1;
+        if (!agentReply.isOk()) {
+            Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
+            while (it.hasNext()) {
+                Integer aid = it.next();
+                Integer ceid = this.getAlDirectory().getAceMap().get(aid);
+                if (ceid == ceID) {
+                    agentID = aid;
+                    agentReply.setOk(true);
+                    agentReply.getRequest().setDst_agentID(agentID);
+                    this.sendPlayStartReply(userID, playRequest, true);
+                    break;
+                }
+            }
+        } else {
+            this.sendPlayStartReply(userID, playRequest, agentReply.isOk());
+            agentID = agentReply.getRequest().getDst_agentID();
+            if (this.getAlDirectory() == null) {
                 this.setAlDirectory(new AgentsLocatorDirectory());
             }
-            this.getAlDirectory().addAgent(agentID,agentReply.getRequest());
-            TranscodeRequest transcodeRequest = new TranscodeRequest(
-                    this.get_id(),
-                    this.get_id(),
-                    playRequest, seID);
-            @SuppressWarnings("unused")
-			int requestID = transcodeRequest.getRequestID();
-            int reqrepID = transcodeRequest.getReqrepID();
-            int SIZE = 500;
-            super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                    QAGESATags.TRANSCODE_CHUNKS_REQ, new IO_data(transcodeRequest, SIZE, agentID));
-            double evsend_time = GridSim.clock();
-            String msg = String.format(
-                    "%1$f %2$d %3$s --> %4$s TRANSCODE_CHUNKS_REQUEST %5$d %6$s",
-                    evsend_time,
-                    reqrepID,
-                    this.get_name(),
-                    Sim_system.get_entity(agentID).get_name(),
-                    userID,
-                    movieTag);
-            this.write(msg);
-        } 
+            this.getAlDirectory().addAgent(agentID, agentReply.getRequest());
+            this.getAlDirectory().addAgent(agentID, ceID);
+        }
+        TranscodeRequest transcodeRequest = new TranscodeRequest(
+                this.get_id(),
+                this.get_id(),
+                playRequest, seID);
+        @SuppressWarnings("unused")
+        int requestID = transcodeRequest.getRequestID();
+        int reqrepID = transcodeRequest.getReqrepID();
+        int SIZE = 500;
+        super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                QAGESATags.TRANSCODE_CHUNKS_REQ, new IO_data(transcodeRequest, SIZE, agentID));
+        double evsend_time = GridSim.clock();
+        String msg = String.format(
+                "%1$f %2$d %3$s --> %4$s TRANSCODE_CHUNKS_REQUEST %5$d %6$s",
+                evsend_time,
+                reqrepID,
+                this.get_name(),
+                Sim_system.get_entity(agentID).get_name(),
+                userID,
+                movieTag);
+        this.write(msg);
         return agentReply;
     }
     
