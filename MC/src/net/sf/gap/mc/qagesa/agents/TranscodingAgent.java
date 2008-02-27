@@ -94,10 +94,9 @@ public class TranscodingAgent extends GridAgent {
 		Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
 				file_size, output_size);
 				gridlet.setUserID(this.get_id());
-                 super.send(this.getResourceID(), GridSimTags.SCHEDULE_NOW,
-                         GridSimTags.GRIDLET_SUBMIT, gridlet);
                 // Receiving a Gridlet back
-                gridlet = super.gridletReceive();
+                super.gridletSubmit(gridlet,this.getResourceID());
+                gridlet = super.gridletReceive(gridlet.getGridletID(),this.getResourceID());
                 Chunk transcodedChunk = chunk.transcode();
                 return transcodedChunk;
         }
