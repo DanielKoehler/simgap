@@ -28,9 +28,11 @@ public class GridElementType {
 	private StorageType storage;
 	private String link;
         private boolean RB;
+        private int MIPS;
 
 	public GridElementType() {
 		this.setMachineList(new MachineListType());
+                this.setMIPS(0);
 	}
 
 	public GridElementType(String name, ResourceCalendarType resourceCalendar,
@@ -45,7 +47,9 @@ public class GridElementType {
 	}
 
 	public boolean addMachine(MachineType machine) {
-		return this.getMachineList().addMachine(machine);
+		boolean result = this.getMachineList().addMachine(machine);
+                this.MIPS+=machine.getMIPS();
+                return result;
 	}
 
 	public boolean isSE() {
@@ -107,5 +111,13 @@ public class GridElementType {
 
     public void setRB(boolean RB) {
         this.RB = RB;
+    }
+
+    public int getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(int MIPS) {
+        this.MIPS = MIPS;
     }
 }
