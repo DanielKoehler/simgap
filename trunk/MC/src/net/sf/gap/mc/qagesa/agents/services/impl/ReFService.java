@@ -214,7 +214,7 @@ public class ReFService extends PlatformService {
             if (numFreeAgents>0) {
                 int totalMIPS = gisEntry.getTotalMIPS();
         	//double load = (gisEntry.getLoad().getMean())*totalMIPS;
-                double load = (gisEntry.getNumFreePEs() * 1.0) / (gisEntry.getNumPEs() * 1.0);
+                double load = 1.0-((gisEntry.getNumFreePEs() * 1.0) / (gisEntry.getNumPEs() * 1.0));
                 double weigth = load * totalMIPS;
                 RTTMap rttMap = this.getNetworkMapCache().get(ceID);
                 Iterator<Integer> itnm = rttMap.keySet().iterator();
