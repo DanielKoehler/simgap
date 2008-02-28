@@ -326,6 +326,7 @@ public class User extends QAGESAUser {
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
                         chunkRequest.getPlayReqrepID());
                 this.write(msg);
+                QAGESAStat.decRequests(User.clock(),true);
                 break;
             case QAGESATags.SEND_CHUNK_REQ:
                 chunkRequest = ChunkRequest.get_data(ev);
@@ -368,6 +369,10 @@ public class User extends QAGESAUser {
         this.DoIt();
     }
 
+    @Override
+    public void doWork() {
+    }
+
     private void DoIt() {
         this.pingCEs();
         if (this.isRepeated() && this.getRepeatedMovieTag() == null) {
@@ -388,7 +393,7 @@ public class User extends QAGESAUser {
             if (this.hastoask()) {
                 QAGESAStat.incRequests(User.clock());
                 boolean success=this.repeatedRandomRequest();
-                QAGESAStat.decRequests(User.clock(),success);
+                //QAGESAStat.decRequests(User.clock(),success);
             } else {
                 super.gridSimHold(0.1);
             }

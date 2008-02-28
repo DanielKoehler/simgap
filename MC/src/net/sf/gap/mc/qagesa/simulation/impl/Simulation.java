@@ -124,7 +124,7 @@ public class Simulation extends AbstractSimulation {
                 QAGESA.setGraphing(graphing);
 		QAGESA.initialize(this.getPstart(), this.getStart(), this.getEnd());
 		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, 4,
-				1000, 1, 16, 16, 4, 100, 100, 2, 2, true, 1.0,
+				1000, 1, 1, 1, 4, 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.isCaching(), this.getWhichMeasure(), this.getNumRequests()));
 	}
 

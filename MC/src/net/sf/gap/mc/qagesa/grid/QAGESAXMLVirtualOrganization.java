@@ -270,7 +270,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     ResourceCharacteristics resConfig =
                             new ResourceCharacteristics(
                             arch, os, mList,
-                            ResourceCharacteristics.SPACE_SHARED, time_zone,
+                            ResourceCharacteristics.TIME_SHARED, time_zone,
                             cost);
                     String geName = geItem.getName();
                     long seed = 11L * 13 * 17 * 19 * 23 + 1;
