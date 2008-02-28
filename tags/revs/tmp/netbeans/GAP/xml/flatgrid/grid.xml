@@ -1,0 +1,136 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<grid>
+    <gridElement name="CE_0">
+        <machineList>
+            <items>
+                <Machine>
+                    <peList>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                    </peList>
+                </Machine>
+            </items>
+        </machineList>
+        <link>L_CE_0</link>
+    </gridElement>
+    <gridElement name="CE_1">
+        <machineList>
+            <items>
+                <Machine>
+                    <peList>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                    </peList>
+                </Machine>
+            </items>
+        </machineList>
+        <link>L_CE_1</link>
+    </gridElement>
+    <gridElement name="CE_2">
+        <machineList>
+            <items>
+                <Machine>
+                    <peList>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                    </peList>
+                </Machine>
+            </items>
+        </machineList>
+        <link>L_CE_2</link>
+    </gridElement>
+    <gridElement name="CE_3">
+        <machineList>
+            <items>
+                <Machine>
+                    <peList>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                    </peList>
+                </Machine>
+            </items>
+        </machineList>
+        <link>L_CE_3</link>
+    </gridElement>
+    <gridElement name="SE_0">
+        <machineList>
+            <items>
+                <Machine>
+                    <peList>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                    </peList>
+                </Machine>
+            </items>
+        </machineList>
+        <storage>
+            <RM name="RM_SE_0"/>
+            <hdList>
+                <hdItem name="HD_0_SE_0">
+                    <Capacity>100000</Capacity>
+                    <Latency>4.17</Latency>
+                    <AvgSeekTime>9.0</AvgSeekTime>
+                    <MaxTransferRate>133.0</MaxTransferRate>
+                </hdItem>
+            </hdList>
+            <tapeList>
+                <tapeItem name="TAPE_0_SE_0">
+                    <Capacity>100000</Capacity>
+                    <AccessTime>142.0</AccessTime>
+                    <RewindTime>284.0</RewindTime>
+                    <MaxTransferRate>8.0</MaxTransferRate>
+                </tapeItem>
+            </tapeList>
+        </storage>
+        <link>L_SE_0</link>
+    </gridElement>
+    <gridElement name="SE_1">
+        <machineList>
+            <items>
+                <Machine>
+                    <peList>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                        <PE>
+                            <MIPS>1000</MIPS>
+                        </PE>
+                    </peList>
+                </Machine>
+            </items>
+        </machineList>
+        <storage>
+            <RM name="RM_SE_1"/>
+            <hdList>
+                <hdItem name="HD_0_SE_1">
+                    <Capacity>100000</Capacity>
+                    <Latency>4.17</Latency>
+                    <AvgSeekTime>9.0</AvgSeekTime>
+                    <MaxTransferRate>133.0</MaxTransferRate>
+                </hdItem>
+            </hdList>
+        </storage>
+        <link>L_SE_1</link>
+    </gridElement>
+</grid>
