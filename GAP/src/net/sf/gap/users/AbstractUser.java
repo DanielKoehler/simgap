@@ -523,7 +523,7 @@ public abstract class AbstractUser extends DataGridUser {
 		Sim_event ev = new Sim_event();
 		while (AbstractGAP.isRunning()) {
                         this.doWork();
-			super.sim_wait_for(Sim_system.SIM_ANY, 0.1, ev);
+			super.sim_wait_for(Sim_system.SIM_ANY, 1.0, ev);
 			this.processEvent(ev);
 			while (super.sim_waiting() > 0) {
 				this.processEvents();
