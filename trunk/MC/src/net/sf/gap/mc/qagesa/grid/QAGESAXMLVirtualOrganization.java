@@ -449,8 +449,9 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         int index;
         RIPRouter router = null;
         Link link = null;
-        String movieTag = "743e9c39a8b9735409def891a39d08ea";
+        String movieTag = "aa06f7ddedc7460bd439298494c1e968";
         int numRequests = this.getMaxRequests();
+        boolean randomSelection = false;
         boolean repeated = true;
         for (int i = 0; i < this.getNumUsers(); i++) {
                 index = i % N;
@@ -460,7 +461,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                 switch (this.getWhichMeasure()) {
                     case RMR:
                         link = LinkFactory.UserLink(baudrate, delay);
-                        User rmrUser = new User("RMRUSER_" + i, link,false,
+                        User rmrUser = new User("RMRUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(rmrUser, rmrUser.getUserSched());
                         rmrUser.setVirtualOrganization(this);
@@ -468,7 +469,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case  MR:
                         link = LinkFactory.UserLink(baudrate, delay);
-                        User mruser = new User("MRUSER_" + i, link,false,
+                        User mruser = new User("MRUSER_" + i, link,randomSelection,
                                 false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(mruser, mruser.getUserSched());
                         mruser.setVirtualOrganization(this);
@@ -476,7 +477,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case RMS:
                         link = LinkFactory.UserLink(baudrate, delay);
-                        User rmsUser = new User("RMSUSER_" + i, link,false,
+                        User rmsUser = new User("RMSUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(rmsUser, rmsUser.getUserSched());
                         rmsUser.setVirtualOrganization(this);
@@ -484,7 +485,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case  MS:
                         link = LinkFactory.UserLink(baudrate, delay);
-                        User msuser = new User("MSUSER_" + i, link,false,
+                        User msuser = new User("MSUSER_" + i, link,randomSelection,
                                 false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(msuser, msuser.getUserSched());
                         msuser.setVirtualOrganization(this);
@@ -492,7 +493,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case RMF:
                         link = LinkFactory.UserLink(baudrate, delay);
-                        User rmfUser = new User("RMFUSER_" + i, link,false,
+                        User rmfUser = new User("RMFUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(rmfUser, rmfUser.getUserSched());
                         rmfUser.setVirtualOrganization(this);
@@ -500,7 +501,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case MF:
                         link = LinkFactory.UserLink(baudrate, delay);
-                        User mfUser = new User("MFUSER_" + i, link,false,
+                        User mfUser = new User("MFUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
                         mfUser.setVirtualOrganization(this);

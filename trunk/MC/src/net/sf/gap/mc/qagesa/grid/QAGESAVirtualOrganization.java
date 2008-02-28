@@ -287,8 +287,9 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         int index;
         RIPRouter router = null;
         Link link = null;
-        String movieTag = "743e9c39a8b9735409def891a39d08ea";
+        String movieTag = "aa06f7ddedc7460bd439298494c1e968";
         int numRequests = this.getMaxRequests();
+        boolean randomSelection = false;
         boolean repeated = true;
         for (int i = 0; i < this.getNumUsers(); i++) {
                 index = i % N;
@@ -296,7 +297,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                     case RMR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
-                        User rmrUser = new User("RMRUSER_" + i, link,false,
+                        User rmrUser = new User("RMRUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(rmrUser, rmrUser.getUserSched());
                         rmrUser.setVirtualOrganization(this);
@@ -305,7 +306,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                     case  MR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
-                        User mruser = new User("MRUSER_" + i, link,false,
+                        User mruser = new User("MRUSER_" + i, link,randomSelection,
                                 false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(mruser, mruser.getUserSched());
                         mruser.setVirtualOrganization(this);
@@ -314,7 +315,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                     case RMS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
-                        User rmsUser = new User("RMSUSER_" + i, link,false,
+                        User rmsUser = new User("RMSUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(rmsUser, rmsUser.getUserSched());
                         rmsUser.setVirtualOrganization(this);
@@ -323,7 +324,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                     case  MS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
-                        User msuser = new User("MSUSER_" + i, link,false,
+                        User msuser = new User("MSUSER_" + i, link,randomSelection,
                                 false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(msuser, msuser.getUserSched());
                         msuser.setVirtualOrganization(this);
@@ -332,7 +333,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                     case RMF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
-                        User rmfUser = new User("RMFUSER_" + i, link,false,
+                        User rmfUser = new User("RMFUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(rmfUser, rmfUser.getUserSched());
                         rmfUser.setVirtualOrganization(this);
@@ -341,7 +342,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                     case MF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
-                        User mfUser = new User("MFUSER_" + i, link,false,
+                        User mfUser = new User("MFUSER_" + i, link,randomSelection,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
                         mfUser.setVirtualOrganization(this);
