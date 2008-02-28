@@ -272,7 +272,7 @@ public class ReFService extends PlatformService {
             Iterator<ReFTriple> it;
             it = list.iterator();
             doing = false;
-            maxRetryCount = 3;
+            maxRetryCount = 1;
             retryCount = 0;
             while (it.hasNext() && (retryCount < maxRetryCount) && !doing) {
                 //while (it.hasNext() &&  !doing) {
@@ -288,7 +288,7 @@ public class ReFService extends PlatformService {
         }
         //if ((playRequest.isRandomSelection()) || (agentReply == null)) {
         doing = false;
-        maxRetryCount = 3;
+        maxRetryCount = 1;
         retryCount = 0;
         while ((playRequest.isRandomSelection()) && (retryCount < maxRetryCount) && !doing) {
             Uniform_int r = new Uniform_int("ReFService");
