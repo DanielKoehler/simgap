@@ -1,0 +1,10 @@
+Type = "Job";
+JobType = "Normal";
+Executable = "/bin/sh";
+StdOutput = "output.txt";
+StdError = "error.txt";
+InputSandbox = {"buildenv.sh","../MC.zip","QAGESA.conf","jre.txt"};
+OutputSandbox = {"results.tar.bz2","error.txt"};
+Arguments = "buildenv.sh jre.txt ../QAGESA.conf 2048 2048";
+MyProxyServer = "grid001.ct.infn.it";
+RetryCount = 3;
