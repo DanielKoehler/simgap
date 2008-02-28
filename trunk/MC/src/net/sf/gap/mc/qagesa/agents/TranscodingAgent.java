@@ -89,16 +89,26 @@ public class TranscodingAgent extends GridAgent {
 		if (!EntitiesCounter.contains("Gridlet")) {
 			EntitiesCounter.create("Gridlet");
 		}
-		double length = chunk.getMIPS();
+		double length = chunk.getMIPS()+1000;
 		long file_size = chunk.getInputSize();
 		long output_size = chunk.getOutputSize();
 		Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
 				file_size, output_size);
 				gridlet.setUserID(this.get_id());
-                 super.send(this.getResourceID(), GridSimTags.SCHEDULE_NOW,
-                         GridSimTags.GRIDLET_SUBMIT, gridlet);
+                super.gridletSubmit(gridlet, this.getResourceID());                 
+                //super.send(this.getResourceID(), GridSimTags.SCHEDULE_NOW,
+                 //        GridSimTags.GRIDLET_SUBMIT, gridlet);
                 // Receiving a Gridlet back
                 gridlet = super.gridletReceive();
+                String indent = "    ";
+                System.out.print(indent + gridlet.getGridletID() + indent
+                        + indent);
+
+                if (gridlet.getGridletStatus() == Gridlet.SUCCESS)
+                    System.out.print("SUCCESS");
+
+                System.out.println( indent + indent + gridlet.getResourceID() +
+                        indent + gridlet.getExecStartTime() +indent + gridlet.getFinishTime() );
                 Chunk transcodedChunk = chunk.transcode();
                 return transcodedChunk;
         }

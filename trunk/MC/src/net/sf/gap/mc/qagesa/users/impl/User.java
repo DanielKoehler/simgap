@@ -407,26 +407,26 @@ public class User extends QAGESAUser {
                 this.write(msg);
                 QAGESAStat.decRequests(User.clock(),true);
                 sim_completed(ev);
-                asked = false;
+                asked--;
                 break;
             default:
                 break;
         }
     }
 
-    private boolean asked;
-
+    private int asked;
+    private int maxAsked = 1;
     @Override
     public void initWork() {
-        asked = false;
+        asked = 0;
         this.DoIt();
     }
 
     private void ask() {
-        if (this.hastoask() && !asked) {
+        if (this.hastoask() && (asked<maxAsked)) {
             QAGESAStat.incRequests(User.clock());
             this.repeatedRandomRequest();
-            asked=true;
+            asked++;
         }
     }
     private void DoIt() {
