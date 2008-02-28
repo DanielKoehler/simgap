@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<project name="MC" default="default" basedir=".">
+    <description>Builds, tests, and runs the project MC.</description>
+    <import file="nbproject/build-impl.xml"/>
+
+    <property name="redist.dir" location="redist"/>
+    <property name="zip.dir" location="zip"/>
+    <property name="zip.filename" value="MC.zip"/>
+    <property name="zip.file" location="${zip.dir}/${zip.filename}"/>
+    <property name="globus.host" value="globus.dmi.unict.it"/>
+
+    <target name="post-jar" depends="jar" description="generate the distribution" >
+        <!-- Regenerating redist dir -->
+        <delete dir="${redist.dir}"/>
+        <mkdir dir="${redist.dir}"/>
+        <mkdir dir="${redist.dir}/conf"/>
+        <mkdir dir="${redist.dir}/measures"/>
+        <mkdir dir="${redist.dir}/scripts"/>
+        <mkdir dir="${redist.dir}/xml"/>
+        <mkdir dir="${redist.dir}/output"/>
+        <mkdir dir="${redist.dir}/output/tmp"/>
+        <delete dir="${zip.dir}"/>
+        <mkdir dir="${zip.dir}"/>
+        <!-- Copying project's jar and libraries jars -->
+        <copy file="${dist.jar}" todir="${redist.dir}/"/>
+        <mkdir dir="${redist.dir}/libs"/>
+        <copy file="${libs.junit_4.classpath}" todir="${redist.dir}/libs/"/>
+        <copy file="${libs.JavaCSV.classpath}" todir="${redist.dir}/libs/"/>
+        <copy file="${reference.GAP.jar}" todir="${redist.dir}/libs/"/>
+        <copy file="${reference.GridSim.jar}" todir="${redist.dir}/libs/"/>
+        <copy file="${libs.SimJava2.classpath}" todir="${redist.dir}/libs/"/>
+        <!-- Regenerate input and output dirs -->
+        <copy file="QAGESA.conf" todir="${redist.dir}/"/>
+        <copy todir="${redist.dir}/conf">
+            <fileset dir="conf"/>
+        </copy>
+        <copy todir="${redist.dir}/measures">
+            <fileset dir="measures"/>
+        </copy>
+        <copy todir="${redist.dir}/scripts">
+            <fileset dir="scripts"/>
+        </copy>
+        <copy todir="${redist.dir}/xml">
+            <fileset dir="xml"/>
+        </copy>
+        <copy file="redist-build.xml" tofile="${redist.dir}/build.xml"/>
+        <copy file="run.bat" tofile="${redist.dir}/run.bat"/>
+        <copy file="run.sh" tofile="${redist.dir}/run.sh"/>
+        <copy file="runall.sh" tofile="${redist.dir}/runall.sh"/>
+        <zip destfile="${zip.file}"
+             basedir="${redist.dir}"
+        />
+    </target>
+
+    <target name="globus" depends="post-jar" description="distribute to globus" >
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="rm ${zip.filename}; rm -fR MC"/>
+        <scp todir="novelli@${globus.host}:/home/novelli/"
+             keyfile="${user.home}/.ssh/id_dsa"
+             passphrase=""
+             verbose="Yes"
+             >
+          <fileset file="${zip.file}"/>
+        </scp>
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="unzip ${zip.filename} -d MC; chmod +x MC/run.sh"/>
+    </target>
+    <target name="co2" depends="globus" description="distribute to co2" >
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="scp ${zip.filename} novelli@seiya:/home/novelli/"/>
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="ssh novelli@seiya 'scp ${zip.filename} novelli@co2:/home/novelli/'"/>
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="echo 'rm -fR MC ; unzip ${zip.filename} -d MC' | ssh novelli@seiya 'ssh novelli@co2'"/>
+        <sshexec host="${globus.host}"
+                 username="novelli"
+                 keyfile="${user.home}/.ssh/id_dsa"
+                 passphrase=""
+                 verbose="Yes"
+                 command="echo 'cd MC/scripts/grid ; sh resetdir ; sh sendfile2se /home/novelli/bz2/jre15.tar.bz2 jre.txt ; sh resendfile2se /home/novelli/MC.zip jar.txt' | ssh novelli@seiya 'ssh novelli@co2'"/>
+    </target>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="MC-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+</project>
