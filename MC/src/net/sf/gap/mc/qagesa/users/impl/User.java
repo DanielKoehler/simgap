@@ -327,7 +327,6 @@ public class User extends QAGESAUser {
                         chunkRequest.getPlayReqrepID());
                 this.write(msg);
                 QAGESAStat.decRequests(User.clock(),true);
-                asked--;
                 break;
             case QAGESATags.SEND_CHUNK_REQ:
                 chunkRequest = ChunkRequest.get_data(ev);
@@ -365,45 +364,55 @@ public class User extends QAGESAUser {
         }
     }
 
-    private int asked;
-    private int maxAsked = 1;
     @Override
     public void initWork() {
-        asked = 0;
         this.DoIt();
     }
 
-    private void ask() {
-        if (this.hastoask() && (asked<maxAsked)) {
-            QAGESAStat.incRequests(User.clock());
-            this.repeatedRandomRequest();
-            asked++;
-        }
+    @Override
+    public void doWork() {
     }
+
     private void DoIt() {
         this.pingCEs();
         if (this.isRepeated() && this.getRepeatedMovieTag() == null) {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
         }
-        this.ask();
-    }
-
-    public void doWork() {
-        if ((User.clock() < (GAP.getEndTime() - relaxTime))) {
-          this.ask();
+        double time = User.clock();
+        while (User.clock() < (GAP.getEndTime() - relaxTime)) {
+            time = User.clock();
+            /*
+            int neededRequests = scalini(
+            GAP.getStartTime(), 
+            GAP.getEndTime(),
+            5,
+            20,
+            time);
+             */
+            if (this.hastoask()) {
+                QAGESAStat.incRequests(User.clock());
+                boolean success=this.repeatedRandomRequest();
+                //QAGESAStat.decRequests(User.clock(),success);
+            } else {
+                super.gridSimHold(0.1);
+            }
         }
     }
 
     private boolean hastoask() {
         boolean result;
+        if (!User.distribution.equalsIgnoreCase("throughput")) {
         double time=User.clock();
         int neededRequests = fr(
                 GAP.getStartTime(),
                 GAP.getEndTime()-relaxTime,
-                QAGESAStat.getNumUsers()*this.getNumRequests(),
+                QAGESAStat.getNumUsers(),
                 time);
-        result = (((this.getUid()*this.getNumRequests()) < neededRequests) || (this.getUid()==0));
+        result = ((this.getUid() < neededRequests) || (this.getUid()==0));
+        } else {
+            result = QAGESAStat.getProcessedRequests()<QAGESA.requests;
+        }
         return result;
     }
     

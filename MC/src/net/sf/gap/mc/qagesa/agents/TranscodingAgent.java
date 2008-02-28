@@ -97,7 +97,6 @@ public class TranscodingAgent extends GridAgent {
                 super.gridletSubmit(gridlet, this.getResourceID());                 
                 // Receiving a Gridlet back
                 gridlet = super.gridletReceive();
-                /*
                 String indent = "    ";
                 System.out.print(indent + gridlet.getGridletID() + indent
                         + indent);
@@ -107,7 +106,6 @@ public class TranscodingAgent extends GridAgent {
 
                 System.out.println( indent + indent + gridlet.getResourceID() +
                         indent + gridlet.getExecStartTime() +indent + gridlet.getFinishTime() );
-                 */
                 Chunk transcodedChunk = chunk.transcode();
                 return transcodedChunk;
         }
