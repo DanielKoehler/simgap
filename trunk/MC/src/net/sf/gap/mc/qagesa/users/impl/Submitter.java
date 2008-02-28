@@ -63,6 +63,10 @@ public class Submitter extends QAGESAUser {
 		this.DoIt();
 	}
 
+        @Override
+	public void doWork() {
+	}
+
 	private void DoIt() {
 		this.DoGridlets();
 	}

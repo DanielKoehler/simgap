@@ -131,7 +131,7 @@ public class QAGESAGEFactory extends ResourceFactory {
 		double cost = 1.0; // the cost of using this resource
 
 		ResourceCharacteristics resConfig = new ResourceCharacteristics(arch,
-				os, mList, ResourceCharacteristics.SPACE_SHARED, time_zone, cost);
+				os, mList, ResourceCharacteristics.TIME_SHARED, time_zone, cost);
 
 		// 7. Finally, we need to create a GridResource object.
 		String name = null;
