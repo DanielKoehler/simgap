@@ -356,8 +356,8 @@ public class User extends QAGESAUser {
         double b = GAP.getEndTime()+1.0 - QAGESA.relaxTime;
         step = 1.0;
         nSeconds = (int) Math.round((b - a) / step);
-        ZipF zipfUsers = new ZipF(nSeconds, 0.5);
-        ZipF zipfRequests = new ZipF(nSeconds, 0.5);
+        ZipF zipfUsers = new ZipF(nSeconds, QAGESA.thetaU);
+        ZipF zipfRequests = new ZipF(nSeconds, QAGESA.thetaR);
         probsUsers = zipfUsers.getProbs();
         probsRequests = zipfRequests.getProbs();
     }
@@ -375,8 +375,8 @@ public class User extends QAGESAUser {
         if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
             double time = User.clock();
             int i = (int) Math.round((time-a)/step);
-            double utoask = probsUsers[i]*QAGESAStat.getNumUsers()+1;
-            double rtoask = probsRequests[i]*this.numRequests+1;
+            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
+            double rtoask = probsRequests[i]*this.numRequests;
             boolean toask = (QAGESAStat.getRequests()<utoask) && (this.asked<rtoask);
             if (toask) {
                 asked++;
