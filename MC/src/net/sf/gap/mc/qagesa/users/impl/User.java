@@ -213,7 +213,7 @@ public class User extends QAGESAUser {
         }
     }
 
-    protected ReFPlayReply playRequest(String movieTag) {
+    private ReFPlayReply askReF(String movieTag) {
         int SIZE = 500;
         double evsend_time = 0;
         int userID = this.get_id();
@@ -233,6 +233,7 @@ public class User extends QAGESAUser {
         Predicate predicate = new Predicate(QAGESATags.REF_PLAY_START_REP);
         super.sim_get_next(predicate, ev); // only look for this type of ack
         ReFPlayReply playReply = ReFPlayReply.get_data(ev);
+        playReply.setReplyEv(ev);
         request = playReply.getRequest();
         double evrecv_time = GridSim.clock();
         if (playReply.isOk()) {
@@ -249,14 +250,19 @@ public class User extends QAGESAUser {
                     request.getMovieTag());
         }
         this.write(msg);
+        return playReply;
+    }
+    
+    protected ReFPlayReply playRequest(String movieTag) {
+        ReFPlayReply playReply = askReF(movieTag);
         if (playReply.isOk()) {
             Sim_event fcev = new Sim_event();
-            predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
+            Predicate predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
             super.sim_get_next(predicate, fcev); // only look for this type of ack
             ChunkRequest chunkRequest = ChunkRequest.get_data(fcev);
-            reqrepID = chunkRequest.getReqrepID();
-            evrecv_time = GridSim.clock();
-            msg = String.format(
+            int reqrepID = chunkRequest.getReqrepID();
+            double evrecv_time = GridSim.clock();
+            String msg = String.format(
                     "%1$f %2$d %3$s <-- %4$s SENDING_FIRST_CHUNK %5$d %6$d",
                     evrecv_time, reqrepID, this.get_name(),
                     Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
@@ -282,7 +288,7 @@ public class User extends QAGESAUser {
             }
 
             if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
-                sim_completed(ev);
+                sim_completed(playReply.getReplyEv());
             }
 
             Sim_event tev = new Sim_event();
@@ -306,7 +312,7 @@ public class User extends QAGESAUser {
 
         } else {
             if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
-                sim_completed(ev);
+                sim_completed(playReply.getReplyEv());
             }
         }
         return playReply;
