@@ -35,6 +35,8 @@ import net.sf.gap.ui.UserInterface;
 public class QAGESA {
     public static double relaxTime = 200.0;
     public static int requests;
+    public static double thetaU=0.5;
+    public static double thetaR=0.25;
 
     public static String getOutputPath() {
         return outputPath;
@@ -118,6 +120,12 @@ public class QAGESA {
         String distribution = prop;
         if (prop != null) {
             User.setDistribution(distribution);
+            if (prop.compareToIgnoreCase("zipf")==0) {
+                prop = conf.getProperty("thetaU");
+                QAGESA.thetaU = Double.parseDouble(prop);
+                prop = conf.getProperty("thetaR");
+                QAGESA.thetaR = Double.parseDouble(prop);
+            } 
         }
 
         prop = conf.getProperty("replications");
