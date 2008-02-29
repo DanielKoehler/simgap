@@ -501,7 +501,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case MF:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mfUser = new User("MFUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
+                                false,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
                         mfUser.setVirtualOrganization(this);
                         mfUser.setUid(i);
