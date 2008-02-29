@@ -381,8 +381,10 @@ public class User extends QAGESAUser {
             double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
             double rtoask = probsRequests[i]*this.numRequests;
             double ntoask = utoask*rtoask;
-            int uid = randuid.sample(QAGESAStat.getNumUsers());
-            boolean toask = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask) && this.getUid()==uid;
+            //int uid = randuid.sample(QAGESAStat.getNumUsers());
+            //int uid = (int) (Math.round(ntoask+QAGESAStat.getNumUsers()*0.5) % QAGESAStat.getNumUsers());
+            //boolean toask = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask) && this.getUid()>=uid;
+            boolean toask = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask);
             if (toask) {
                 asked++;
                 QAGESAStat.incRequests(User.clock());
