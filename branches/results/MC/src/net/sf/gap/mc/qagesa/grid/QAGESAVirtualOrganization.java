@@ -342,7 +342,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(640000, 20);
                         User mfUser = new User("MFUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
+                                false,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
                         mfUser.setVirtualOrganization(this);
                         mfUser.setUid(i);
