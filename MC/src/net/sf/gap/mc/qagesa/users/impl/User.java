@@ -346,6 +346,22 @@ public class User extends QAGESAUser {
         }
     }
 
+
+    static double[] probsUsers;
+    static double[] probsRequests;
+    static int nSeconds;
+    static double step;
+    {
+        double a = GAP.getStartTime();
+        double b = GAP.getEndTime() - QAGESA.relaxTime;
+        step = 1.0;
+        nSeconds = (int) Math.round((b - a) / step);
+        ZipF zipfUsers = new ZipF(nSeconds, 0.5);
+        ZipF zipfRequests = new ZipF(nSeconds, 0.5);
+        probsUsers = zipfUsers.getProbs();
+        probsRequests = zipfRequests.getProbs();
+    }
+    
     private int asked;
     @Override
     public void initWork() {
@@ -355,6 +371,19 @@ public class User extends QAGESAUser {
 
     @Override
     public void doWork() {
+        double a = User.clock();
+        if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
+            double time = User.clock();
+            int i = (int) Math.round((time-a)/step);
+            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
+            double rtoask = probsRequests[i]*this.numRequests;
+            boolean toask = (this.getUid()<utoask) && (this.asked<rtoask);
+            if (toask) {
+                asked++;
+                QAGESAStat.incRequests(User.clock());
+                this.repeatedRandomRequest();
+            }
+        }
     }
 
     private void DoIt() {
@@ -362,17 +391,6 @@ public class User extends QAGESAUser {
         if (this.isRepeated() && this.getRepeatedMovieTag() == null) {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
             this.setRepeatedMovieTag(movieTag);
-        }
-        double time = User.clock();
-        while (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
-            time = User.clock();
-            if (this.hastoask()) {
-                asked++;
-                QAGESAStat.incRequests(User.clock());
-                this.repeatedRandomRequest();
-            } else {
-                super.gridSimHold(0.1);
-            }
         }
     }
 
