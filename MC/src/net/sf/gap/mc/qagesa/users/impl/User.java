@@ -49,7 +49,7 @@ public class User extends QAGESAUser {
     public static final int MEASURE_RESPONSE = 1;
     public static final int MEASURE_STREAMING = 2;
     public static final int MEASURE_FIRST = 3;
-    private static String distribution="";
+    private static String distribution = "";
     private static double relaxTime;
 
     public static String getDistribution() {
@@ -248,73 +248,69 @@ public class User extends QAGESAUser {
                     evrecv_time, request.getReqrepID(), this.get_name(),
                     request.getReqrepID(),
                     request.getMovieTag());
+            if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
+                sim_completed(playReply.getReplyEv());
+            }
         }
         this.write(msg);
         return playReply;
     }
-    
+
     protected ReFPlayReply playRequest(String movieTag) {
         ReFPlayReply playReply = askReF(movieTag);
-        if (playReply.isOk()) {
-            Sim_event fcev = new Sim_event();
-            Predicate predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
-            super.sim_get_next(predicate, fcev); // only look for this type of ack
-            ChunkRequest chunkRequest = ChunkRequest.get_data(fcev);
-            int reqrepID = chunkRequest.getReqrepID();
-            double evrecv_time = GridSim.clock();
-            String msg = String.format(
-                    "%1$f %2$d %3$s <-- %4$s SENDING_FIRST_CHUNK %5$d %6$d",
-                    evrecv_time, reqrepID, this.get_name(),
-                    Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
-                    chunkRequest.getPlayReqrepID(),
-                    chunkRequest.getSequenceNumber());
-            this.write(msg);
+        Sim_event fcev = new Sim_event();
+        Predicate predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
+        super.sim_get_next(predicate, fcev); // only look for this type of ack
+        ChunkRequest chunkRequest = ChunkRequest.get_data(fcev);
+        int reqrepID = chunkRequest.getReqrepID();
+        double evrecv_time = GridSim.clock();
+        String msg = String.format(
+                "%1$f %2$d %3$s <-- %4$s SENDING_FIRST_CHUNK %5$d %6$d",
+                evrecv_time, reqrepID, this.get_name(),
+                Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
+                chunkRequest.getPlayReqrepID(),
+                chunkRequest.getSequenceNumber());
+        this.write(msg);
 
-            Sim_event tfcev = new Sim_event();
-            predicate = new Predicate(QAGESATags.TRANSCODED_FIRST_CHUNK_REP);
-            super.sim_get_next(predicate, tfcev); // only look for this type of ack
-            ChunkRequest tchunkRequest = ChunkRequest.get_data(tfcev);
-            int treqrepID = chunkRequest.getReqrepID();
-            double tevrecv_time = GridSim.clock();
-            String tmsg = String.format(
-                    "%1$f %2$d %3$s <-- %4$s TRANSCODED_FIRST_CHUNK %5$d %6$d",
-                    tevrecv_time, treqrepID, this.get_name(),
-                    Sim_system.get_entity(tchunkRequest.getSrc_ID()).get_name(),
-                    tchunkRequest.getPlayReqrepID(),
-                    tchunkRequest.getSequenceNumber());
-            this.write(tmsg);
-            if (this.getSelectedMeasure() == User.MEASURE_FIRST) {
-                sim_completed(fcev);
-            }
-
-            if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
-                sim_completed(playReply.getReplyEv());
-            }
-
-            Sim_event tev = new Sim_event();
-            int[] tags = {QAGESATags.SENT_LAST_CHUNK_REP, QAGESATags.SEND_CHUNK_REQ};
-            predicate = new Predicate(tags);
-            super.sim_get_next(predicate, tev);
-            this.processEvent(tev);
-            for ( int i = 0; i < 6; i++) {
-                Sim_event anev = new Sim_event();
-                super.sim_get_next(predicate, anev);
-                this.processEvent(anev);
-            }
-            if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
-                sim_completed(fcev);
-            }
-
-            Sim_event perev = new Sim_event();
-            predicate = new Predicate(QAGESATags.REF_PLAY_END_REP);
-            super.sim_get_next(predicate, perev);
-            this.processEvent(perev);
-
-        } else {
-            if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
-                sim_completed(playReply.getReplyEv());
-            }
+        Sim_event tfcev = new Sim_event();
+        predicate = new Predicate(QAGESATags.TRANSCODED_FIRST_CHUNK_REP);
+        super.sim_get_next(predicate, tfcev); // only look for this type of ack
+        ChunkRequest tchunkRequest = ChunkRequest.get_data(tfcev);
+        int treqrepID = chunkRequest.getReqrepID();
+        double tevrecv_time = GridSim.clock();
+        String tmsg = String.format(
+                "%1$f %2$d %3$s <-- %4$s TRANSCODED_FIRST_CHUNK %5$d %6$d",
+                tevrecv_time, treqrepID, this.get_name(),
+                Sim_system.get_entity(tchunkRequest.getSrc_ID()).get_name(),
+                tchunkRequest.getPlayReqrepID(),
+                tchunkRequest.getSequenceNumber());
+        this.write(tmsg);
+        if (this.getSelectedMeasure() == User.MEASURE_FIRST) {
+            sim_completed(fcev);
         }
+
+        if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
+            sim_completed(playReply.getReplyEv());
+        }
+
+        Sim_event tev = new Sim_event();
+        int[] tags = {QAGESATags.SENT_LAST_CHUNK_REP, QAGESATags.SEND_CHUNK_REQ};
+        predicate = new Predicate(tags);
+        super.sim_get_next(predicate, tev);
+        this.processEvent(tev);
+        for (int i = 0; i < 6; i++) {
+            Sim_event anev = new Sim_event();
+            super.sim_get_next(predicate, anev);
+            this.processEvent(anev);
+        }
+        if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
+            sim_completed(fcev);
+        }
+
+        Sim_event perev = new Sim_event();
+        predicate = new Predicate(QAGESATags.REF_PLAY_END_REP);
+        super.sim_get_next(predicate, perev);
+        this.processEvent(perev);
         return playReply;
     }
 
@@ -332,7 +328,7 @@ public class User extends QAGESAUser {
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
                         chunkRequest.getPlayReqrepID());
                 this.write(msg);
-                QAGESAStat.decRequests(User.clock(),true);
+                QAGESAStat.decRequests(User.clock(), true);
                 break;
             case QAGESATags.SEND_CHUNK_REQ:
                 chunkRequest = ChunkRequest.get_data(ev);
@@ -398,8 +394,8 @@ public class User extends QAGESAUser {
              */
             if (this.hastoask()) {
                 QAGESAStat.incRequests(User.clock());
-                boolean success=this.repeatedRandomRequest();
-                //QAGESAStat.decRequests(User.clock(),success);
+                boolean success = this.repeatedRandomRequest();
+            //QAGESAStat.decRequests(User.clock(),success);
             } else {
                 super.gridSimHold(0.1);
             }
@@ -409,19 +405,19 @@ public class User extends QAGESAUser {
     private boolean hastoask() {
         boolean result;
         if (!User.distribution.equalsIgnoreCase("throughput")) {
-        double time=User.clock();
-        int neededRequests = fr(
-                GAP.getStartTime(),
-                GAP.getEndTime()-relaxTime,
-                QAGESAStat.getNumUsers(),
-                time);
-        result = ((this.getUid() < neededRequests) || (this.getUid()==0));
+            double time = User.clock();
+            int neededRequests = fr(
+                    GAP.getStartTime(),
+                    GAP.getEndTime() - relaxTime,
+                    QAGESAStat.getNumUsers(),
+                    time);
+            result = ((this.getUid() < neededRequests) || (this.getUid() == 0));
         } else {
-            result = QAGESAStat.getProcessedRequests()<QAGESA.requests;
+            result = QAGESAStat.getProcessedRequests() < QAGESA.requests;
         }
         return result;
     }
-    
+
     private int fr(double a, double b, int maxusers, double currentTime) {
         int result = 0;
         if (User.distribution.equalsIgnoreCase("linear")) {
@@ -442,10 +438,10 @@ public class User extends QAGESAUser {
     }
 
     private int scaled(double a, double b, int maxusers, double currentTime) {
-        double center = (b-a)/2.0+a;
+        double center = (b - a) / 2.0 + a;
         int result;
-        if (currentTime>center) {
-            result=maxusers;
+        if (currentTime > center) {
+            result = maxusers;
         } else {
             result = (int) Math.round(((currentTime - a) / (center - a)) * maxusers);
         }
@@ -470,8 +466,8 @@ public class User extends QAGESAUser {
             double start_time = diff_time;
             super.gridSimHold(start_time);
             QAGESAStat.incRequests(User.clock());
-            boolean success=this.repeatedRandomRequest();
-            QAGESAStat.decRequests(User.clock(),success);
+            boolean success = this.repeatedRandomRequest();
+            QAGESAStat.decRequests(User.clock(), success);
         }
         for ( int cycle = 1; cycle <= this.getNumRequests(); cycle++) {
             @SuppressWarnings("unused")
@@ -481,8 +477,8 @@ public class User extends QAGESAUser {
             double start_time = diff_time;
             super.gridSimHold(start_time);
             QAGESAStat.incRequests(User.clock());
-            boolean success=this.repeatedRandomRequest();
-            QAGESAStat.decRequests(User.clock(),success);
+            boolean success = this.repeatedRandomRequest();
+            QAGESAStat.decRequests(User.clock(), success);
         }
     }
 
