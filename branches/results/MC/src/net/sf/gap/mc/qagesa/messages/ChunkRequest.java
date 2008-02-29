@@ -29,6 +29,7 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class ChunkRequest extends Request {
+        private TranscodeRequest transcodeRequest;
         // Used to associate a play request to a transcode request
         // Used in User to compute performance measures
         private int playReqrepID; 
@@ -48,7 +49,7 @@ public class ChunkRequest extends Request {
 	 */
 	public ChunkRequest(int src_ID, int src_resID, 
                 int playReqrepID,
-                int userID, String movieTag, int sequenceNumber, int storageElementID) {
+                int userID, String movieTag, int sequenceNumber, int storageElementID, TranscodeRequest transcodeRequest) {
 		super(src_ID, src_resID);
                 
                 this.setPlayReqrepID(playReqrepID);
@@ -57,6 +58,7 @@ public class ChunkRequest extends Request {
 		this.setMovieTag(movieTag);
 		this.setSequenceNumber(sequenceNumber);
                 this.setStorageElementID(storageElementID);
+                this.setTranscodeRequest(transcodeRequest);
 	}
 
 	public static ChunkRequest get_data(Sim_event ev) {
@@ -68,7 +70,7 @@ public class ChunkRequest extends Request {
 	public ChunkRequest clone() {
 		return new ChunkRequest(this.getSrc_ID(), this.getSrc_resID(),
                         this.getPlayReqrepID(),
-                        this.getUserID(), this.getMovieTag(), this.getSequenceNumber(), this.getStorageElementID());
+                        this.getUserID(), this.getMovieTag(), this.getSequenceNumber(), this.getStorageElementID(), this.getTranscodeRequest());
 	}
 
 	public int getSequenceNumber() {
@@ -117,5 +119,13 @@ public class ChunkRequest extends Request {
 
     public void setPlayReqrepID(int playReqrepID) {
         this.playReqrepID = playReqrepID;
+    }
+
+    public TranscodeRequest getTranscodeRequest() {
+        return transcodeRequest;
+    }
+
+    public void setTranscodeRequest(TranscodeRequest transcodeRequest) {
+        this.transcodeRequest = transcodeRequest;
     }
 }

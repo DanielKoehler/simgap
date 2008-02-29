@@ -35,10 +35,10 @@ public class QAGESATags extends Tags {
 	// ReF Service
 	public static final int REF_PLAY_REQ = 11 + QTAGS; // From USER to ReF
 
-	public static final int REF_PLAY_START_REP = 12 + QTAGS; // From ReF to
+	public static final int REF_PLAY_REP_START = 12 + QTAGS; // From ReF to
 																// USER
 
-	public static final int REF_PLAY_END_REP = 13 + QTAGS; // From ReF to USER
+	public static final int REF_PLAY_REP_END = 13 + QTAGS; // From ReF to USER
 
 	// MuM Service
 	public static final int MUM_SEARCH_REQ = 21 + QTAGS; // From ReF to MuM

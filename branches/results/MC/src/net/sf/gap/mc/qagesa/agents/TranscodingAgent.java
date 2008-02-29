@@ -132,14 +132,14 @@ public class TranscodingAgent extends GridAgent {
                                 if (sequenceNumber==1) {
                                     ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
                                                     playReqrepID,
-                                                    userID, movieTag, sequenceNumber, seID);
+                                                    userID, movieTag, sequenceNumber, seID, transcodeRequest);
                                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
                                                     QAGESATags.SENDING_FIRST_CHUNK_REP, 
                                             new IO_data(request, 1, userID));
                                 }
 				ChunkReply getChunkReply = this.getChunk(
                                         playReqrepID,
-                                        userID, movieTag, sequenceNumber,seID);
+                                        userID, movieTag, sequenceNumber,seID, transcodeRequest);
 				Chunk gotChunk = getChunkReply.getChunk();
                                 Chunk transcodedChunk = null;
                                 if (!gotChunk.isTranscoded()) {
@@ -153,14 +153,14 @@ public class TranscodingAgent extends GridAgent {
                                 if (sequenceNumber==1) {
                                     ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
                                                     playReqrepID,
-                                                    userID, movieTag, sequenceNumber, seID);
+                                                    userID, movieTag, sequenceNumber, seID, transcodeRequest);
                                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
                                                     QAGESATags.TRANSCODED_FIRST_CHUNK_REP, 
                                             new IO_data(request, 1, userID));
                                 }
- 			        this.sendChunk(playReqrepID, userID, movieTag,sequenceNumber, transcodedChunk, seID);
+ 			        this.sendChunk(playReqrepID, userID, movieTag,sequenceNumber, transcodedChunk, seID, transcodeRequest);
 			}
-        	        this.sendLastChunk(playReqrepID, userID, movieTag, seID);
+        	        this.sendLastChunk(playReqrepID, userID, movieTag, seID, transcodeRequest);
 			super.sim_completed(ev);
                         if (!previouslyTranscoded && this.isEnabledCaching()) {
                             transcodeRequest.setSequence(transcodedSequence);
@@ -192,12 +192,12 @@ public class TranscodingAgent extends GridAgent {
 	}
 
 	protected ChunkReply getChunk(int playReqrepID, int userID, String movieTag,
-			int sequenceNumber, int storageElementID) {
+			int sequenceNumber, int storageElementID, TranscodeRequest transcodeRequest) {
 		int SIZE = 500;
 		double evsend_time = 0;
 		ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
                                 playReqrepID,
-				userID, movieTag, sequenceNumber, storageElementID);
+				userID, movieTag, sequenceNumber, storageElementID, transcodeRequest);
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
 		super.send(super.output, GridSimTags.SCHEDULE_NOW,
@@ -237,11 +237,11 @@ public class TranscodingAgent extends GridAgent {
 
 	//protected ChunkReply sendChunk(int userID, String movieTag,
 	protected void sendChunk(int playReqrepID, int userID, String movieTag,
-			int sequenceNumber, Chunk chunk, int seID) {
+			int sequenceNumber, Chunk chunk, int seID, TranscodeRequest transcodeRequest) {
 		double evsend_time = 0;
 		ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
                                 playReqrepID,
-				userID, movieTag, sequenceNumber, seID);
+				userID, movieTag, sequenceNumber, seID, transcodeRequest);
                 request.setChunk(chunk);
 		@SuppressWarnings("unused")
 		int requestID = request.getRequestID();
@@ -285,11 +285,11 @@ public class TranscodingAgent extends GridAgent {
 	}
 
 	protected void sendLastChunk(int playReqrepID, int userID, String movieTag,
-			int seID) {
+			int seID, TranscodeRequest transcodeRequest) {
 		double evsend_time = 0;
 		ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
                                 playReqrepID,
-				userID, movieTag, 0, seID);
+				userID, movieTag, 0, seID, transcodeRequest);
 		@SuppressWarnings("unused")
 		int requestID = request.getRequestID();
 		int reqrepID = request.getReqrepID();
