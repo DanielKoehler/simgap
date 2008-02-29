@@ -127,6 +127,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         this.setNumSEs(countSEs);
         this.setFactor(factor);
         this.initParameters(traceFlag,factor, numUsers, cachingEnabled, whichMeasure, maxRequests);
+        this.setMIPS(scenario.getMIPS());
         this.createEntities();
     }
 
@@ -440,7 +441,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
 
     public void createAndAttachUsers() throws Exception {
         double baudrate = 4987000;
-        double delay = 1.0;
+        double delay = 4.0;
         this.setTranscodingSet(new TranscodingSet("measures/videos.csv",
                 "measures/chunks.csv"));
         @SuppressWarnings("unused")

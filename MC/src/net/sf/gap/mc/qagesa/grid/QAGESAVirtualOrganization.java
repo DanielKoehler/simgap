@@ -279,6 +279,8 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     }
 
     public void createAndAttachUsers() throws Exception {
+        double baudrate = 4987000;
+        double delay = 4.0;
         this.setTranscodingSet(new TranscodingSet("measures/videos.csv",
                 "measures/chunks.csv"));
         @SuppressWarnings("unused")
@@ -295,7 +297,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                 switch (this.getWhichMeasure()) {
                     case RMR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
+                        link = LinkFactory.UserLink(baudrate, delay);
                         User rmrUser = new User("RMRUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(rmrUser, rmrUser.getUserSched());
@@ -304,7 +306,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case  MR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
+                        link = LinkFactory.UserLink(baudrate, delay);
                         User mruser = new User("MRUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(mruser, mruser.getUserSched());
@@ -313,7 +315,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case RMS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
+                        link = LinkFactory.UserLink(baudrate, delay);
                         User rmsUser = new User("RMSUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(rmsUser, rmsUser.getUserSched());
@@ -322,7 +324,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case  MS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
+                        link = LinkFactory.UserLink(baudrate, delay);
                         User msuser = new User("MSUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(msuser, msuser.getUserSched());
@@ -331,7 +333,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case RMF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
+                        link = LinkFactory.UserLink(baudrate, delay);
                         User rmfUser = new User("RMFUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(rmfUser, rmfUser.getUserSched());
@@ -340,7 +342,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         break;
                     case MF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
-                        link = LinkFactory.UserLink(640000, 20);
+                        link = LinkFactory.UserLink(baudrate, delay);
                         User mfUser = new User("MFUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
@@ -354,6 +356,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     }
     
     public void createAndAttachCEs() throws Exception {
+        this.setMIPS(0);
         if (this.getNetworkType()==QAGESAVirtualOrganization.NT_STATIC) {
             int N = this.getTopology().getNumRouters();
             int index;
@@ -363,6 +366,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                 Link link = LinkFactory.GELink(false);
                 GridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
+                this.setMIPS(this.getMIPS()+computingElement.getTotalMIPS());
             }
         } else {
             @SuppressWarnings("unused")
@@ -375,6 +379,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                 Link link = LinkFactory.GELink(false);
                 GridElement computingElement = this.seFactory.create(this.isFixedInfrastructure(), i,link, false);
                 computingElement.attachRouter(router);
+                this.setMIPS(this.getMIPS()+computingElement.getTotalMIPS());
             }
         }
     }
