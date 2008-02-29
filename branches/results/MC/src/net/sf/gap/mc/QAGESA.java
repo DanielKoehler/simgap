@@ -112,20 +112,12 @@ public class QAGESA {
         
         prop = conf.getProperty("requests");
         Integer numRequests;
-        if (prop!=null) {
-            numRequests = Integer.parseInt(prop);
-        } else {
-            numRequests = 0;
-        }
+        numRequests = Integer.parseInt(prop);
         QAGESA.requests=numRequests;
-        if (numRequests==0) {
-            prop = conf.getProperty("distribution");
-            String distribution = prop;
-            if (prop != null) {
-                User.setDistribution(distribution);
-            }
-        } else {
-            User.setDistribution("throughput");
+        prop = conf.getProperty("distribution");
+        String distribution = prop;
+        if (prop != null) {
+            User.setDistribution(distribution);
         }
 
         prop = conf.getProperty("replications");

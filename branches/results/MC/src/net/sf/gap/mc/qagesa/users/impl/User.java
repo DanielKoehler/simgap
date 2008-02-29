@@ -304,7 +304,6 @@ public class User extends QAGESAUser {
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
                         chunkRequest.getPlayReqrepID());
                 this.write(msg);
-                QAGESAStat.decRequests(User.clock(), true);
                 if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
                     sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
                 }
@@ -339,14 +338,18 @@ public class User extends QAGESAUser {
                             request.getMovieTag());
                 }
                 this.write(msg);
+                QAGESAStat.decRequests(User.clock(), true);
+                asked--;
                 break;
             default:
                 break;
         }
     }
 
+    private int asked;
     @Override
     public void initWork() {
+        asked = 0;
         this.DoIt();
     }
 
@@ -363,18 +366,10 @@ public class User extends QAGESAUser {
         double time = User.clock();
         while (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
             time = User.clock();
-            /*
-            int neededRequests = scalini(
-            GAP.getStartTime(), 
-            GAP.getEndTime(),
-            5,
-            20,
-            time);
-             */
             if (this.hastoask()) {
+                asked++;
                 QAGESAStat.incRequests(User.clock());
                 this.repeatedRandomRequest();
-            //QAGESAStat.decRequests(User.clock(),success);
             } else {
                 super.gridSimHold(0.1);
             }
@@ -383,17 +378,13 @@ public class User extends QAGESAUser {
 
     private boolean hastoask() {
         boolean result;
-        if (!User.distribution.equalsIgnoreCase("throughput")) {
-            double time = User.clock();
-            int neededRequests = fr(
-                    GAP.getStartTime(),
-                    GAP.getEndTime() - QAGESA.relaxTime,
-                    QAGESAStat.getNumUsers(),
-                    time);
-            result = ((this.getUid() < neededRequests) || (this.getUid() == 0));
-        } else {
-            result = QAGESAStat.getProcessedRequests() < QAGESA.requests;
-        }
+        double time = User.clock();
+        int neededRequests = fr(
+                GAP.getStartTime(),
+                GAP.getEndTime() - QAGESA.relaxTime,
+                QAGESAStat.getNumUsers(),
+                time);
+        result = ((this.getUid() < neededRequests) && (asked < this.numRequests));
         return result;
     }
 
