@@ -261,6 +261,7 @@ public class User extends QAGESAUser {
         Sim_event fcev = new Sim_event();
         Predicate predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
         super.sim_get_next(predicate, fcev); // only look for this type of ack
+        playReply.setFcEv(fcev);
         ChunkRequest chunkRequest = ChunkRequest.get_data(fcev);
         int reqrepID = chunkRequest.getReqrepID();
         double evrecv_time = GridSim.clock();
@@ -286,7 +287,7 @@ public class User extends QAGESAUser {
                 tchunkRequest.getSequenceNumber());
         this.write(tmsg);
         if (this.getSelectedMeasure() == User.MEASURE_FIRST) {
-            sim_completed(fcev);
+            sim_completed(playReply.getFcEv());
         }
 
         if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
@@ -304,7 +305,7 @@ public class User extends QAGESAUser {
             this.processEvent(anev);
         }
         if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
-            sim_completed(fcev);
+            sim_completed(playReply.getFcEv());
         }
 
         Sim_event perev = new Sim_event();
