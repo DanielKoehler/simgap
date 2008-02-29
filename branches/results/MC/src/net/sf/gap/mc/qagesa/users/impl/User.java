@@ -375,8 +375,8 @@ public class User extends QAGESAUser {
         if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
             double time = User.clock();
             int i = (int) Math.round((time-a)/step);
-            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
-            double rtoask = probsRequests[i]*this.numRequests;
+            double utoask = probsUsers[i]*QAGESAStat.getNumUsers()+0.05;
+            double rtoask = probsRequests[i]*this.numRequests+0.05;
             boolean toask = (QAGESAStat.getRequests()<utoask) && (this.asked<rtoask);
             if (toask) {
                 asked++;

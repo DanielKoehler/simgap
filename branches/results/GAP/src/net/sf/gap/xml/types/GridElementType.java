@@ -108,4 +108,8 @@ public class GridElementType {
     public void setRB(boolean RB) {
         this.RB = RB;
     }
+    
+    public int getMIPS() {
+        return this.getMachineList().getMIPS();
+    }
 }

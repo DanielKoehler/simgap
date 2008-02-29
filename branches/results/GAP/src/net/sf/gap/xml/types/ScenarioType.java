@@ -129,4 +129,8 @@ public class ScenarioType {
 	public void setTrace(boolean trace) {
 		this.trace = trace;
 	}
+        
+        public int getMIPS() {
+            return this.getGrid().getMIPS();
+        }
 }

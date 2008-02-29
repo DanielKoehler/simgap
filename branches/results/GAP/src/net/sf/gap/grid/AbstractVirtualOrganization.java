@@ -44,6 +44,7 @@ import net.sf.gap.xml.types.ScenarioType;
  * @author Giovanni Novelli
  */
 public abstract class AbstractVirtualOrganization {
+        private int MIPS;
 	private boolean traceFlag;
 
 	private AbstractAgentPlatform platform;
@@ -227,5 +228,13 @@ public abstract class AbstractVirtualOrganization {
 
     public void setScenario(ScenarioType scenario) {
         this.scenario = scenario;
+    }
+
+    public int getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(int MIPS) {
+        this.MIPS = MIPS;
     }
 }
