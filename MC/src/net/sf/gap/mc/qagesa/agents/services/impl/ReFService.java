@@ -160,9 +160,22 @@ public class ReFService extends PlatformService {
     }
 
     private AgentReply activateAgents(Sim_event ev, ReFPlayRequest playRequest, int playReqrepID, int userID, String movieTag, int ceID, int seID) {
-        AgentReply agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
-                ceID,
-                100000);
+        AgentReply agentReply;
+        QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(ceID);
+        double beforeSubmit = super.clock();
+        if (ce.getLocalDirectory().getFreeAgents()>0) {
+            agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
+                    ceID,
+                    100000);
+        } else {
+            AgentRequest agentRequest = new AgentRequest(this.get_id(), this.get_id(), null,
+                            ceID, -1, QAGESAEntityTypes.SERVER_PROXY, 100000, ceID,
+                            QAGESAEntityTypes.NOBODY);
+            agentReply = new AgentReply(QAGESATags.AGENT_RUN_REQ, false, agentRequest);
+        }
+        double afterSubmit = super.clock();
+        double submitLatency = afterSubmit - beforeSubmit;
+        System.out.println(beforeSubmit + ": Agent submit latency from ReF: " + submitLatency);
         int agentID = -1;
         if (!agentReply.isOk()) {
             Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
@@ -206,6 +219,11 @@ public class ReFService extends PlatformService {
                 userID,
                 movieTag);
         this.write(msg);
+        double afterTranscodeRequest = evsend_time;
+        double totalActivationTime = afterTranscodeRequest - beforeSubmit;
+        double trTime = afterTranscodeRequest - afterSubmit;
+        System.out.println(beforeSubmit + ": Agent tr latency from ReF: " + trTime);
+        System.out.println(beforeSubmit + ": Agent total activation latency from ReF: " + totalActivationTime);
         return agentReply;
     }
 
@@ -220,9 +238,8 @@ public class ReFService extends PlatformService {
             int numFreeAgents = gisEntry.getNumFreeAgents();
             //if (numFreeAgents>0) {
             int totalMIPS = gisEntry.getTotalMIPS();
-            //double load = (gisEntry.getLoad().getMean())*totalMIPS;
-            double load = 1.0 - ((gisEntry.getNumFreePEs() * 1.0) / (gisEntry.getNumPEs() * 1.0));
-            double weigth = load * totalMIPS;
+            double load = (gisEntry.getLoad().getMean());
+            System.out.println(Sim_system.get_entity(ceID).get_name() + " has load: " + load);
             RTTMap rttMap = this.getNetworkMapCache().get(ceID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);
@@ -242,7 +259,7 @@ public class ReFService extends PlatformService {
                         int seID = eid;
                         InfoPacket pkt = rttMap.get(seID);
                         double latency = pkt.getTotalResponseTime() / 2.0;
-                        ReFTriple triple = new ReFTriple(weigth, latency + userLatency, ceID, seID);
+                        ReFTriple triple = new ReFTriple(load, latency + userLatency, ceID, seID);
                         list.add(triple);
                     }
                 }
@@ -252,7 +269,7 @@ public class ReFService extends PlatformService {
     }
 
     private void processPlayRequest(Sim_event ev) {
-
+        double atRequest = this.clock();
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         int playReqrepID = playRequest.getReqrepID();
         int userID = playRequest.getSrc_ID();
@@ -305,6 +322,9 @@ public class ReFService extends PlatformService {
         } else if (!agentReply.isOk()) {
             this.sendPlayStartReply(userID, playRequest, false);
         }
+        double atRequestEnd = this.clock();
+        double rt = atRequestEnd - atRequest;
+        System.out.println("ReF RT: " + rt);
         super.sim_completed(ev);
     }
 
