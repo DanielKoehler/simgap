@@ -28,6 +28,9 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class ReFPlayRequest extends Request {
+        private Sim_event replyEv;
+        private Sim_event fcEv;
+        
 	// Used to disable ReF metric based selection process
 	// ceID and seID selected randomly from available CEs and from SEs
 	// containing movieTag
@@ -46,6 +49,8 @@ public class ReFPlayRequest extends Request {
 		this.setUserID(userID);
 		this.setMovieTag(movieTag);
 		this.setRandomSelection(randomSelection);
+                this.replyEv=null;
+                this.fcEv=null;
 	}
 
 	public static ReFPlayRequest get_data(Sim_event ev) {
@@ -82,4 +87,20 @@ public class ReFPlayRequest extends Request {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+
+    public Sim_event getReplyEv() {
+        return replyEv;
+    }
+
+    public void setReplyEv(Sim_event replyEv) {
+        this.replyEv = replyEv;
+    }
+
+    public Sim_event getFcEv() {
+        return fcEv;
+    }
+
+    public void setFcEv(Sim_event fcEv) {
+        this.fcEv = fcEv;
+    }
 }
