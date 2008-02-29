@@ -441,7 +441,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
 
     public void createAndAttachUsers() throws Exception {
         double baudrate = 4987000;
-        double delay = 4.0;
+        double delay = 10.0;
         this.setTranscodingSet(new TranscodingSet("measures/videos.csv",
                 "measures/chunks.csv"));
         @SuppressWarnings("unused")
