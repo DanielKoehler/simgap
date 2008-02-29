@@ -83,7 +83,7 @@ public class ReFService extends PlatformService {
      * 
      * Sim_stat object used to collect measures between:
      *  - the receival of play request (tag REF_PLAY_REQ)
-     *  - and the send of a play start reply (tag REF_PLAY_START_REP)
+     *  - and the send of a play start reply (tag REF_PLAY_REP_START)
      */
     private Sim_stat statPlayStart;
     private Uniform_int rand;
@@ -333,7 +333,7 @@ public class ReFService extends PlatformService {
         double evsend_time = 0;
         ReFPlayReply playReply = new ReFPlayReply(QAGESATags.REF_PLAY_REQ, flag, playRequest);
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                QAGESATags.REF_PLAY_START_REP, new IO_data(playReply, SIZE, userID));
+                QAGESATags.REF_PLAY_REP_START, new IO_data(playReply, SIZE, userID));
         evsend_time = GridSim.clock();
         String msg = String.format(
                 "%1$f %2$d ReF --> %3$s REF_PLAYSTART_REPLY %4$d %5$s",
@@ -349,7 +349,7 @@ public class ReFService extends PlatformService {
         @SuppressWarnings("unused")
         double evsend_time = 0;
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                QAGESATags.REF_PLAY_END_REP, new IO_data(playReply, SIZE, playReply.getRequest().getUserID()));
+                QAGESATags.REF_PLAY_REP_END, new IO_data(playReply, SIZE, playReply.getRequest().getUserID()));
         evsend_time = GridSim.clock();
     }
 

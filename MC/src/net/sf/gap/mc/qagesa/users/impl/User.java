@@ -50,7 +50,6 @@ public class User extends QAGESAUser {
     public static final int MEASURE_STREAMING = 2;
     public static final int MEASURE_FIRST = 3;
     private static String distribution = "";
-    private static double relaxTime;
 
     public static String getDistribution() {
         return distribution;
@@ -59,6 +58,7 @@ public class User extends QAGESAUser {
     public static void setDistribution(String aDistribution) {
         distribution = aDistribution;
     }
+
     private int selectedMeasure;
     private int uid;
     /**
@@ -117,7 +117,6 @@ public class User extends QAGESAUser {
      */
     public User(String name, Link link, boolean trace_flag, boolean randomSelection, int numRequests, boolean repeated, String movieTag, int selectedMeasure) throws Exception {
         super(name, link, QAGESAEntityTypes.USER_USER, trace_flag);
-        this.relaxTime = QAGESA.relaxTime;
         this.setRandomSelection(randomSelection);
         this.setNumRequests(numRequests);
         this.setRepeated(repeated);
@@ -125,7 +124,7 @@ public class User extends QAGESAUser {
         this.setSelectedMeasure(selectedMeasure);
         switch (this.getSelectedMeasure()) {
             case User.MEASURE_RESPONSE:
-                this.setupStatPlay();
+                this.setupStatResponseTime();
                 break;
             case User.MEASURE_STREAMING:
                 this.setupStatStreaming();
@@ -136,9 +135,9 @@ public class User extends QAGESAUser {
         }
     }
 
-    private void setupStatPlay() {
+    private void setupStatResponseTime() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.REF_PLAY_START_REP};
+        int[] tags = {QAGESATags.REF_PLAY_REP_START};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -147,7 +146,7 @@ public class User extends QAGESAUser {
 
     private void setupStatStreaming() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.SENT_LAST_CHUNK_REP};
+        int[] tags = {QAGESATags.REF_PLAY_REP_START, QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.SENT_LAST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -156,7 +155,7 @@ public class User extends QAGESAUser {
 
     private void setupStatFirst() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.TRANSCODED_FIRST_CHUNK_REP};
+        int[] tags = {QAGESATags.REF_PLAY_REP_START, QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.TRANSCODED_FIRST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -213,7 +212,7 @@ public class User extends QAGESAUser {
         }
     }
 
-    private ReFPlayReply askReF(String movieTag) {
+    private void askReF(String movieTag) {
         int SIZE = 500;
         double evsend_time = 0;
         int userID = this.get_id();
@@ -230,7 +229,7 @@ public class User extends QAGESAUser {
         this.write(msg);
 
         Sim_event ev = new Sim_event();
-        Predicate predicate = new Predicate(QAGESATags.REF_PLAY_START_REP);
+        Predicate predicate = new Predicate(QAGESATags.REF_PLAY_REP_START);
         super.sim_get_next(predicate, ev); // only look for this type of ack
         ReFPlayReply playReply = ReFPlayReply.get_data(ev);
         playReply.setReplyEv(ev);
@@ -238,13 +237,13 @@ public class User extends QAGESAUser {
         double evrecv_time = GridSim.clock();
         if (playReply.isOk()) {
             msg = String.format(
-                    "%1$f %2$d %3$s <-- ReF REF_PLAYSTART_REPLY (SUCCESS) %4$d %5$s",
+                    "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_START (SUCCESS) %4$d %5$s",
                     evrecv_time, request.getReqrepID(), this.get_name(),
                     request.getReqrepID(),
                     request.getMovieTag());
         } else {
             msg = String.format(
-                    "%1$f %2$d %3$s <-- ReF REF_PLAYSTART_REPLY (FAILURE) %4$d %5$s",
+                    "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_START (FAILURE) %4$d %5$s",
                     evrecv_time, request.getReqrepID(), this.get_name(),
                     request.getReqrepID(),
                     request.getMovieTag());
@@ -253,83 +252,62 @@ public class User extends QAGESAUser {
             }
         }
         this.write(msg);
-        return playReply;
     }
 
-    protected ReFPlayReply playRequest(String movieTag) {
-        ReFPlayReply playReply = askReF(movieTag);
-        Sim_event fcev = new Sim_event();
-        Predicate predicate = new Predicate(QAGESATags.SENDING_FIRST_CHUNK_REP);
-        super.sim_get_next(predicate, fcev); // only look for this type of ack
-        playReply.setFcEv(fcev);
-        ChunkRequest chunkRequest = ChunkRequest.get_data(fcev);
-        int reqrepID = chunkRequest.getReqrepID();
-        double evrecv_time = GridSim.clock();
-        String msg = String.format(
-                "%1$f %2$d %3$s <-- %4$s SENDING_FIRST_CHUNK %5$d %6$d",
-                evrecv_time, reqrepID, this.get_name(),
-                Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
-                chunkRequest.getPlayReqrepID(),
-                chunkRequest.getSequenceNumber());
-        this.write(msg);
-
-        Sim_event tfcev = new Sim_event();
-        predicate = new Predicate(QAGESATags.TRANSCODED_FIRST_CHUNK_REP);
-        super.sim_get_next(predicate, tfcev); // only look for this type of ack
-        ChunkRequest tchunkRequest = ChunkRequest.get_data(tfcev);
-        int treqrepID = chunkRequest.getReqrepID();
-        double tevrecv_time = GridSim.clock();
-        String tmsg = String.format(
-                "%1$f %2$d %3$s <-- %4$s TRANSCODED_FIRST_CHUNK %5$d %6$d",
-                tevrecv_time, treqrepID, this.get_name(),
-                Sim_system.get_entity(tchunkRequest.getSrc_ID()).get_name(),
-                tchunkRequest.getPlayReqrepID(),
-                tchunkRequest.getSequenceNumber());
-        this.write(tmsg);
-        if (this.getSelectedMeasure() == User.MEASURE_FIRST) {
-            sim_completed(playReply.getFcEv());
-        }
-
-        if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
-            sim_completed(playReply.getReplyEv());
-        }
-
-        Sim_event tev = new Sim_event();
-        int[] tags = {QAGESATags.SENT_LAST_CHUNK_REP, QAGESATags.SEND_CHUNK_REQ};
-        predicate = new Predicate(tags);
-        super.sim_get_next(predicate, tev);
-        this.processEvent(tev);
-        for (int i = 0; i < 6; i++) {
-            Sim_event anev = new Sim_event();
-            super.sim_get_next(predicate, anev);
-            this.processEvent(anev);
-        }
-        if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
-            sim_completed(playReply.getFcEv());
-        }
-
-        Sim_event perev = new Sim_event();
-        predicate = new Predicate(QAGESATags.REF_PLAY_END_REP);
-        super.sim_get_next(predicate, perev);
-        this.processEvent(perev);
-        return playReply;
+    protected void playRequest(String movieTag) {
+        askReF(movieTag);
     }
 
     @Override
     public void processOtherEvent(Sim_event ev) {
         switch (ev.get_tag()) {
-            case QAGESATags.SENT_LAST_CHUNK_REP:
+            case QAGESATags.TRANSCODED_FIRST_CHUNK_REP:
                 ChunkRequest chunkRequest = ChunkRequest.get_data(ev);
+                int treqrepID = chunkRequest.getReqrepID();
+                double tevrecv_time = GridSim.clock();
+                String tmsg = String.format(
+                        "%1$f %2$d %3$s <-- %4$s TRANSCODED_FIRST_CHUNK %5$d %6$d",
+                        tevrecv_time, treqrepID, this.get_name(),
+                        Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
+                        chunkRequest.getPlayReqrepID(),
+                        chunkRequest.getSequenceNumber());
+                this.write(tmsg);
+                if (this.getSelectedMeasure() == User.MEASURE_FIRST) {
+                    sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
+                }
+
+                if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
+                    sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
+                }
+                break;
+            case QAGESATags.SENDING_FIRST_CHUNK_REP:
+                chunkRequest = ChunkRequest.get_data(ev);
+                chunkRequest.getTranscodeRequest().getPlayRequest().setFcEv(ev);
+                int reqrepID = chunkRequest.getReqrepID();
+                double evrecv_time = GridSim.clock();
+                String msg = String.format(
+                        "%1$f %2$d %3$s <-- %4$s SENDING_FIRST_CHUNK %5$d %6$d",
+                        evrecv_time, reqrepID, this.get_name(),
+                        Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
+                        chunkRequest.getPlayReqrepID(),
+                        chunkRequest.getSequenceNumber());
+                this.write(msg);
+                break;
+            case QAGESATags.SENT_LAST_CHUNK_REP:
+                chunkRequest = ChunkRequest.get_data(ev);
                 @SuppressWarnings("unused") int playReqrepID = chunkRequest.getPlayReqrepID();
-                 int reqrepID = chunkRequest.getReqrepID();
-                 double evrecv_time = GridSim.clock();
-                 String msg = String.format(
+                 reqrepID = chunkRequest.getReqrepID();
+                 evrecv_time = GridSim.clock();
+                 msg = String.format(
                         "%1$f %2$d %3$s <-- %4$s SENT_LAST_CHUNK %5$d",
                         evrecv_time, reqrepID, this.get_name(),
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
                         chunkRequest.getPlayReqrepID());
                 this.write(msg);
                 QAGESAStat.decRequests(User.clock(), true);
+                if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
+                    sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
+                }
                 break;
             case QAGESATags.SEND_CHUNK_REQ:
                 chunkRequest = ChunkRequest.get_data(ev);
@@ -343,19 +321,19 @@ public class User extends QAGESAUser {
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
                 break;
-            case QAGESATags.REF_PLAY_END_REP:
+            case QAGESATags.REF_PLAY_REP_END:
                  ReFPlayReply playReply = ReFPlayReply.get_data(ev);
                  ReFPlayRequest request = playReply.getRequest();
                 evrecv_time = GridSim.clock();
                 if (playReply.isOk()) {
                     msg = String.format(
-                            "%1$f %2$d %3$s <-- ReF REF_PLAYEND_REPLY (SUCCESS) %4$d %5$s",
+                            "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (SUCCESS) %4$d %5$s",
                             evrecv_time, request.getReqrepID(), this.get_name(),
                             request.getReqrepID(),
                             request.getMovieTag());
                 } else {
                     msg = String.format(
-                            "%1$f %2$d %3$s <-- ReF REF_PLAYEND_REPLY (FAILURE) %4$d %5$s",
+                            "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (FAILURE) %4$d %5$s",
                             evrecv_time, request.getReqrepID(), this.get_name(),
                             request.getReqrepID(),
                             request.getMovieTag());
@@ -383,7 +361,7 @@ public class User extends QAGESAUser {
             this.setRepeatedMovieTag(movieTag);
         }
         double time = User.clock();
-        while (User.clock() < (GAP.getEndTime() - relaxTime)) {
+        while (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
             time = User.clock();
             /*
             int neededRequests = scalini(
@@ -395,7 +373,7 @@ public class User extends QAGESAUser {
              */
             if (this.hastoask()) {
                 QAGESAStat.incRequests(User.clock());
-                boolean success = this.repeatedRandomRequest();
+                this.repeatedRandomRequest();
             //QAGESAStat.decRequests(User.clock(),success);
             } else {
                 super.gridSimHold(0.1);
@@ -409,7 +387,7 @@ public class User extends QAGESAUser {
             double time = User.clock();
             int neededRequests = fr(
                     GAP.getStartTime(),
-                    GAP.getEndTime() - relaxTime,
+                    GAP.getEndTime() - QAGESA.relaxTime,
                     QAGESAStat.getNumUsers(),
                     time);
             result = ((this.getUid() < neededRequests) || (this.getUid() == 0));
@@ -450,49 +428,12 @@ public class User extends QAGESAUser {
         return result;
     }
 
-    private void oldDoIt() {
-        this.pingCEs();
-        if (this.isRepeated() && this.getRepeatedMovieTag() == null) {
-            String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
-            this.setRepeatedMovieTag(movieTag);
-        }
-        @SuppressWarnings("unused")
-        double start_clock = User.clock();
-        for ( int cycle = 1; cycle <= this.getNumRequests(); cycle++) {
-            int ratio = QAGESAStat.getNumUsers() / this.getNumRequests();
-            int maxUsers = cycle * ratio;
-            double mean_interarrival = (QAGESAStat.getNumUsers() * 1.0) / maxUsers;
-            Sim_negexp_obj negexp = new Sim_negexp_obj("interval", mean_interarrival);
-            double diff_time = negexp.sample();
-            double start_time = diff_time;
-            super.gridSimHold(start_time);
-            QAGESAStat.incRequests(User.clock());
-            boolean success = this.repeatedRandomRequest();
-            QAGESAStat.decRequests(User.clock(), success);
-        }
-        for ( int cycle = 1; cycle <= this.getNumRequests(); cycle++) {
-            @SuppressWarnings("unused")
-            int ratio = QAGESAStat.getNumUsers() / this.getNumRequests();
-            Sim_negexp_obj negexp = new Sim_negexp_obj("interval", 1.0);
-            double diff_time = negexp.sample();
-            double start_time = diff_time;
-            super.gridSimHold(start_time);
-            QAGESAStat.incRequests(User.clock());
-            boolean success = this.repeatedRandomRequest();
-            QAGESAStat.decRequests(User.clock(), success);
-        }
-    }
-
-    private boolean repeatedRandomRequest() {
+    private void repeatedRandomRequest() {
         if (this.isRepeated()) {
-            @SuppressWarnings("unused")
-            ReFPlayReply playReply = this.playRequest(this.getRepeatedMovieTag());
-            return playReply.isOk();
+            this.playRequest(this.getRepeatedMovieTag());
         } else {
             String movieTag = MuMService.getMUMTranscodingSet().selectRandomTag();
-            @SuppressWarnings("unused")
-            ReFPlayReply playReply = this.playRequest(movieTag);
-            return playReply.isOk();
+            this.playRequest(movieTag);
         }
     }
 
