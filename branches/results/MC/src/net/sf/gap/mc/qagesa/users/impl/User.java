@@ -371,7 +371,7 @@ public class User extends QAGESAUser {
 
     @Override
     public void doWork() {
-        double a = User.clock();
+        double a = GAP.getStartTime();
         if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
             double time = User.clock();
             int i = (int) Math.round((time-a)/step);
