@@ -34,7 +34,7 @@ import net.sf.gap.mc.qagesa.users.QAGESAUser;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_stat;
 import eduni.simjava.Sim_system;
-import eduni.simjava.distributions.Sim_negexp_obj;
+import net.sf.gap.distributions.Uniform_int;
 import gridsim.GridSim;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
@@ -351,6 +351,7 @@ public class User extends QAGESAUser {
     static double[] probsRequests;
     static int nSeconds;
     static double step;
+    static Uniform_int randuid;
     {
         double a = GAP.getStartTime();
         double b = GAP.getEndTime()+1.0 - QAGESA.relaxTime;
@@ -360,6 +361,7 @@ public class User extends QAGESAUser {
         ZipF zipfRequests = new ZipF(nSeconds, QAGESA.thetaR);
         probsUsers = zipfUsers.getProbs();
         probsRequests = zipfRequests.getProbs();
+        randuid=new Uniform_int("randuid");
     }
     
     private int asked;
@@ -369,15 +371,18 @@ public class User extends QAGESAUser {
         this.DoIt();
     }
 
+    
     @Override
     public void doWork() {
         double a = GAP.getStartTime();
         if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
             double time = User.clock();
             int i = (int) Math.round((time-a)/step);
-            double utoask = probsUsers[i]*QAGESAStat.getNumUsers()+0.05;
-            double rtoask = probsRequests[i]*this.numRequests+0.05;
-            boolean toask = (QAGESAStat.getRequests()<utoask) && (this.asked<rtoask);
+            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
+            double rtoask = probsRequests[i]*this.numRequests;
+            double ntoask = utoask*rtoask;
+            int uid = randuid.sample(QAGESAStat.getNumUsers());
+            boolean toask = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask) && this.getUid()==uid;
             if (toask) {
                 asked++;
                 QAGESAStat.incRequests(User.clock());
