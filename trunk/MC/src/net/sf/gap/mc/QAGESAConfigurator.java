@@ -24,7 +24,7 @@ public class QAGESAConfigurator {
 
     public QAGESAConfigurator() {
     }
-    private static String confDir = "confDir/";
+    private static String confDir = "conf/";
     public static void main(String[] args) {
         prepareConf();
         try {
@@ -55,21 +55,22 @@ public class QAGESAConfigurator {
                     }
                     int[] users = {64,128,256};
                     for (int iUsers=0;iUsers<users.length;iUsers++) {
-                        int[] requests = {1,2,4,8,16};
+                        int[] requests = {1,2,4,8};
                         for (int iRequests=0;iRequests<requests.length;iRequests++) {
                             String[] distribution = {"linear","scaled","top","zipf"};
                             for (int iDistribution=0;iDistribution<distribution.length;iDistribution++) {
                                 boolean[] ca = {false, true};
                                 for (int iCA=0;iCA<ca.length;iCA++) {
-                                    boolean[] re = {false, true};
+                                    //boolean[] re = {false, true};
+                                    boolean[] re = {true};
                                     for (int iRE=0;iRE<re.length;iRE++) {
                                         boolean[] ra = {false, true};
                                         for (int iRA=0;iRA<ra.length;iRA++) {
-                                String name = "";
+                                String name = "QAGESA";
                                 if (iXML == 0) {
-                                    name = "notxml";
+                                    name = "_notxml";
                                 } else {
-                                    name = "xml";
+                                    name = "_xml";
                                 }
                                 name = name + "_" + measure;
                                 name = name + "_" + users[iUsers];
