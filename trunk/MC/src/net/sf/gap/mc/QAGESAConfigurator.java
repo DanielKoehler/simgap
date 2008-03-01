@@ -99,7 +99,7 @@ public class QAGESAConfigurator {
                                 outConf.println("xsd            = xml/scenario.xsd");
                                 } else {
                                 outConf.println("ces            = 4");
-                                outConf.println("machines       = 4");
+                                outConf.println("machines       = 16");
                                 outConf.println("pes            = 1");
                                 outConf.println("MIPS           = 1000");
                                 outConf.println("ses            = 4");
