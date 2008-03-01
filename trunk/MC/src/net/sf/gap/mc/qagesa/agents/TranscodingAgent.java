@@ -120,7 +120,6 @@ public class TranscodingAgent extends GridAgent {
                 // Get current chunks sequence on the storage element
                 QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(seID);
                 ChunksSequence sequence = se.getTranscodingSet().get(movieTag);
-                ChunksSequence transcodedSequence = new ChunksSequence(sequence.getMovie(), sequence.getOperation(), sequence.getOperationParameters());
                 boolean previouslyTranscoded = sequence.isTranscoded();
                 int requestID = gotChunkRequest.getRequestID();
                 int reqrepID = gotChunkRequest.getReqrepID();
@@ -142,10 +141,6 @@ public class TranscodingAgent extends GridAgent {
                 Chunk transcodedChunk = null;
                 if (!gotChunk.isTranscoded()) {
                     transcodedChunk = this.transcode(gotChunk);
-                    if (this.isEnabledCaching()) {
-                        //gotChunk.setTranscoded(true);
-                        transcodedSequence.add(transcodedChunk);
-                    }
                 } else {
                     transcodedChunk = gotChunk;
                 }
@@ -183,6 +178,11 @@ public class TranscodingAgent extends GridAgent {
                 } else {
                     this.sendLastChunk(transcodeRequest.getPlayReqrepID(), transcodeRequest.getUserID(), movieTag, seID, transcodeRequest);
                     if (!previouslyTranscoded && this.isEnabledCaching()) {
+                        ChunksSequence transcodedSequence = new ChunksSequence(sequence.getMovie(), sequence.getOperation(), sequence.getOperationParameters());
+                        for (int k=0;k<sequence.size();k++) {
+                            transcodedSequence.add(sequence.get(k).clone());
+                        }
+                        this.setTranscoded(transcodedSequence);
                         transcodeRequest.setSequence(transcodedSequence);
                         double evsend_time = 0;
                         reqrepID = transcodeRequest.getReqrepID();
@@ -212,9 +212,7 @@ public class TranscodingAgent extends GridAgent {
                 // Get current chunks sequence on the storage element
                 se = (QAGESAGridElement) Sim_system.get_entity(seID);
                 sequence = se.getTranscodingSet().get(movieTag);
-                transcodedSequence = new ChunksSequence(sequence.getMovie(), sequence.getOperation(), sequence.getOperationParameters());
                 previouslyTranscoded = sequence.isTranscoded();
-
                 Chunk chunk = sequence.get(0);
                 sequenceNumber = chunk.getSequenceNumber();
                 ChunkRequest chunkRequest = new ChunkRequest(this.get_id(), this.get_id(),
@@ -246,6 +244,16 @@ public class TranscodingAgent extends GridAgent {
 
             default:
                 break;
+        }
+    }
+    
+    private void setTranscoded(ChunksSequence sequence) {
+        int nc = sequence.size();
+        for (int i=0;i<nc;i++) {
+           Chunk chunk = sequence.get(i);
+           chunk.setInputSize(chunk.getOutputSize());
+           chunk.setMIPS(0);
+           chunk.setTranscoded(true);
         }
     }
 
