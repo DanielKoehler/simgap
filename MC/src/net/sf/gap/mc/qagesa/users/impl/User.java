@@ -379,7 +379,7 @@ public class User extends QAGESAUser {
             double time = User.clock();
             int i = (int) Math.round((time-a)/step);
             double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
-            double rtoask = probsRequests[i]*this.numRequests;
+            double rtoask = Math.max(probsRequests[i]*this.numRequests,1.0);
             double ntoask = utoask*rtoask;
             //int uid = randuid.sample(QAGESAStat.getNumUsers());
             //int uid = (int) (Math.round(ntoask+QAGESAStat.getNumUsers()*0.5) % QAGESAStat.getNumUsers());
