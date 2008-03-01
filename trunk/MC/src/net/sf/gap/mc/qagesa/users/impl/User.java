@@ -374,18 +374,8 @@ public class User extends QAGESAUser {
     
     @Override
     public void doWork() {
-        double a = GAP.getStartTime();
         if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
-            double time = User.clock();
-            int i = (int) Math.round((time-a)/step);
-            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
-            double rtoask = Math.max(probsRequests[i]*this.numRequests,1.0);
-            double ntoask = utoask*rtoask;
-            //int uid = randuid.sample(QAGESAStat.getNumUsers());
-            //int uid = (int) (Math.round(ntoask+QAGESAStat.getNumUsers()*0.5) % QAGESAStat.getNumUsers());
-            //boolean toask = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask) && this.getUid()>=uid;
-            boolean toask = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask);
-            if (toask) {
+            if (hastoask()) {
                 asked++;
                 QAGESAStat.incRequests(User.clock());
                 this.repeatedRandomRequest();
@@ -402,17 +392,29 @@ public class User extends QAGESAUser {
     }
 
     private boolean hastoask() {
-        boolean result;
-        double time = User.clock();
-        int neededRequests = fr(
-                GAP.getStartTime(),
-                GAP.getEndTime() - QAGESA.relaxTime,
-                QAGESAStat.getNumUsers(),
-                time);
-        result = ((this.getUid() < neededRequests) && (asked < this.numRequests));
-        return result;
+        return hastoask(User.clock());
     }
 
+    private boolean hastoask(double time) {
+        boolean result;
+        if (User.distribution.equalsIgnoreCase("zipf")) {
+            double a = GAP.getStartTime();
+            int i = (int) Math.round((time-a)/step);
+            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
+            double rtoask = Math.max(probsRequests[i]*this.numRequests,1.0);
+            double ntoask = utoask*rtoask;
+            result = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask);
+        } else {
+            int neededRequests = fr(
+                    GAP.getStartTime(),
+                    GAP.getEndTime() - QAGESA.relaxTime,
+                    QAGESAStat.getNumUsers(),
+                    time);
+            result = ((this.getUid() < neededRequests) && (asked < this.numRequests));
+        }
+        return result;
+    }
+    
     private int fr(double a, double b, int maxusers, double currentTime) {
         int result = 0;
         if (User.distribution.equalsIgnoreCase("linear")) {
