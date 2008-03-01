@@ -30,6 +30,7 @@ import net.sf.gap.xml.types.ScenarioType;
 import net.sf.gap.grid.AbstractVirtualOrganization;
 import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.agents.middleware.AgentMiddleware;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
@@ -452,7 +453,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         Link link = null;
         String movieTag = "aa06f7ddedc7460bd439298494c1e968";
         int numRequests = this.getMaxRequests();
-        boolean repeated = true;
+        boolean repeated = QAGESA.repeated;
         for (int i = 0; i < this.getNumUsers(); i++) {
                 index = i % N;
                 //index = r.sample(N);

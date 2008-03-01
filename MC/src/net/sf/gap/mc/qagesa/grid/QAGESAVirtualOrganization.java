@@ -35,6 +35,7 @@ import net.sf.gap.grid.RingsChain;
 import net.sf.gap.grid.StaticTopology;
 import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
 import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
@@ -291,7 +292,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         Link link = null;
         String movieTag = "aa06f7ddedc7460bd439298494c1e968";
         int numRequests = this.getMaxRequests();
-        boolean repeated = true;
+        boolean repeated = QAGESA.repeated;
         for (int i = 0; i < this.getNumUsers(); i++) {
                 index = i % N;
                 switch (this.getWhichMeasure()) {
