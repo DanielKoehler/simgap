@@ -77,7 +77,7 @@ public class QAGESAGridElement extends GridElement {
 	}
 
 	public boolean addSequence(String movieTag, ChunksSequence sequence) {
-		if (this.isSE() && sequence != null && (!this.getTranscodingSet().containsSequence(movieTag))) {
+		if (this.isSE() && sequence != null) {
 			this.getTranscodingSet().addSequence(movieTag, sequence);
 			return true;
 		} else {
