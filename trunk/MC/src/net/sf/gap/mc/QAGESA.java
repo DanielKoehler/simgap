@@ -143,6 +143,8 @@ public class QAGESA {
         Double end = Double.parseDouble(prop);
         prop = conf.getProperty("relax");
         relaxTime = Double.parseDouble(prop);
+        prop = conf.getProperty("caching");
+        boolean caching = Boolean.parseBoolean(prop);
         try {
             if (swing) {
                 java.awt.EventQueue.invokeAndWait(new Runnable() {
@@ -163,18 +165,30 @@ public class QAGESA {
             QAGESA.simulate(xml, xsd, pstart, start, end, numUsers, numRequests, false, whichMeasure,
                     numReplications, confidence, accuracy, swing);
         } else {
-            QAGESA.simulate(pstart, start, end, numUsers, numRequests, false, whichMeasure,
+            prop = conf.getProperty("ces");
+            Integer numCE = Integer.parseInt(prop);
+            prop = conf.getProperty("ses");
+            Integer numSE = Integer.parseInt(prop);
+            prop = conf.getProperty("machines");
+            Integer numMachine = Integer.parseInt(prop);
+            prop = conf.getProperty("pes");
+            Integer numPE = Integer.parseInt(prop);
+            prop = conf.getProperty("mips");
+            Integer MIPS = Integer.parseInt(prop);
+            QAGESA.simulate(pstart, start, end, numCE, numMachine, numPE, MIPS, numSE, numUsers, numRequests, caching, whichMeasure,
                     numReplications, confidence, accuracy, swing);
         }
         QAGESA.closeOutput();
     }
 
-    private static void simulate(double pstart, double start, double end, int numUsers, int numRequests,
+    private static void simulate(double pstart, double start, double end, 
+            int numCE, int numMachine, int numPE, int MIPS, int numSE,
+            int numUsers, int numRequests,
             boolean caching, int whichMeasure, int replications,
             double confidence, double accuracy, boolean swing) {
 
         Simulation simulation;
-        simulation = new Simulation(pstart, start, end, numUsers, numRequests, caching,
+        simulation = new Simulation(pstart, start, end, numCE, numMachine, numPE, MIPS, numSE, numUsers, numRequests, caching,
                 whichMeasure, replications, confidence, accuracy);
         simulation.start();
     }

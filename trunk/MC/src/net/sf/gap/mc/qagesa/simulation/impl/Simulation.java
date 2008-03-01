@@ -45,16 +45,27 @@ public class Simulation extends AbstractSimulation {
         private double start;
         private double end;
         
+        private int numCE;
+        private int numMachine;
+        private int numPE;
+        private int MIPS;
+        private int numSE;
+        
 	private QAGESAVirtualOrganization virtualOrganization;
         
 	/**
 	 * Creates a new instance of Simulation
 	 */
-	public Simulation(double pstart, double start, double end, int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
+	public Simulation(double pstart, double start, double end, int numCE, int numMachine, int numPE, int MIPS, int numSE, int numUsers, int numRequests, boolean caching, int whichMeasure, int replications, double confidence, double accuracy) {
             super(replications, confidence, accuracy);
             this.setPstart(pstart);
             this.setStart(start);
             this.setEnd(end);
+            this.setNumCE(numCE);
+            this.setNumMachine(numMachine);
+            this.setNumPE(numPE);
+            this.setMIPS(MIPS);
+            this.setNumSE(numSE);
             this.setNumUsers(numUsers);
             this.setNumRequests(numRequests);
             this.setCaching(caching);
@@ -123,8 +134,8 @@ public class Simulation extends AbstractSimulation {
 		GridSim.init(1, calendar, trace_flag, default_gis);
                 QAGESA.setGraphing(graphing);
 		QAGESA.initialize(this.getPstart(), this.getStart(), this.getEnd());
-		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, 4,
-				1000, 1, 1, 1, 4, 100, 100, 2, 2, true, 1.0,
+		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, this.getNumCE(),
+				this.getMIPS(), this.getNumPE(), this.getNumMachine(), this.getNumMachine(), this.getNumSE(), 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.isCaching(), this.getWhichMeasure(), this.getNumRequests()));
 	}
 
@@ -236,5 +247,45 @@ public class Simulation extends AbstractSimulation {
 
     public void setEnd(double end) {
         this.end = end;
+    }
+
+    public int getNumCE() {
+        return numCE;
+    }
+
+    public void setNumCE(int numCE) {
+        this.numCE = numCE;
+    }
+
+    public int getMIPS() {
+        return MIPS;
+    }
+
+    public void setMIPS(int MIPS) {
+        this.MIPS = MIPS;
+    }
+
+    public int getNumSE() {
+        return numSE;
+    }
+
+    public void setNumSE(int numSE) {
+        this.numSE = numSE;
+    }
+
+    public int getNumMachine() {
+        return numMachine;
+    }
+
+    public void setNumMachine(int numMachine) {
+        this.numMachine = numMachine;
+    }
+
+    public int getNumPE() {
+        return numPE;
+    }
+
+    public void setNumPE(int numPE) {
+        this.numPE = numPE;
     }
 }
