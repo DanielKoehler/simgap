@@ -37,6 +37,8 @@ public class QAGESA {
     public static int requests;
     public static double thetaU=0.5;
     public static double thetaR=0.25;
+    public static boolean caching;
+    public static boolean repeated;
     public static boolean reuseagents;
 
     public static String getOutputPath() {
@@ -145,9 +147,9 @@ public class QAGESA {
         prop = conf.getProperty("relax");
         relaxTime = Double.parseDouble(prop);
         prop = conf.getProperty("caching");
-        boolean caching = Boolean.parseBoolean(prop);
+        caching = Boolean.parseBoolean(prop);
         prop = conf.getProperty("repeated");
-        boolean repeated = Boolean.parseBoolean(prop);
+        repeated = Boolean.parseBoolean(prop);
         prop = conf.getProperty("reuseagents");
         reuseagents = Boolean.parseBoolean(prop);
         try {

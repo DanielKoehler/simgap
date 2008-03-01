@@ -177,6 +177,9 @@ public class TranscodingAgent extends GridAgent {
                     this.write(msg);
                 } else {
                     this.sendLastChunk(transcodeRequest.getPlayReqrepID(), transcodeRequest.getUserID(), movieTag, seID, transcodeRequest);
+                    TranscodeReply transcodeReply = new TranscodeReply(ev.get_tag(), true, transcodeRequest, this.get_id());
+                    super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                            QAGESATags.TRANSCODE_CHUNKS_REP, new IO_data(transcodeReply, 500, transcodeRequest.getSrc_ID()));
                     if (!previouslyTranscoded && this.isEnabledCaching()) {
                         ChunksSequence transcodedSequence = new ChunksSequence(sequence.getMovie(), sequence.getOperation(), sequence.getOperationParameters());
                         for (int k=0;k<sequence.size();k++) {
@@ -198,9 +201,6 @@ public class TranscodingAgent extends GridAgent {
                                 movieTag);
                         this.write(msg);
                     }
-                    TranscodeReply transcodeReply = new TranscodeReply(ev.get_tag(), true, transcodeRequest, this.get_id());
-                    super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                            QAGESATags.TRANSCODE_CHUNKS_REP, new IO_data(transcodeReply, 500, transcodeRequest.getSrc_ID()));
                 }
                 break;
             case QAGESATags.TRANSCODE_CHUNKS_REQ:
