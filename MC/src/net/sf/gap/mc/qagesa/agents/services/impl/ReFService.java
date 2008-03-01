@@ -163,7 +163,11 @@ public class ReFService extends PlatformService {
         AgentReply agentReply;
         QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(ceID);
         double beforeSubmit = super.clock();
-        if (ce.getLocalDirectory().getFreeAgents()>0) {
+        if (!QAGESA.reuseagents) {
+            agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
+                    ceID,
+                    100000);
+        } else if (ce.getLocalDirectory().getFreeAgents()>0) {
             agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
                     ceID,
                     100000);
