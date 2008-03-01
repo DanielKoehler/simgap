@@ -68,9 +68,9 @@ public class QAGESAConfigurator {
                                         for (int iRA=0;iRA<ra.length;iRA++) {
                                 String name = "QAGESA";
                                 if (iXML == 0) {
-                                    name = "_notxml";
+                                    name += "_notxml";
                                 } else {
-                                    name = "_xml";
+                                    name += "_xml";
                                 }
                                 name = name + "_" + measure;
                                 name = name + "_" + users[iUsers];
