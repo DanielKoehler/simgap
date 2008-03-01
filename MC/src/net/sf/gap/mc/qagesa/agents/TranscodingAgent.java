@@ -143,6 +143,7 @@ public class TranscodingAgent extends GridAgent {
                 if (!gotChunk.isTranscoded()) {
                     transcodedChunk = this.transcode(gotChunk);
                     if (this.isEnabledCaching()) {
+                        //gotChunk.setTranscoded(true);
                         transcodedSequence.add(transcodedChunk);
                     }
                 } else {
