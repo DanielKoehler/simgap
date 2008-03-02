@@ -93,6 +93,7 @@ public class QAGESAConfigurator {
                                 }
                                 File outFile = new File(confDir+name+".conf");
                                 PrintStream outConf = new PrintStream(new FileOutputStream(outFile, false));
+                                outConf.println("ui             = false");
                                 outConf.println("output         = results");
                                 if (iXML==1) {
                                 outConf.println("xml            = xml/egeeit.xml");
@@ -101,7 +102,7 @@ public class QAGESAConfigurator {
                                 outConf.println("ces            = 4");
                                 outConf.println("machines       = 16");
                                 outConf.println("pes            = 1");
-                                outConf.println("MIPS           = 1000");
+                                outConf.println("mips           = 1000");
                                 outConf.println("ses            = 4");
                                 }
                                 outConf.println("measure        = " + measure);

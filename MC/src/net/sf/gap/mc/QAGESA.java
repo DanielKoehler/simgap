@@ -337,7 +337,7 @@ public class QAGESA {
             QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");
             QAGESA.copy("sim_trace", getOutputPath() + "/sim_trace.txt");
             QAGESA.copy("sim_report", getOutputPath() + "/sim_report.txt");
-            QAGESA.copy("sim_out.txt", getOutputPath() + "/sim_out.txt");
+            //QAGESA.copy("sim_out.txt", getOutputPath() + "/sim_out.txt");
             QAGESA.copy("sim_err.txt", getOutputPath() + "/sim_err.txt");
         } catch (IOException e) {
             e.printStackTrace();
