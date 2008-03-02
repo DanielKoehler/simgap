@@ -53,24 +53,24 @@ public class QAGESAConfigurator {
                         default:
                             break;
                     }
-                    int[] users = {64,128,256};
+                    int[] users = {128,256,512,1024};
                     for (int iUsers=0;iUsers<users.length;iUsers++) {
-                        int[] requests = {1,2,4,8};
+                        int[] requests = {1,2,4,8,16};
                         for (int iRequests=0;iRequests<requests.length;iRequests++) {
-                            String[] distribution = {"linear","scaled","top","zipf"};
+                            String[] distribution = {"zipf"};
                             for (int iDistribution=0;iDistribution<distribution.length;iDistribution++) {
-                                boolean[] ca = {false, true};
+                                boolean[] ca = {false,true};
                                 for (int iCA=0;iCA<ca.length;iCA++) {
                                     //boolean[] re = {false, true};
-                                    boolean[] re = {true};
+                                    boolean[] re = {false,true};
                                     for (int iRE=0;iRE<re.length;iRE++) {
-                                        boolean[] ra = {false, true};
+                                        boolean[] ra = {false,true};
                                         for (int iRA=0;iRA<ra.length;iRA++) {
-                                String name = "QAGESA";
+                                String name = "";
                                 if (iXML == 0) {
-                                    name += "_notxml";
+                                    name += "notxml";
                                 } else {
-                                    name += "_xml";
+                                    name += "xml";
                                 }
                                 name = name + "_" + measure;
                                 name = name + "_" + users[iUsers];
@@ -79,22 +79,22 @@ public class QAGESAConfigurator {
                                 if (ca[iCA]) {
                                   name = name + "_ca";   
                                 } else {
-                                  name = name + "_notca";   
+                                  name = name + "_nca";   
                                 }
                                 if (re[iRE]) {
                                   name = name + "_re";   
                                 } else {
-                                  name = name + "_notre";   
+                                  name = name + "_nre";   
                                 }
                                 if (ra[iRA]) {
                                   name = name + "_ra";   
                                 } else {
-                                  name = name + "_notra";   
+                                  name = name + "_nra";   
                                 }
-                                File outFile = new File(confDir+name+".conf");
+                                File outFile = new File(confDir+"QAGESA_"+name+".conf");
                                 PrintStream outConf = new PrintStream(new FileOutputStream(outFile, false));
                                 outConf.println("ui             = false");
-                                outConf.println("output         = results");
+                                outConf.println("output         = results_"+name);
                                 if (iXML==1) {
                                 outConf.println("xml            = xml/egeeit.xml");
                                 outConf.println("xsd            = xml/scenario.xsd");
