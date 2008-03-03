@@ -4,8 +4,7 @@ CONF=$2
 #MEM=$(cat /proc/meminfo  | grep MemTotal | awk '{print $2"*.68"}' | bc | awk -F "." '{print $1}')
 MMIN=$3
 MMAX=$4
-SUFFIX=$(echo $CONF  | awk -F "." '{print $1}' | awk -F "QAGESA_" '{print $2}')
-RESULTSNAME=results_$SUFFIX
+RESULTSNAME=results
 REMOTEFILE_JRE=$(cat $LOCAL_JRE)
 LOCALFILE_JRE=$(basename $REMOTEFILE_JRE)
 LFC_HOST=infn-se-01.ct.pi2s2.it
@@ -18,6 +17,6 @@ export PATH=$PWD/java/bin:$PATH
 unzip MC.zip -d MC
 cd MC
 sh run.sh $CONF $MMIN $MMAX
-tar -cf $SUFFIX.tar $SUFFIX
-bzip2 -9 $SUFFIX.tar
-cp $SUFFIX.tar.bz2 ..
+tar -cf $RESULTSNAME.tar $RESULTSNAME
+bzip2 -9 $RESULTSNAME.tar
+cp $RESULTSNAME.tar.bz2 ..
