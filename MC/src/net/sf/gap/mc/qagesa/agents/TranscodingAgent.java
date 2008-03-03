@@ -57,7 +57,7 @@ public class TranscodingAgent extends GridAgent {
             boolean trace_flag, boolean enabledCaching) throws Exception {
         super(ge, name, agentSizeInBytes, trace_flag);
         this.setEnabledCaching(enabledCaching);
-        this.setupStatGTS();
+        //this.setupStatGTS();
     }
 
     @SuppressWarnings("unused")
@@ -97,162 +97,177 @@ public class TranscodingAgent extends GridAgent {
         return transcodedChunk;
     }
 
-    @Override
-    public void processOtherEvent(Sim_event ev) {
+    private void processAskChunkRequest(Sim_event ev) {
         int SIZE = 128;
-        switch (ev.get_tag()) {
-            case QAGESATags.ASK_CHUNK_REQ:
-                ChunkRequest askedCR = ChunkRequest.get_data(ev);
-                double askedTime = this.clock();
-                int askedSN = askedCR.getSequenceNumber();
-                TranscodeRequest askedTR = askedCR.getTranscodeRequest();
-                double evsend_time = 0;
-                ChunkRequest askedRequest = new ChunkRequest(this.get_id(), this.get_id(),
-                        askedTR.getPlayReqrepID(),
-                        askedTR.getUserID(), askedTR.getMovieTag(), askedSN, askedTR.getStorageElementID(), askedTR, askedTime);
-                int askedReqrepID = askedRequest.getReqrepID();
-                super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                        QAGESATags.GET_CHUNK_REQ, new IO_data(askedRequest, SIZE, askedRequest.getStorageElementID()));
-                evsend_time = GridSim.clock();
-                String msg = String.format(
-                        "%1$f %2$d %3$s --> %4$s GET_CHUNK_REQUEST %5$s %6$d",
-                        evsend_time,
-                        askedReqrepID,
-                        this.get_name(),
-                        Sim_system.get_entity(askedTR.getStorageElementID()).get_name(),
-                        askedTR.getMovieTag(),
-                        askedSN);
-                this.write(msg);
-                break;
-            case QAGESATags.SEND_CHUNK_REP:
-                ChunkReply userChunkReply = ChunkReply.get_data(ev);
-                if (!userChunkReply.getRequest().getTranscodeRequest().getPlayRequest().isRandomSelection()) {
-                    int SN = userChunkReply.getRequest().getSequenceNumber();
-                    double replyTime = this.clock();
-                    double memoizedAskedTime = userChunkReply.getRequest().getAskedTime();
-                    double delta = replyTime-memoizedAskedTime;
-                    double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
-                    double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
-                    if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
-                        updateQuality = Math.max(updateQuality * 0.9,0.5);
-                        userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                        //System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
-                    } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
-                        updateQuality = Math.min(1.0, updateQuality / 0.9);
-                        userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                        //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
-                    }
+        ChunkRequest askedCR = ChunkRequest.get_data(ev);
+        double askedTime = this.clock();
+        int askedSN = askedCR.getSequenceNumber();
+        TranscodeRequest askedTR = askedCR.getTranscodeRequest();
+        double evsend_time = 0;
+        ChunkRequest askedRequest = new ChunkRequest(this.get_id(), this.get_id(),
+                askedTR.getPlayReqrepID(),
+                askedTR.getUserID(), askedTR.getMovieTag(), askedSN, askedTR.getStorageElementID(), askedTR, askedTime);
+        int askedReqrepID = askedRequest.getReqrepID();
+        super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                QAGESATags.GET_CHUNK_REQ, new IO_data(askedRequest, SIZE, askedRequest.getStorageElementID()));
+        evsend_time = GridSim.clock();
+        String msg = String.format(
+                "%1$f %2$d %3$s --> %4$s GET_CHUNK_REQUEST %5$s %6$d",
+                evsend_time,
+                askedReqrepID,
+                this.get_name(),
+                Sim_system.get_entity(askedTR.getStorageElementID()).get_name(),
+                askedTR.getMovieTag(),
+                askedSN);
+        this.write(msg);
+    }
+    
+    private void processSendChunkReply(Sim_event ev) {
+        ChunkReply userChunkReply = ChunkReply.get_data(ev);
+        if (!userChunkReply.getRequest().getTranscodeRequest().getPlayRequest().isRandomSelection()) {
+            int SN = userChunkReply.getRequest().getSequenceNumber();
+            double replyTime = this.clock();
+            double memoizedAskedTime = userChunkReply.getRequest().getAskedTime();
+            double delta = replyTime-memoizedAskedTime;
+            double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
+            double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
+            if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
+                updateQuality = Math.max(updateQuality * 0.9,0.5);
+                userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
+                //System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
+            } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
+                updateQuality = Math.min(1.0, updateQuality / 0.9);
+                userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
+                //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
+            }
+        }
+    }
+    
+    private void processGetChunkReply(Sim_event ev) {
+        int SIZE = 128;
+        ChunkReply gotChunkReply = ChunkReply.get_data(ev);
+        ChunkRequest gotChunkRequest = gotChunkReply.getRequest();
+        TranscodeRequest transcodeRequest = gotChunkRequest.getTranscodeRequest();
+        int seID = transcodeRequest.getStorageElementID();
+        String movieTag = gotChunkRequest.getMovieTag();
+        // Get current chunks sequence on the storage element
+        QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(seID);
+        ChunksSequence sequence = se.getTranscodingSet().get(movieTag);
+        boolean previouslyTranscoded = sequence.isTranscoded();
+        int requestID = gotChunkRequest.getRequestID();
+        int reqrepID = gotChunkRequest.getReqrepID();
+        int sequenceNumber = gotChunkRequest.getSequenceNumber();
+        Assert.assertEquals(requestID, gotChunkReply.getRequestID());
+        Assert.assertEquals(QAGESATags.GET_CHUNK_REQ, gotChunkReply.getRequestTAG());
+        Assert.assertEquals(QAGESATags.GET_CHUNK_REP, ev.get_tag());
+        double evrecv_time = GridSim.clock();
+        String msg = String.format("%1$f %2$d %3$s <-- %4$s GET_CHUNK_REPLY %5$s %6$d %7$s",
+                evrecv_time,
+                reqrepID,
+                this.get_name(),
+                se.get_name(),
+                movieTag,
+                sequenceNumber,
+                gotChunkReply.getChunk());
+        this.write(msg);
+        Chunk gotChunk = gotChunkReply.getChunk();
+        Chunk transcodedChunk = null;
+        if (!gotChunk.isTranscoded()) {
+            transcodedChunk = this.transcode(gotChunk, transcodeRequest.getQuality());
+        } else {
+            transcodedChunk = gotChunk;
+        }
+        if (sequenceNumber == 1) {
+            ChunkRequest chunkRequest = new ChunkRequest(this.get_id(), this.get_id(),
+                    transcodeRequest.getPlayReqrepID(),
+                    transcodeRequest.getUserID(), movieTag, sequenceNumber, transcodeRequest.getStorageElementID(), transcodeRequest, gotChunkRequest.getAskedTime());
+            super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    QAGESATags.TRANSCODED_FIRST_CHUNK_REP,
+                    new IO_data(chunkRequest, 1, transcodeRequest.getUserID()));
+        }
+        this.sendChunk(transcodeRequest.getPlayReqrepID(), transcodeRequest.getUserID(), movieTag, sequenceNumber, transcodedChunk, transcodeRequest.getStorageElementID(), transcodeRequest, gotChunkRequest.getAskedTime());
+        int nc = sequence.size();
+        if (sequenceNumber <nc) {
+            int nextSequenceNumber = sequenceNumber+1;
+            ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
+                    transcodeRequest.getPlayReqrepID(),
+                    transcodeRequest.getUserID(), movieTag, nextSequenceNumber, transcodeRequest.getStorageElementID(), transcodeRequest, gotChunkRequest.getAskedTime());
+            requestID = request.getRequestID();
+            reqrepID = request.getReqrepID();
+            super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    QAGESATags.GET_CHUNK_REQ, new IO_data(request, SIZE, request.getStorageElementID()));
+            double evsend_time = GridSim.clock();
+            msg = String.format(
+                    "%1$f %2$d %3$s --> %4$s GET_CHUNK_REQUEST %5$s %6$d",
+                    evsend_time,
+                    reqrepID,
+                    this.get_name(),
+                    se.get_name(),
+                    movieTag,
+                    nextSequenceNumber);
+            this.write(msg);
+        } else {
+            this.sendLastChunk(transcodeRequest.getPlayReqrepID(), transcodeRequest.getUserID(), movieTag, seID, transcodeRequest, gotChunkRequest.getAskedTime());
+            TranscodeReply transcodeReply = new TranscodeReply(ev.get_tag(), true, transcodeRequest, this.get_id());
+            super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    QAGESATags.TRANSCODE_CHUNKS_REP, new IO_data(transcodeReply, 500, transcodeRequest.getSrc_ID()));
+            if (!previouslyTranscoded && this.isEnabledCaching()) {
+                ChunksSequence transcodedSequence = new ChunksSequence(sequence.getMovie(), sequence.getOperation(), sequence.getOperationParameters());
+                for (int k=0;k<sequence.size();k++) {
+                    transcodedSequence.add(sequence.get(k).clone());
                 }
-                break;
-            case QAGESATags.GET_CHUNK_REP:
-                ChunkReply gotChunkReply = ChunkReply.get_data(ev);
-                ChunkRequest gotChunkRequest = gotChunkReply.getRequest();
-                TranscodeRequest transcodeRequest = gotChunkRequest.getTranscodeRequest();
-                int seID = transcodeRequest.getStorageElementID();
-                String movieTag = gotChunkRequest.getMovieTag();
-                // Get current chunks sequence on the storage element
-                QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(seID);
-                ChunksSequence sequence = se.getTranscodingSet().get(movieTag);
-                boolean previouslyTranscoded = sequence.isTranscoded();
-                int requestID = gotChunkRequest.getRequestID();
-                int reqrepID = gotChunkRequest.getReqrepID();
-                int sequenceNumber = gotChunkRequest.getSequenceNumber();
-                Assert.assertEquals(requestID, gotChunkReply.getRequestID());
-                Assert.assertEquals(QAGESATags.GET_CHUNK_REQ, gotChunkReply.getRequestTAG());
-                Assert.assertEquals(QAGESATags.GET_CHUNK_REP, ev.get_tag());
-                double evrecv_time = GridSim.clock();
-                msg = String.format("%1$f %2$d %3$s <-- %4$s GET_CHUNK_REPLY %5$s %6$d %7$s",
-                        evrecv_time,
+                this.setTranscoded(transcodedSequence);
+                transcodeRequest.setSequence(transcodedSequence);
+                reqrepID = transcodeRequest.getReqrepID();
+                super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                        QAGESATags.CACHE_CHUNKS_REQ, new IO_data(transcodeRequest, transcodeRequest.getSequence().getInputSize(), transcodeRequest.getStorageElementID()));
+                double evsend_time = GridSim.clock();
+                msg = String.format(
+                        "%1$f %2$d %3$s --> %4$s CACHE_CHUNKS %5$s",
+                        evsend_time,
                         reqrepID,
                         this.get_name(),
-                        se.get_name(),
-                        movieTag,
-                        sequenceNumber,
-                        gotChunkReply.getChunk());
+                        Sim_system.get_entity(transcodeRequest.getStorageElementID()).get_name(),
+                        movieTag);
                 this.write(msg);
-                Chunk gotChunk = gotChunkReply.getChunk();
-                Chunk transcodedChunk = null;
-                if (!gotChunk.isTranscoded()) {
-                    transcodedChunk = this.transcode(gotChunk, transcodeRequest.getQuality());
-                } else {
-                    transcodedChunk = gotChunk;
-                }
-                if (sequenceNumber == 1) {
-                    ChunkRequest chunkRequest = new ChunkRequest(this.get_id(), this.get_id(),
-                            transcodeRequest.getPlayReqrepID(),
-                            transcodeRequest.getUserID(), movieTag, sequenceNumber, transcodeRequest.getStorageElementID(), transcodeRequest, gotChunkRequest.getAskedTime());
-                    super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                            QAGESATags.TRANSCODED_FIRST_CHUNK_REP,
-                            new IO_data(chunkRequest, 1, transcodeRequest.getUserID()));
-                }
-                this.sendChunk(transcodeRequest.getPlayReqrepID(), transcodeRequest.getUserID(), movieTag, sequenceNumber, transcodedChunk, transcodeRequest.getStorageElementID(), transcodeRequest, gotChunkRequest.getAskedTime());
-                int nc = sequence.size();
-                if (sequenceNumber <nc) {
-                    int nextSequenceNumber = sequenceNumber+1;
-                    ChunkRequest request = new ChunkRequest(this.get_id(), this.get_id(),
-                            transcodeRequest.getPlayReqrepID(),
-                            transcodeRequest.getUserID(), movieTag, nextSequenceNumber, transcodeRequest.getStorageElementID(), transcodeRequest, gotChunkRequest.getAskedTime());
-                    requestID = request.getRequestID();
-                    reqrepID = request.getReqrepID();
-                    super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                            QAGESATags.GET_CHUNK_REQ, new IO_data(request, SIZE, request.getStorageElementID()));
-                    evsend_time = GridSim.clock();
-                    msg = String.format(
-                            "%1$f %2$d %3$s --> %4$s GET_CHUNK_REQUEST %5$s %6$d",
-                            evsend_time,
-                            reqrepID,
-                            this.get_name(),
-                            se.get_name(),
-                            movieTag,
-                            nextSequenceNumber);
-                    this.write(msg);
-                } else {
-                    this.sendLastChunk(transcodeRequest.getPlayReqrepID(), transcodeRequest.getUserID(), movieTag, seID, transcodeRequest, gotChunkRequest.getAskedTime());
-                    TranscodeReply transcodeReply = new TranscodeReply(ev.get_tag(), true, transcodeRequest, this.get_id());
-                    super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                            QAGESATags.TRANSCODE_CHUNKS_REP, new IO_data(transcodeReply, 500, transcodeRequest.getSrc_ID()));
-                    if (!previouslyTranscoded && this.isEnabledCaching()) {
-                        ChunksSequence transcodedSequence = new ChunksSequence(sequence.getMovie(), sequence.getOperation(), sequence.getOperationParameters());
-                        for (int k=0;k<sequence.size();k++) {
-                            transcodedSequence.add(sequence.get(k).clone());
-                        }
-                        this.setTranscoded(transcodedSequence);
-                        transcodeRequest.setSequence(transcodedSequence);
-                        reqrepID = transcodeRequest.getReqrepID();
-                        super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                QAGESATags.CACHE_CHUNKS_REQ, new IO_data(transcodeRequest, transcodeRequest.getSequence().getInputSize(), transcodeRequest.getStorageElementID()));
-                        evsend_time = GridSim.clock();
-                        msg = String.format(
-                                "%1$f %2$d %3$s --> %4$s CACHE_CHUNKS %5$s",
-                                evsend_time,
-                                reqrepID,
-                                this.get_name(),
-                                Sim_system.get_entity(transcodeRequest.getStorageElementID()).get_name(),
-                                movieTag);
-                        this.write(msg);
-                    }
-                }
+            }
+        }
+    }
+    
+    private void processTranscodeChunksRequest(Sim_event ev) {
+        TranscodeRequest transcodeRequest = TranscodeRequest.get_data(ev);
+        int playReqrepID = transcodeRequest.getPlayReqrepID();
+        int userID = transcodeRequest.getUserID();
+        String movieTag = transcodeRequest.getMovieTag();
+        int seID = transcodeRequest.getStorageElementID();
+        // Get current chunks sequence on the storage element
+        QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(seID);
+        ChunksSequence sequence = se.getTranscodingSet().get(movieTag);
+        Chunk chunk = sequence.get(0);
+        int sequenceNumber = chunk.getSequenceNumber();
+        ChunkRequest chunkRequest = new ChunkRequest(this.get_id(), this.get_id(),
+                playReqrepID,
+                userID, movieTag, sequenceNumber, seID, transcodeRequest, this.clock());
+        super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                QAGESATags.SENDING_FIRST_CHUNK_REP,
+                new IO_data(chunkRequest, 1, userID));
+    }    
+    
+    @Override
+    public void processOtherEvent(Sim_event ev) {
+        switch (ev.get_tag()) {
+            case QAGESATags.ASK_CHUNK_REQ:
+                this.processAskChunkRequest(ev);
+                break;
+            case QAGESATags.SEND_CHUNK_REP:
+                this.processSendChunkReply(ev);
+                break;
+            case QAGESATags.GET_CHUNK_REP:
+                this.processGetChunkReply(ev);
                 break;
             case QAGESATags.TRANSCODE_CHUNKS_REQ:
-                transcodeRequest = TranscodeRequest.get_data(ev);
-                int playReqrepID = transcodeRequest.getPlayReqrepID();
-                int userID = transcodeRequest.getUserID();
-                movieTag = transcodeRequest.getMovieTag();
-                seID = transcodeRequest.getStorageElementID();
-                // Get current chunks sequence on the storage element
-                se = (QAGESAGridElement) Sim_system.get_entity(seID);
-                sequence = se.getTranscodingSet().get(movieTag);
-                previouslyTranscoded = sequence.isTranscoded();
-                Chunk chunk = sequence.get(0);
-                sequenceNumber = chunk.getSequenceNumber();
-                ChunkRequest chunkRequest = new ChunkRequest(this.get_id(), this.get_id(),
-                        playReqrepID,
-                        userID, movieTag, sequenceNumber, seID, transcodeRequest, this.clock());
-                super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                        QAGESATags.SENDING_FIRST_CHUNK_REP,
-                        new IO_data(chunkRequest, 1, userID));
+                this.processTranscodeChunksRequest(ev);
                 break;
-
             default:
                 break;
         }
