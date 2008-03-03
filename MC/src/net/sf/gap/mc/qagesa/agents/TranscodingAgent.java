@@ -93,17 +93,7 @@ public class TranscodingAgent extends GridAgent {
                 file_size, output_size);
         gridlet.setUserID(this.get_id());
         super.gridletSubmit(gridlet, this.getResourceID());
-        // Receiving a Gridlet back
         gridlet = super.gridletReceive();
-        String indent = "    ";
-        System.out.print(indent + gridlet.getGridletID() + indent + indent);
-
-        if (gridlet.getGridletStatus() == Gridlet.SUCCESS) {
-            System.out.print("SUCCESS");
-        }
-
-        System.out.println(indent + indent + gridlet.getResourceID() +
-                indent + gridlet.getExecStartTime() + indent + gridlet.getFinishTime());
         Chunk transcodedChunk = chunk.transcode();
         return transcodedChunk;
     }
