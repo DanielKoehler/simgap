@@ -78,17 +78,17 @@ public class QAGESAConfigurator {
                                 if (ca[iCA]) {
                                   name = name + "_ca";   
                                 } else {
-                                  name = name + "_nca";   
+                                  name = name + "_notca";   
                                 }
                                 if (re[iRE]) {
                                   name = name + "_re";   
                                 } else {
-                                  name = name + "_nre";   
+                                  name = name + "_notre";   
                                 }
                                 if (ra[iRA]) {
                                   name = name + "_ra";   
                                 } else {
-                                  name = name + "_nra";   
+                                  name = name + "_notra";   
                                 }
                                 name = name + "_" + measure;
                                 File outFile = new File(confDir+"QAGESA_"+name+".conf");
