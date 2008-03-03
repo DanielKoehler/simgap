@@ -31,7 +31,7 @@
         <copy file="${libs.JavaCSV.classpath}" todir="${redist.dir}/libs/"/>
         <copy file="${reference.GAP.jar}" todir="${redist.dir}/libs/"/>
         <copy file="${reference.GridSim.jar}" todir="${redist.dir}/libs/"/>
-        <copy file="{$reference.SIMJAVA.jar}" todir="${redist.dir}/libs/"/>
+        <copy file="${reference.SIMJAVA.jar}" todir="${redist.dir}/libs/"/>
         <!-- Regenerate input and output dirs -->
         <copy file="QAGESA.conf" todir="${redist.dir}/"/>
         <copy todir="${redist.dir}/conf">
