@@ -28,17 +28,19 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class ReFPlayReply extends Reply {
+        private int agentID;
 
 	/**
 	 * Creates a new instance of ReFPlayRequest
 	 */
-	public ReFPlayReply(int requestTAG, boolean ok, ReFPlayRequest request) {
+	public ReFPlayReply(int agentID, int requestTAG, boolean ok, ReFPlayRequest request) {
 		super(requestTAG, ok, request);
+                this.setAgentID(agentID);
 	}
 
 	@Override
 	public ReFPlayReply clone() {
-		return new ReFPlayReply(this.getRequestTAG(), this.isOk(), this
+		return new ReFPlayReply(this.getAgentID(), this.getRequestTAG(), this.isOk(), this
 				.getRequest().clone());
 	}
 
@@ -70,5 +72,13 @@ public class ReFPlayReply extends Reply {
 
     public void setFcEv(Sim_event fcEv) {
         this.getRequest().setFcEv(fcEv);
+    }
+
+    public int getAgentID() {
+        return agentID;
+    }
+
+    public void setAgentID(int agentID) {
+        this.agentID = agentID;
     }
 }

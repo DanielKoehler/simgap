@@ -103,7 +103,6 @@ public class TranscodingAgent extends GridAgent {
         switch (ev.get_tag()) {
             case QAGESATags.SEND_CHUNK_REP:
                 ChunkReply userChunkReply = ChunkReply.get_data(ev);
-                System.out.println("SEND_CHUNK_REP");
                 break;
             case QAGESATags.GET_CHUNK_REP:
                 ChunkReply gotChunkReply = ChunkReply.get_data(ev);
