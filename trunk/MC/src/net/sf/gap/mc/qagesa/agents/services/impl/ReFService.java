@@ -231,11 +231,7 @@ public class ReFService extends PlatformService {
         while (it.hasNext()) {
             int ceID = it.next();
             GISEntry gisEntry = this.getGisRepositoryCache().get(ceID);
-            int numFreeAgents = gisEntry.getNumFreeAgents();
-            //if (numFreeAgents>0) {
-            int totalMIPS = gisEntry.getTotalMIPS();
             double load = (gisEntry.getLoad().getMean());
-            System.out.println(Sim_system.get_entity(ceID).get_name() + " has load: " + load);
             RTTMap rttMap = this.getNetworkMapCache().get(ceID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);
