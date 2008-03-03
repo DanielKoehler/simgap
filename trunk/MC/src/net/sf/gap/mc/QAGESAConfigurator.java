@@ -94,7 +94,7 @@ public class QAGESAConfigurator {
                                 File outFile = new File(confDir+"QAGESA_"+name+".conf");
                                 PrintStream outConf = new PrintStream(new FileOutputStream(outFile, false));
                                 outConf.println("ui             = false");
-                                outConf.println("output         = results_"+name);
+                                outConf.println("output         = results");
                                 if (iXML==1) {
                                 outConf.println("xml            = xml/egeeit.xml");
                                 outConf.println("xsd            = xml/scenario.xsd");
