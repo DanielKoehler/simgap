@@ -82,6 +82,8 @@ public class TranscodingAgent extends GridAgent {
     protected void dispose() {
     }
 
+    public void update() {}
+    
     public Chunk transcode(Chunk chunk) {
         if (!EntitiesCounter.contains("Gridlet")) {
             EntitiesCounter.create("Gridlet");

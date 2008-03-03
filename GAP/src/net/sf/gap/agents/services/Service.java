@@ -35,7 +35,7 @@ import eduni.simjava.Sim_event;
  * @see net.p2pgrid.agents.GridAgent
  */
 
-public class Service extends GridAgent {
+public abstract class Service extends GridAgent {
 	private ServiceInfo serviceInfo;
 
 	public Service(AbstractGridElement ge, String name, boolean trace_flag)

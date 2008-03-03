@@ -75,7 +75,7 @@ public abstract class AgentPlatform extends AbstractAgentPlatform {
 		// wait for a little while for about 3 seconds.
 		// This to give a time for GridResource entities to register their
 		// services to GIS (GridInformationService) entity.
-		super.gridSimHold(GAP.getPlatformStartTime());
+		super.gridSimHold(GAP.getPlatformStartTime()-100.0);
 		try {
 			this.initialize();
 		} catch (Exception e) {

@@ -507,7 +507,8 @@ public abstract class AbstractUser extends DataGridUser {
 
 	@Override
 	public void body() {
-		super.gridSimHold(AbstractGAP.getStartTime());
+		super.gridSimHold(AbstractGAP.getStartTime()-100.0);
+                double timea = super.clock();
 		try {
 			this.initialize();
 		} catch (Exception e) {
@@ -519,6 +520,9 @@ public abstract class AbstractUser extends DataGridUser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+                double timeb = User.clock();
+                double delta = 100.0-(timeb - timea);
+                super.gridSimHold(delta);
 
 		Sim_event ev = new Sim_event();
 		while (AbstractGAP.isRunning()) {

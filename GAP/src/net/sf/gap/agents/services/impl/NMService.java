@@ -85,6 +85,8 @@ public class NMService extends PlatformService {
 		this.getNetworkMap().addRTT(src, dst, pkt);
 	}
 
+        public void update() {}
+        
 	public void showNetworkMap() {
 		this.getNetworkMap().show();
 	}

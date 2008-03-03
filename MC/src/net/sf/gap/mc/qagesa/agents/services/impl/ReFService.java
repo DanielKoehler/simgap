@@ -136,6 +136,11 @@ public class ReFService extends PlatformService {
     protected void dispose() {
         this.printStatPlayStart();
     }
+    
+    public void update() {
+        this.updateGISCache();
+        this.updateNMCache();
+    }
 
     private void updateGISCache() {
         GISReply gisReply = null;
@@ -273,8 +278,8 @@ public class ReFService extends PlatformService {
         int maxRetryCount;
         int retryCount;
         if (!playRequest.isRandomSelection()) {
-            this.updateGISCache();
-            this.updateNMCache();
+            //this.updateGISCache();
+            //this.updateNMCache();
             ReFProximityList list;
             list = this.computeProximities(userID);
             Iterator<ReFTriple> it;

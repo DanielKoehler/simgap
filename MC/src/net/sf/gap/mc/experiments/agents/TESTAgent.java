@@ -59,4 +59,6 @@ public class TESTAgent extends PluggableAgent {
         }
         
         public void dispose() {}
+        
+        public void update() {}
 }

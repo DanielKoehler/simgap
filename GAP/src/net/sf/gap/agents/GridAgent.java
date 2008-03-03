@@ -83,6 +83,7 @@ public abstract class GridAgent extends DFAgent {
 		this.setScheduler(new RRScheduler(this, 16));
 	}
 
+        public abstract void update();
 	/**
 	 * The core method that handles communications among entities
 	 */
@@ -96,6 +97,7 @@ public abstract class GridAgent extends DFAgent {
 
 		Sim_event ev = new Sim_event();
 		while (AbstractGAP.isRunning()) {
+                        this.update();
 			super.sim_wait_for(Sim_system.SIM_ANY, 1.0, ev);
 			this.processEvent(ev);
 			while (super.sim_waiting() > 0) {

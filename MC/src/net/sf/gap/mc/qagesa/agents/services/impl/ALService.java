@@ -54,6 +54,8 @@ public class ALService extends PlatformService {
 	@Override
 	protected void dispose() {
 	}
+        
+        public void update() {}
 
 	@Override
 	public void processOtherEvent(Sim_event ev) {

@@ -33,7 +33,7 @@ import net.sf.gap.agents.middleware.AbstractAgentPlatform;
  * @see net.p2pgrid.agents.services.Service
  */
 
-public class PlatformService extends Service {
+public abstract class PlatformService extends Service {
 	public PlatformService(AbstractAgentPlatform ap, String name,
 			boolean trace_flag) throws Exception {
 		super(ap.getGridElement(), name, trace_flag);

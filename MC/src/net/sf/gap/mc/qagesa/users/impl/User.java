@@ -515,7 +515,7 @@ public class User extends QAGESAUser {
         for (int i = 0; i < this.getVirtualOrganization().getNumCEs(); i++) {
             int ceID = this.getVirtualOrganization().getCEs().get(i).get_id();
             InfoPacket pkt = super.pingBlockingCall(ceID,
-                    50);
+                    1);
             if (pkt != null) {
                 this.getVirtualOrganization().getPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID, this.get_id(), pkt);
             }
