@@ -100,10 +100,13 @@ public class COREGEFactory extends ResourceFactory {
 			for (int i = 0; i < m; i++) {
 				PEList peList = new PEList();
 				int MIPSRating = this.getMIPS();
+                                /*
 				int p = r.sample(this.getPEmax()) + 1;
 				if (fixed) {
 					p = this.getPEmax();
 				}
+                                 */
+				int p = this.getPEmax();
 				np = np + p;
 				for (int j = 0; j < p; j++) {
 					peList.add(new PE(j, MIPSRating)); // store PE id and MIPS
