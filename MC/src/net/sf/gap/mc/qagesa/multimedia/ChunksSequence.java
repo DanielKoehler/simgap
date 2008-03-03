@@ -57,12 +57,12 @@ public class ChunksSequence extends Vector<Chunk> {
 	 * 
 	 * @return a sequence of transcoded chunks
 	 */
-	public ChunksSequence transcode() {
+	public ChunksSequence transcode(double quality) {
 		ChunksSequence sequence = new ChunksSequence(this.getMovie(), this
 				.getOperation(), this.getOperationParameters());
 		int chunks = this.size();
 		for (int j = 0; j < chunks; j++) {
-			Chunk chunk = this.get(j).transcode();
+			Chunk chunk = this.get(j).transcode(quality);
 			sequence.add(chunk);
 		}
 		return sequence;

@@ -38,18 +38,18 @@ public class Chunk {
 
 	private int sequenceNumber; // Sequence number of chunk in a ChunksSequence
 
-	private int inputSize; // Input size of chunk
+	private long inputSize; // Input size of chunk
 
-	private int outputSize; // Output size of chunk after transcoding
+	private long outputSize; // Output size of chunk after transcoding
 
-	private int MIPS; // MIPS required for transcoding
+	private long MIPS; // MIPS required for transcoding
 
 	private int duration; // Duration of chunk reproduction in milliseconds
 
 	public Chunk() {
 	}
 
-	public Chunk(int sequenceNumber, int inputSize, int outputSize, int MIPS,
+	public Chunk(int sequenceNumber, long inputSize, long outputSize, long MIPS,
 			int duration) {
 		this.setSequenceNumber(sequenceNumber);
 		this.setInputSize(inputSize);
@@ -69,9 +69,9 @@ public class Chunk {
 	 * 
 	 * @return a new chunk with input size equal to outputsize and MIPS 0
 	 */
-	public Chunk transcode() {
-		Chunk chunk = new Chunk(this.getSequenceNumber(), this.getOutputSize(),
-				this.getOutputSize(), 0, this.getDuration());
+	public Chunk transcode(double quality) {
+		Chunk chunk = new Chunk(this.getSequenceNumber(), Math.round(this.getOutputSize()*quality*quality),
+				Math.round(this.getOutputSize()*quality*quality), 0, this.getDuration());
 		chunk.setTranscoded(true);
 		return chunk;
 	}
@@ -94,27 +94,27 @@ public class Chunk {
 		this.sequenceNumber = sequenceNumber;
 	}
 
-	public int getInputSize() {
+	public long getInputSize() {
 		return inputSize;
 	}
 
-	public void setInputSize(int inputSize) {
+	public void setInputSize(long inputSize) {
 		this.inputSize = inputSize;
 	}
 
-	public int getOutputSize() {
+	public long getOutputSize() {
 		return outputSize;
 	}
 
-	public void setOutputSize(int outputSize) {
+	public void setOutputSize(long outputSize) {
 		this.outputSize = outputSize;
 	}
 
-	public int getMIPS() {
+	public long getMIPS() {
 		return MIPS;
 	}
 
-	public void setMIPS(int MIPS) {
+	public void setMIPS(long MIPS) {
 		this.MIPS = MIPS;
 	}
 

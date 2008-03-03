@@ -44,11 +44,11 @@ public class TranscodeRequest extends Request {
 	 * Creates a new instance of TranscodeRequest
 	 */
 	public TranscodeRequest(int src_ID, int src_resID, 
-                        ReFPlayRequest playRequest, int storageElementID) {
+                        ReFPlayRequest playRequest, int storageElementID, double quality) {
 		super(src_ID, src_resID);
                 this.setPlayRequest(playRequest);
 		this.setStorageElementID(storageElementID);
-                this.setQuality(1.0);
+                this.setQuality(quality);
 	}
 
 	public static TranscodeRequest get_data(Sim_event ev) {
@@ -59,7 +59,7 @@ public class TranscodeRequest extends Request {
 	@Override
 	public TranscodeRequest clone() {
 		return new TranscodeRequest(this.getSrc_ID(), this.getSrc_resID(), 
-                        this.getPlayRequest(), this.getStorageElementID());
+                        this.getPlayRequest(), this.getStorageElementID(), this.getQuality());
 	}
 
 	public ChunksSequence getSequence() {

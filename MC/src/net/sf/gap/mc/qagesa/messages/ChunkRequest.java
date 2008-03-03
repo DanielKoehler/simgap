@@ -43,13 +43,15 @@ public class ChunkRequest extends Request {
         private int storageElementID;           // Used in request
 
 	private Chunk chunk; // Used in reply
+        
+        private double askedTime;
 
 	/**
 	 * Creates a new instance of ChunkRequest
 	 */
 	public ChunkRequest(int src_ID, int src_resID, 
                 int playReqrepID,
-                int userID, String movieTag, int sequenceNumber, int storageElementID, TranscodeRequest transcodeRequest) {
+                int userID, String movieTag, int sequenceNumber, int storageElementID, TranscodeRequest transcodeRequest, double askedTime) {
 		super(src_ID, src_resID);
                 
                 this.setPlayReqrepID(playReqrepID);
@@ -59,6 +61,7 @@ public class ChunkRequest extends Request {
 		this.setSequenceNumber(sequenceNumber);
                 this.setStorageElementID(storageElementID);
                 this.setTranscodeRequest(transcodeRequest);
+                this.setAskedTime(askedTime);
 	}
 
 	public static ChunkRequest get_data(Sim_event ev) {
@@ -70,7 +73,7 @@ public class ChunkRequest extends Request {
 	public ChunkRequest clone() {
 		return new ChunkRequest(this.getSrc_ID(), this.getSrc_resID(),
                         this.getPlayReqrepID(),
-                        this.getUserID(), this.getMovieTag(), this.getSequenceNumber(), this.getStorageElementID(), this.getTranscodeRequest());
+                        this.getUserID(), this.getMovieTag(), this.getSequenceNumber(), this.getStorageElementID(), this.getTranscodeRequest(), this.getAskedTime());
 	}
 
 	public int getSequenceNumber() {
@@ -127,5 +130,13 @@ public class ChunkRequest extends Request {
 
     public void setTranscodeRequest(TranscodeRequest transcodeRequest) {
         this.transcodeRequest = transcodeRequest;
+    }
+
+    public double getAskedTime() {
+        return askedTime;
+    }
+
+    public void setAskedTime(double askedTime) {
+        this.askedTime = askedTime;
     }
 }
