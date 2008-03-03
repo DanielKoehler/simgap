@@ -319,6 +319,7 @@ public class User extends QAGESAUser {
                 if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
                     sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
                 }
+                QAGESAStat.decRequests(ev.event_time(), true);
                 break;
             case QAGESATags.SEND_CHUNK_REQ:
                 chunkRequest = ChunkRequest.get_data(ev);
@@ -354,7 +355,6 @@ public class User extends QAGESAUser {
                             request.getMovieTag());
                 }
                 this.write(msg);
-                QAGESAStat.decRequests(User.clock(), true);
                 asked--;
                 break;
             default:
