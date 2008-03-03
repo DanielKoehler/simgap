@@ -80,17 +80,19 @@ public class TranscodingAgent extends GridAgent {
     }
 
     public Chunk transcode(Chunk chunk, double quality) {
-        if (!EntitiesCounter.contains("Gridlet")) {
-            EntitiesCounter.create("Gridlet");
+        if (chunk.getMIPS()>0) {
+            if (!EntitiesCounter.contains("Gridlet")) {
+                EntitiesCounter.create("Gridlet");
+            }
+            double length = chunk.getMIPS()*quality;
+            long file_size = chunk.getInputSize();
+            long output_size = Math.round(chunk.getOutputSize()*quality*quality);
+            Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
+                    file_size, output_size);
+            gridlet.setUserID(this.get_id());
+            super.gridletSubmit(gridlet, this.getResourceID());
+            gridlet = super.gridletReceive();
         }
-        double length = chunk.getMIPS()*quality;
-        long file_size = chunk.getInputSize();
-        long output_size = Math.round(chunk.getOutputSize()*quality*quality);
-        Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
-                file_size, output_size);
-        gridlet.setUserID(this.get_id());
-        super.gridletSubmit(gridlet, this.getResourceID());
-        gridlet = super.gridletReceive();
         Chunk transcodedChunk = chunk.transcode(quality);
         return transcodedChunk;
     }
@@ -132,11 +134,11 @@ public class TranscodingAgent extends GridAgent {
                     double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
                     double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
                     if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
-                        updateQuality = Math.max(updateQuality * 0.9,0.5);
+                        updateQuality = Math.min(updateQuality * 0.9,0.5);
                         userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
                         System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
-                    } else if ((updateQuality<1.0) && (delta < neededDelta)) {
-                        updateQuality = Math.min(1.0, updateQuality + 0.1);
+                    } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
+                        updateQuality = Math.max(1.0, updateQuality / 0.9);
                         userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
                         System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
                     }
