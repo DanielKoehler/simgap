@@ -72,7 +72,6 @@ public class QAGESAConfigurator {
                                 } else {
                                     name += "xml";
                                 }
-                                name = name + "_" + measure;
                                 name = name + "_" + users[iUsers];
                                 name = name + "_" + requests[iRequests];
                                 name = name + "_" + distribution[iDistribution];
@@ -91,6 +90,7 @@ public class QAGESAConfigurator {
                                 } else {
                                   name = name + "_nra";   
                                 }
+                                name = name + "_" + measure;
                                 File outFile = new File(confDir+"QAGESA_"+name+".conf");
                                 PrintStream outConf = new PrintStream(new FileOutputStream(outFile, false));
                                 outConf.println("ui             = false");
