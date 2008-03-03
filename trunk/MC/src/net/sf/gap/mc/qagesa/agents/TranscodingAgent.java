@@ -134,13 +134,13 @@ public class TranscodingAgent extends GridAgent {
                     double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
                     double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
                     if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
-                        updateQuality = Math.min(updateQuality * 0.9,0.5);
+                        updateQuality = Math.max(updateQuality * 0.9,0.5);
                         userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                        System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
+                        //System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
                     } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
-                        updateQuality = Math.max(1.0, updateQuality / 0.9);
+                        updateQuality = Math.min(1.0, updateQuality / 0.9);
                         userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                        System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
+                        //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
                     }
                 }
                 break;
