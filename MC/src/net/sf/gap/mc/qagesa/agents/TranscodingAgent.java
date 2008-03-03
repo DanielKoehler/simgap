@@ -124,20 +124,22 @@ public class TranscodingAgent extends GridAgent {
                 break;
             case QAGESATags.SEND_CHUNK_REP:
                 ChunkReply userChunkReply = ChunkReply.get_data(ev);
-                int SN = userChunkReply.getRequest().getSequenceNumber();
-                double replyTime = this.clock();
-                double memoizedAskedTime = userChunkReply.getRequest().getAskedTime();
-                double delta = replyTime-memoizedAskedTime;
-                double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
-                double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
-                if ((delta > (neededDelta*3.0/2.0)) && (updateQuality>0.5)) {
-                    updateQuality = Math.max(updateQuality * 0.5,0.5);
-                    userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                    System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
-                } else if (updateQuality<1.0) {
-                    updateQuality = Math.min(1.0, updateQuality + 0.1);
-                    userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                    System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
+                if (!userChunkReply.getRequest().getTranscodeRequest().getPlayRequest().isRandomSelection()) {
+                    int SN = userChunkReply.getRequest().getSequenceNumber();
+                    double replyTime = this.clock();
+                    double memoizedAskedTime = userChunkReply.getRequest().getAskedTime();
+                    double delta = replyTime-memoizedAskedTime;
+                    double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
+                    double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
+                    if ((delta > (neededDelta*3.0/2.0)) && (updateQuality>0.5)) {
+                        updateQuality = Math.max(updateQuality * 0.5,0.5);
+                        userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
+                        System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
+                    } else if ((updateQuality<1.0) && (delta < neededDelta)) {
+                        updateQuality = Math.min(1.0, updateQuality + 0.1);
+                        userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
+                        System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
+                    }
                 }
                 break;
             case QAGESATags.GET_CHUNK_REP:
