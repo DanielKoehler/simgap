@@ -24,10 +24,7 @@ import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
-import net.sf.gap.mc.qagesa.messages.ChunkReply;
-import net.sf.gap.mc.qagesa.messages.ChunkRequest;
-import net.sf.gap.mc.qagesa.messages.TranscodeReply;
-import net.sf.gap.mc.qagesa.messages.TranscodeRequest;
+import net.sf.gap.mc.qagesa.messages.*;
 import net.sf.gap.mc.qagesa.multimedia.Chunk;
 import net.sf.gap.mc.qagesa.multimedia.ChunksSequence;
 import net.sf.gap.util.EntitiesCounter;
@@ -101,6 +98,9 @@ public class TranscodingAgent extends GridAgent {
     @Override
     public void processOtherEvent(Sim_event ev) {
         switch (ev.get_tag()) {
+            case QAGESATags.ASK_CHUNK_REQ:
+                ReFPlayRequest askPlayRequest = ReFPlayRequest.get_data(ev);
+                break;
             case QAGESATags.SEND_CHUNK_REP:
                 ChunkReply userChunkReply = ChunkReply.get_data(ev);
                 break;

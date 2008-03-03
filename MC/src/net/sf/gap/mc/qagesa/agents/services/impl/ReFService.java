@@ -192,6 +192,7 @@ public class ReFService extends PlatformService {
                 }
             }
         } else {
+            agentID = agentReply.getRequest().getDst_agentID();
             this.sendPlayStartReply(agentID, userID, playRequest, agentReply.isOk());
             agentID = agentReply.getRequest().getDst_agentID();
             if (this.getAlDirectory() == null) {

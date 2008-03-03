@@ -242,6 +242,8 @@ public class User extends QAGESAUser {
                     evrecv_time, request.getReqrepID(), this.get_name(),
                     request.getReqrepID(),
                     request.getMovieTag());
+            super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    QAGESATags.ASK_CHUNK_REQ, new IO_data(request, 32, playReply.getAgentID()));
         } else {
             msg = String.format(
                     "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_START (FAILURE) %4$d %5$s",
