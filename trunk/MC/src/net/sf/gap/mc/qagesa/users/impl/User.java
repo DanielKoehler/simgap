@@ -137,7 +137,7 @@ public class User extends QAGESAUser {
 
     private void setupStatResponseTime() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.REF_PLAY_REP_START};
+        int[] tags = {QAGESATags.REF_PLAY_REP_START, QAGESATags.SENDING_FIRST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -276,9 +276,6 @@ public class User extends QAGESAUser {
                     sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
                 }
 
-                if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
-                    sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
-                }
                 break;
             case QAGESATags.SENDING_FIRST_CHUNK_REP:
                 chunkRequest = ChunkRequest.get_data(ev);
@@ -292,6 +289,9 @@ public class User extends QAGESAUser {
                         chunkRequest.getPlayReqrepID(),
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
+                if (this.getSelectedMeasure() == User.MEASURE_RESPONSE) {
+                    sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
+                }
                 break;
             case QAGESATags.SENT_LAST_CHUNK_REP:
                 chunkRequest = ChunkRequest.get_data(ev);
