@@ -177,9 +177,6 @@ public class ReFService extends PlatformService {
                             QAGESAEntityTypes.NOBODY);
             agentReply = new AgentReply(QAGESATags.AGENT_RUN_REQ, false, agentRequest);
         }
-        double afterSubmit = super.clock();
-        double submitLatency = afterSubmit - beforeSubmit;
-        System.out.println(beforeSubmit + ": Agent submit latency from ReF: " + submitLatency);
         int agentID = -1;
         if (!agentReply.isOk()) {
             Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
@@ -223,11 +220,6 @@ public class ReFService extends PlatformService {
                 userID,
                 movieTag);
         this.write(msg);
-        double afterTranscodeRequest = evsend_time;
-        double totalActivationTime = afterTranscodeRequest - beforeSubmit;
-        double trTime = afterTranscodeRequest - afterSubmit;
-        System.out.println(beforeSubmit + ": Agent tr latency from ReF: " + trTime);
-        System.out.println(beforeSubmit + ": Agent total activation latency from ReF: " + totalActivationTime);
         return agentReply;
     }
 
@@ -273,7 +265,6 @@ public class ReFService extends PlatformService {
     }
 
     private void processPlayRequest(Sim_event ev) {
-        double atRequest = this.clock();
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         int playReqrepID = playRequest.getReqrepID();
         int userID = playRequest.getSrc_ID();
@@ -296,7 +287,6 @@ public class ReFService extends PlatformService {
             maxRetryCount = 1;
             retryCount = 0;
             while (it.hasNext() && (retryCount < maxRetryCount) && !doing) {
-                //while (it.hasNext() &&  !doing) {
                 ReFTriple triple = it.next();
                 ReFCouple couple = triple.getCouple();
                 ceID = couple.getComputingElementID();
@@ -304,10 +294,8 @@ public class ReFService extends PlatformService {
                 agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
                 doing = agentReply.isOk();
                 retryCount++;
-            //}
             }
         }
-        //if ((playRequest.isRandomSelection()) || (agentReply == null)) {
         doing = false;
         maxRetryCount = 1;
         retryCount = 0;
@@ -326,9 +314,6 @@ public class ReFService extends PlatformService {
         } else if (!agentReply.isOk()) {
             this.sendPlayStartReply(userID, playRequest, false);
         }
-        double atRequestEnd = this.clock();
-        double rt = atRequestEnd - atRequest;
-        System.out.println("ReF RT: " + rt);
         super.sim_completed(ev);
     }
 
