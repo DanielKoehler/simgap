@@ -27,6 +27,7 @@ import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.messages.ChunkRequest;
+import net.sf.gap.mc.qagesa.messages.ChunkReply;
 import net.sf.gap.mc.qagesa.messages.ReFPlayReply;
 import net.sf.gap.mc.qagesa.messages.ReFPlayRequest;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
@@ -146,7 +147,7 @@ public class User extends QAGESAUser {
 
     private void setupStatStreaming() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.REF_PLAY_REP_START, QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.SENT_LAST_CHUNK_REP};
+        int[] tags = {QAGESATags.REF_PLAY_REP_START, QAGESATags.SENDING_FIRST_CHUNK_REP, QAGESATags.SEND_CHUNK_REQ, QAGESATags.SENT_LAST_CHUNK_REP};
         stat.measure_for(tags);
         stat.add_measure(Sim_stat.SERVICE_TIME);
         this.set_stat(stat);
@@ -319,6 +320,10 @@ public class User extends QAGESAUser {
                         chunkRequest.getPlayReqrepID(),
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
+
+                ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
+                super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                        QAGESATags.SEND_CHUNK_REP, new IO_data(chunkReply, 32, chunkRequest.getSrc_ID()));
                 break;
             case QAGESATags.REF_PLAY_REP_END:
                  ReFPlayReply playReply = ReFPlayReply.get_data(ev);

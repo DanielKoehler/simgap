@@ -29,7 +29,6 @@ import eduni.simjava.Sim_event;
  * @author Giovanni Novelli
  */
 public class ChunkReply extends Reply {
-
 	/**
 	 * Creates a new instance of ChunkRequest
 	 */

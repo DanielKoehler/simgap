@@ -37,6 +37,8 @@ public class TranscodeRequest extends Request {
         private ChunksSequence sequence; // Used in request
         
         private int agentID;            // Used in reply
+        
+        private double quality;
 
 	/**
 	 * Creates a new instance of TranscodeRequest
@@ -46,6 +48,7 @@ public class TranscodeRequest extends Request {
 		super(src_ID, src_resID);
                 this.setPlayRequest(playRequest);
 		this.setStorageElementID(storageElementID);
+                this.setQuality(1.0);
 	}
 
 	public static TranscodeRequest get_data(Sim_event ev) {
@@ -101,5 +104,13 @@ public class TranscodeRequest extends Request {
 
     public void setAgentID(int agentID) {
         this.agentID = agentID;
+    }
+
+    public double getQuality() {
+        return quality;
+    }
+
+    public void setQuality(double quality) {
+        this.quality = quality;
     }
 }
