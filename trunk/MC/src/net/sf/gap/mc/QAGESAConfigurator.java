@@ -28,7 +28,7 @@ public class QAGESAConfigurator {
     public static void main(String[] args) {
         prepareConf();
         try {
-            for (int iXML = 0; iXML <= 1; iXML++) {
+            for (int iXML = 0; iXML <= 0; iXML++) {
                 for (int iMeasure=0;iMeasure<6;iMeasure++) {
                     String measure="";
                     switch (iMeasure) {
@@ -53,18 +53,18 @@ public class QAGESAConfigurator {
                         default:
                             break;
                     }
-                    int[] users = {128,256,512,1024};
+                    int[] users = {64,128};
                     for (int iUsers=0;iUsers<users.length;iUsers++) {
-                        int[] requests = {1,2,4,8,16};
+                        int[] requests = {1};
                         for (int iRequests=0;iRequests<requests.length;iRequests++) {
-                            String[] distribution = {"zipf"};
+                            String[] distribution = {"linear","scaled","zipf"};
                             for (int iDistribution=0;iDistribution<distribution.length;iDistribution++) {
                                 boolean[] ca = {false,true};
                                 for (int iCA=0;iCA<ca.length;iCA++) {
                                     //boolean[] re = {false, true};
-                                    boolean[] re = {false,true};
+                                    boolean[] re = {true};
                                     for (int iRE=0;iRE<re.length;iRE++) {
-                                        boolean[] ra = {false,true};
+                                        boolean[] ra = {true};
                                         for (int iRA=0;iRA<ra.length;iRA++) {
                                 String name = "";
                                 if (iXML == 0) {
