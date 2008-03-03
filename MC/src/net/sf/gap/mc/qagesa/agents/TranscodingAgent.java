@@ -122,7 +122,7 @@ public class TranscodingAgent extends GridAgent {
                         evrecv_time,
                         reqrepID,
                         this.get_name(),
-                        this.getGridElement().get_name(),
+                        se.get_name(),
                         movieTag,
                         sequenceNumber,
                         gotChunkReply.getChunk());
@@ -161,7 +161,7 @@ public class TranscodingAgent extends GridAgent {
                             evsend_time,
                             reqrepID,
                             this.get_name(),
-                            this.getGridElement().get_name(),
+                            se.get_name(),
                             movieTag,
                             nextSequenceNumber);
                     this.write(msg);
@@ -226,7 +226,7 @@ public class TranscodingAgent extends GridAgent {
                         evsend_time,
                         reqrepID,
                         this.get_name(),
-                        this.getGridElement().get_name(),
+                        se.get_name(),
                         movieTag,
                        sequenceNumber);
                 this.write(msg);
