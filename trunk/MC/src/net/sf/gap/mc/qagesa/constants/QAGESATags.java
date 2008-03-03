@@ -74,11 +74,13 @@ public class QAGESATags extends Tags {
 																		// TA to
 																		// USER
 
-	public static final int SEND_CHUNK_REQ = 31 + TATAGS; // From TA to USER
+	public static final int ASK_CHUNK_REQ = 31 + TATAGS; // From TA to USER
 
-	public static final int SEND_CHUNK_REP = 32 + TATAGS; // From USER to TA
+        public static final int SEND_CHUNK_REQ = 32 + TATAGS; // From TA to USER
 
-	public static final int SENT_LAST_CHUNK_REP = 33 + TATAGS; // From TA to
+	public static final int SEND_CHUNK_REP = 33 + TATAGS; // From USER to TA
+
+	public static final int SENT_LAST_CHUNK_REP = 34 + TATAGS; // From TA to
 																// USER
 
 	// Caching chunks to SE
