@@ -97,7 +97,7 @@ public class QAGESAConfigurator {
                                 outConf.println("output         = results");
                                 if (iXML==1) {
                                 outConf.println("xml            = xml/egeeit.xml");
-                                outConf.println("xsd            = xml/scenario.xsd");
+                                outConf.println("xsd            = xsd/scenario.xsd");
                                 } else {
                                 outConf.println("ces            = 4");
                                 outConf.println("machines       = 16");
