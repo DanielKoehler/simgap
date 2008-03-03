@@ -19,8 +19,7 @@
 
 package net.sf.gap.mc.qagesa.messages;
 
-import net.sf.gap.messages.Message;
-import net.sf.gap.messages.Request;
+import net.sf.gap.messages.*;
 import eduni.simjava.Sim_event;
 
 /**
@@ -39,6 +38,8 @@ public class ReFPlayRequest extends Request {
 	private int userID; // Used in request
 
 	private String movieTag; // Used in request
+        
+        private TranscodeRequest transcodeRequest;
 
 	/**
 	 * Creates a new instance of ReFPlayRequest
@@ -51,6 +52,7 @@ public class ReFPlayRequest extends Request {
 		this.setRandomSelection(randomSelection);
                 this.replyEv=null;
                 this.fcEv=null;
+                this.setTranscodeRequest(null);
 	}
 
 	public static ReFPlayRequest get_data(Sim_event ev) {
@@ -60,8 +62,12 @@ public class ReFPlayRequest extends Request {
 
 	@Override
 	public ReFPlayRequest clone() {
-		return new ReFPlayRequest(this.getSrc_ID(), this.getSrc_resID(), this
+		ReFPlayRequest request = new ReFPlayRequest(this.getSrc_ID(), this.getSrc_resID(), this
 				.getUserID(), this.getMovieTag(), this.isRandomSelection());
+                request.setFcEv(this.getFcEv());
+                request.setReplyEv(replyEv);
+                request.setTranscodeRequest(transcodeRequest);
+                return request;
 	}
 
 	public String getMovieTag() {
@@ -102,5 +108,13 @@ public class ReFPlayRequest extends Request {
 
     public void setFcEv(Sim_event fcEv) {
         this.fcEv = fcEv;
+    }
+
+    public TranscodeRequest getTranscodeRequest() {
+        return transcodeRequest;
+    }
+
+    public void setTranscodeRequest(TranscodeRequest transcodeRequest) {
+        this.transcodeRequest = transcodeRequest;
     }
 }

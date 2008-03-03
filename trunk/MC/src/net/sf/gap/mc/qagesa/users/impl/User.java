@@ -26,10 +26,7 @@ import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
-import net.sf.gap.mc.qagesa.messages.ChunkRequest;
-import net.sf.gap.mc.qagesa.messages.ChunkReply;
-import net.sf.gap.mc.qagesa.messages.ReFPlayReply;
-import net.sf.gap.mc.qagesa.messages.ReFPlayRequest;
+import net.sf.gap.mc.qagesa.messages.*;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.mc.qagesa.users.QAGESAUser;
 import eduni.simjava.Sim_event;
@@ -242,8 +239,20 @@ public class User extends QAGESAUser {
                     evrecv_time, request.getReqrepID(), this.get_name(),
                     request.getReqrepID(),
                     request.getMovieTag());
+            ChunkRequest askChunkRequest = 
+                    new ChunkRequest(
+                    this.get_id(),
+                    this.get_id(),
+                    request.getReqrepID(),
+                    this.get_id(),
+                    request.getMovieTag(),
+                    1,
+                    request.getTranscodeRequest().getStorageElementID(),
+                    request.getTranscodeRequest(),
+                    this.clock()
+                    );
             super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                    QAGESATags.ASK_CHUNK_REQ, new IO_data(request, 32, playReply.getAgentID()));
+                    QAGESATags.ASK_CHUNK_REQ, new IO_data(askChunkRequest, 32, playReply.getAgentID()));
         } else {
             msg = String.format(
                     "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_START (FAILURE) %4$d %5$s",

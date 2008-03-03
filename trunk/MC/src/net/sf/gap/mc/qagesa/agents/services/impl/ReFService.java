@@ -204,11 +204,12 @@ public class ReFService extends PlatformService {
         TranscodeRequest transcodeRequest = new TranscodeRequest(
                 this.get_id(),
                 this.get_id(),
-                playRequest, seID);
+                playRequest, seID, 1.0);
         @SuppressWarnings("unused")
         int requestID = transcodeRequest.getRequestID();
         int reqrepID = transcodeRequest.getReqrepID();
         int SIZE = 500;
+        playRequest.setTranscodeRequest(transcodeRequest);
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
                 QAGESATags.TRANSCODE_CHUNKS_REQ, new IO_data(transcodeRequest, SIZE, agentID));
         double evsend_time = GridSim.clock();
