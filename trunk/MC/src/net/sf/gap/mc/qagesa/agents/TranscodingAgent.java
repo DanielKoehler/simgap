@@ -57,7 +57,7 @@ public class TranscodingAgent extends GridAgent {
             boolean trace_flag, boolean enabledCaching) throws Exception {
         super(ge, name, agentSizeInBytes, trace_flag);
         this.setEnabledCaching(enabledCaching);
-        this.setupStatGTS();
+        //this.setupStatGTS();
     }
 
     private void setupStatGTS() {
