@@ -184,7 +184,7 @@ public class ReFService extends PlatformService {
             Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
             int npe = ce.getNumPE();
             int ai = rand.sample(npe);
-            int na = 0;
+            int na = -1;
             while (it.hasNext()) {
                 Integer aid = it.next();
                 Integer ceid = this.getAlDirectory().getAceMap().get(aid);
