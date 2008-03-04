@@ -36,6 +36,20 @@ public class QAGESAStat {
 
 	private static RequestsHistory requestsHistory;
         
+        private static double computedMIPS;
+
+    public static double getComputedMIPS() {
+        return computedMIPS;
+    }
+
+    public static void setComputedMIPS(double aComputedMIPS) {
+        computedMIPS = aComputedMIPS;
+    }
+
+    public synchronized static void incComputedMIPS(double aComputedMIPS) {
+        computedMIPS = computedMIPS + aComputedMIPS;
+    }
+    
 	/**
 	 * Creates a new instance of QAGESAStat
 	 */
@@ -45,6 +59,7 @@ public class QAGESAStat {
 	public synchronized static void reset(int numCEs) {
 		QAGESAStat.replication++;
 		QAGESAStat.setRequestsHistory(new RequestsHistory(numCEs));
+                QAGESAStat.setComputedMIPS(0);
 	}
 
 	public synchronized static void incRequests(double clock) {

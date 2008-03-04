@@ -22,11 +22,13 @@ import junit.framework.Assert;
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.grid.components.AbstractGridElement;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.messages.*;
 import net.sf.gap.mc.qagesa.multimedia.Chunk;
 import net.sf.gap.mc.qagesa.multimedia.ChunksSequence;
+import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.util.EntitiesCounter;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_stat;
@@ -102,6 +104,8 @@ public class TranscodingAgent extends GridAgent {
                     file_size, output_size);
             gridlet.setUserID(this.get_id());
             super.gridletSubmit(gridlet, this.getResourceID());
+            QAGESAStat.incComputedMIPS(length*1.0);
+            QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS());
             gridlet = super.gridletReceive();
         }
         Chunk transcodedChunk = chunk.transcode(quality);
