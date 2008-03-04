@@ -44,7 +44,7 @@ public class QAGESAPlatform extends AgentPlatform {
     public void createServices() throws Exception {
         super.createServices();
         this.setServiceMuM(new MuMService(this, false));
-        this.setServiceReF(new ReFService(this, false, 0.0, 0.0));
+        this.setServiceReF(new ReFService(this, false, 0.1, 0.0));
     }
 
     public void initializeServices() throws Exception {
