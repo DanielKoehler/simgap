@@ -266,6 +266,7 @@ public class QAGESA {
             out.close();
         }
     }
+    public static PrintStream outMIPS;
     public static PrintStream outReF_RT;
     public static PrintStream outReF_CR;
     public static PrintStream outReF_PR;
@@ -305,6 +306,8 @@ public class QAGESA {
             File outFile;
             outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
+            outFile = new File(QAGESA.getOutputPath() + "/MIPS.csv");
+            outMIPS = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/ReF_CR.csv");
             outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/ReF_PR.csv");
@@ -318,6 +321,7 @@ public class QAGESA {
 
     private static void closeOutput() {
         try {
+            outMIPS.close();
             outReF_RT.close();
             outReF_CR.close();
             outReF_PR.close();
