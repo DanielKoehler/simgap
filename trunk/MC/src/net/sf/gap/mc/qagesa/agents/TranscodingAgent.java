@@ -102,23 +102,23 @@ public class TranscodingAgent extends GridAgent {
         lvDelay.add("PL",0.0,0.125,0.25,1.0);
         lvDelay.add("PH",0.25,0.5,1.0,1.0);
         lvQualityLoss = new LinguisticVariable("qualityloss"); 
-        lvQualityLoss.add("DH",-0.25,-0.25,-0.125,-0.25/4.0);
-        lvQualityLoss.add("DL",-0.125,-0.25/4.0,-0.125/4.0,-0.0);
-        lvQualityLoss.add("D",-0.25,-0.25,-0.125/4.0,-0.0);
-        lvQualityLoss.add("S",-0.125/4.0,-0.0,0.0,0.125/4.0);
-        lvQualityLoss.add("I",0.0,0.125/4.0,0.25,0.25);
-        lvQualityLoss.add("IL",0.0,0.125/4.0,0.25/4.0,0.25);
-        lvQualityLoss.add("IH",0.25/4.0,0.125,0.25,0.25);
+        lvQualityLoss.add("DH",-1.0/4.0,-1.0/4.0,-0.5/4.0,-0.25/4.0);
+        lvQualityLoss.add("DL",-0.5/4.0,-0.25/4.0,-0.125/4.0,-0.0/4.0);
+        lvQualityLoss.add("D",-1.0/4.0,-1.0/4.0,-0.125/4.0,-0.0/4.0);
+        lvQualityLoss.add("S",-0.25/4.0,-0.125/4.0,0.125/4.0,0.25/4.0);
+        lvQualityLoss.add("I",0.0/4.0,0.125/4.0,1.0/4.0,1.0/4.0);
+        lvQualityLoss.add("IL",0.0/4.0,0.125/4.0,0.25/4.0,1.0/4.0);
+        lvQualityLoss.add("IH",0.25/4.0,0.5/4.0,1.0/4.0,1.0/4.0);
         fuzzyEngine.register(lvDelay);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
-            "if delay is NH then qualityloss is DH",
-            "if delay is NL then qualityloss is DL",
-            "if delay is N then qualityloss is D",
+            "if delay is PH then qualityloss is DH",
+            "if delay is PL then qualityloss is DL",
+            "if delay is P then qualityloss is D",
             "if delay is Z then qualityloss is S",
-            "if delay is P then qualityloss is I",
-            "if delay is PL then qualityloss is IL",
-            "if delay is PH then qualityloss is IH"
+            "if delay is N then qualityloss is I",
+            "if delay is NL then qualityloss is IL",
+            "if delay is NH then qualityloss is IH"
         };
         fuzzyRules = new FuzzyBlockOfRules(rules);
         fuzzyEngine.register(fuzzyRules);
@@ -200,7 +200,7 @@ public class TranscodingAgent extends GridAgent {
             double delta = replyTime-memoizedAskedTime;
             double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
             double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
-            double delay=(delta-neededDelta)/neededDelta;
+            double delay=(neededDelta-delta)/neededDelta;
             double qualityloss=0.0;
             System.out.print("FUZZY: delay " + delay + " quality " + updateQuality);
             try {
