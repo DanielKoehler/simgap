@@ -95,7 +95,8 @@ public class TranscodingAgent extends GridAgent {
     }
 
     public Chunk transcode(Chunk chunk, double quality) {
-        if (chunk.getMIPS()>0) {
+        // IF chunk is transcoded or its quality is less than 1.0 than transcoded it
+        if ((chunk.getMIPS()>0) || (quality<0.99)) {
             if (!EntitiesCounter.contains("Gridlet")) {
                 EntitiesCounter.create("Gridlet");
             }
@@ -144,7 +145,7 @@ public class TranscodingAgent extends GridAgent {
     
     private void processSendChunkReply(Sim_event ev) {
         ChunkReply userChunkReply = ChunkReply.get_data(ev);
-        if (!userChunkReply.getRequest().getTranscodeRequest().getPlayRequest().isRandomSelection()) {
+        if (!userChunkReply.getRequest().getTranscodeRequest().getPlayRequest().isRandomSelection() || true) {
             int SN = userChunkReply.getRequest().getSequenceNumber();
             double replyTime = this.clock();
             double memoizedAskedTime = userChunkReply.getRequest().getAskedTime();
@@ -193,11 +194,7 @@ public class TranscodingAgent extends GridAgent {
         this.write(msg);
         Chunk gotChunk = gotChunkReply.getChunk();
         Chunk transcodedChunk = null;
-        if (!gotChunk.isTranscoded()) {
-            transcodedChunk = this.transcode(gotChunk, transcodeRequest.getQuality());
-        } else {
-            transcodedChunk = gotChunk;
-        }
+        transcodedChunk = this.transcode(gotChunk, transcodeRequest.getQuality());
         if (sequenceNumber == 1) {
             ChunkRequest chunkRequest = new ChunkRequest(this.get_id(), this.get_id(),
                     transcodeRequest.getPlayReqrepID(),
