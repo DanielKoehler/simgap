@@ -127,15 +127,19 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
 					chunksSequence = new ChunksSequence(movie, strOperation,
 							strOperationParameters);
 				}
+                                
+                                int div = 2;
+                                for (int i=0;i<div;i++) {
+                                    int sn = iSequenceNumber*div+i-(div-1);
+                                    Chunk chunk = new Chunk(sn, Math.round(iInputSize*(1.0f/div)),
+                                                    Math.round(iOutputSize*(1.0f/div)), Math.round(iMsProcessing*(1.0f/div)), Math.round(iMsDuration*(1.0f/div)));
+                                    chunksSequence.add(chunk);
 
-				Chunk chunk = new Chunk(iSequenceNumber, iInputSize,
-						iOutputSize, iMsProcessing, iMsDuration);
-				chunksSequence.add(chunk);
-
-				if (iSequenceNumber == 1) {
-					this.addSequence(chunksSequence.getMessageDigest(),
-							chunksSequence);
-				}
+                                    if (iSequenceNumber == 1 && i==0) {
+                                            this.addSequence(chunksSequence.getMessageDigest(),
+                                                            chunksSequence);
+                                    }
+                                }
 
 			}
 
