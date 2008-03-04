@@ -27,12 +27,22 @@ import net.sf.gap.mc.qagesa.simulation.impl.XMLSimulation;
 import net.sf.gap.mc.qagesa.users.impl.User;
 import net.sf.gap.ui.UserInterface;
 
+
+// All writes to this print stream are copied to two print streams
 /**
  * This class is responsible of main entry method of QAGESA's simulation
  * 
  * @author Giovanni Novelli
  */
 public class QAGESA {
+
+    public static double getStartTime() {
+        return startTime;
+    }
+
+    public static void setStartTime(double aStartTime) {
+        startTime = aStartTime;
+    }
     public static double relaxTime = 200.0;
     public static int requests;
     public static double thetaU=0.5;
@@ -40,7 +50,8 @@ public class QAGESA {
     public static boolean caching;
     public static boolean repeated;
     public static boolean reuseagents;
-
+    private static double startTime;
+    
     public static String getOutputPath() {
         return outputPath;
     }
@@ -142,6 +153,7 @@ public class QAGESA {
         Double pstart = 500.0;
         prop = conf.getProperty("start");
         Double start = Double.parseDouble(prop);
+        QAGESA.setStartTime(start);
         prop = conf.getProperty("end");
         Double end = Double.parseDouble(prop);
         prop = conf.getProperty("relax");
@@ -338,8 +350,6 @@ public class QAGESA {
         }
     }
 }
-
-// All writes to this print stream are copied to two print streams
 class TeeStream extends PrintStream {
     PrintStream out;
     public TeeStream(PrintStream out1, PrintStream out2) {
