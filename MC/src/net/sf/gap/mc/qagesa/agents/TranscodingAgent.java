@@ -54,6 +54,7 @@ public class TranscodingAgent extends GridAgent {
      */
     private Sim_stat statGTS;
     private boolean enabledCaching;
+    private double gridMIPS;
 
     public TranscodingAgent(AbstractGridElement ge, String name, int agentSizeInBytes,
             boolean trace_flag, boolean enabledCaching) throws Exception {
@@ -86,6 +87,7 @@ public class TranscodingAgent extends GridAgent {
     @Override
     public void initialize() throws Exception {
         super.initialize();
+        this.setGridMIPS(this.getAgentPlatform().getVirtualOrganization().getMIPS());
     }
 
     @Override
@@ -105,7 +107,9 @@ public class TranscodingAgent extends GridAgent {
             gridlet.setUserID(this.get_id());
             super.gridletSubmit(gridlet, this.getResourceID());
             QAGESAStat.incComputedMIPS(length*1.0);
-            QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS());
+            double potentialGridMIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime());
+            double globalLoad =QAGESAStat.getComputedMIPS()/potentialGridMIPS;
+            QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad);
             gridlet = super.gridletReceive();
         }
         Chunk transcodedChunk = chunk.transcode(quality);
@@ -359,5 +363,13 @@ public class TranscodingAgent extends GridAgent {
 
     public void setEnabledCaching(boolean enabledCaching) {
         this.enabledCaching = enabledCaching;
+    }
+
+    public double getGridMIPS() {
+        return gridMIPS;
+    }
+
+    public void setGridMIPS(double gridMIPS) {
+        this.gridMIPS = gridMIPS;
     }
 }
