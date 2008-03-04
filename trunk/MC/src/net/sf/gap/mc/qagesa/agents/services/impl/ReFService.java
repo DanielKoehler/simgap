@@ -22,6 +22,7 @@ import java.io.*;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 import net.sf.gap.GAP;
@@ -103,6 +104,7 @@ public class ReFService extends PlatformService {
         this.setupStatPlayStart();
         this.setGISCacheLifetime(celCacheLifetime);
         this.setNMCacheLifetime(nmCacheLifetime);
+        rand = new Uniform_int("prop_as");
     }
 
     private void setupStatPlayStart() {
@@ -177,19 +179,23 @@ public class ReFService extends PlatformService {
                             QAGESAEntityTypes.NOBODY);
             agentReply = new AgentReply(QAGESATags.AGENT_RUN_REQ, false, agentRequest);
         }
-        int agentID = -1;
+        int agentID=0;
         if (!agentReply.isOk()) {
             Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
+            int ai = rand.sample(ce.getNumPE());
+            int na = 0;
             while (it.hasNext()) {
                 Integer aid = it.next();
                 Integer ceid = this.getAlDirectory().getAceMap().get(aid);
-                if (ceid == ceID) {
-                    agentID = aid;
+                agentID = aid;
+                if ((ceid == ceID) && (na == ai)) {
                     agentReply.setOk(true);
                     agentReply.getRequest().setDst_agentID(agentID);
                     this.sendPlayStartReply(agentID, userID, playRequest, true);
+                    System.out.println("AGENT_ID: " + aid + " for ai = " + ai);
                     break;
                 }
+                na++;
             }
         } else {
             agentID = agentReply.getRequest().getDst_agentID();
