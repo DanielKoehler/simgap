@@ -57,15 +57,26 @@ public class TranscodingAgent extends GridAgent {
             boolean trace_flag, boolean enabledCaching) throws Exception {
         super(ge, name, agentSizeInBytes, trace_flag);
         this.setEnabledCaching(enabledCaching);
-        //this.setupStatGTS();
+        this.setupStatGTS();
     }
 
-    @SuppressWarnings("unused")
     private void setupStatGTS() {
         Sim_stat stat = new Sim_stat();
-        int[] tags = {QAGESATags.ASK_CHUNK_REQ, QAGESATags.SEND_CHUNK_REP};
+        int[] tags = 
+        {
+            QAGESATags.ASK_CHUNK_REQ, 
+            QAGESATags.SEND_CHUNK_REP,
+            QAGESATags.GET_CHUNK_REP,
+            QAGESATags.TRANSCODE_CHUNKS_REQ
+        };
         stat.measure_for(tags);
+        stat.add_measure(Sim_stat.ARRIVAL_RATE);
+        stat.add_measure(Sim_stat.QUEUE_LENGTH);
+        stat.add_measure(Sim_stat.RESIDENCE_TIME);
+        stat.add_measure(Sim_stat.WAITING_TIME);
         stat.add_measure(Sim_stat.SERVICE_TIME);
+        stat.add_measure(Sim_stat.UTILISATION);
+        stat.add_measure(Sim_stat.THROUGHPUT);
         this.set_stat(stat);
         this.setStatGTS(stat);
     }
@@ -120,6 +131,7 @@ public class TranscodingAgent extends GridAgent {
                 askedTR.getMovieTag(),
                 askedSN);
         this.write(msg);
+        sim_completed(ev);
     }
     
     private void processSendChunkReply(Sim_event ev) {
@@ -141,6 +153,7 @@ public class TranscodingAgent extends GridAgent {
                 //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
             }
         }
+        sim_completed(ev);
     }
     
     private void processGetChunkReply(Sim_event ev) {
@@ -232,6 +245,7 @@ public class TranscodingAgent extends GridAgent {
                 this.write(msg);
             }
         }
+        sim_completed(ev);
     }
     
     private void processTranscodeChunksRequest(Sim_event ev) {
@@ -251,6 +265,7 @@ public class TranscodingAgent extends GridAgent {
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
                 QAGESATags.SENDING_FIRST_CHUNK_REP,
                 new IO_data(chunkRequest, 1, userID));
+        sim_completed(ev);
     }    
     
     @Override
