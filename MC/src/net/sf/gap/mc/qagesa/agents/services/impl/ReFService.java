@@ -182,12 +182,16 @@ public class ReFService extends PlatformService {
         int agentID=0;
         if (!agentReply.isOk()) {
             Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
-            int ai = rand.sample(ce.getNumPE());
+            int npe = ce.getNumPE();
+            int ai = rand.sample(npe);
             int na = 0;
             while (it.hasNext()) {
                 Integer aid = it.next();
                 Integer ceid = this.getAlDirectory().getAceMap().get(aid);
                 agentID = aid;
+                if (ceid == ceID) {
+                  na++;
+                }
                 if ((ceid == ceID) && (na == ai)) {
                     agentReply.setOk(true);
                     agentReply.getRequest().setDst_agentID(agentID);
@@ -195,7 +199,6 @@ public class ReFService extends PlatformService {
                     System.out.println("AGENT_ID: " + aid + " for ai = " + ai);
                     break;
                 }
-                na++;
             }
         } else {
             agentID = agentReply.getRequest().getDst_agentID();
