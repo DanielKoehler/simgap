@@ -18,6 +18,7 @@
  */
 package net.sf.gap.mc.qagesa.agents;
 
+import fuzzy.*;
 import junit.framework.Assert;
 import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.predicates.Predicate;
@@ -61,6 +62,7 @@ public class TranscodingAgent extends GridAgent {
         super(ge, name, agentSizeInBytes, trace_flag);
         this.setEnabledCaching(enabledCaching);
         //this.setupStatGTS();
+        this.initFuzzyEngine();
     }
 
     private void setupStatGTS() {
@@ -83,7 +85,50 @@ public class TranscodingAgent extends GridAgent {
         this.set_stat(stat);
         this.setStatGTS(stat);
     }
-
+    
+    private FuzzyEngine fuzzyEngine;
+    private FuzzyBlockOfRules fuzzyRules;
+    private LinguisticVariable lvDelay;
+    private LinguisticVariable lvQualityLoss;
+    
+    private void initFuzzyEngine() {
+        fuzzyEngine = new FuzzyEngine();
+        lvDelay = new LinguisticVariable("delay"); 
+        lvDelay.add("NH",-1.0,-1.0,-0.5,-0.25);
+        lvDelay.add("NL",-0.5,-0.25,-0.125,-0.0);
+        lvDelay.add("N",-1.0,-1.0,-0.125,-0.0);
+        lvDelay.add("Z",-0.125,-0.0,0.0,0.125);
+        lvDelay.add("P",0.0,0.125,1.0,1.0);
+        lvDelay.add("PL",0.0,0.125,0.25,1.0);
+        lvDelay.add("PH",0.25,0.5,1.0,1.0);
+        lvQualityLoss = new LinguisticVariable("qualityloss"); 
+        lvQualityLoss.add("DH",-0.25,-0.25,-0.125,-0.25/4.0);
+        lvQualityLoss.add("DL",-0.125,-0.25/4.0,-0.125/4.0,-0.0);
+        lvQualityLoss.add("D",-0.25,-0.25,-0.125/4.0,-0.0);
+        lvQualityLoss.add("S",-0.125/4.0,-0.0,0.0,0.125/4.0);
+        lvQualityLoss.add("I",0.0,0.125/4.0,0.25,0.25);
+        lvQualityLoss.add("IL",0.0,0.125/4.0,0.25/4.0,0.25);
+        lvQualityLoss.add("IH",0.25/4.0,0.125,0.25,0.25);
+        fuzzyEngine.register(lvDelay);
+        fuzzyEngine.register(lvQualityLoss);
+        String[] rules = {
+            "if delay is NH then qualityloss is DH",
+            "if delay is NL then qualityloss is DL",
+            "if delay is N then qualityloss is D",
+            "if delay is Z then qualityloss is S",
+            "if delay is P then qualityloss is I",
+            "if delay is PL then qualityloss is IL",
+            "if delay is PH then qualityloss is IH"
+        };
+        fuzzyRules = new FuzzyBlockOfRules(rules);
+        fuzzyEngine.register(fuzzyRules);
+        try {
+        fuzzyRules.parseBlock();
+        } catch (fuzzy.RulesParsingException e) {
+            e.printStackTrace();
+        } 
+    }
+    
     @Override
     public void initialize() throws Exception {
         super.initialize();
@@ -94,31 +139,32 @@ public class TranscodingAgent extends GridAgent {
     protected void dispose() {
     }
 
-    public Chunk transcode(Chunk chunk, double quality) {
-        // IF chunk is transcoded or its quality is less than 1.0 than transcoded it
-        if ((chunk.getMIPS()>0) || (quality<0.99)) {
+    public Chunk transcode(Chunk chunk, double qualityloss) {
+        // IF chunk is transcoded or its qualityloss is less than 1.0 than transcoded it
+        if ((chunk.getMIPS()>0) || (qualityloss<0.99)) {
             if (!EntitiesCounter.contains("Gridlet")) {
                 EntitiesCounter.create("Gridlet");
             }
-            double length = chunk.getMIPS()*quality;
+            double length = chunk.getMIPS()*qualityloss;
             long file_size = chunk.getInputSize();
-            long output_size = Math.round(chunk.getOutputSize()*quality*quality);
+            long output_size = Math.round(chunk.getOutputSize()*qualityloss*qualityloss);
             Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
                     file_size, output_size);
             gridlet.setUserID(this.get_id());
             super.gridletSubmit(gridlet, this.getResourceID());
-            QAGESAStat.incComputedMIPS(chunk.getMIPS());
+            QAGESAStat.incComputedMIPS(length);
             double potentialGridMIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime());
             double globalLoad =QAGESAStat.getComputedMIPS()/potentialGridMIPS;
-            double qualityLoss = 1.0 - quality;
+            double qualityLoss = 1.0 - qualityloss;
             QAGESAStat.updateGlobalQualityLoss(qualityLoss);
             QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad+";"+QAGESAStat.getGlobalQualityLoss().getMean()+";"+QAGESAStat.getGlobalQualityLoss().getStandardDeviation());
             gridlet = super.gridletReceive();
         }
-        Chunk transcodedChunk = chunk.transcode(quality);
+        Chunk transcodedChunk = chunk.transcode(qualityloss);
         return transcodedChunk;
     }
 
+    
     private void processAskChunkRequest(Sim_event ev) {
         int SIZE = 128;
         ChunkRequest askedCR = ChunkRequest.get_data(ev);
@@ -154,15 +200,41 @@ public class TranscodingAgent extends GridAgent {
             double delta = replyTime-memoizedAskedTime;
             double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
             double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
+            double delay=(delta-neededDelta)/neededDelta;
+            double qualityloss=0.0;
+            System.out.print("FUZZY: delay " + delay + " quality " + updateQuality);
+            try {
+                lvDelay.setInputValue(delay);
+                fuzzyRules.evaluateBlock();
+                try {
+                qualityloss = lvQualityLoss.defuzzify();
+                } catch (fuzzy.NoRulesFiredException e) {
+                    qualityloss = updateQuality;
+                }
+                System.out.print(" --> qualityloss " + qualityloss);
+            } catch (fuzzy.EvaluationException e) {
+                e.printStackTrace();
+            }
+            updateQuality=updateQuality*(1.0-qualityloss);
+            if (updateQuality>1.0) {
+                updateQuality=1.0;
+            }
+            if (updateQuality<0.5) {
+                updateQuality=0.5;
+            }
+            System.out.println(" quality " + updateQuality);
+            userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
+            /*
             if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
                 updateQuality = Math.max(updateQuality * 0.9,0.5);
                 userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                //System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
+                //System.out.println("Downgrading qualityloss to " + updateQuality + " for delta " + delta + " > " + neededDelta);
             } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
                 updateQuality = Math.min(1.0, updateQuality / 0.9);
                 userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
+                //System.out.println("Regaining qualityloss to " + updateQuality + " for delta " + delta + " < " + neededDelta);
             }
+             */
         }
         sim_completed(ev);
     }
