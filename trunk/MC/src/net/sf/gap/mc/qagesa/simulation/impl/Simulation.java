@@ -137,6 +137,7 @@ public class Simulation extends AbstractSimulation {
 		this.setVirtualOrganization(new QAGESAVirtualOrganization(trace_flag, this.getNumCE(),
 				this.getMIPS(), this.getNumPE(), this.getNumMachine(), this.getNumMachine(), this.getNumSE(), 100, 100, 2, 2, true, 1.0,
                                 this.getNumUsers(), this.isCaching(), this.getWhichMeasure(), this.getNumRequests()));
+                System.out.println("AVAILABLE MIPS: " + this.getVirtualOrganization().getMIPS());
 	}
 
 	public void start() {
