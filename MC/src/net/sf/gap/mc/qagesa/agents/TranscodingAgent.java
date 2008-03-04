@@ -110,7 +110,9 @@ public class TranscodingAgent extends GridAgent {
             QAGESAStat.incComputedMIPS(chunk.getMIPS());
             double potentialGridMIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime());
             double globalLoad =QAGESAStat.getComputedMIPS()/potentialGridMIPS;
-            QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad);
+            double qualityLoss = 1.0 - quality;
+            QAGESAStat.updateGlobalQualityLoss(qualityLoss);
+            QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad+";"+QAGESAStat.getGlobalQualityLoss().getMean()+";"+QAGESAStat.getGlobalQualityLoss().getStandardDeviation());
             gridlet = super.gridletReceive();
         }
         Chunk transcodedChunk = chunk.transcode(quality);

@@ -18,6 +18,7 @@
  */
 
 package net.sf.gap.mc.qagesa.stats;
+import gridsim.Accumulator;
 
 /**
  * 
@@ -37,6 +38,8 @@ public class QAGESAStat {
 	private static RequestsHistory requestsHistory;
         
         private static double computedMIPS;
+        
+        private static Accumulator globalQualityLoss;
 
     public static double getComputedMIPS() {
         return computedMIPS;
@@ -49,6 +52,18 @@ public class QAGESAStat {
     public synchronized static void incComputedMIPS(double aComputedMIPS) {
         computedMIPS = computedMIPS + aComputedMIPS;
     }
+
+    public synchronized static void updateGlobalQualityLoss(double aQualityLoss) {
+        QAGESAStat.getGlobalQualityLoss().add(aQualityLoss);
+    }
+
+    public static Accumulator getGlobalQualityLoss() {
+        return globalQualityLoss;
+    }
+
+    public static void setGlobalQualityLoss(Accumulator aGlobalQualityLoss) {
+        globalQualityLoss = aGlobalQualityLoss;
+    }
     
 	/**
 	 * Creates a new instance of QAGESAStat
@@ -60,6 +75,7 @@ public class QAGESAStat {
 		QAGESAStat.replication++;
 		QAGESAStat.setRequestsHistory(new RequestsHistory(numCEs));
                 QAGESAStat.setComputedMIPS(0);
+                QAGESAStat.setGlobalQualityLoss(new Accumulator());
 	}
 
 	public synchronized static void incRequests(double clock) {
