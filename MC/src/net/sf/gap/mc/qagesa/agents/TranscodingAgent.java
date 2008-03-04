@@ -139,15 +139,15 @@ public class TranscodingAgent extends GridAgent {
     protected void dispose() {
     }
 
-    public Chunk transcode(Chunk chunk, double qualityloss) {
-        // IF chunk is transcoded or its qualityloss is less than 1.0 than transcoded it
-        if ((chunk.getMIPS()>0) || (qualityloss<0.99)) {
+    public Chunk transcode(Chunk chunk, double quality) {
+        // IF chunk is transcoded or its quality is less than 1.0 than transcoded it
+        if ((chunk.getMIPS()>0) || (quality<1.0)) {
             if (!EntitiesCounter.contains("Gridlet")) {
                 EntitiesCounter.create("Gridlet");
             }
-            double length = chunk.getMIPS()*qualityloss;
+            double length = chunk.getMIPS()*quality;
             long file_size = chunk.getInputSize();
-            long output_size = Math.round(chunk.getOutputSize()*qualityloss*qualityloss);
+            long output_size = Math.round(chunk.getOutputSize()*quality*quality);
             Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
                     file_size, output_size);
             gridlet.setUserID(this.get_id());
@@ -155,12 +155,12 @@ public class TranscodingAgent extends GridAgent {
             QAGESAStat.incComputedMIPS(length);
             double potentialGridMIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime());
             double globalLoad =QAGESAStat.getComputedMIPS()/potentialGridMIPS;
-            double qualityLoss = 1.0 - qualityloss;
+            double qualityLoss = 1.0 - quality;
             QAGESAStat.updateGlobalQualityLoss(qualityLoss);
             QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad+";"+QAGESAStat.getGlobalQualityLoss().getMean()+";"+QAGESAStat.getGlobalQualityLoss().getStandardDeviation());
             gridlet = super.gridletReceive();
         }
-        Chunk transcodedChunk = chunk.transcode(qualityloss);
+        Chunk transcodedChunk = chunk.transcode(quality);
         return transcodedChunk;
     }
 
@@ -219,8 +219,8 @@ public class TranscodingAgent extends GridAgent {
             if (updateQuality>1.0) {
                 updateQuality=1.0;
             }
-            if (updateQuality<0.5) {
-                updateQuality=0.5;
+            if (updateQuality<0.6) {
+                updateQuality=0.6;
             }
             System.out.println(" quality " + updateQuality);
             userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
@@ -228,11 +228,11 @@ public class TranscodingAgent extends GridAgent {
             if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
                 updateQuality = Math.max(updateQuality * 0.9,0.5);
                 userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                //System.out.println("Downgrading qualityloss to " + updateQuality + " for delta " + delta + " > " + neededDelta);
+                //System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
             } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
                 updateQuality = Math.min(1.0, updateQuality / 0.9);
                 userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                //System.out.println("Regaining qualityloss to " + updateQuality + " for delta " + delta + " < " + neededDelta);
+                //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
             }
              */
         }
