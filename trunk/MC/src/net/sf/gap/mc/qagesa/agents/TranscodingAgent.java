@@ -106,7 +106,7 @@ public class TranscodingAgent extends GridAgent {
                     file_size, output_size);
             gridlet.setUserID(this.get_id());
             super.gridletSubmit(gridlet, this.getResourceID());
-            QAGESAStat.incComputedMIPS(length*1.0);
+            QAGESAStat.incComputedMIPS(chunk.getMIPS());
             double potentialGridMIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime());
             double globalLoad =QAGESAStat.getComputedMIPS()/potentialGridMIPS;
             QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad);
