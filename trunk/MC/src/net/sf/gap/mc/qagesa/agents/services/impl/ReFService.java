@@ -111,11 +111,11 @@ public class ReFService extends PlatformService {
         Sim_stat stat = new Sim_stat();
         int[] tags = {QAGESATags.REF_PLAY_REQ};
         stat.measure_for(tags);
+        stat.add_measure(Sim_stat.SERVICE_TIME);
         stat.add_measure(Sim_stat.ARRIVAL_RATE);
         stat.add_measure(Sim_stat.QUEUE_LENGTH);
         stat.add_measure(Sim_stat.RESIDENCE_TIME);
         stat.add_measure(Sim_stat.WAITING_TIME);
-        stat.add_measure(Sim_stat.SERVICE_TIME);
         stat.add_measure(Sim_stat.UTILISATION);
         stat.add_measure(Sim_stat.THROUGHPUT);
         this.set_stat(stat);
