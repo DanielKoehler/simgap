@@ -274,7 +274,7 @@ public class User extends QAGESAUser {
         int SIZE = 500;
         double evsend_time = 0;
         int userID = this.get_id();
-        double acceptableQualityLoss = rand.sample(21) * 0.01 + 0.2;
+        double acceptableQualityLoss = rand.sample(69) * 0.01;
         //double acceptableQualityLoss = 0.318;
         QAGESAStat.updateAcceptableQualityLoss(acceptableQualityLoss);
         double minQuality = 1.0 - acceptableQualityLoss;
