@@ -512,7 +512,7 @@ public class User extends QAGESAUser {
     }
 
     private int scaled(double a, double b, int maxusers, double currentTime) {
-        double center = (b - a) / 2.0 + a;
+        double center = (b - a) * QAGESA.linearDelta + a;
         int result;
         if (currentTime > center) {
             result = maxusers;

@@ -46,6 +46,7 @@ public class QAGESA {
     }
     public static double relaxTime = 200.0;
     public static int requests;
+    public static double linearDelta=1.0-0.61803398874989484820458683436564;
     public static double thetaU=0.5;
     public static double thetaR=0.25;
     public static boolean caching;
@@ -143,6 +144,10 @@ public class QAGESA {
                 QAGESA.thetaU = Double.parseDouble(prop);
                 prop = conf.getProperty("thetaR");
                 QAGESA.thetaR = Double.parseDouble(prop);
+            } 
+            if (prop.compareToIgnoreCase("scaled")==0) {
+                prop = conf.getProperty("linearDelta");
+                QAGESA.linearDelta = Double.parseDouble(prop);
             } 
         }
 
