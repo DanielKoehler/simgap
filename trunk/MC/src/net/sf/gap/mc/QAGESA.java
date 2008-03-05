@@ -18,6 +18,7 @@
  */
 package net.sf.gap.mc;
 
+import java.util.Locale;
 import java.util.Properties;
 import java.io.*;
 
@@ -63,6 +64,9 @@ public class QAGESA {
     private static String usercsvName;
 
     public static void main(String[] args) {
+    // Get default locale
+    Locale locale = new Locale("en", "US");
+    Locale.setDefault(locale);
         String confname = "QAGESA.conf";
         if (args.length == 1) {
             confname = args[0];
