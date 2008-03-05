@@ -89,6 +89,8 @@ public class TranscodingAgent extends GridAgent {
     private FuzzyEngine fuzzyEngine;
     private FuzzyBlockOfRules fuzzyRules;
     private LinguisticVariable lvDelay;
+    private LinguisticVariable lvEPS;
+    private LinguisticVariable lvUQ;
     private LinguisticVariable lvQuality;
     private LinguisticVariable lvQualityLoss;
     
@@ -97,6 +99,11 @@ public class TranscodingAgent extends GridAgent {
     }
     
     private double predictQuality(double delay, double minQuality, double currentQuality) {
+        lvEPS = new LinguisticVariable("eps"); 
+        lvEPS.add("SMALL",0.0,0.0,0.0,0.5);
+        lvEPS.add("MEDIUM",0.0,0.5,0.5,1.0);
+        lvEPS.add("LARGE",0.5,1.0,1.0,1.0);
+        fuzzyEngine.register(lvEPS);
         lvDelay = new LinguisticVariable("delay"); 
         lvDelay.add("NH",-1.0,-1.0,-0.5,-0.5);
         lvDelay.add("NL",-0.5,-0.5,-0.25,-0.0);
@@ -107,7 +114,7 @@ public class TranscodingAgent extends GridAgent {
         lvDelay.add("PH",0.5,0.5,1.0,1.0);
         fuzzyEngine.register(lvDelay);
         double aQL = (1.0-minQuality);
-        double lq = minQuality;
+        double lq = 0.0;
         double hq = 1.0;
         double iq = hq-lq;
         double a0 = iq*0.0;
@@ -115,6 +122,13 @@ public class TranscodingAgent extends GridAgent {
         double a2 = iq*0.5;
         double a3 = iq*0.75;
         double a4 = iq;
+        lvUQ = new LinguisticVariable("userQuality"); 
+        lvUQ.add("BADU",a0,a0,a0,a1);
+        lvUQ.add("POORU",a0,a1,a1,a2);
+        lvUQ.add("FAIRU",a1,a2,a2,a3);
+        lvUQ.add("GOODU",a2,a3,a3,a4);
+        lvUQ.add("EXCELLENTU",a3,a4,a4,a4);
+        fuzzyEngine.register(lvUQ);
         lvQuality = new LinguisticVariable("quality"); 
         lvQuality.add("BAD",a0,a0,a0,a1);
         lvQuality.add("POOR",a0,a1,a1,a2);
@@ -129,6 +143,9 @@ public class TranscodingAgent extends GridAgent {
         lvQualityLoss.add("I",0.0*aQL,0.25*aQL,1.0*aQL,1.0);
         lvQualityLoss.add("IL",0.0*aQL,0.25*aQL,0.5*aQL,1.0);
         lvQualityLoss.add("IH",0.5*aQL,0.8*aQL,1.0*aQL,1.0);
+        lvQualityLoss.add("SMALL",0.0*aQL,0.0*aQL,0.0*aQL,0.5);
+        lvQualityLoss.add("MEDIUM",0.0*aQL,0.5*aQL,0.5*aQL,1.0);
+        lvQualityLoss.add("LARGE",0.5*aQL,1.0*aQL,1.0*aQL,1.0);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
             "if delay is NH then qualityloss is DH",
@@ -138,6 +155,15 @@ public class TranscodingAgent extends GridAgent {
             "if delay is P then qualityloss is I",
             "if delay is PL then qualityloss is IL",
             "if delay is PH then qualityloss is IH"
+                    /*
+            "if userQuality is EXCELLENTU then quality is EXCELLENT"
+            "if (uq is EXCELLENT) and (eps is MEDIUM) then q is GOOD",
+            "if uq is EXCELLENT and eps is LARGE then q is FAIR",
+            "if uq is GOOD and eps is SMALL then Q is EXCELLENT",
+            "if uq is FAIR and eps is SMALL then Q is GOOD",
+            "if (uq is GOOD or uq is FAIR) and (eps is MEDIUMR or eps is LARGE) then Q is FAIR"
+                     */
+                    
         };
         fuzzyRules = new FuzzyBlockOfRules(rules);
         fuzzyEngine.register(fuzzyRules);
@@ -148,12 +174,19 @@ public class TranscodingAgent extends GridAgent {
         } 
         double qualityLoss = 0.0;
             try {
+                double aEPS = 1.0-currentQuality;
+                double aUQ = 1.0;
+                if (delay>0) {
+                    aUQ=Math.exp(-delay);
+                }
+                lvUQ.setInputValue(aUQ);
                 lvDelay.setInputValue(delay);
-                lvQuality.setInputValue(currentQuality);
                 lvQualityLoss.setInputValue(1.0-currentQuality);
                 fuzzyRules.evaluateBlock();
                 try {
                 qualityLoss = lvQualityLoss.defuzzify();
+                double updateQuality = lvQuality.defuzzify();
+                System.out.println("Q: " + updateQuality);
                 } catch (fuzzy.NoRulesFiredException e) {
                     //e.printStackTrace();
                 }
