@@ -240,7 +240,11 @@ public class TranscodingAgent extends GridAgent {
             int wm = QAGESAStat.getWhichMeasure();
             double time = this.clock()-QAGESA.getStartTime();
             double cGIPS = QAGESAStat.getComputedMIPS()*0.001;
-            double gLoad =cGIPS/pGIPS;
+            double gLoad =1.0;
+            double temp = cGIPS/pGIPS;
+            if (temp<=1.0) {
+                gLoad= temp;
+            }
             double gQLmean = QAGESAStat.getGlobalQualityLoss().getMean();
             double aQLmean = QAGESAStat.getAcceptableQualityLoss().getMean();
             QAGESA.outQoS.printf
