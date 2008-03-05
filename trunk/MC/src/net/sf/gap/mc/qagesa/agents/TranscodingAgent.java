@@ -98,27 +98,34 @@ public class TranscodingAgent extends GridAgent {
         lvDelay.add("NL",-0.5,-0.25,-0.125,-0.0);
         lvDelay.add("N",-1.0,-1.0,-0.125,-0.0);
         lvDelay.add("Z",-0.125,-0.0,0.0,0.125);
-        lvDelay.add("P",0.0,0.125,1.0,1.0);
-        lvDelay.add("PL",0.0,0.125,0.25,1.0);
-        lvDelay.add("PH",0.25,0.5,1.0,1.0);
-        lvQualityLoss = new LinguisticVariable("qualityloss"); 
-        lvQualityLoss.add("DH",-1.0/4.0,-1.0/4.0,-0.5/4.0,-0.25/4.0);
-        lvQualityLoss.add("DL",-0.5/4.0,-0.25/4.0,-0.125/4.0,-0.0/4.0);
-        lvQualityLoss.add("D",-1.0/4.0,-1.0/4.0,-0.125/4.0,-0.0/4.0);
-        lvQualityLoss.add("S",-0.25/4.0,-0.125/4.0,0.125/4.0,0.25/4.0);
-        lvQualityLoss.add("I",0.0/4.0,0.125/4.0,1.0/4.0,1.0/4.0);
-        lvQualityLoss.add("IL",0.0/4.0,0.125/4.0,0.25/4.0,1.0/4.0);
-        lvQualityLoss.add("IH",0.25/4.0,0.5/4.0,1.0/4.0,1.0/4.0);
+        lvDelay.add("P",0.0,0.125,12.0,60.0);
+        lvDelay.add("PL",0.0,0.125,0.25,2.0);
+        lvDelay.add("PH",0.25,0.5,2.0,12.0);
+        lvDelay.add("PVH",0.5,2.0,12.0,60.0);
         fuzzyEngine.register(lvDelay);
+    }
+    
+    private double predictQuality(double delay, double minQuality, double currentQuality) {
+        double aQL = 1.0 - minQuality;
+        lvQualityLoss = new LinguisticVariable("qualityloss"); 
+        lvQualityLoss.add("DH",-aQL,-aQL/2.0,-aQL/4.0,-aQL/8.0);
+        lvQualityLoss.add("DL",-aQL/2.0,-aQL/4.0,-aQL/8.0,-0.0);
+        lvQualityLoss.add("D",-aQL,-aQL,-aQL/4.0,-0.0);
+        lvQualityLoss.add("S",-aQL/4.0,-aQL/8.0,aQL/8.0,aQL/4.0);
+        lvQualityLoss.add("I",0.0,aQL/4.0,aQL,aQL);
+        lvQualityLoss.add("IL",0.0,aQL/4.0,aQL/2.0,aQL);
+        lvQualityLoss.add("IH",aQL/4.0,aQL/2.0,aQL,aQL);
+        lvQualityLoss.add("IVH",aQL/2.0,aQL,aQL,aQL);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
-            "if delay is PH then qualityloss is DH",
-            "if delay is PL then qualityloss is DL",
-            "if delay is P then qualityloss is D",
+            "if delay is PVH then qualityloss is IVH",
+            "if delay is PH then qualityloss is IH",
+            "if delay is PL then qualityloss is IL",
+            "if delay is P then qualityloss is I",
             "if delay is Z then qualityloss is S",
-            "if delay is N then qualityloss is I",
-            "if delay is NL then qualityloss is IL",
-            "if delay is NH then qualityloss is IH"
+            "if delay is N then qualityloss is D",
+            "if delay is NL then qualityloss is DL",
+            "if delay is NH then qualityloss is DH"
         };
         fuzzyRules = new FuzzyBlockOfRules(rules);
         fuzzyEngine.register(fuzzyRules);
@@ -127,6 +134,26 @@ public class TranscodingAgent extends GridAgent {
         } catch (fuzzy.RulesParsingException e) {
             e.printStackTrace();
         } 
+        double qualityLoss = 0.0;
+            try {
+                lvDelay.setInputValue(delay);
+                fuzzyRules.evaluateBlock();
+                try {
+                qualityLoss = lvQualityLoss.defuzzify();
+                } catch (fuzzy.NoRulesFiredException e) {
+                    e.printStackTrace();
+                }
+            } catch (fuzzy.EvaluationException e) {
+                e.printStackTrace();
+            }
+            currentQuality=currentQuality-qualityLoss;
+            if (currentQuality>1.0) {
+                currentQuality=1.0;
+            }
+            if (currentQuality<minQuality) {
+                currentQuality=minQuality;
+            }
+        return currentQuality;
     }
     
     @Override
@@ -193,48 +220,20 @@ public class TranscodingAgent extends GridAgent {
     
     private void processSendChunkReply(Sim_event ev) {
         ChunkReply userChunkReply = ChunkReply.get_data(ev);
-        if (!userChunkReply.getRequest().getTranscodeRequest().getPlayRequest().isRandomSelection() || true) {
+        TranscodeRequest transcodeRequest = userChunkReply.getRequest().getTranscodeRequest();
+        if (!transcodeRequest.getPlayRequest().isRandomSelection() || true) {
             int SN = userChunkReply.getRequest().getSequenceNumber();
             double replyTime = this.clock();
             double memoizedAskedTime = userChunkReply.getRequest().getAskedTime();
             double delta = replyTime-memoizedAskedTime;
             double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
-            double updateQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
+            double minQuality = userChunkReply.getRequest().getTranscodeRequest().getMinQuality();
+            double currentQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
             double delay=(neededDelta-delta)/neededDelta;
-            double qualityloss=0.0;
-            System.out.print("FUZZY: delay " + delay + " quality " + updateQuality);
-            try {
-                lvDelay.setInputValue(delay);
-                fuzzyRules.evaluateBlock();
-                try {
-                qualityloss = lvQualityLoss.defuzzify();
-                } catch (fuzzy.NoRulesFiredException e) {
-                    qualityloss = updateQuality;
-                }
-                System.out.print(" --> qualityloss " + qualityloss);
-            } catch (fuzzy.EvaluationException e) {
-                e.printStackTrace();
-            }
-            updateQuality=updateQuality*(1.0-qualityloss);
-            if (updateQuality>1.0) {
-                updateQuality=1.0;
-            }
-            if (updateQuality<0.6) {
-                updateQuality=0.6;
-            }
-            System.out.println(" quality " + updateQuality);
+            double updateQuality=predictQuality(delta,minQuality,currentQuality);
+            double qualityLoss=currentQuality-updateQuality;
+            System.out.printf("FUZZY: (D, %2.3f) (CQ, %2.3f) (MQ, %2.3f) (UQ, %2.3f) (QL, %2.3f)\n", delay, currentQuality , minQuality, updateQuality, qualityLoss);
             userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-            /*
-            if ((delta > (neededDelta/0.9)) && (updateQuality>0.5)) {
-                updateQuality = Math.max(updateQuality * 0.9,0.5);
-                userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                //System.out.println("Downgrading quality to " + updateQuality + " for delta " + delta + " > " + neededDelta);
-            } else if ((updateQuality<1.0) && (delta < (neededDelta * 0.81))) {
-                updateQuality = Math.min(1.0, updateQuality / 0.9);
-                userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
-                //System.out.println("Regaining quality to " + updateQuality + " for delta " + delta + " < " + neededDelta);
-            }
-             */
         }
         sim_completed(ev);
     }
