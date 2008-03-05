@@ -97,29 +97,27 @@ public class TranscodingAgent extends GridAgent {
         lvDelay.add("NH",-1.0,-1.0,-0.5,-0.25);
         lvDelay.add("NL",-0.5,-0.25,-0.125,-0.0);
         lvDelay.add("N",-1.0,-1.0,-0.125,-0.0);
-        lvDelay.add("Z",-0.125,-0.0,0.0,0.125);
-        lvDelay.add("P",0.0,0.125,60.0,60.0);
-        lvDelay.add("PL",0.0,0.125,0.25,60.0);
-        lvDelay.add("PH",0.25,0.5,60.0,60.0);
+        lvDelay.add("P",0.125,0.250,1.0,1.0);
+        lvDelay.add("PL",0.125,0.25,0.5,1.0);
+        lvDelay.add("PH",0.25,0.5,1.0,1.0);
         fuzzyEngine.register(lvDelay);
     }
     
     private double predictQuality(double delay, double minQuality, double currentQuality) {
-        double aQL = 1.0 - minQuality;
+        double aQL = minQuality;
+        //double aQL = 0.5;
         lvQualityLoss = new LinguisticVariable("qualityloss"); 
-        lvQualityLoss.add("DH",-aQL,-aQL,-aQL/2.0,-aQL/4.0);
-        lvQualityLoss.add("DL",-aQL/2.0,-aQL/4.0,-aQL/8.0,-0.0);
-        lvQualityLoss.add("D",-aQL,-aQL,-aQL/8.0,-0.0);
-        lvQualityLoss.add("S",-aQL/8.0,-0.0,0.0,aQL/8.0);
-        lvQualityLoss.add("I",0.0,aQL/8.0,aQL,aQL);
-        lvQualityLoss.add("IL",0.0,aQL/8.0,aQL/4.0,aQL);
-        lvQualityLoss.add("IH",aQL/4.0,aQL/2.0,aQL,aQL);
+        lvQualityLoss.add("DH",-aQL,-aQL,-aQL/2.0,-aQL/3.0);
+        lvQualityLoss.add("DL",-aQL/2.0,-aQL/3.0,-aQL/4.0,-0.0);
+        lvQualityLoss.add("D",-aQL,-aQL,-aQL/4.0,-0.0);
+        lvQualityLoss.add("I",0.0,aQL/4.0,aQL,aQL);
+        lvQualityLoss.add("IL",0.0,aQL/4.0,aQL/3.0,aQL/2.0);
+        lvQualityLoss.add("IH",aQL/3.0,aQL/2.0,aQL,aQL);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
             "if delay is NH then qualityloss is DH",
             "if delay is NL then qualityloss is DL",
             "if delay is N then qualityloss is D",
-            "if delay is Z then qualityloss is S",
             "if delay is P then qualityloss is I",
             "if delay is PL then qualityloss is IL",
             "if delay is PH then qualityloss is IH"
@@ -138,7 +136,7 @@ public class TranscodingAgent extends GridAgent {
                 try {
                 qualityLoss = lvQualityLoss.defuzzify();
                 } catch (fuzzy.NoRulesFiredException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             } catch (fuzzy.EvaluationException e) {
                 e.printStackTrace();
@@ -226,7 +224,7 @@ public class TranscodingAgent extends GridAgent {
             double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
             double minQuality = userChunkReply.getRequest().getTranscodeRequest().getMinQuality();
             double currentQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
-            double delay=(neededDelta-delta)/neededDelta;
+            double delay=(delta-neededDelta)/neededDelta;
             double updateQuality=predictQuality(delta,minQuality,currentQuality);
             double qualityLoss=currentQuality-updateQuality;
             System.out.printf("FUZZY: (D, %2.3f) (CQ, %2.3f) (MQ, %2.3f) (UQ, %2.3f) (QL, %2.3f)\n", delay, currentQuality , minQuality, updateQuality, qualityLoss);
