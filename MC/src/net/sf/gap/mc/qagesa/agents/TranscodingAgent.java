@@ -98,34 +98,31 @@ public class TranscodingAgent extends GridAgent {
         lvDelay.add("NL",-0.5,-0.25,-0.125,-0.0);
         lvDelay.add("N",-1.0,-1.0,-0.125,-0.0);
         lvDelay.add("Z",-0.125,-0.0,0.0,0.125);
-        lvDelay.add("P",0.0,0.125,12.0,60.0);
-        lvDelay.add("PL",0.0,0.125,0.25,2.0);
-        lvDelay.add("PH",0.25,0.5,2.0,12.0);
-        lvDelay.add("PVH",0.5,2.0,12.0,60.0);
+        lvDelay.add("P",0.0,0.125,60.0,60.0);
+        lvDelay.add("PL",0.0,0.125,0.25,60.0);
+        lvDelay.add("PH",0.25,0.5,60.0,60.0);
         fuzzyEngine.register(lvDelay);
     }
     
     private double predictQuality(double delay, double minQuality, double currentQuality) {
         double aQL = 1.0 - minQuality;
         lvQualityLoss = new LinguisticVariable("qualityloss"); 
-        lvQualityLoss.add("DH",-aQL,-aQL/2.0,-aQL/4.0,-aQL/8.0);
+        lvQualityLoss.add("DH",-aQL,-aQL,-aQL/2.0,-aQL/4.0);
         lvQualityLoss.add("DL",-aQL/2.0,-aQL/4.0,-aQL/8.0,-0.0);
-        lvQualityLoss.add("D",-aQL,-aQL,-aQL/4.0,-0.0);
-        lvQualityLoss.add("S",-aQL/4.0,-aQL/8.0,aQL/8.0,aQL/4.0);
-        lvQualityLoss.add("I",0.0,aQL/4.0,aQL,aQL);
-        lvQualityLoss.add("IL",0.0,aQL/4.0,aQL/2.0,aQL);
+        lvQualityLoss.add("D",-aQL,-aQL,-aQL/8.0,-0.0);
+        lvQualityLoss.add("S",-aQL/8.0,-0.0,0.0,aQL/8.0);
+        lvQualityLoss.add("I",0.0,aQL/8.0,aQL,aQL);
+        lvQualityLoss.add("IL",0.0,aQL/8.0,aQL/4.0,aQL);
         lvQualityLoss.add("IH",aQL/4.0,aQL/2.0,aQL,aQL);
-        lvQualityLoss.add("IVH",aQL/2.0,aQL,aQL,aQL);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
-            "if delay is PVH then qualityloss is IVH",
-            "if delay is PH then qualityloss is IH",
-            "if delay is PL then qualityloss is IL",
-            "if delay is P then qualityloss is I",
-            "if delay is Z then qualityloss is S",
-            "if delay is N then qualityloss is D",
+            "if delay is NH then qualityloss is DH",
             "if delay is NL then qualityloss is DL",
-            "if delay is NH then qualityloss is DH"
+            "if delay is N then qualityloss is D",
+            "if delay is Z then qualityloss is S",
+            "if delay is P then qualityloss is I",
+            "if delay is PL then qualityloss is IL",
+            "if delay is PH then qualityloss is IH"
         };
         fuzzyRules = new FuzzyBlockOfRules(rules);
         fuzzyEngine.register(fuzzyRules);
