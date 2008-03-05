@@ -24,6 +24,7 @@ import net.sf.gap.agents.GridAgent;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.mc.QAGESA;
+import net.sf.gap.mc.qagesa.agents.fuzzy.*;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.messages.*;
@@ -56,13 +57,15 @@ public class TranscodingAgent extends GridAgent {
     private Sim_stat statGTS;
     private boolean enabledCaching;
     private double gridMIPS;
+    
+    private AbstractQualityLoss qualityLossPredictor;
 
     public TranscodingAgent(AbstractGridElement ge, String name, int agentSizeInBytes,
             boolean trace_flag, boolean enabledCaching) throws Exception {
         super(ge, name, agentSizeInBytes, trace_flag);
         this.setEnabledCaching(enabledCaching);
         //this.setupStatGTS();
-        this.initFuzzyEngine();
+        this.setQualityLossPredictor(QualityLossFactory.create(QualityLossFactory.Type.DELAY_RAW));
     }
 
     private void setupStatGTS() {
@@ -86,122 +89,8 @@ public class TranscodingAgent extends GridAgent {
         this.setStatGTS(stat);
     }
     
-    private FuzzyEngine fuzzyEngine;
-    private FuzzyBlockOfRules fuzzyRules;
-    private LinguisticVariable lvDelay;
-    private LinguisticVariable lvEPS;
-    private LinguisticVariable lvUQ;
-    private LinguisticVariable lvQuality;
-    private LinguisticVariable lvQualityLoss;
-    
-    private void initFuzzyEngine() {
-        fuzzyEngine = new FuzzyEngine();
-    }
-    
     private double predictQuality(double delay, double minQuality, double currentQuality) {
-        lvEPS = new LinguisticVariable("eps"); 
-        lvEPS.add("SMALL",0.0,0.0,0.0,0.5);
-        lvEPS.add("MEDIUM",0.0,0.5,0.5,1.0);
-        lvEPS.add("LARGE",0.5,1.0,1.0,1.0);
-        fuzzyEngine.register(lvEPS);
-        lvDelay = new LinguisticVariable("delay"); 
-        lvDelay.add("NH",-1.0,-1.0,-0.5,-0.5);
-        lvDelay.add("NL",-0.5,-0.5,-0.5,-0.0);
-        lvDelay.add("N",-1.0,-1.0,-0.5,-0.0);
-        lvDelay.add("Z",-0.5,-0.0,0.0,0.25);
-        lvDelay.add("P",-0.25,0.25,1.0,1.0);
-        lvDelay.add("PL",0.0,0.25,0.5,1.0);
-        lvDelay.add("PH",0.5,0.5,1.0,1.0);
-        fuzzyEngine.register(lvDelay);
-        double aQL = (1.0-minQuality);
-        double lq = 0.0;
-        double hq = 1.0;
-        double iq = hq-lq;
-        double a0 = iq*0.0;
-        double a1 = iq*0.25;
-        double a2 = iq*0.5;
-        double a3 = iq*0.75;
-        double a4 = iq;
-        lvUQ = new LinguisticVariable("uq"); 
-        lvUQ.add("BAD",a0,a0,a0,a1);
-        lvUQ.add("POOR",a0,a1,a1,a2);
-        lvUQ.add("FAIR",a1,a2,a2,a3);
-        lvUQ.add("GOOD",a2,a3,a3,a4);
-        lvUQ.add("EXCELLENT",a3,a4,a4,a4);
-        fuzzyEngine.register(lvUQ);
-        lvQuality = new LinguisticVariable("q"); 
-        lvQuality.add("BAD",a0,a0,a0,a1);
-        lvQuality.add("POOR",a0,a1,a1,a2);
-        lvQuality.add("FAIR",a1,a2,a2,a3);
-        lvQuality.add("GOOD",a2,a3,a3,a4);
-        lvQuality.add("EXCELLENT",a3,a4,a4,a4);
-        lvQualityLoss = new LinguisticVariable("qualityloss"); 
-        lvQualityLoss.add("DH",-1.0*aQL,-1.0*aQL,-0.8*aQL,-0.5);
-        lvQualityLoss.add("DL",-0.8*aQL,-0.5*aQL,-0.25*aQL,-0.0);
-        lvQualityLoss.add("D",-1.0*aQL,-1.0*aQL,-0.25*aQL,-0.0);
-        lvQualityLoss.add("S",-0.25*aQL,-0.0*aQL,0.0*aQL,0.25);
-        lvQualityLoss.add("I",0.0*aQL,0.25*aQL,1.0*aQL,1.0);
-        lvQualityLoss.add("IL",0.0*aQL,0.25*aQL,0.5*aQL,1.0);
-        lvQualityLoss.add("IH",0.5*aQL,0.8*aQL,1.0*aQL,1.0);
-        lvQualityLoss.add("SMALL",0.0*aQL,0.0*aQL,0.0*aQL,0.5);
-        lvQualityLoss.add("MEDIUM",0.0*aQL,0.5*aQL,0.5*aQL,1.0);
-        lvQualityLoss.add("LARGE",0.5*aQL,1.0*aQL,1.0*aQL,1.0);
-        fuzzyEngine.register(lvQualityLoss);
-        String[] rules = {
-            "if delay is NH then qualityloss is DH",
-            "if delay is NL then qualityloss is DL",
-            "if delay is N then qualityloss is D",
-            "if delay is Z then qualityloss is S",
-            "if delay is P then qualityloss is I",
-            "if delay is PL then qualityloss is IL",
-            "if delay is PH then qualityloss is IH"
-                    /*
-            "if uq is EXCELLENT and eps is SMALL then q is EXCELLENT",
-            "if uq is EXCELLENT and eps is MEDIUM then q is GOOD",
-            "if uq is EXCELLENT and eps is LARGE then q is FAIR",
-            "if uq is GOOD and eps is SMALL then Q is EXCELLENT",
-            "if uq is FAIR and eps is SMALL then Q is GOOD",
-            "if (uq is GOOD or uq is FAIR) and (eps is MEDIUMR or eps is LARGE) then Q is FAIR"
-                     */
-        };
-        fuzzyRules = new FuzzyBlockOfRules(rules);
-        fuzzyEngine.register(fuzzyRules);
-        try {
-        fuzzyRules.parseBlock();
-        } catch (fuzzy.RulesParsingException e) {
-            e.printStackTrace();
-        } 
-        double qualityLoss = 0.0;
-            try {
-                double aUQ = 1.0;
-                if (delay>0) {
-                    aUQ=Math.exp(-delay);
-                }
-                double aEPS = Math.max(0.0, aUQ-currentQuality);
-                lvEPS.setInputValue(aEPS);
-                lvUQ.setInputValue(aUQ);
-                lvDelay.setInputValue(delay+0.125);
-                lvQualityLoss.setInputValue(1.0-currentQuality);
-                fuzzyRules.evaluateBlock();
-                try {
-                qualityLoss = lvQualityLoss.defuzzify();
-                double updateQuality = lvQuality.defuzzify();
-                //qualityLoss=currentQuality-updateQuality;
-                System.out.println("Q: " + updateQuality);
-                } catch (fuzzy.NoRulesFiredException e) {
-                    //e.printStackTrace();
-                }
-            } catch (fuzzy.EvaluationException e) {
-                e.printStackTrace();
-            }
-            currentQuality=currentQuality-qualityLoss;
-            if (currentQuality>1.0) {
-                currentQuality=1.0;
-            }
-            if (currentQuality<minQuality) {
-                currentQuality=minQuality;
-            }
-        return currentQuality;
+        return this.getQualityLossPredictor().predict(delay, minQuality, currentQuality);
     }
     
     @Override
@@ -515,5 +404,13 @@ public class TranscodingAgent extends GridAgent {
 
     public void setGridMIPS(double gridMIPS) {
         this.gridMIPS = gridMIPS;
+    }
+
+    public AbstractQualityLoss getQualityLossPredictor() {
+        return qualityLossPredictor;
+    }
+
+    public void setQualityLossPredictor(AbstractQualityLoss qualityLossPredictor) {
+        this.qualityLossPredictor = qualityLossPredictor;
     }
 }
