@@ -130,7 +130,32 @@ public class ReFService extends PlatformService {
         int nd = data.size();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outReF_RT.println("CSV;ReF_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            /*
+             QAGESA.outReF_RT.println(
+             "CSV;ReF_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() 
+             + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() 
+             + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+             */
+            int rep = QAGESAStat.getReplication();
+            int nu = QAGESAStat.getNumUsers();
+            int ca = 0;
+            if (QAGESAStat.isCachingEnabled()) {
+                ca = 1;
+            }
+            int wm = QAGESAStat.getWhichMeasure();
+            double ta = (times[0] - QAGESA.getStartTime());
+            double tb = (times[1] - QAGESA.getStartTime());
+            double dt = (times[1] - times[0]);
+            QAGESA.outReF_RT.printf(
+                    "CSV;ReF_RT;%2d;%4d;%d;%d;%s;%6.4f;%6.4f;%6.4f\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    this.get_name(),
+                    ta,
+                    tb,
+                    dt);
         }
         QAGESA.outReF_RT.flush();
     }

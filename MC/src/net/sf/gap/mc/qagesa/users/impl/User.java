@@ -49,7 +49,7 @@ public class User extends QAGESAUser {
     public static final int MEASURE_FIRST = 3;
     private static String distribution = "";
     private static Uniform_int rand = new Uniform_int("prob_ql");
-    
+
     public static String getDistribution() {
         return distribution;
     }
@@ -57,7 +57,6 @@ public class User extends QAGESAUser {
     public static void setDistribution(String aDistribution) {
         distribution = aDistribution;
     }
-
     private int selectedMeasure;
     private int uid;
     /**
@@ -167,9 +166,29 @@ public class User extends QAGESAUser {
         List datas = list[1];
         List data = (List) datas.toArray()[0];
         int nd = data.size();
+        int rep = QAGESAStat.getReplication();
+        int nu = QAGESAStat.getNumUsers();
+        int ca = 0;
+        if (QAGESAStat.isCachingEnabled()) {
+            ca = 1;
+        }
+        int wm = QAGESAStat.getWhichMeasure();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outUSER.println("CSV;USERS_FT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            //QAGESA.outUSER.println("CSV;USERS_FT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            double ta = (times[0] - QAGESA.getStartTime());
+            double tb = (times[1] - QAGESA.getStartTime());
+            double dt = (times[1] - times[0]);
+            QAGESA.outUSER.printf(
+                    "CSV;USERS_FT;%2d;%4d;%d;%d;%s;%6.2f;%6.2f;%6.4f\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    this.get_name(),
+                    ta,
+                    tb,
+                    dt);
         }
     }
 
@@ -179,9 +198,29 @@ public class User extends QAGESAUser {
         List datas = list[1];
         List data = (List) datas.toArray()[0];
         int nd = data.size();
+        int rep = QAGESAStat.getReplication();
+        int nu = QAGESAStat.getNumUsers();
+        int ca = 0;
+        if (QAGESAStat.isCachingEnabled()) {
+            ca = 1;
+        }
+        int wm = QAGESAStat.getWhichMeasure();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outUSER.println("CSV;USERS_ST;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            //QAGESA.outUSER.println("CSV;USERS_ST;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            double ta = (times[0] - QAGESA.getStartTime());
+            double tb = (times[1] - QAGESA.getStartTime());
+            double dt = (times[1] - times[0]);
+            QAGESA.outUSER.printf(
+                    "CSV;USERS_ST;%2d;%4d;%d;%d;%s;%6.2f;%6.2f;%6.4f\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    this.get_name(),
+                    ta,
+                    tb,
+                    dt);
         }
     }
 
@@ -191,9 +230,29 @@ public class User extends QAGESAUser {
         List datas = list[1];
         List data = (List) datas.toArray()[0];
         int nd = data.size();
+        int rep = QAGESAStat.getReplication();
+        int nu = QAGESAStat.getNumUsers();
+        int ca = 0;
+        if (QAGESAStat.isCachingEnabled()) {
+            ca = 1;
+        }
+        int wm = QAGESAStat.getWhichMeasure();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outUSER.println("CSV;USERS_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            //QAGESA.outUSER.println("CSV;USERS_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            double ta = (times[0] - QAGESA.getStartTime());
+            double tb = (times[1] - QAGESA.getStartTime());
+            double dt = (times[1] - times[0]);
+            QAGESA.outUSER.printf(
+                    "CSV;USERS_RT;%2d;%4d;%d;%d;%s;%6.2f;%6.2f;%6.4f\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    this.get_name(),
+                    ta,
+                    tb,
+                    dt);
         }
     }
 
@@ -215,10 +274,10 @@ public class User extends QAGESAUser {
         int SIZE = 500;
         double evsend_time = 0;
         int userID = this.get_id();
-        double acceptableQualityLoss = rand.sample(21)*0.01+0.2;
+        double acceptableQualityLoss = rand.sample(21) * 0.01 + 0.2;
         //double acceptableQualityLoss = 0.318;
         QAGESAStat.updateAcceptableQualityLoss(acceptableQualityLoss);
-        double minQuality = 1.0-acceptableQualityLoss;
+        double minQuality = 1.0 - acceptableQualityLoss;
         ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, minQuality, this.isRandomSelection());
         @SuppressWarnings("unused")
         int requestID = request.getRequestID();
@@ -244,7 +303,7 @@ public class User extends QAGESAUser {
                     evrecv_time, request.getReqrepID(), this.get_name(),
                     request.getReqrepID(),
                     request.getMovieTag());
-            ChunkRequest askChunkRequest = 
+            ChunkRequest askChunkRequest =
                     new ChunkRequest(
                     this.get_id(),
                     this.get_id(),
@@ -254,8 +313,7 @@ public class User extends QAGESAUser {
                     1,
                     request.getTranscodeRequest().getStorageElementID(),
                     request.getTranscodeRequest(),
-                    this.clock()
-                    );
+                    this.clock());
             super.send(super.output, GridSimTags.SCHEDULE_NOW,
                     QAGESATags.ASK_CHUNK_REQ, new IO_data(askChunkRequest, 32, playReply.getAgentID()));
         } else {
@@ -313,9 +371,9 @@ public class User extends QAGESAUser {
             case QAGESATags.SENT_LAST_CHUNK_REP:
                 chunkRequest = ChunkRequest.get_data(ev);
                 @SuppressWarnings("unused") int playReqrepID = chunkRequest.getPlayReqrepID();
-                 reqrepID = chunkRequest.getReqrepID();
-                 evrecv_time = GridSim.clock();
-                 msg = String.format(
+                reqrepID = chunkRequest.getReqrepID();
+                evrecv_time = GridSim.clock();
+                msg = String.format(
                         "%1$f %2$d %3$s <-- %4$s SENT_LAST_CHUNK %5$d",
                         evrecv_time, reqrepID, this.get_name(),
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
@@ -338,7 +396,7 @@ public class User extends QAGESAUser {
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
 
-                ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
+                 ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
                 super.send(super.output, GridSimTags.SCHEDULE_NOW,
                         QAGESATags.SEND_CHUNK_REP, new IO_data(chunkReply, 32, chunkRequest.getSrc_ID()));
                 break;
@@ -366,33 +424,31 @@ public class User extends QAGESAUser {
                 break;
         }
     }
-
-
     static double[] probsUsers;
     static double[] probsRequests;
     static int nSeconds;
     static double step;
     static Uniform_int randuid;
+
     {
         double a = GAP.getStartTime();
-        double b = GAP.getEndTime()+1.0 - QAGESA.relaxTime;
+        double b = GAP.getEndTime() + 1.0 - QAGESA.relaxTime;
         step = 1.0;
         nSeconds = (int) Math.round((b - a) / step);
         ZipF zipfUsers = new ZipF(nSeconds, QAGESA.thetaU);
         ZipF zipfRequests = new ZipF(nSeconds, QAGESA.thetaR);
         probsUsers = zipfUsers.getProbs();
         probsRequests = zipfRequests.getProbs();
-        randuid=new Uniform_int("randuid");
+        randuid = new Uniform_int("randuid");
     }
-    
     private int asked;
+
     @Override
     public void initWork() {
         asked = 0;
         this.DoIt();
     }
 
-    
     @Override
     public void doWork() {
         if (User.clock() < (GAP.getEndTime() - QAGESA.relaxTime)) {
@@ -420,11 +476,11 @@ public class User extends QAGESAUser {
         boolean result;
         if (User.distribution.equalsIgnoreCase("zipf")) {
             double a = GAP.getStartTime();
-            int i = (int) Math.round((time-a)/step);
-            double utoask = probsUsers[i]*QAGESAStat.getNumUsers();
-            double rtoask = Math.max(probsRequests[i]*this.numRequests,1.0);
-            double ntoask = utoask*rtoask;
-            result = ((QAGESAStat.getRequests()+0.5)<(ntoask)) && (this.asked<rtoask);
+            int i = (int) Math.round((time - a) / step);
+            double utoask = probsUsers[i] * QAGESAStat.getNumUsers();
+            double rtoask = Math.max(probsRequests[i] * this.numRequests, 1.0);
+            double ntoask = utoask * rtoask;
+            result = ((QAGESAStat.getRequests() + 0.5) < (ntoask)) && (this.asked < rtoask);
         } else {
             int neededRequests = fr(
                     GAP.getStartTime(),
@@ -435,7 +491,7 @@ public class User extends QAGESAUser {
         }
         return result;
     }
-    
+
     private int fr(double a, double b, int maxusers, double currentTime) {
         int result = 0;
         if (User.distribution.equalsIgnoreCase("linear")) {

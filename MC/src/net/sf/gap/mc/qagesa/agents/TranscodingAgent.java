@@ -236,7 +236,7 @@ public class TranscodingAgent extends GridAgent {
             int ca=0;
             if (QAGESAStat.isCachingEnabled()) {
                 ca=1;
-            };
+            }
             int wm = QAGESAStat.getWhichMeasure();
             double time = this.clock()-QAGESA.getStartTime();
             double cGIPS = QAGESAStat.getComputedMIPS()*0.001;
