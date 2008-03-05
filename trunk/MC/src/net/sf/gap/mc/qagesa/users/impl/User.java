@@ -430,7 +430,7 @@ public class User extends QAGESAUser {
                     GAP.getEndTime() - QAGESA.relaxTime,
                     QAGESAStat.getNumUsers(),
                     time);
-            result = ((this.getUid() < neededRequests) && (asked < this.numRequests));
+            result = ((QAGESAStat.getRequests() < neededRequests) && (asked < this.numRequests));
         }
         return result;
     }
