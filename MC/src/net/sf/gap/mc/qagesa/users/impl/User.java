@@ -48,7 +48,8 @@ public class User extends QAGESAUser {
     public static final int MEASURE_STREAMING = 2;
     public static final int MEASURE_FIRST = 3;
     private static String distribution = "";
-
+    private static Uniform_int rand = new Uniform_int("prob_ql");
+    
     public static String getDistribution() {
         return distribution;
     }
@@ -214,7 +215,10 @@ public class User extends QAGESAUser {
         int SIZE = 500;
         double evsend_time = 0;
         int userID = this.get_id();
-        ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, this.isRandomSelection());
+        double acceptableQualityLoss = rand.sample(21)*0.01+0.2;
+        //double acceptableQualityLoss = 0.318;
+        double minQuality = 1.0-acceptableQualityLoss;
+        ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, minQuality, this.isRandomSelection());
         @SuppressWarnings("unused")
         int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();

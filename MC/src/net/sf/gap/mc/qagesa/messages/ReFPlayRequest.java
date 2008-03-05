@@ -40,12 +40,14 @@ public class ReFPlayRequest extends Request {
 	private String movieTag; // Used in request
         
         private TranscodeRequest transcodeRequest;
+        
+        private double minQuality;
 
 	/**
 	 * Creates a new instance of ReFPlayRequest
 	 */
 	public ReFPlayRequest(int src_ID, int src_resID, int userID,
-			String movieTag, boolean randomSelection) {
+			String movieTag, double acceptableQualityLoss, boolean randomSelection) {
 		super(src_ID, src_resID);
 		this.setUserID(userID);
 		this.setMovieTag(movieTag);
@@ -53,6 +55,7 @@ public class ReFPlayRequest extends Request {
                 this.replyEv=null;
                 this.fcEv=null;
                 this.setTranscodeRequest(null);
+                this.setMinQuality(acceptableQualityLoss);
 	}
 
 	public static ReFPlayRequest get_data(Sim_event ev) {
@@ -63,7 +66,7 @@ public class ReFPlayRequest extends Request {
 	@Override
 	public ReFPlayRequest clone() {
 		ReFPlayRequest request = new ReFPlayRequest(this.getSrc_ID(), this.getSrc_resID(), this
-				.getUserID(), this.getMovieTag(), this.isRandomSelection());
+				.getUserID(), this.getMovieTag(), this.getMinQuality(), this.isRandomSelection());
                 request.setFcEv(this.getFcEv());
                 request.setReplyEv(replyEv);
                 request.setTranscodeRequest(transcodeRequest);
@@ -116,5 +119,13 @@ public class ReFPlayRequest extends Request {
 
     public void setTranscodeRequest(TranscodeRequest transcodeRequest) {
         this.transcodeRequest = transcodeRequest;
+    }
+
+    public double getMinQuality() {
+        return minQuality;
+    }
+
+    public void setMinQuality(double minQuality) {
+        this.minQuality = minQuality;
     }
 }

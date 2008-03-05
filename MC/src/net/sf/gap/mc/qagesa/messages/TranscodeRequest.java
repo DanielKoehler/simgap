@@ -113,4 +113,8 @@ public class TranscodeRequest extends Request {
     public void setQuality(double quality) {
         this.quality = quality;
     }
+    
+    public double getMinQuality() {
+        return this.getPlayRequest().getMinQuality();
+    }
 }
