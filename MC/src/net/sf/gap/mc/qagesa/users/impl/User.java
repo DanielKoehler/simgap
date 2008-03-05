@@ -169,7 +169,7 @@ public class User extends QAGESAUser {
         int nd = data.size();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outUSER.println("CSV;USERS_FT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
+            QAGESA.outUSER.println("CSV;USERS_FT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
         }
     }
 
@@ -181,7 +181,7 @@ public class User extends QAGESAUser {
         int nd = data.size();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outUSER.println("CSV;USERS_ST;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
+            QAGESA.outUSER.println("CSV;USERS_ST;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
         }
     }
 
@@ -193,7 +193,7 @@ public class User extends QAGESAUser {
         int nd = data.size();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outUSER.println("CSV;USERS_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
+            QAGESA.outUSER.println("CSV;USERS_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
         }
     }
 
@@ -217,6 +217,7 @@ public class User extends QAGESAUser {
         int userID = this.get_id();
         double acceptableQualityLoss = rand.sample(21)*0.01+0.2;
         //double acceptableQualityLoss = 0.318;
+        QAGESAStat.updateAcceptableQualityLoss(acceptableQualityLoss);
         double minQuality = 1.0-acceptableQualityLoss;
         ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, minQuality, this.isRandomSelection());
         @SuppressWarnings("unused")

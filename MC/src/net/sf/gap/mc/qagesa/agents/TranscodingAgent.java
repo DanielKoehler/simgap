@@ -106,10 +106,10 @@ public class TranscodingAgent extends GridAgent {
         fuzzyEngine.register(lvEPS);
         lvDelay = new LinguisticVariable("delay"); 
         lvDelay.add("NH",-1.0,-1.0,-0.5,-0.5);
-        lvDelay.add("NL",-0.5,-0.5,-0.25,-0.0);
-        lvDelay.add("N",-1.0,-1.0,-0.25,-0.0);
-        lvDelay.add("Z",-0.25,-0.0,0.0,0.25);
-        lvDelay.add("P",0.0,0.25,1.0,1.0);
+        lvDelay.add("NL",-0.5,-0.5,-0.5,-0.0);
+        lvDelay.add("N",-1.0,-1.0,-0.5,-0.0);
+        lvDelay.add("Z",-0.5,-0.0,0.0,0.25);
+        lvDelay.add("P",-0.25,0.25,1.0,1.0);
         lvDelay.add("PL",0.0,0.25,0.5,1.0);
         lvDelay.add("PH",0.5,0.5,1.0,1.0);
         fuzzyEngine.register(lvDelay);
@@ -180,7 +180,7 @@ public class TranscodingAgent extends GridAgent {
                 double aEPS = Math.max(0.0, aUQ-currentQuality);
                 lvEPS.setInputValue(aEPS);
                 lvUQ.setInputValue(aUQ);
-                lvDelay.setInputValue(delay);
+                lvDelay.setInputValue(delay+0.125);
                 lvQualityLoss.setInputValue(1.0-currentQuality);
                 fuzzyRules.evaluateBlock();
                 try {
@@ -228,11 +228,33 @@ public class TranscodingAgent extends GridAgent {
             gridlet.setUserID(this.get_id());
             super.gridletSubmit(gridlet, this.getResourceID());
             QAGESAStat.incComputedMIPS(length);
-            double potentialGridMIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime());
-            double globalLoad =QAGESAStat.getComputedMIPS()/potentialGridMIPS;
+            double pGIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime())*0.001;
             double qualityLoss = 1.0 - quality;
             QAGESAStat.updateGlobalQualityLoss(qualityLoss);
-            QAGESA.outMIPS.println("CSV;MIPS;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+this.clock()+";"+QAGESAStat.getComputedMIPS()+";"+potentialGridMIPS+";"+globalLoad+";"+QAGESAStat.getGlobalQualityLoss().getMean()+";"+QAGESAStat.getGlobalQualityLoss().getStandardDeviation());
+            int rep=QAGESAStat.getReplication();
+            int nu = QAGESAStat.getNumUsers();
+            int ca=0;
+            if (QAGESAStat.isCachingEnabled()) {
+                ca=1;
+            };
+            int wm = QAGESAStat.getWhichMeasure();
+            double time = this.clock()-QAGESA.getStartTime();
+            double cGIPS = QAGESAStat.getComputedMIPS()*0.001;
+            double gLoad =cGIPS/pGIPS;
+            double gQLmean = QAGESAStat.getGlobalQualityLoss().getMean();
+            double aQLmean = QAGESAStat.getAcceptableQualityLoss().getMean();
+            QAGESA.outQoS.printf
+                    ("CSV;QoS;%2d;%4d;%d;%d;%6.2f;%6.2f;%6.2f;%1.3f;%1.3f;%1.3f\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    time,
+                    cGIPS,
+                    pGIPS,
+                    gLoad,
+                    gQLmean,
+                    aQLmean);
             gridlet = super.gridletReceive();
         }
         Chunk transcodedChunk = chunk.transcode(quality);

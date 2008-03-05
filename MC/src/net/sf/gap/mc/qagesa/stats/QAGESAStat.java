@@ -40,6 +40,7 @@ public class QAGESAStat {
         private static double computedMIPS;
         
         private static Accumulator globalQualityLoss;
+        private static Accumulator acceptableQualityLoss;
 
     public static double getComputedMIPS() {
         return computedMIPS;
@@ -57,12 +58,24 @@ public class QAGESAStat {
         QAGESAStat.getGlobalQualityLoss().add(aQualityLoss);
     }
 
+    public synchronized static void updateAcceptableQualityLoss(double aAQL) {
+        QAGESAStat.getAcceptableQualityLoss().add(aAQL);
+    }
+
     public static Accumulator getGlobalQualityLoss() {
         return globalQualityLoss;
     }
 
     public static void setGlobalQualityLoss(Accumulator aGlobalQualityLoss) {
         globalQualityLoss = aGlobalQualityLoss;
+    }
+
+    public static Accumulator getAcceptableQualityLoss() {
+        return acceptableQualityLoss;
+    }
+
+    public static void setAcceptableQualityLoss(Accumulator aAcceptableQualityLoss) {
+        acceptableQualityLoss = aAcceptableQualityLoss;
     }
     
 	/**
@@ -76,6 +89,7 @@ public class QAGESAStat {
 		QAGESAStat.setRequestsHistory(new RequestsHistory(numCEs));
                 QAGESAStat.setComputedMIPS(0);
                 QAGESAStat.setGlobalQualityLoss(new Accumulator());
+                QAGESAStat.setAcceptableQualityLoss(new Accumulator());
 	}
 
 	public synchronized static void incRequests(double clock) {

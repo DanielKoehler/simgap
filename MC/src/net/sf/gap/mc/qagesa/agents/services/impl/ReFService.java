@@ -130,7 +130,7 @@ public class ReFService extends PlatformService {
         int nd = data.size();
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
-            QAGESA.outReF_RT.println("CSV;ReF_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + times[0] + ";" + times[1] + ";" + (times[1] - times[0]));
+            QAGESA.outReF_RT.println("CSV;ReF_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
         }
         QAGESA.outReF_RT.flush();
     }
