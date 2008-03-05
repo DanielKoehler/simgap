@@ -1,0 +1,120 @@
+- Workload class in GridSim for GAP (DONE)
+- SpaceShared class in GridSim for GAP
+-- See ResGridletList
+-- See AllocPolicy.griletMigrate
+- Handle multiple VOs
+- Complete clean grid management by agents
+-- Review combinations (see previous notes) and their possible impact on XSD
+   optional agents section
+- Create factories for XML data
+-- Refactor code to include a create factory method in top net.sf.gap.xml.types
+-- Debug and fix, if needed, the code
+-- Topology
+-- VOs
+-- Scenario as many VOs
+--- VO contents
+-- So, given an XML input we instantiate entities
+-- VOs created must be abstract in order to attach to them other things like:
+--- Agents, Agent Platform, Users, ...
+-- Given such abstract VOs, developer has to define:
+--- Agents' behaviours
+--- Users's behaviours
+--- Measures
+--- How to handle agents and users
+--- Other simulation parameters
+--- Start simulation
+--- Handle measures
+
+TraMA
+- Parameters related to the hibernation method used (TraMA)
+-- Bytecode overhead
+--- Overhead in program dimensions
+--- Characterize with a proper distribution (i.e. normal distribution)
+-- Execution overhead
+--- Characterize with a proper distribution (i.e. normal distribution)
+--- Associate it with cyclomatic complexity of code
+--- Define possible simplified execution graphs of code
+- Scenario A - Scenario TraMA and Scenario Normal of B executed separately
+- Scenario B
+-- We have two VOs (TraMAVO, NormalVO) with
+--- identical underlying topologies
+--- identical grid elements
+--- identical background workloads
+---- Find a way to modify per grid element background workload with deteterministic events
+---- Find a way to specify in XML such workloads or at least to programmatically relate them to XML scenario
+---- No network background traffic
+-- Users and Jobs
+--- There are 2*N users (TraMAUser1..TramaUserN,NormalUser1..NormalUserN)
+--- Users are connected in the same way to their VOs
+--- Users submits the same jobs to their VOs
+-- Behaviour of VOs
+--- NormalVO
+---- 1. Normal Submission of jobs
+---- 2. Submissions to agents but not mobile
+--- TraMAVO
+---- Agents compute at discrete intervals the value of an utility function
+----- Parameters
+------ Duration of such intervals 
+------- Constant and equally spaced Duration
+------- Dynamic through a publish/subscribe monitoring about grid element load
+-------- Grid Element provides such feature
+-------- Agent when reachs such grid element subscribes to such load monitoring feature for each host of 
+         such ge an neighboorhood ges
+--------- Load thresholds
+---------- [0..a[ [a..b] ]b..1]
+----------- when threshold becomes more than b ge sends a notification to agent about High_Load
+----------- when threshold becomes less than a ge sends a notification to agent about Low_Load
+----------- there is a mininum duration interval between two notifications to the same agent Minimum_Duration
+----- Utility function U
+------ values in [0..1]
+------ Parameters
+------- Load
+------- TOTAL JOB MIPS
+------- EXECUTED JOB MIPS
+------- AGENT SIZE
+-------- including save job state
+-------- file input size
+-------- produced output size
+-------- final output size
+------ when threshold value of utility function U is reached
+------- agent has to move to another host if there is one with better value of U in its ge and neighboorhood ges
+-------- if such better U is from an host of same ge agent migrates there and resumes
+-------- otherwise it choosen host with lower value of distance*U*alfa+cost*beta
+- Comparison between such VOs to know if TraMA solution is better
+-- Measures
+--- For each user and as an average for users of same VO
+---- Total waiting times
+---- Interval between first and last result from jobs
+----- Jobs/sec
+----- Total cost
+----- Cost per MIPS
+
+Specifications
+- Jobs (single jobs - not DAG)
+-- Job (1..*)
+--- MIPS
+--- Input file size
+--- Output file size
+--- Files on grid (Optional)
+---- fileItem name=...
+--- Cyclomatic complexity (Optional)
+--- Platform (Optional)
+--- ...
+
+- Background workload
+-- Trace (not XML, base on examples from GridSim)
+
+Replications
+-
+
+Job Submissions
+- Scenarios
+-- ...
+......
+-- ...
+
+Shark
+- Scenarios
+-- Measures based on google desktop or on shark prototype
+
+
