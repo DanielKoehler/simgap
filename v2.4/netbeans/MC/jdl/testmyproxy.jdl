@@ -1,0 +1,9 @@
+Type = "Job";
+JobType = "Normal";
+Executable = "/bin/bash";
+StdOutput = "testmyproxy.out";
+StdError = "testmyproxy.err";
+InputSandbox = {"testmyproxy.sh"};
+OutputSandbox = {"testmyproxy.err","testmyproxy.out"};
+Arguments = "testmyproxy.sh";
+MyProxyServer = "grid001.ct.infn.it";

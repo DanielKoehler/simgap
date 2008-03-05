@@ -1,0 +1,143 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<!--
+    Document   : infn.xml
+    Created on : 4 February 2008, 13.55
+    Author     : Giovanni Novelli
+    Description:
+        EGEE scenario based on
+            svn://scm.gforge.inria.fr/svn/simgrid/contrib/trunk/platform_manager/platforms/Egee.xml
+-->
+
+<scenario  name="egee" trace="false" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="scenario.xsd"
+           xsi:type="SimulationScenarioType">
+    <topology>
+        <routers>
+            <!-- Routers to which GEs are attached to -->
+            <routerItem name="torino-r"/>
+            <routerItem name="pisa-r"/>
+            <!-- Backbones & switches -->
+            <routerItem name="torino-bb"/>
+            <routerItem name="pisa-bb"/>
+        </routers>
+        <ges>
+            <geItem name="torino-site"/>
+            <geItem name="pisa-site"/>
+        </ges>
+        <netLinks>
+            <netLinkItem name="l-torino-r2bb">
+                <Baudrate>45000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>torino-r</fromEntity>
+                <toEntity>torino-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-pisa-r2bb">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pisa-r</fromEntity>
+                <toEntity>pisa-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-torino-bb2bb-pisa">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>torino-bb</fromEntity>
+                <toEntity>pisa-bb</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+        </netLinks>
+        <geLinks>
+            <geLinkItem name="l-torino-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>torino-site</fromEntity>
+                <toEntity>torino-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pisa-site">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pisa-site</fromEntity>
+                <toEntity>pisa-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+        </geLinks>
+    </topology>
+    <grid>
+        <gridElement name="torino-site">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>41</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-torino-site"/>
+                <hdList>
+                    <hdItem name="HD-1-torino-site">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-torino-site">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-torino-site</link>
+        </gridElement>
+        <gridElement name="pisa-site">
+            <isRB>true</isRB>
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>4</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>64</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-pisa-site"/>
+                <hdList>
+                    <hdItem name="HD-1-pisa-site">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-pisa-site">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-pisa-site</link>
+        </gridElement>
+    </grid>
+</scenario>
