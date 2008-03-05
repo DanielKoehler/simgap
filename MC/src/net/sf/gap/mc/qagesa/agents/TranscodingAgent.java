@@ -122,14 +122,14 @@ public class TranscodingAgent extends GridAgent {
         double a2 = iq*0.5;
         double a3 = iq*0.75;
         double a4 = iq;
-        lvUQ = new LinguisticVariable("userQuality"); 
-        lvUQ.add("BADU",a0,a0,a0,a1);
-        lvUQ.add("POORU",a0,a1,a1,a2);
-        lvUQ.add("FAIRU",a1,a2,a2,a3);
-        lvUQ.add("GOODU",a2,a3,a3,a4);
-        lvUQ.add("EXCELLENTU",a3,a4,a4,a4);
+        lvUQ = new LinguisticVariable("uq"); 
+        lvUQ.add("BAD",a0,a0,a0,a1);
+        lvUQ.add("POOR",a0,a1,a1,a2);
+        lvUQ.add("FAIR",a1,a2,a2,a3);
+        lvUQ.add("GOOD",a2,a3,a3,a4);
+        lvUQ.add("EXCELLENT",a3,a4,a4,a4);
         fuzzyEngine.register(lvUQ);
-        lvQuality = new LinguisticVariable("quality"); 
+        lvQuality = new LinguisticVariable("q"); 
         lvQuality.add("BAD",a0,a0,a0,a1);
         lvQuality.add("POOR",a0,a1,a1,a2);
         lvQuality.add("FAIR",a1,a2,a2,a3);
@@ -156,14 +156,13 @@ public class TranscodingAgent extends GridAgent {
             "if delay is PL then qualityloss is IL",
             "if delay is PH then qualityloss is IH"
                     /*
-            "if userQuality is EXCELLENTU then quality is EXCELLENT"
-            "if (uq is EXCELLENT) and (eps is MEDIUM) then q is GOOD",
+            "if uq is EXCELLENT and eps is SMALL then q is EXCELLENT",
+            "if uq is EXCELLENT and eps is MEDIUM then q is GOOD",
             "if uq is EXCELLENT and eps is LARGE then q is FAIR",
             "if uq is GOOD and eps is SMALL then Q is EXCELLENT",
             "if uq is FAIR and eps is SMALL then Q is GOOD",
             "if (uq is GOOD or uq is FAIR) and (eps is MEDIUMR or eps is LARGE) then Q is FAIR"
                      */
-                    
         };
         fuzzyRules = new FuzzyBlockOfRules(rules);
         fuzzyEngine.register(fuzzyRules);
@@ -174,11 +173,12 @@ public class TranscodingAgent extends GridAgent {
         } 
         double qualityLoss = 0.0;
             try {
-                double aEPS = 1.0-currentQuality;
                 double aUQ = 1.0;
                 if (delay>0) {
                     aUQ=Math.exp(-delay);
                 }
+                double aEPS = Math.max(0.0, aUQ-currentQuality);
+                lvEPS.setInputValue(aEPS);
                 lvUQ.setInputValue(aUQ);
                 lvDelay.setInputValue(delay);
                 lvQualityLoss.setInputValue(1.0-currentQuality);
@@ -186,6 +186,7 @@ public class TranscodingAgent extends GridAgent {
                 try {
                 qualityLoss = lvQualityLoss.defuzzify();
                 double updateQuality = lvQuality.defuzzify();
+                //qualityLoss=currentQuality-updateQuality;
                 System.out.println("Q: " + updateQuality);
                 } catch (fuzzy.NoRulesFiredException e) {
                     //e.printStackTrace();
