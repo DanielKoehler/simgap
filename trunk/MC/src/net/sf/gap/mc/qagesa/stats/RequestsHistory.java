@@ -72,10 +72,10 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
     }
 
     public synchronized void setPlayRequests(double clock, int playRequests, boolean success) {
-            RequestsHistoryEntry entry = new RequestsHistoryEntry(clock,playRequests);
+            RequestsHistoryEntry entry = new RequestsHistoryEntry(clock-QAGESA.getStartTime(),playRequests);
             QAGESA.outReF_CR.println("CSV;ReF_CR;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+entry);
             if (success) {
-            RequestsHistoryEntry pentry = new RequestsHistoryEntry(clock,processed);
+            RequestsHistoryEntry pentry = new RequestsHistoryEntry(clock-QAGESA.getStartTime(),processed);
             QAGESA.outReF_PR.println("CSV;ReF_PR;"+QAGESAStat.getReplication()+";"+QAGESAStat.getNumUsers()+";"+QAGESAStat.isCachingEnabled()+";"+QAGESAStat.getWhichMeasure()+";"+pentry);
             }
             this.add(entry);
