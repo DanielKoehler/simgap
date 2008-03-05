@@ -89,32 +89,46 @@ public class TranscodingAgent extends GridAgent {
     private FuzzyEngine fuzzyEngine;
     private FuzzyBlockOfRules fuzzyRules;
     private LinguisticVariable lvDelay;
+    private LinguisticVariable lvQuality;
     private LinguisticVariable lvQualityLoss;
     
     private void initFuzzyEngine() {
         fuzzyEngine = new FuzzyEngine();
-        lvDelay = new LinguisticVariable("delay"); 
-        lvDelay.add("NH",-1.0,-1.0,-0.5,-0.25);
-        lvDelay.add("NL",-0.5,-0.25,-0.125,-0.0);
-        lvDelay.add("N",-1.0,-1.0,-0.125,-0.0);
-        lvDelay.add("Z",-0.125,-0.0,0.0,0.125);
-        lvDelay.add("P",0.0,0.125,1.0,1.0);
-        lvDelay.add("PL",0.0,0.125,0.25,1.0);
-        lvDelay.add("PH",0.25,0.5,1.0,1.0);
-        fuzzyEngine.register(lvDelay);
     }
     
     private double predictQuality(double delay, double minQuality, double currentQuality) {
-        //double aQL = 1.0-minQuality;
-        double aQL = 0.5;
+        lvDelay = new LinguisticVariable("delay"); 
+        lvDelay.add("NH",-1.0,-1.0,-0.5,-0.5);
+        lvDelay.add("NL",-0.5,-0.5,-0.25,-0.0);
+        lvDelay.add("N",-1.0,-1.0,-0.25,-0.0);
+        lvDelay.add("Z",-0.25,-0.0,0.0,0.25);
+        lvDelay.add("P",0.0,0.25,1.0,1.0);
+        lvDelay.add("PL",0.0,0.25,0.5,1.0);
+        lvDelay.add("PH",0.5,0.5,1.0,1.0);
+        fuzzyEngine.register(lvDelay);
+        double aQL = (1.0-minQuality);
+        double lq = minQuality;
+        double hq = 1.0;
+        double iq = hq-lq;
+        double a0 = iq*0.0;
+        double a1 = iq*0.25;
+        double a2 = iq*0.5;
+        double a3 = iq*0.75;
+        double a4 = iq;
+        lvQuality = new LinguisticVariable("quality"); 
+        lvQuality.add("BAD",a0,a0,a0,a1);
+        lvQuality.add("POOR",a0,a1,a1,a2);
+        lvQuality.add("FAIR",a1,a2,a2,a3);
+        lvQuality.add("GOOD",a2,a3,a3,a4);
+        lvQuality.add("EXCELLENT",a3,a4,a4,a4);
         lvQualityLoss = new LinguisticVariable("qualityloss"); 
-        lvQualityLoss.add("DH",-0.25,-0.25,-0.125,-0.25/4.0);
-        lvQualityLoss.add("DL",-0.125,-0.25/4.0,-0.125/4.0,-0.0);
-        lvQualityLoss.add("D",-0.25,-0.25,-0.125/4.0,-0.0);
-        lvQualityLoss.add("S",-0.125/4.0,-0.0,0.0,0.125/4.0);
-        lvQualityLoss.add("I",0.0,0.125/4.0,0.25,0.25);
-        lvQualityLoss.add("IL",0.0,0.125/4.0,0.25/4.0,0.25);
-        lvQualityLoss.add("IH",0.25/4.0,0.125,0.25,0.25);
+        lvQualityLoss.add("DH",-1.0*aQL,-1.0*aQL,-0.8*aQL,-0.5);
+        lvQualityLoss.add("DL",-0.8*aQL,-0.5*aQL,-0.25*aQL,-0.0);
+        lvQualityLoss.add("D",-1.0*aQL,-1.0*aQL,-0.25*aQL,-0.0);
+        lvQualityLoss.add("S",-0.25*aQL,-0.0*aQL,0.0*aQL,0.25);
+        lvQualityLoss.add("I",0.0*aQL,0.25*aQL,1.0*aQL,1.0);
+        lvQualityLoss.add("IL",0.0*aQL,0.25*aQL,0.5*aQL,1.0);
+        lvQualityLoss.add("IH",0.5*aQL,0.8*aQL,1.0*aQL,1.0);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
             "if delay is NH then qualityloss is DH",
@@ -135,6 +149,7 @@ public class TranscodingAgent extends GridAgent {
         double qualityLoss = 0.0;
             try {
                 lvDelay.setInputValue(delay);
+                lvQuality.setInputValue(currentQuality);
                 lvQualityLoss.setInputValue(1.0-currentQuality);
                 fuzzyRules.evaluateBlock();
                 try {
@@ -149,8 +164,8 @@ public class TranscodingAgent extends GridAgent {
             if (currentQuality>1.0) {
                 currentQuality=1.0;
             }
-            if (currentQuality<0.68) {
-                currentQuality=0.68;
+            if (currentQuality<minQuality) {
+                currentQuality=minQuality;
             }
         return currentQuality;
     }
