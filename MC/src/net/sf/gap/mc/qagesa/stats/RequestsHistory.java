@@ -70,14 +70,41 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
     }
 
     public synchronized void setPlayRequests(double clock, int playRequests, boolean success) {
+            int rep = QAGESAStat.getReplication();
+            int nu = QAGESAStat.getNumUsers();
+            int ca = 0;
+            if (QAGESAStat.isCachingEnabled()) {
+                ca = 1;
+            }
+            int wm = QAGESAStat.getWhichMeasure();
         RequestsHistoryEntry entry = new RequestsHistoryEntry(clock - QAGESA.getStartTime(), playRequests);
         if (clock > QAGESA.getStartTime()) {
-            QAGESA.outReF_CR.println("CSV;ReF_CR;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + entry);
+            //QAGESA.outReF_CR.println("CSV;ReF_CR;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + entry);
+            double t = entry.getClock();
+            int r = entry.getPlayRequests();
+            QAGESA.outReF_CR.printf(
+                    "CSV\tReF_CR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    t,
+                    r);
         }
         if (success) {
             RequestsHistoryEntry pentry = new RequestsHistoryEntry(clock - QAGESA.getStartTime(), processed);
             if (clock > QAGESA.getStartTime()) {
-                QAGESA.outReF_PR.println("CSV;ReF_PR;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + pentry);
+                //QAGESA.outReF_PR.println("CSV;ReF_PR;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + pentry);
+                double t = pentry.getClock();
+                int r = pentry.getPlayRequests();
+                QAGESA.outReF_PR.printf(
+                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\n",
+                        rep,
+                        nu,
+                        ca,
+                        wm,
+                        t,
+                        r);
             }
         }
         this.add(entry);

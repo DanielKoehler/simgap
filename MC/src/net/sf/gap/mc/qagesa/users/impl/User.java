@@ -180,7 +180,7 @@ public class User extends QAGESAUser {
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
             QAGESA.outUSER.printf(
-                    "CSV;USERS_FT;%2d;%4d;%d;%d;%s;%6.2f;%6.2f;%6.4f\n",
+                    "CSV\tUSERS_FT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.6f\n",
                     rep,
                     nu,
                     ca,
@@ -212,7 +212,7 @@ public class User extends QAGESAUser {
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
             QAGESA.outUSER.printf(
-                    "CSV;USERS_ST;%2d;%4d;%d;%d;%s;%6.2f;%6.2f;%6.4f\n",
+                    "CSV\tUSERS_ST\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.4f\n",
                     rep,
                     nu,
                     ca,
@@ -244,7 +244,7 @@ public class User extends QAGESAUser {
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
             QAGESA.outUSER.printf(
-                    "CSV;USERS_RT;%2d;%4d;%d;%d;%s;%6.2f;%6.2f;%6.4f\n",
+                    "CSV\tUSERS_RT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.6f\n",
                     rep,
                     nu,
                     ca,

@@ -244,7 +244,7 @@ public class TranscodingAgent extends GridAgent {
             double gQLmean = QAGESAStat.getGlobalQualityLoss().getMean();
             double aQLmean = QAGESAStat.getAcceptableQualityLoss().getMean();
             QAGESA.outQoS.printf
-                    ("CSV;QoS;%2d;%4d;%d;%d;%6.2f;%6.2f;%6.2f;%1.3f;%1.3f;%1.3f\n",
+                    ("CSV\tQoS\t%2d\t%4d\t%d\t%d\t%6.2f\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f\n",
                     rep,
                     nu,
                     ca,
