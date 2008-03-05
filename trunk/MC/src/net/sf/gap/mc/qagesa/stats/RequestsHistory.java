@@ -96,15 +96,19 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
             if (clock > QAGESA.getStartTime()) {
                 //QAGESA.outReF_PR.println("CSV;ReF_PR;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + pentry);
                 double t = pentry.getClock();
-                int r = pentry.getPlayRequests();
+                int pr = pentry.getPlayRequests();
+                int cr = entry.getPlayRequests();
+                int wr=Math.max(cr-pr,0);
                 QAGESA.outReF_PR.printf(
-                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\n",
+                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\t%d\t%d\n",
                         rep,
                         nu,
                         ca,
                         wm,
                         t,
-                        r);
+                        pr,
+                        cr,
+                        wr);
             }
         }
         this.add(entry);
