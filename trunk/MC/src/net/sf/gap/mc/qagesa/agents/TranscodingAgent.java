@@ -195,7 +195,7 @@ public class TranscodingAgent extends GridAgent {
             double delay=(delta-neededDelta)/neededDelta;
             double updateQuality=predictQuality(delay,minQuality,currentQuality);
             double qualityLoss=currentQuality-updateQuality;
-            System.out.printf("FUZZY: (D, %2.3f) (CQ, %2.3f) (MQ, %2.3f) (UQ, %2.3f) (QL, %2.3f)\n", delay, currentQuality , minQuality, updateQuality, qualityLoss);
+            System.out.printf("FUZZY: (SN, %3d) (D, %2.3f) (CQ, %2.3f) (MQ, %2.3f) (UQ, %2.3f) (QL, %2.3f)\n", SN, delay, currentQuality , minQuality, updateQuality, qualityLoss);
             userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
         }
         sim_completed(ev);
