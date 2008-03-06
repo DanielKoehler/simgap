@@ -113,6 +113,9 @@ public class QAGESAConfigurator {
                                 outConf.println("thetaU         = 0.5");
                                 outConf.println("thetaR         = 0.25");
                                 }
+                                if (distribution[iDistribution].compareTo("scaled")==0) {
+                                outConf.println("linearDelta    = 0.318");
+                                }
                                 outConf.println("caching        = " + ca[iCA]);
                                 outConf.println("repeated       = " + re[iRE]);
                                 outConf.println("reuseagents    = " + ra[iRA]);
@@ -122,7 +125,7 @@ public class QAGESAConfigurator {
                                 outConf.println("accuracy       = 0.10");
 
                                 outConf.println("start          = 1000");
-                                int seconds = users[iUsers] * requests[iRequests] * 10;
+                                int seconds = users[iUsers] * requests[iRequests] * 60;
                                 int relax   = seconds - 100;
                                 outConf.println("end            = " + (1000+seconds));
                                 outConf.println("relax          = " + relax);
