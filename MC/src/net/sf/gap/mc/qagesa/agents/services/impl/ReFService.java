@@ -338,7 +338,7 @@ public class ReFService extends PlatformService {
         maxRetryCount = 1;
         retryCount = 0;
         while ((playRequest.isRandomSelection()) && (retryCount < maxRetryCount) && !doing) {
-            Uniform_int r = new Uniform_int("ReFService");
+            Uniform_int r = new Uniform_int("ReFService_rand");
             int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
             int seidx = r.sample(seList.size());
             ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
