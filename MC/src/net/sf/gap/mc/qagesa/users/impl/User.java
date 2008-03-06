@@ -411,8 +411,9 @@ public class User extends QAGESAUser {
                 long size = chunkRequest.getChunk().getOutputSize();
                 long MIPS = chunkRequest.getChunk().getMIPS();
                 int sn = chunkRequest.getChunk().getSequenceNumber();
+                double streamQuality = chunkRequest.getTranscodeRequest().updateQualityMean();
                 QAGESA.outUSER_QoS.printf(
-                        "CSV\tUSERS_QoS\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%d\t%d\t%d\t%6.4f\t%6.4f\t%6.4f\t%6.4f\n",
+                        "CSV USERS_QoS %2d %4d %1d %1d %12s %6.4f %2d %6d %4d %1.4f %1.4f %1.4f %1.4f %1.4f\n",
                         rep,
                         nu,
                         ca,
@@ -425,7 +426,8 @@ public class User extends QAGESAUser {
                         quality,
                         minQuality,
                         qualityLoss,
-                        aQL);
+                        aQL,
+                        streamQuality);
                 
                  ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
                 super.send(super.output, GridSimTags.SCHEDULE_NOW,

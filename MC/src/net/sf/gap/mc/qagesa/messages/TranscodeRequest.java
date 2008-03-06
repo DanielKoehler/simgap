@@ -22,6 +22,7 @@ package net.sf.gap.mc.qagesa.messages;
 import net.sf.gap.mc.qagesa.multimedia.ChunksSequence;
 import net.sf.gap.messages.Message;
 import net.sf.gap.messages.Request;
+import gridsim.Accumulator;
 import eduni.simjava.Sim_event;
 
 /**
@@ -39,6 +40,9 @@ public class TranscodeRequest extends Request {
         private int agentID;            // Used in reply
         
         private double quality;
+        
+        private Accumulator qualityMean;
+        
 
 	/**
 	 * Creates a new instance of TranscodeRequest
@@ -49,6 +53,7 @@ public class TranscodeRequest extends Request {
                 this.setPlayRequest(playRequest);
 		this.setStorageElementID(storageElementID);
                 this.setQuality(quality);
+                this.setQualityMean(new Accumulator());
 	}
 
 	public static TranscodeRequest get_data(Sim_event ev) {
@@ -116,5 +121,18 @@ public class TranscodeRequest extends Request {
     
     public double getMinQuality() {
         return this.getPlayRequest().getMinQuality();
+    }
+
+    public Accumulator getQualityMean() {
+        return qualityMean;
+    }
+
+    public void setQualityMean(Accumulator qualityMean) {
+        this.qualityMean = qualityMean;
+    }
+    
+    public double updateQualityMean() {
+        this.getQualityMean().add(this.getQuality());
+        return this.getQualityMean().getMean();
     }
 }
