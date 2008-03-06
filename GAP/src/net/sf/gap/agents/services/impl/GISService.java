@@ -140,15 +140,17 @@ public class GISService extends PlatformService {
 				.getNumCEs();
 		for (int i = 0; i < numCEs; i++) {
 			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
-			int geid = ge.get_id();
-			int numPEs = ge.getNumPE();
-			int numFreePEs = super.getNumFreePE(ge.get_id());
-			int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
-			int totalMIPS = ge.getTotalMIPS();
-			boolean SE = ge.isSE();
-			double MB_size = ge.getTotalStorageCapacity();
-			this.addEntry(geid, numPEs, numFreePEs, numFreeAgents, totalMIPS,
-					SE, MB_size, ge.getTotalLoad());
+                        int geid = ge.get_id();
+                        boolean SE = ge.isSE();
+                        int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+                        /*
+                        int numPEs = ge.getNumPE();
+                        int numFreePEs = super.getNumFreePE(ge.get_id());
+                        int totalMIPS = ge.getTotalMIPS();
+                        double MB_size = ge.getTotalStorageCapacity();
+                         */
+                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
+                                        SE, 0, ge.getTotalLoad());
 		}
 		this.getGisRepository().setLastRequestTime(super.clock());
                 double delay = rand.sample()*0.1;
