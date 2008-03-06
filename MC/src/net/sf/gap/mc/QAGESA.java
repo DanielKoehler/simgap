@@ -292,6 +292,7 @@ public class QAGESA {
     public static PrintStream outReF_CR;
     public static PrintStream outReF_PR;
     public static PrintStream outUSER;
+    public static PrintStream outUSER_QoS;
 
     private static void prepareOutput() {
         // Create a directory; all non-existent ancestor directories are
@@ -335,6 +336,8 @@ public class QAGESA {
             outReF_PR = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/" + usercsvName);
             outUSER = new PrintStream(new FileOutputStream(outFile, true));
+            outFile = new File(QAGESA.getOutputPath() + "/USERS_QoS.csv");
+            outUSER_QoS = new PrintStream(new FileOutputStream(outFile, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -347,6 +350,7 @@ public class QAGESA {
             outReF_CR.close();
             outReF_PR.close();
             outUSER.close();
+            outUSER_QoS.close();
             File usedConfFile = new File(usedConf);
             QAGESA.copywd(usedConf, getOutputPath() + "/" + usedConfFile.getName());
             QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");

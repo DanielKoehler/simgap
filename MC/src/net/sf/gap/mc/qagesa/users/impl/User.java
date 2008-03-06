@@ -396,6 +396,37 @@ public class User extends QAGESAUser {
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
 
+                int rep = QAGESAStat.getReplication();
+                int nu = QAGESAStat.getNumUsers();
+                int ca = 0;
+                if (QAGESAStat.isCachingEnabled()) {
+                    ca = 1;
+                }
+                int wm = QAGESAStat.getWhichMeasure();
+                double time = User.clock();
+                double quality = chunkRequest.getChunk().getQuality();
+                double minQuality = chunkRequest.getTranscodeRequest().getMinQuality();
+                double qualityLoss = 1.0-quality;
+                double aQL = 1.0 - minQuality;
+                long size = chunkRequest.getChunk().getOutputSize();
+                long MIPS = chunkRequest.getChunk().getMIPS();
+                int sn = chunkRequest.getChunk().getSequenceNumber();
+                QAGESA.outUSER_QoS.printf(
+                        "CSV\tUSERS_QoS\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%d\t%d\t%d\t%6.4f\t%6.4f\t%6.4f\t%6.4f\n",
+                        rep,
+                        nu,
+                        ca,
+                        wm,
+                        this.get_name(),
+                        time,
+                        sn,
+                        size,
+                        MIPS,
+                        quality,
+                        minQuality,
+                        qualityLoss,
+                        aQL);
+                
                  ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
                 super.send(super.output, GridSimTags.SCHEDULE_NOW,
                         QAGESATags.SEND_CHUNK_REP, new IO_data(chunkReply, 32, chunkRequest.getSrc_ID()));

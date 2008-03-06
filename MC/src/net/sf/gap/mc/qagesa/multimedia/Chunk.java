@@ -45,24 +45,27 @@ public class Chunk {
 	private long MIPS; // MIPS required for transcoding
 
 	private int duration; // Duration of chunk reproduction in milliseconds
+        
+        private double quality;
 
 	public Chunk() {
 	}
 
 	public Chunk(int sequenceNumber, long inputSize, long outputSize, long MIPS,
-			int duration) {
+			int duration, double quality) {
 		this.setSequenceNumber(sequenceNumber);
 		this.setInputSize(inputSize);
 		this.setOutputSize(outputSize);
 		this.setMIPS(MIPS);
 		this.setDuration(duration);
 		this.setTranscoded(false);
+                this.setQuality(quality);
 	}
 
 	@Override
 	public Chunk clone() {
 		return new Chunk(this.getSequenceNumber(), this.getInputSize(), this
-				.getOutputSize(), this.getMIPS(), this.getDuration());
+				.getOutputSize(), this.getMIPS(), this.getDuration(), this.getQuality());
 	}
 
 	/**
@@ -71,7 +74,7 @@ public class Chunk {
 	 */
 	public Chunk transcode(double quality) {
 		Chunk chunk = new Chunk(this.getSequenceNumber(), Math.round(this.getOutputSize()*quality*quality),
-				Math.round(this.getOutputSize()*quality*quality), 0, this.getDuration());
+				Math.round(this.getOutputSize()*quality*quality), 0, this.getDuration(), quality);
 		chunk.setTranscoded(true);
 		return chunk;
 	}
@@ -133,4 +136,12 @@ public class Chunk {
 	public void setTranscoded(boolean transcoded) {
 		this.transcoded = transcoded;
 	}
+
+    public double getQuality() {
+        return quality;
+    }
+
+    public void setQuality(double quality) {
+        this.quality = quality;
+    }
 }
