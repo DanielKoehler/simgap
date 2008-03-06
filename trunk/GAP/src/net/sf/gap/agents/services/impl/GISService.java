@@ -34,6 +34,7 @@ import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
+import eduni.simjava.distributions.Sim_random_obj;
 import gridsim.Accumulator;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
@@ -47,6 +48,7 @@ import gridsim.IO_data;
 public class GISService extends PlatformService {
 
 	private GISRepository gisRepository;
+        private Sim_random_obj rand;
 
 	/**
 	 * @param ap
@@ -57,11 +59,13 @@ public class GISService extends PlatformService {
 	public GISService(AbstractAgentPlatform ap, boolean trace_flag)
 			throws Exception {
 		super(ap, "GISService", trace_flag);
+                rand=new Sim_random_obj("GIS_delay");
 	}
 
 	public GISService(AbstractAgentPlatform ap, String name, boolean trace_flag)
 			throws Exception {
 		super(ap, name, trace_flag);
+                rand=new Sim_random_obj("GIS_delay");
 	}
 
 	@Override
@@ -147,6 +151,8 @@ public class GISService extends PlatformService {
 					SE, MB_size, ge.getTotalLoad());
 		}
 		this.getGisRepository().setLastRequestTime(super.clock());
+                double delay = rand.sample()*0.25;
+                super.sim_process(delay);
 	}
 
 	public GISEntry addEntry(int geid, int numPEs, int numFreePEs,
