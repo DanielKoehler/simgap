@@ -413,7 +413,7 @@ public class User extends QAGESAUser {
                 int sn = chunkRequest.getChunk().getSequenceNumber();
                 double streamQuality = chunkRequest.getTranscodeRequest().updateQualityMean();
                 QAGESA.outUSER_QoS.printf(
-                        "CSV USERS_QoS %2d %4d %1d %1d %12s %6.4f %2d %6d %4d %1.4f %1.4f %1.4f %1.4f %1.4f\n",
+                        "CSV\tUSERS_QoS\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
                         rep,
                         nu,
                         ca,
