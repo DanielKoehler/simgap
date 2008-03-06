@@ -111,8 +111,8 @@ public class ReFService extends PlatformService {
         Sim_stat stat = new Sim_stat();
         int[] tags = {QAGESATags.REF_PLAY_REQ};
         stat.measure_for(tags);
-        stat.add_measure(Sim_stat.RESIDENCE_TIME);
         stat.add_measure(Sim_stat.SERVICE_TIME);
+        stat.add_measure(Sim_stat.RESIDENCE_TIME);
         stat.add_measure(Sim_stat.ARRIVAL_RATE);
         stat.add_measure(Sim_stat.QUEUE_LENGTH);
         stat.add_measure(Sim_stat.WAITING_TIME);
@@ -454,11 +454,11 @@ public class ReFService extends PlatformService {
         Sim_event ev = new Sim_event();
         Predicate predicate = new Predicate(QAGESATags.GIS_REPLY);
         super.sim_get_next(predicate, ev); // only look for this type of ack
+        double evrecv_time = GridSim.clock();
         GISReply reply = GISReply.get_data(ev);
         Assert.assertEquals(requestID, reply.getRequestID());
         Assert.assertEquals(QAGESATags.GIS_REQUEST, reply.getRequestTAG());
         Assert.assertEquals(QAGESATags.GIS_REPLY, ev.get_tag());
-        double evrecv_time = GridSim.clock();
         msg = String.format("%1$f %2$d %3$s <-- CEL CEL_SEARCH_REPLY",
                 evrecv_time, reqrepID, this.get_name());
         this.write(msg);

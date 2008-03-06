@@ -151,7 +151,7 @@ public class GISService extends PlatformService {
 					SE, MB_size, ge.getTotalLoad());
 		}
 		this.getGisRepository().setLastRequestTime(super.clock());
-                double delay = rand.sample()*0.25;
+                double delay = rand.sample()*0.1;
                 super.sim_process(delay);
 	}
 
