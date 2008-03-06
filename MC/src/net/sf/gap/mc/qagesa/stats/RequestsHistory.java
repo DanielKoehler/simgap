@@ -99,8 +99,9 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
                 int pr = pentry.getPlayRequests();
                 int cr = entry.getPlayRequests();
                 int wr=Math.max(cr-pr,0);
+                double prThroughput = (pr*1.0)/t;
                 QAGESA.outReF_PR.printf(
-                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\t%d\t%d\n",
+                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\t%d\t%d\t%6.4f\n",
                         rep,
                         nu,
                         ca,
@@ -108,7 +109,8 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
                         t,
                         pr,
                         cr,
-                        wr);
+                        wr,
+                        prThroughput);
             }
         }
         this.add(entry);
