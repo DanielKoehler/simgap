@@ -444,8 +444,9 @@ public class ReFService extends PlatformService {
         GISRequest request = new GISRequest(this.get_id(), this.get_id());
         int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
+        int gis_id = super.getEntityId("GISService");
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                QAGESATags.GIS_REQUEST, new IO_data(request, SIZE, super.getEntityId("GISService")));
+                QAGESATags.GIS_REQUEST, new IO_data(request, SIZE, gis_id));
         evsend_time = GridSim.clock();
         String msg = String.format("%1$f %2$d %3$s --> CEL CEL_SEARCH_REQUEST",
                 evsend_time, reqrepID, this.get_name());
