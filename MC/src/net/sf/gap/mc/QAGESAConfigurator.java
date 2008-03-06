@@ -57,7 +57,7 @@ public class QAGESAConfigurator {
                     for (int iUsers=0;iUsers<users.length;iUsers++) {
                         int[] requests = {1};
                         for (int iRequests=0;iRequests<requests.length;iRequests++) {
-                            String[] distribution = {"linear","scaled","zipf"};
+                            String[] distribution = {"linear","scaled","top","zipf"};
                             for (int iDistribution=0;iDistribution<distribution.length;iDistribution++) {
                                 boolean[] ca = {false,true};
                                 for (int iCA=0;iCA<ca.length;iCA++) {
@@ -125,10 +125,14 @@ public class QAGESAConfigurator {
                                 outConf.println("accuracy       = 0.10");
 
                                 outConf.println("start          = 1000");
+                                outConf.println("end            = 2000");
+                                outConf.println("relax          = 400");
+                                /*
                                 int seconds = users[iUsers] * requests[iRequests] * 60;
                                 int relax   = seconds - 100;
                                 outConf.println("end            = " + (1000+seconds));
                                 outConf.println("relax          = " + relax);
+                                 */
                                 outConf.close();
                                         }
                                     }
