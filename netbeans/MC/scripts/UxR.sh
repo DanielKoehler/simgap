@@ -13,7 +13,7 @@ ROUTER=0
 while [ $ROUTER -ne $NROUTERS ]
 do
 	FINAL=$WHERE/USERS_R$ROUTER.dat
-	cat $FNAME | awk '{print $3 "\t" $7 "\t" $8 "\t" $9 "\t" $10}' | awk -F "_" '{print $1 "\t" $2}' | awk '{print $3 % 4 "\t" $4 "\t" $5 "\t" $6}'  | grep "^$ROUTER"  > $FINAL
+	cat $FNAME | awk '{print $3 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}' | awk -F "_" '{print $1 "\t" $2}' | awk '{print $3 % 4 "\t" $4 "\t" $5 "\t" $6 "\t" $7}'  | grep "^$ROUTER"  > $FINAL
         ROUTER=$(( $ROUTER + 1 ))
 done
 
