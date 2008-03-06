@@ -53,13 +53,13 @@ public class QAGESAConfigurator {
                         default:
                             break;
                     }
-                    int[] users = {64,128};
+                    int[] users = {1,64,128};
                     for (int iUsers=0;iUsers<users.length;iUsers++) {
                         int[] requests = {1};
                         for (int iRequests=0;iRequests<requests.length;iRequests++) {
                             String[] distribution = {"linear","scaled","top","zipf"};
                             for (int iDistribution=0;iDistribution<distribution.length;iDistribution++) {
-                                boolean[] ca = {false,true};
+                                boolean[] ca = {false};
                                 for (int iCA=0;iCA<ca.length;iCA++) {
                                     //boolean[] re = {false, true};
                                     boolean[] re = {true};
