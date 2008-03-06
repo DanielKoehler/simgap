@@ -36,25 +36,17 @@ public class Movie {
 
 	private String format; // Multimedia Content Format
 
-	private int totalDuration; // Total duration in milliseconds
-
-	private int totalSize; // Total original file size in bytes
-
 	// associated to a movie
 
-	public Movie(String name, String format, int totalDuration, int totalSize) {
+	public Movie(String name, String format) {
 		this.setName(name);
 		this.setFormat(format);
-		this.setTotalDuration(totalDuration);
-		this.setTotalSize(totalSize);
 	}
 
 	public String toString() {
 		String msg = "";
 		msg += "MOVIE[" + "(NAME, " + this.getName() + "), " + "(FORMAT, "
-				+ this.getFormat() + "), " + "(DURATION, "
-				+ this.getTotalDuration() + "), " + "(FILESIZE, "
-				+ this.getTotalSize() + ")" + "]";
+				+ this.getFormat() + "), " + "]";
 		return msg;
 	}
 
@@ -64,22 +56,6 @@ public class Movie {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getTotalDuration() {
-		return totalDuration;
-	}
-
-	public void setTotalDuration(int totalDuration) {
-		this.totalDuration = totalDuration;
-	}
-
-	public int getTotalSize() {
-		return totalSize;
-	}
-
-	public void setTotalSize(int totalSize) {
-		this.totalSize = totalSize;
 	}
 
 	public String getFormat() {

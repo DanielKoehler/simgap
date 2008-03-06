@@ -52,16 +52,6 @@ public class MoviesSet extends HashMap<String, Movie> {
 		this.csvRead(csvname);
 	}
 
-	public int getStorageSize() {
-		int storageSize = 0;
-		int movies = this.values().size();
-		for (int j = 0; j < movies; j++) {
-			Movie movie = (Movie) this.values().toArray()[j];
-			storageSize += movie.getTotalSize();
-		}
-		return storageSize;
-	}
-
 	public String toString() {
 		String msg = "";
 		int movies = this.values().size();
@@ -86,13 +76,7 @@ public class MoviesSet extends HashMap<String, Movie> {
 			while (reader.readRecord()) {
 				String strName = reader.get("Name");
 				String strFormat = reader.get("Format");
-				String strTotalDuration = reader.get("TotalDuration");
-				String strTotalSize = reader.get("TotalSize");
-
-				int iTotalDuration = Integer.parseInt(strTotalDuration);
-				int iTotalSize = Integer.parseInt(strTotalSize);
-				Movie movie = new Movie(strName, strFormat, iTotalDuration,
-						iTotalSize);
+				Movie movie = new Movie(strName, strFormat);
 				this.put(strName, movie);
 			}
 

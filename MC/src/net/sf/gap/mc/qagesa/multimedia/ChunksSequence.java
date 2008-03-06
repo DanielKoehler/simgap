@@ -39,8 +39,7 @@ public class ChunksSequence extends Vector<Chunk> {
 	private String operationParameters; // Transcoding operation parameters
 
 	private String messageDigest; // MD5 Message Digest used to identify any
-	// chunk sequence
-
+        
 	/**
 	 * 
 	 */
@@ -76,6 +75,16 @@ public class ChunksSequence extends Vector<Chunk> {
 			inputSize += chunk.getInputSize();
 		}
 		return inputSize;
+	}
+
+	public int getDuration() {
+		int duration = 0;
+		int chunks = this.size();
+		for (int j = 0; j < chunks; j++) {
+			Chunk chunk = this.get(j);
+			duration += chunk.getDuration();
+		}
+		return duration;
 	}
 
 	public boolean isTranscoded() {
