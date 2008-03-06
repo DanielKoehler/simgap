@@ -18,10 +18,9 @@
         <mkdir dir="${redist.dir}"/>
         <mkdir dir="${redist.dir}/conf"/>
         <mkdir dir="${redist.dir}/measures"/>
+        <mkdir dir="${redist.dir}/plot"/>
         <mkdir dir="${redist.dir}/scripts"/>
         <mkdir dir="${redist.dir}/xml"/>
-        <mkdir dir="${redist.dir}/output"/>
-        <mkdir dir="${redist.dir}/output/tmp"/>
         <delete dir="${zip.dir}"/>
         <mkdir dir="${zip.dir}"/>
         <!-- Copying project's jar and libraries jars -->
@@ -40,6 +39,9 @@
         </copy>
         <copy todir="${redist.dir}/measures">
             <fileset dir="measures"/>
+        </copy>
+        <copy todir="${redist.dir}/plot">
+            <fileset dir="plot"/>
         </copy>
         <copy todir="${redist.dir}/scripts">
             <fileset dir="scripts"/>
