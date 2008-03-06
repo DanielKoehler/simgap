@@ -11,7 +11,6 @@ plot 'QoS.csv' using 7:10 with lines title "Grid Load" linecolor rgb 'red' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue'  
 set autoscale
 unset yrange
-set xrange[0.0:60.0]
 set yrange[0.0:]
 set output 'ST.png'
 plot 'USERS_R0.dat' using 2:4 with lines, \
