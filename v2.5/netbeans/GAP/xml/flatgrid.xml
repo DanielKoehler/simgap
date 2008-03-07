@@ -1,0 +1,242 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<!--
+    Document   : flatgrid.xml
+    Created on : 21 January 2008, 9.50
+    Author     : Giovanni Novelli
+    Description:
+        A simple example of scenario with a flat grid (single implicit VO)
+-->
+
+<scenario  name="flatgrid" trace="false" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="scenario.xsd"
+           xsi:type="SimulationScenarioType">
+    <topology>
+        <routers>
+            <routerItem name="R_0"/>
+            <routerItem name="R_1"/>
+            <routerItem name="R_2"/>
+            <routerItem name="R_3"/>
+        </routers>
+        <ges>
+            <geItem name="CE_0"/>
+            <geItem name="CE_1"/>
+            <geItem name="CE_2"/>
+            <geItem name="CE_3"/>
+            <geItem name="SE_0"/>
+            <geItem name="SE_1"/>
+        </ges>
+        <netLinks>
+            <netLinkItem name="L_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_0</fromEntity>
+                <toEntity>R_1</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="L_1">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_0</fromEntity>
+                <toEntity>R_2</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="L_2">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_1</fromEntity>
+                <toEntity>R_2</toEntity>
+                <bidirectional>false</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="L_3">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>R_2</fromEntity>
+                <toEntity>R_3</toEntity>
+            </netLinkItem>
+        </netLinks>
+        <geLinks>
+            <geLinkItem name="L_CE_0">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_0</fromEntity>
+                <toEntity>R_0</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_CE_1">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_1</fromEntity>
+                <toEntity>R_1</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_CE_2">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_2</fromEntity>
+                <toEntity>R_2</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_CE_3">
+                <Baudrate>100000000.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>CE_3</fromEntity>
+                <toEntity>R_3</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_SE_0">
+                <Baudrate>100.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>SE_0</fromEntity>
+                <toEntity>R_0</toEntity>
+            </geLinkItem>
+            <geLinkItem name="L_SE_1">
+                <Baudrate>100.0</Baudrate>
+                <Delay>4.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>SE_1</fromEntity>
+                <toEntity>R_1</toEntity>
+            </geLinkItem>
+        </geLinks>
+    </topology>
+    <grid>
+        <gridElement name="CE_0">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_0</link>
+        </gridElement>
+        <gridElement name="CE_1">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_1</link>
+        </gridElement>
+        <gridElement name="CE_2">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_2</link>
+        </gridElement>
+        <gridElement name="CE_3">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>L_CE_3</link>
+        </gridElement>
+        <gridElement name="SE_0">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM_SE_0"/>
+                <hdList>
+                    <hdItem name="HD_0_SE_0">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+                <tapeList>
+                    <tapeItem name="TAPE_0_SE_0">
+                        <Capacity>100000</Capacity>
+                        <AccessTime>142.0</AccessTime>
+                        <RewindTime>284.0</RewindTime>
+                        <MaxTransferRate>8.0</MaxTransferRate>
+                    </tapeItem>
+                </tapeList>
+            </storage>
+            <link>L_SE_0</link>
+        </gridElement>
+        <gridElement name="SE_1">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM_SE_1"/>
+                <hdList>
+                    <hdItem name="HD_0_SE_1">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>L_SE_1</link>
+        </gridElement>
+    </grid>
+</scenario>
