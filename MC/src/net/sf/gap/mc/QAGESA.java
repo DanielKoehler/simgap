@@ -56,6 +56,7 @@ public class QAGESA {
     public static int div;
     public static int expansion;
     public static double beta;
+    public static double qosloss;
     
     public static String getOutputPath() {
         return outputPath;
@@ -143,6 +144,8 @@ public class QAGESA {
         expansion = Integer.parseInt(prop);
         prop = conf.getProperty("beta");
         beta = Double.parseDouble(prop);
+        prop = conf.getProperty("qosloss");
+        qosloss = Double.parseDouble(prop);
         prop = conf.getProperty("distribution");
         String distribution = prop;
         if (prop != null) {
