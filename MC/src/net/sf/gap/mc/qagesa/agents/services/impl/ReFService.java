@@ -273,7 +273,7 @@ public class ReFService extends PlatformService {
         while (it.hasNext()) {
             int ceID = it.next();
             GISEntry gisEntry = this.getGisRepositoryCache().get(ceID);
-            double load = (gisEntry.getLoad().getMean());
+            double ceCPULoad = gisEntry.getLoad().getMean();
             RTTMap rttMap = this.getNetworkMapCache().get(ceID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);
@@ -291,6 +291,9 @@ public class ReFService extends PlatformService {
                     QAGESAGridElement ge = (QAGESAGridElement) Sim_system.get_entity(eid);
                     if (ge.isSE()) {
                         int seID = eid;
+                        GISEntry seGISEntry = this.getGisRepositoryCache().get(seID);
+                        double seIOLoad = seGISEntry.getMeanIOLoad();
+                        double load = ceCPULoad*0.318+seIOLoad*0.681;
                         InfoPacket pkt = rttMap.get(seID);
                         double latency = pkt.getTotalResponseTime() / 2.0;
                         ReFTriple triple = new ReFTriple(load, latency + userLatency, ceID, seID);

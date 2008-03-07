@@ -58,6 +58,7 @@ public class QAGESAGridElement extends GridElement {
 	@Override
 	protected void processCustomEvents(Sim_event ev) {
 		switch (ev.get_tag()) {
+                
 		case QAGESATags.GET_CHUNK_REQ:
                     ChunkRequest request = ChunkRequest.get_data(ev);
                     ChunksSequence sequence = this.getTranscodingSet().get(request.getMovieTag());
@@ -92,7 +93,6 @@ public class QAGESAGridElement extends GridElement {
                 ca=1;
             }
             int wm = QAGESAStat.getWhichMeasure();
-            if (this.isSE()) {
                 QAGESA.outSE_IO.printf
                         ("CSV\tSE_IO\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
                         rep,
@@ -109,24 +109,6 @@ public class QAGESAGridElement extends GridElement {
                         this.getTotalBytes().getMean(),
                         this.getLoad()
                         );
-            } else {
-                QAGESA.outCE_IO.printf
-                        ("CSV\tCE_IO\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
-                        rep,
-                        nu,
-                        ca,
-                        wm,
-                        time,
-                        this.get_name(),
-                        this.getInputBytes().getSum(),
-                        this.getOutputBytes().getSum(),
-                        this.getTotalBytes().getSum(),
-                        this.getInputBytes().getMean(),
-                        this.getOutputBytes().getMean(),
-                        this.getTotalBytes().getMean(),
-                        this.getLoad()
-                        );
-            }
         }
 
 	public boolean addSequence(String movieTag, ChunksSequence sequence) {
