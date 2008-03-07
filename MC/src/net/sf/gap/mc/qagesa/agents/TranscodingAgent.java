@@ -197,7 +197,55 @@ public class TranscodingAgent extends GridAgent {
             double delay=(delta-neededDelta)/neededDelta;
             double updateQuality=predictQuality(delay,minQuality,currentQuality);
             double qualityLoss=currentQuality-updateQuality;
-            System.out.printf("FUZZY: (SN, %3d) (D, %2.3f) (CQ, %2.3f) (MQ, %2.3f) (UQ, %2.3f) (QL, %2.3f)\n", SN, delay, currentQuality , minQuality, updateQuality, qualityLoss);
+            
+            int rep=QAGESAStat.getReplication();
+            int nu = QAGESAStat.getNumUsers();
+            int ca=0;
+            if (QAGESAStat.isCachingEnabled()) {
+                ca=1;
+            }
+            int wm = QAGESAStat.getWhichMeasure();
+            double time = this.clock()-QAGESA.getStartTime();
+            double pGIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime())*0.001;
+            double cGIPS = QAGESAStat.getComputedMIPS()*0.001;
+            double gLoad =1.0;
+            double temp = cGIPS/pGIPS;
+            if (temp<=1.0) {
+                gLoad= temp;
+            }
+            double gQLmean = QAGESAStat.getGlobalQualityLoss().getMean();
+            ChunkRequest chunkRequest = userChunkReply.getRequest();
+            double aQLmean = QAGESAStat.getAcceptableQualityLoss().getMean();
+            double previousQuality = chunkRequest.getChunk().getQuality();
+            double aQL = 1.0 - minQuality;
+            long size = chunkRequest.getChunk().getOutputSize();
+            long MIPS = chunkRequest.getChunk().getMIPS();
+            int sn = chunkRequest.getChunk().getSequenceNumber();
+            double streamQuality = chunkRequest.getTranscodeRequest().getQualityMean().getMean();
+            String user = Sim_system.get_entity(userChunkReply.getRequest().getUserID()).get_name();
+            QAGESA.outFuzzy_QoS.printf
+                    ("CSV\tFuzzy_QoS\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    time,
+                    this.get_name(),
+                    cGIPS,
+                    pGIPS,
+                    gLoad,
+                    gQLmean,
+                    aQLmean);
+            QAGESA.outFuzzy_QoS.printf("\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
+                    sn,
+                    size,
+                    MIPS,
+                    previousQuality,
+                    streamQuality,
+                    minQuality,
+                    qualityLoss,
+                    aQL);
+            
             userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
         }
         sim_completed(ev);
