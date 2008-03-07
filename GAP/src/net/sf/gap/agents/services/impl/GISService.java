@@ -176,7 +176,7 @@ public class GISService extends PlatformService {
 	public void processGIS() {
             this.updateCEs();
             this.updateSEs();
-		this.getGisRepository().setLastRequestTime(super.clock());
+		this.getGisRepository().setLastRequestTime(PlatformService.clock());
                 double delay = rand.sample()*0.1;
                 super.sim_process(delay);
 	}
