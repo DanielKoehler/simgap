@@ -152,7 +152,7 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
         int nc = currentSequence.size();
         for (int k = 0; k < QAGESA.expansion; k++) {
             for (int n = 0; n < nc; n++) {
-                int nsn = k*nc + n + 1;
+                int nsn = k*QAGESA.expansion + n + 1;
                 Chunk chunk = currentSequence.get(n).clone();
                 chunk.setSequenceNumber(nsn);
                 sequence.add(chunk);
