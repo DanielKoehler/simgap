@@ -115,7 +115,7 @@ public class GridElement extends AbstractGridElement {
     }
 
     public void updateLoad() {
-        this.getIOLoad().add(this.getLoad());
+        this.getIOLoad().add((this.getTotalBytes().getMean()*8.0)/(this.getBaudrate()*mbFactor));
     }
     
     public void setIOLoad(Accumulator IOLoad) {
