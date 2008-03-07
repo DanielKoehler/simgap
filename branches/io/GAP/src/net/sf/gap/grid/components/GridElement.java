@@ -31,14 +31,6 @@ import gridsim.net.Link;
  * @author Giovanni Novelli
  */
 public class GridElement extends AbstractGridElement {
-    private Accumulator inputBytes;
-    private Accumulator outputBytes;
-    private Accumulator totalBytes;
-    private Accumulator IOLoad;
-    private double meanIOLoad;
-    
-    protected static final double mbFactor = 0.000001;
-    private double baudrate;
         
 	/** Creates a new instance of StorageElement */
 	public GridElement(String name, Link link,
@@ -47,11 +39,6 @@ public class GridElement extends AbstractGridElement {
 			throws Exception {
 		super(name, link, resourceCharacteristics, resourceCalendar,
 				replicaManager);
-                this.setInputBytes(new Accumulator());
-                this.setOutputBytes(new Accumulator());
-                this.setTotalBytes(new Accumulator());
-                this.setMeanIOLoad(0.0);
-                this.setBaudrate(link.getBaudRate());
 	}
 
 	@Override
@@ -61,82 +48,6 @@ public class GridElement extends AbstractGridElement {
 			break;
 		}
 	}
-
-    public Accumulator getInputBytes() {
-        return inputBytes;
-    }
-
-    public Accumulator getOutputBytes() {
-        return outputBytes;
-    }
-
-    public Accumulator getTotalBytes() {
-        return totalBytes;
-    }
-
-    public void incInputBytes(long inc, double time) {
-        getInputBytes().add(inc*mbFactor);
-        this.incTotalBytes(inc*mbFactor);
-        this.reportIO(time);
-    }
-    
-    public void incOutputBytes(long inc, double time) {
-        getOutputBytes().add(inc*mbFactor);
-        this.incTotalBytes(inc*mbFactor);
-        this.reportIO(time);
-    }
-    
-    private void incTotalBytes(double inc) {
-        getTotalBytes().add(inc);
-        //this.updateLoad();
-    }
     
     protected void reportIO(double time) {}
-
-    public void setInputBytes(Accumulator inputBytes) {
-        this.inputBytes = inputBytes;
-    }
-
-    public void setOutputBytes(Accumulator outputBytes) {
-        this.outputBytes = outputBytes;
-    }
-
-    public void setTotalBytes(Accumulator totalBytes) {
-        this.totalBytes = totalBytes;
-    }
-
-    public double getBaudrate() {
-        return baudrate;
-    }
-
-    public void setBaudrate(double baudrate) {
-        this.baudrate = baudrate;
-    }
-
-    public Accumulator getIOLoad() {
-        return IOLoad;
-    }
-
-    public void updateLoad() {
-        double load = (this.getTotalBytes().getMean()*8.0)/(this.getBaudrate()*mbFactor);
-        this.getIOLoad().add(load);
-        this.setMeanIOLoad(load);
-    }
-    
-    public void setIOLoad(Accumulator IOLoad) {
-        this.IOLoad = IOLoad;
-    }
-
-    public double getLoad() {
-      double load = (this.getTotalBytes().getMean()*8.0)/(this.getBaudrate()*mbFactor);
-      return load;
-    }
-
-    public double getMeanIOLoad() {
-        return meanIOLoad;
-    }
-
-    public void setMeanIOLoad(double meanIOLoad) {
-        this.meanIOLoad = meanIOLoad;
-    }
 }

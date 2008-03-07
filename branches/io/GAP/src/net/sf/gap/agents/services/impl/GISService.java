@@ -29,7 +29,7 @@ import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.impl.gis.GISEntry;
 import net.sf.gap.agents.services.impl.gis.GISRepository;
 import net.sf.gap.constants.Tags;
-import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
 import eduni.simjava.Sim_event;
@@ -76,13 +76,13 @@ public class GISService extends PlatformService {
                 if (this.getAgentPlatform().getVirtualOrganization().getScenario()==null) {
                     for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
                                     .getNumCEs(); i++) {
-                            GridElement ce = (GridElement) Sim_system
+                            AbstractGridElement ce = (AbstractGridElement) Sim_system
                                             .get_entity("CE_" + i);
                             this.getGisRepository().addGE(ce);
                     }
                     for (int i = 0; i < this.getAgentPlatform().getVirtualOrganization()
                                     .getNumSEs(); i++) {
-                            GridElement se = (GridElement) Sim_system
+                            AbstractGridElement se = (AbstractGridElement) Sim_system
                                             .get_entity("SE_" + i);
                             this.getGisRepository().addGE(se);
                     }
@@ -93,7 +93,7 @@ public class GISService extends PlatformService {
                                     .getNumSEs(); i++) {
                         String gename = 
                                 this.getAgentPlatform().getVirtualOrganization().getScenario().getGrid().getGridElements().get(i).getName();
-                            GridElement ge = (GridElement) Sim_system
+                            AbstractGridElement ge = (AbstractGridElement) Sim_system
                                             .get_entity(gename);
                             this.getGisRepository().addGE(ge);
                     }
@@ -139,7 +139,7 @@ public class GISService extends PlatformService {
 		int numCEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumCEs();
 		for (int i = 0; i < numCEs; i++) {
-			GridElement ge = (GridElement) this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
+			AbstractGridElement ge = (AbstractGridElement) this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
                         int geid = ge.get_id();
                         boolean SE = ge.isSE();
                         int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
@@ -167,12 +167,12 @@ public class GISService extends PlatformService {
 
 			for (int i = 0; i < this.getAgentPlatform()
 					.getVirtualOrganization().getNumCEs(); i++) {
-				GridElement ce = (GridElement) this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
+				AbstractGridElement ce = (AbstractGridElement) this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
 				this.getGisRepository().addGE(ce);
 			}
 			for (int i = 0; i < this.getAgentPlatform()
 					.getVirtualOrganization().getNumSEs(); i++) {
-				GridElement se = (GridElement) this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
+				AbstractGridElement se = (AbstractGridElement) this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
 				this.getGisRepository().addGE(se);
 			}
 		}
