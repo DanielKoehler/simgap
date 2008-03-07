@@ -1,0 +1,4 @@
+#!/bin/sh
+lcg-del   -a lfn:/dpm/ct.pi2s2.it/home/cometa/gap/jre15.tar.bz2 &> /dev/null
+lcg-del   -a lfn:/dpm/ct.pi2s2.it/home/cometa/gap/MC.zip &> /dev/null
+lfc-rm  -f  /dpm/ct.pi2s2.it/home/cometa/gap &> /dev/null
