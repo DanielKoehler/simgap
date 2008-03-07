@@ -20,6 +20,7 @@
 package net.sf.gap.mc.qagesa.grid.components;
 
 import eduni.simjava.Sim_event;
+import gridsim.Accumulator;
 import gridsim.GridSimTags;
 import gridsim.IO_data;
 import gridsim.ResourceCalendar;
@@ -27,6 +28,7 @@ import gridsim.ResourceCharacteristics;
 import gridsim.datagrid.ReplicaManager;
 import gridsim.net.Link;
 import net.sf.gap.grid.components.GridElement;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
 import net.sf.gap.mc.qagesa.messages.ChunkReply;
 import net.sf.gap.mc.qagesa.messages.ChunkRequest;
@@ -34,6 +36,7 @@ import net.sf.gap.mc.qagesa.messages.TranscodeRequest;
 import net.sf.gap.mc.qagesa.multimedia.Chunk;
 import net.sf.gap.mc.qagesa.multimedia.ChunksSequence;
 import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
+import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 
 /**
  * 
@@ -41,7 +44,7 @@ import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
  */
 public class QAGESAGridElement extends GridElement {
 	private TranscodingSet transcodingSet;
-
+        
 	/** Creates a new instance of StorageElement */
 	public QAGESAGridElement(String name, Link link,
 			ResourceCharacteristics resourceCharacteristics,
@@ -60,8 +63,13 @@ public class QAGESAGridElement extends GridElement {
                     ChunksSequence sequence = this.getTranscodingSet().get(request.getMovieTag());
                     Chunk chunk = sequence.get(request.getSequenceNumber()-1);
                     ChunkReply reply = new ChunkReply(ev.get_tag(), true, request, chunk);
+                    incOutputBytes(chunk.getInputSize());
+                    incTotalBytes(chunk.getInputSize());
+                    this.reportIO(ev.event_time());
+                    //super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    //                QAGESATags.GET_CHUNK_REP, new IO_data(reply, SIZE, request.getSrc_ID()));
                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, SIZE, request.getSrc_ID()));
+                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, chunk.getOutputSize(), request.getSrc_ID()));
 			break;
 
 		case QAGESATags.CACHE_CHUNKS_REQ:
@@ -69,12 +77,41 @@ public class QAGESAGridElement extends GridElement {
                     ChunksSequence transcodedSequence = cacheRequest.getSequence();
                     String md5 = transcodedSequence.getMessageDigest();
                     this.addSequence(md5,transcodedSequence);
+                    incInputBytes(transcodedSequence.getOutputSize());
+                    incTotalBytes(transcodedSequence.getOutputSize());
+                    this.reportIO(ev.event_time());
 			break;
 
 		default:
 			break;
 		}
 	}
+        
+        private void reportIO(double time) {
+            int rep=QAGESAStat.getReplication();
+            int nu = QAGESAStat.getNumUsers();
+            int ca=0;
+            if (QAGESAStat.isCachingEnabled()) {
+                ca=1;
+            }
+            int wm = QAGESAStat.getWhichMeasure();
+            QAGESA.outSE_IO.printf
+                    ("CSV\tSE_IO\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
+                    rep,
+                    nu,
+                    ca,
+                    wm,
+                    time,
+                    this.get_name(),
+                    this.getInputBytes().getSum(),
+                    this.getOutputBytes().getSum(),
+                    this.getTotalBytes().getSum(),
+                    this.getInputBytes().getMean(),
+                    this.getOutputBytes().getMean(),
+                    this.getTotalBytes().getMean(),
+                    this.getLoad()
+                    );
+        }
 
 	public boolean addSequence(String movieTag, ChunksSequence sequence) {
 		if (this.isSE() && sequence != null) {
@@ -105,4 +142,9 @@ public class QAGESAGridElement extends GridElement {
 	public void setTranscodingSet(TranscodingSet transcodingSet) {
 		this.transcodingSet = transcodingSet;
 	}
+
+    public synchronized double getLoad() {
+      double load = (this.getTotalBytes().getMean()*8.0)/(this.getBaudrate()*mbFactor);
+      return load;
+    }
 }
