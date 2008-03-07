@@ -324,7 +324,7 @@ public class TranscodingAgent extends GridAgent {
                 transcodeRequest.setSequence(transcodedSequence);
                 reqrepID = transcodeRequest.getReqrepID();
                 super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                        QAGESATags.CACHE_CHUNKS_REQ, new IO_data(transcodeRequest, transcodeRequest.getSequence().getInputSize(), transcodeRequest.getStorageElementID()));
+                        QAGESATags.CACHE_CHUNKS_REQ, new IO_data(transcodeRequest, transcodedSequence.getOutputSize(), transcodeRequest.getStorageElementID()));
                 double evsend_time = GridSim.clock();
                 msg = String.format(
                         "%1$f %2$d %3$s --> %4$s CACHE_CHUNKS %5$s",
