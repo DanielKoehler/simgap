@@ -1,3 +1,4 @@
+pwd
 reset
 set autoscale
 unset log                              	# remove any log-scaling
@@ -32,3 +33,4 @@ set yrange[0.0:1.0]
 set output 'ST_PMEAN.png'
 plot 'USERS_MEAN.dat' using 3:xticlabels(1) linecolor rgb "green" title "% Streaming Time"
 unset output
+exit
