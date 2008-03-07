@@ -130,7 +130,7 @@ public class TranscodingAgent extends GridAgent {
             double time = this.clock()-QAGESA.getStartTime();
             double cGIPS = QAGESAStat.getComputedMIPS()*0.001;
             double gLoad =1.0;
-            double temp = cGIPS/pGIPS;
+            double temp = cGIPS/pGIPS+QAGESA.gridload;
             if (temp<=1.0) {
                 gLoad= temp;
             }
