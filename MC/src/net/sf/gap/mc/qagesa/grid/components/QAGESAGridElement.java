@@ -61,7 +61,7 @@ public class QAGESAGridElement extends GridElement {
                     Chunk chunk = sequence.get(request.getSequenceNumber()-1);
                     ChunkReply reply = new ChunkReply(ev.get_tag(), true, request, chunk);
                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, chunk.getInputSize(), request.getSrc_ID()));
+                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, SIZE, request.getSrc_ID()));
 			break;
 
 		case QAGESATags.CACHE_CHUNKS_REQ:
