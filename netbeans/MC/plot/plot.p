@@ -6,14 +6,14 @@ unset label                            	# remove any previous labels
 set xlabel "Simulation Time in seconds"
 set yrange[0.0:1.0]
 set terminal png
-set output 'QoS.png'
+set output '../png/QoS.png'
 plot 'QoS.csv' using 7:10 with lines title "Grid Load" linecolor rgb 'red' , \
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'green' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue'  
 set autoscale
 unset yrange
 set yrange[0.0:]
-set output 'ST.png'
+set output '../png/ST.png'
 plot 'USERS_R0.dat' using 2:4, \
       'USERS_R1.dat' using 2:4, \
       'USERS_R2.dat' using 2:4, \
@@ -27,10 +27,10 @@ set style fill solid 1.0
 set autoscale
 unset yrange
 set yrange[0.0:]
-set output 'ST_MEAN.png'
+set output '../png/ST_MEAN.png'
 plot 'USERS_MEAN.dat' using 2:xticlabels(1) linecolor rgb "green" title "Streaming Time"
 set yrange[0.0:1.0]
-set output 'ST_PMEAN.png'
+set output '../png/ST_PMEAN.png'
 plot 'USERS_MEAN.dat' using 3:xticlabels(1) linecolor rgb "green" title "% Streaming Time"
 unset output
 exit
