@@ -109,7 +109,7 @@ public class TranscodingAgent extends GridAgent {
             if (!EntitiesCounter.contains("Gridlet")) {
                 EntitiesCounter.create("Gridlet");
             }
-            double length = chunk.getMIPS()*quality;
+            double length = chunk.getMIPS();
             long file_size = chunk.getInputSize();
             long output_size = Math.round(chunk.getOutputSize()*quality*quality);
             Gridlet gridlet = new Gridlet(EntitiesCounter.inc("Gridlet"), length,
