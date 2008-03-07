@@ -28,7 +28,7 @@ import gridsim.net.Link;
  */
 public abstract class User extends AbstractUser {
 
-	/** Creates a new instance of QAGESAUser */
+	/** Creates a new instance of AbstractUser */
 	public User(String name, Link link, int entityType, boolean trace_flag)
 			throws Exception {
 		super(name, link, entityType, trace_flag);

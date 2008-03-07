@@ -55,6 +55,8 @@ import net.sf.gap.messages.impl.PingRequest;
  * @author Giovanni Novelli
  */
 public abstract class AbstractGridElement extends DataGridResource {
+
+    protected static final double mbFactor = 1.0E-6;
 	private AbstractAgentPlatform agentPlatform;
 
 	private int numPE;
@@ -70,7 +72,12 @@ public abstract class AbstractGridElement extends DataGridResource {
 	private boolean SE; // to know if this is an SE or a CE
 
 	private LocalDirectory localDirectory; // Lists of agents running on this
-
+    private Accumulator IOLoad;
+    private double baudrate;
+    private Accumulator inputBytes;
+    private double meanIOLoad;
+    private Accumulator outputBytes;
+    private Accumulator totalBytes;
 	// Grid Element (CE/SE)
 
 	/**
@@ -88,6 +95,11 @@ public abstract class AbstractGridElement extends DataGridResource {
 		this.setExternalLink(link);
 		this.setInternalRouter(grrouter);
 		this.setLocalDirectory(new LocalDirectory(this));
+                this.setInputBytes(new Accumulator());
+                this.setOutputBytes(new Accumulator());
+                this.setTotalBytes(new Accumulator());
+                this.setMeanIOLoad(0.0);
+                this.setBaudrate(link.getBaudRate());
 	}
 
 	protected void registerOtherEntity() {
@@ -365,4 +377,81 @@ public abstract class AbstractGridElement extends DataGridResource {
 	public void setExternalRouter(RIPRouter externalRouter) {
 		this.externalRouter = externalRouter;
 	}
+
+    public double getBaudrate() {
+        return baudrate;
+    }
+
+    public Accumulator getIOLoad() {
+        return IOLoad;
+    }
+
+    public Accumulator getInputBytes() {
+        return inputBytes;
+    }
+
+    public double getLoad() {
+        double load = (this.getTotalBytes().getMean() * 8.0) / (this.getBaudrate() * mbFactor);
+        return load;
+    }
+
+    public double getMeanIOLoad() {
+        return meanIOLoad;
+    }
+
+    public Accumulator getOutputBytes() {
+        return outputBytes;
+    }
+
+    public Accumulator getTotalBytes() {
+        return totalBytes;
+    }
+
+    public void incInputBytes(long inc, double time) {
+        getInputBytes().add(inc * mbFactor);
+        this.incTotalBytes(inc * mbFactor);
+        this.reportIO(time);
+    }
+
+    public void incOutputBytes(long inc, double time) {
+        getOutputBytes().add(inc * mbFactor);
+        this.incTotalBytes(inc * mbFactor);
+        this.reportIO(time);
+    }
+
+    private void incTotalBytes(double inc) {
+        getTotalBytes().add(inc);
+    }
+
+    protected abstract void reportIO(double time);
+
+    public void setBaudrate(double baudrate) {
+        this.baudrate = baudrate;
+    }
+
+    public void setIOLoad(Accumulator IOLoad) {
+        this.IOLoad = IOLoad;
+    }
+
+    public void setInputBytes(Accumulator inputBytes) {
+        this.inputBytes = inputBytes;
+    }
+
+    public void setMeanIOLoad(double meanIOLoad) {
+        this.meanIOLoad = meanIOLoad;
+    }
+
+    public void setOutputBytes(Accumulator outputBytes) {
+        this.outputBytes = outputBytes;
+    }
+
+    public void setTotalBytes(Accumulator totalBytes) {
+        this.totalBytes = totalBytes;
+    }
+
+    public void updateLoad() {
+        double load = (this.getTotalBytes().getMean() * 8.0) / (this.getBaudrate() * mbFactor);
+        this.getIOLoad().add(load);
+        this.setMeanIOLoad(load);
+    }
 }
