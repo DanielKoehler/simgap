@@ -74,7 +74,7 @@ public class Chunk {
 	 */
 	public Chunk transcode(double quality) {
 		Chunk chunk = new Chunk(this.getSequenceNumber(), Math.round(this.getOutputSize()*quality*quality),
-				Math.round(this.getOutputSize()*quality*quality), Math.round(this.getMIPS()*quality), this.getDuration(), quality);
+				Math.round(this.getOutputSize()*quality*quality), Math.round(this.getMIPS()), this.getDuration(), quality);
 		chunk.setTranscoded(true);
 		return chunk;
 	}
