@@ -281,7 +281,7 @@ public class User extends QAGESAUser {
         double evsend_time = 0;
         int userID = this.get_id();
         //double acceptableQualityLoss = rand.sample(69) * 0.01;
-        double acceptableQualityLoss = 1.0-0.61803398874989484820458683436564;
+        double acceptableQualityLoss =QAGESA.qosloss;
         QAGESAStat.updateAcceptableQualityLoss(acceptableQualityLoss);
         double minQuality = 1.0 - acceptableQualityLoss;
         ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, minQuality, this.isRandomSelection());
