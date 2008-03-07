@@ -60,6 +60,9 @@ public abstract class Tags {
 																// TestService
 
 	public static final int TEST_SERVICE_REP = 12 + TAGSBASE; // From
+        
+        public static final int INPUT_DYNAMICS = 21 + TAGSBASE;
+        public static final int OUTPUT_DYNAMICS = 22 + TAGSBASE;
 																// TestService
 
 	// Agent
