@@ -14,10 +14,10 @@ set autoscale
 unset yrange
 set yrange[0.0:]
 set output 'ST.png'
-plot 'USERS_R0.dat' using 2:4 with lines, \
-      'USERS_R1.dat' using 2:4 with lines, \
-      'USERS_R2.dat' using 2:4 with lines, \
-      'USERS_R3.dat' using 2:4 with lines
+plot 'USERS_R0.dat' using 2:4, \
+      'USERS_R1.dat' using 2:4, \
+      'USERS_R2.dat' using 2:4, \
+      'USERS_R3.dat' using 2:4
 set xlabel "Attached to router"
 set ylabel "Streaming Time in seconds"
 set boxwidth 1.0 relative
