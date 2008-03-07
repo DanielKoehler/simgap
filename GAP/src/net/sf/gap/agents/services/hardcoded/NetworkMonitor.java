@@ -21,7 +21,6 @@
  *
  *****************************************************************************************
  */
-
 package net.sf.gap.agents.services.hardcoded;
 
 import eduni.simjava.Sim_event;
@@ -50,151 +49,150 @@ import net.sf.gap.messages.impl.PingRequest;
  * @author Giovanni Novelli
  */
 public class NetworkMonitor {
-	private AbstractAgentPlatform agentPlatform;
 
-	private NetworkMap networkMap;
+    private AbstractAgentPlatform agentPlatform;
+    private NetworkMap networkMap;
 
-	/** Creates a new instance of NetworkMonitor */
-	public NetworkMonitor(AbstractAgentPlatform agentPlatform) {
-		this.setAgentPlatform(agentPlatform);
-		this.setNetworkMap(new NetworkMap());
-	}
+    /** Creates a new instance of NetworkMonitor */
+    public NetworkMonitor(AbstractAgentPlatform agentPlatform) {
+        this.setAgentPlatform(agentPlatform);
+        this.setNetworkMap(new NetworkMap());
+    }
 
-	public NetworkMap getNetworkMap() {
-		return this.networkMap;
-	}
+    public NetworkMap getNetworkMap() {
+        return this.networkMap;
+    }
 
-	public void setNetworkMap(NetworkMap networkMap) {
-		this.networkMap = networkMap;
-	}
+    public void setNetworkMap(NetworkMap networkMap) {
+        this.networkMap = networkMap;
+    }
 
-	private void addRTT(Integer src, Integer dst, InfoPacket pkt) {
-		this.getNetworkMap().addRTT(src, dst, pkt);
-	}
+    private void addRTT(Integer src, Integer dst, InfoPacket pkt) {
+        this.getNetworkMap().addRTT(src, dst, pkt);
+    }
 
-	public void showNetworkMap() {
-		this.getNetworkMap().show();
-	}
+    public void showNetworkMap() {
+        this.getNetworkMap().show();
+    }
 
-	public void asyncProcessNetworkMap() {
-		Iterator<AbstractGridElement> it1 = this.getAgentPlatform()
-				.getGisService().getGisRepository().getListGEs().iterator();
-		while (it1.hasNext()) {
-			Iterator<AbstractGridElement> it2 = this.getAgentPlatform()
-					.getGisService().getGisRepository().getListGEs().iterator();
-			AbstractGridElement ge1 = it1.next();
-			int ge1id = ge1.get_id();
-			while (it2.hasNext()) {
-				AbstractGridElement ge2 = it2.next();
-				int ge2id = ge2.get_id();
-				if (ge1id != ge2id) {
-					this.asyncRequestPing(ge1id, ge2id);
-				}
-			}
-		}
-	}
-
-	public void asyncProcessNetworkMap(AbstractGridElement ge1) {
+    public void asyncProcessNetworkMap() {
+        Iterator<AbstractGridElement> it1 = this.getAgentPlatform().getGisService().getGisRepository().getListGEs().iterator();
+        while (it1.hasNext()) {
+            Iterator<AbstractGridElement> it2 = this.getAgentPlatform().getGisService().getGisRepository().getListGEs().iterator();
+            AbstractGridElement ge1 = it1.next();
             int ge1id = ge1.get_id();
-            Iterator<AbstractGridElement> it2 = this.getAgentPlatform()
-                            .getGisService().getGisRepository().getListGEs().iterator();
             while (it2.hasNext()) {
-                    AbstractGridElement ge2 = it2.next();
-                    int ge2id = ge2.get_id();
-                    if (ge1id != ge2id) {
-                            this.asyncRequestPing(ge1id, ge2id);
-                    }
+                AbstractGridElement ge2 = it2.next();
+                int ge2id = ge2.get_id();
+                if (ge1id != ge2id) {
+                    this.asyncRequestPing(ge1id, ge2id);
+                }
             }
-	}
+        }
+    }
 
-        public void processEvent(Sim_event ev) {
-		switch (ev.get_tag()) {
-		case Tags.NM_NETWORKMAP_REQ:
-			int SIZE = 500;
-			NetworkMapRequest nmRequest = NetworkMapRequest.get_data(ev);
-			NetworkMapReply nmReply = new NetworkMapReply(ev.get_tag(), true,
-					nmRequest, this.getNetworkMap());
-			this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW,
-					Tags.NM_NETWORKMAP_REP, new IO_data(nmReply, SIZE,
-							nmRequest.getSrc_ID()));
-			break;
+    public void asyncProcessNetworkMap(AbstractGridElement ge1) {
+        int ge1id = ge1.get_id();
+        Iterator<AbstractGridElement> it2 = this.getAgentPlatform().getGisService().getGisRepository().getListGEs().iterator();
+        while (it2.hasNext()) {
+            AbstractGridElement ge2 = it2.next();
+            int ge2id = ge2.get_id();
+            if (ge1id != ge2id) {
+                this.asyncRequestPing(ge1id, ge2id);
+            }
+        }
+    }
 
-		default:
-			break;
-		}
-	}
+    public void processEvent(Sim_event ev) {
+        switch (ev.get_tag()) {
+            case Tags.NM_NETWORKMAP_REQ:
+                int SIZE = 500;
+                NetworkMapRequest nmRequest = NetworkMapRequest.get_data(ev);
+                NetworkMapReply nmReply = new NetworkMapReply(ev.get_tag(), true,
+                        nmRequest, this.getNetworkMap());
+                this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW,
+                        Tags.NM_NETWORKMAP_REP, new IO_data(nmReply, SIZE,
+                        nmRequest.getSrc_ID()));
+                break;
 
-	public AbstractAgentPlatform getAgentPlatform() {
-		return agentPlatform;
-	}
+            default:
+                break;
+        }
+    }
 
-	public void setAgentPlatform(AbstractAgentPlatform agentPlatform) {
-		this.agentPlatform = agentPlatform;
-	}
+    public AbstractAgentPlatform getAgentPlatform() {
+        return agentPlatform;
+    }
 
-	private PingReply asyncRequestPing(int src_id, int dst_id) {
-		int SIZE = 10;
-		PingRequest request = new PingRequest(this.get_id(), this.get_id(),
-				src_id, dst_id);
-		int requestID = request.getRequestID();
-		@SuppressWarnings("unused")
-		int reqrepID = request.getReqrepID();
-		this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
-				new IO_data(request, SIZE, src_id));
+    public void setAgentPlatform(AbstractAgentPlatform agentPlatform) {
+        this.agentPlatform = agentPlatform;
+    }
 
-		Sim_event ev = new Sim_event();
-		Predicate predicate = new Predicate(Tags.PING_REP);
-		this.sim_get_next(predicate, ev); // only look for this type of ack
-		PingReply reply = PingReply.get_data(ev);
-		Assert.assertEquals(requestID, reply.getRequestID());
-		Assert.assertEquals(Tags.PING_REQ, reply.getRequestTAG());
-		Assert.assertEquals(Tags.PING_REP, ev.get_tag());
-		InfoPacket pkt = reply.getPkt();
-		if (pkt != null) {
-			this.addRTT(src_id, dst_id, pkt);
-		}
-		return reply;
-	}
+    private void asyncRequestPing(int src_id, int dst_id) {
+        int SIZE = 10;
+        PingRequest request = new PingRequest(this.get_id(), this.get_id(),
+                src_id, dst_id);
+        int requestID = request.getRequestID();
+        @SuppressWarnings("unused")
+        int reqrepID = request.getReqrepID();
+        this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
+                new IO_data(request, SIZE, src_id));
 
-	@SuppressWarnings("unused")
-	private PingReply requestPing(int src_id, int dst_id) {
-		int SIZE = 10;
-		PingRequest request = new PingRequest(this.get_id(), this.get_id(),
-				src_id, dst_id);
-		int requestID = request.getRequestID();
-		@SuppressWarnings("unused")
-		int reqrepID = request.getReqrepID();
-		this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
-				new IO_data(request, SIZE, src_id));
+        try {
+            Sim_event ev = new Sim_event();
+            Predicate predicate = new Predicate(Tags.PING_REP);
+            this.sim_get_next(predicate, ev); // only look for this type of ack
+            PingReply reply = PingReply.get_data(ev);
+            Assert.assertEquals(requestID, reply.getRequestID());
+            Assert.assertEquals(Tags.PING_REQ, reply.getRequestTAG());
+            Assert.assertEquals(Tags.PING_REP, ev.get_tag());
+            InfoPacket pkt = reply.getPkt();
+            if (pkt != null) {
+                this.addRTT(src_id, dst_id, pkt);
+            }
+        } catch ( Exception e) {
+        }
+    }
 
-		Sim_event ev = new Sim_event();
-		Predicate predicate = new Predicate(Tags.PING_REP);
-		this.sim_get_next(predicate, ev); // only look for this type of ack
-		PingReply reply = PingReply.get_data(ev);
-		Assert.assertEquals(requestID, reply.getRequestID());
-		Assert.assertEquals(Tags.PING_REQ, reply.getRequestTAG());
-		Assert.assertEquals(Tags.PING_REP, ev.get_tag());
-		InfoPacket pkt = reply.getPkt();
-		if (pkt != null) {
-			this.addRTT(src_id, dst_id, pkt);
-		}
-		return reply;
-	}
+    @SuppressWarnings("unused")
+    private PingReply requestPing(int src_id, int dst_id) {
+        int SIZE = 10;
+        PingRequest request = new PingRequest(this.get_id(), this.get_id(),
+                src_id, dst_id);
+        int requestID = request.getRequestID();
+        @SuppressWarnings("unused")
+        int reqrepID = request.getReqrepID();
+        this.send(this.getOutput(), GridSimTags.SCHEDULE_NOW, Tags.PING_REQ,
+                new IO_data(request, SIZE, src_id));
 
-	private int get_id() {
-		return this.getAgentPlatform().get_id();
-	}
+        Sim_event ev = new Sim_event();
+        Predicate predicate = new Predicate(Tags.PING_REP);
+        this.sim_get_next(predicate, ev); // only look for this type of ack
+        PingReply reply = PingReply.get_data(ev);
+        Assert.assertEquals(requestID, reply.getRequestID());
+        Assert.assertEquals(Tags.PING_REQ, reply.getRequestTAG());
+        Assert.assertEquals(Tags.PING_REP, ev.get_tag());
+        InfoPacket pkt = reply.getPkt();
+        if (pkt != null) {
+            this.addRTT(src_id, dst_id, pkt);
+        }
+        return reply;
+    }
 
-	private Sim_port getOutput() {
-		return this.getAgentPlatform().getOutput();
-	}
+    private int get_id() {
+        return this.getAgentPlatform().get_id();
+    }
 
-	private void send(Sim_port destPort, double delay, int gridSimTag,
-			Object data) {
-		this.getAgentPlatform().send(destPort, delay, gridSimTag, data);
-	}
+    private Sim_port getOutput() {
+        return this.getAgentPlatform().getOutput();
+    }
 
-	private void sim_get_next(Sim_predicate p, Sim_event ev) {
-		this.getAgentPlatform().sim_get_next(p, ev);
-	}
+    private void send(Sim_port destPort, double delay, int gridSimTag,
+            Object data) {
+        this.getAgentPlatform().send(destPort, delay, gridSimTag, data);
+    }
+
+    private void sim_get_next(Sim_predicate p, Sim_event ev) {
+        this.getAgentPlatform().sim_get_next(p, ev);
+    }
 }
