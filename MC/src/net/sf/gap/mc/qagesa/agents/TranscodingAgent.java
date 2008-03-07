@@ -283,6 +283,8 @@ public class TranscodingAgent extends GridAgent {
                 gotChunkReply.getChunk());
         this.write(msg);
         Chunk gotChunk = gotChunkReply.getChunk();
+        QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(this.getResourceID());
+        ce.incInputBytes(gotChunk.getInputSize(),this.clock());
         Chunk transcodedChunk = null;
         transcodedChunk = this.transcode(gotChunk, transcodeRequest.getQuality());
         if (sequenceNumber == 1) {
@@ -404,6 +406,8 @@ public class TranscodingAgent extends GridAgent {
         int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
         request.setChunk(chunk);
+        QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(this.getResourceID());
+        ce.incOutputBytes(chunk.getOutputSize(),this.clock());
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
                 QAGESATags.SEND_CHUNK_REQ, new IO_data(request, chunk.getOutputSize(), userID));
         evsend_time = GridSim.clock();
