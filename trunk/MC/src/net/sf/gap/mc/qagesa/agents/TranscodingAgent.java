@@ -223,6 +223,7 @@ public class TranscodingAgent extends GridAgent {
             int sn = chunkRequest.getChunk().getSequenceNumber();
             double streamQuality = chunkRequest.getTranscodeRequest().getQualityMean().getMean();
             String user = Sim_system.get_entity(userChunkReply.getRequest().getUserID()).get_name();
+            int playReqrepid = chunkRequest.getPlayReqrepID();
             QAGESA.outFuzzy_QoS.printf
                     ("CSV\tFuzzy_QoS\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f",
                     rep,
@@ -236,7 +237,9 @@ public class TranscodingAgent extends GridAgent {
                     gLoad,
                     gQLmean,
                     aQLmean);
-            QAGESA.outFuzzy_QoS.printf("\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
+            QAGESA.outFuzzy_QoS.printf("\t%12s\t10%d\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%3.4f\n",
+                    user,
+                    playReqrepid,
                     sn,
                     size,
                     MIPS,
@@ -244,7 +247,8 @@ public class TranscodingAgent extends GridAgent {
                     streamQuality,
                     minQuality,
                     qualityLoss,
-                    aQL);
+                    aQL,
+                    delay);
             
             userChunkReply.getRequest().getTranscodeRequest().setQuality(updateQuality);
         }
