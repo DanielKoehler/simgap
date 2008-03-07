@@ -24,6 +24,7 @@
 
 package net.sf.gap.agents.services.impl;
 
+import eduni.simjava.*;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.services.PlatformService;
 import net.sf.gap.agents.services.impl.gis.GISEntry;
@@ -35,9 +36,7 @@ import net.sf.gap.messages.impl.GISRequest;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
 import eduni.simjava.distributions.Sim_random_obj;
-import gridsim.Accumulator;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
+import gridsim.*;
 
 /**
  * This class is responsible for a sample test subclass of PlatformService
@@ -143,23 +142,35 @@ public class GISService extends PlatformService {
                         int geid = ge.get_id();
                         boolean SE = ge.isSE();
                         int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
-                        /*
-                        int numPEs = ge.getNumPE();
-                        int numFreePEs = super.getNumFreePE(ge.get_id());
-                        int totalMIPS = ge.getTotalMIPS();
-                        double MB_size = ge.getTotalStorageCapacity();
-                         */
+                        // Get Resource Dynamic information
+                        send(super.output, 0.0, GridSimTags.RESOURCE_DYNAMICS,
+                             new IO_data( new Integer(super.get_id()), 4, this.get_id()));
+                        double load;
+                        try
+                        {
+                            // waiting for a response from system GIS
+                            Sim_type_p tag = new Sim_type_p(GridSimTags.RESOURCE_DYNAMICS);
+
+                            // only look for this type of ack
+                            Sim_event ev = new Sim_event();
+                            super.sim_get_next(tag, ev);
+                             Accumulator accLoad = (Accumulator) ev.get_data();
+                             load = accLoad.getMean();
+                        }
+                        catch (Exception e) {
+                            load = 0.5;
+                        }
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
-                                        SE, 0, ge.getTotalLoad());
+                                        SE, 0, load);
 		}
 		this.getGisRepository().setLastRequestTime(super.clock());
-                double delay = rand.sample()*0.1;
-                super.sim_process(delay);
+                //double delay = rand.sample()*0.1;
+                //super.sim_process(delay);
 	}
 
 	public GISEntry addEntry(int geid, int numPEs, int numFreePEs,
 			int numFreeAgents, int totalMIPS, boolean SE, double MB_size,
-			Accumulator load) {
+			double load) {
 		GISEntry entry = new GISEntry(numPEs, numFreePEs, numFreeAgents,
 				totalMIPS, SE, MB_size, load);
 		if (this.getGisRepository() == null) {

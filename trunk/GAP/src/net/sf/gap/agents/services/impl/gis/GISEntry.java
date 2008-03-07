@@ -43,13 +43,13 @@ public class GISEntry {
 
 	private double MB_size;
 
-	private Accumulator load;
+	private double load;
 
 	/**
 	 * Creates a new instance of GISEntry
 	 */
 	public GISEntry(int numPEs, int numFreePEs, int numFreeAgents,
-			int totalMIPS, boolean SE, double MB_size, Accumulator load) {
+			int totalMIPS, boolean SE, double MB_size, double load) {
 		this.setNumPEs(numPEs);
 		this.setNumFreeAgents(numFreeAgents);
 		this.setNumFreePEs(numFreePEs);
@@ -91,11 +91,11 @@ public class GISEntry {
 		this.MB_size = MB_size;
 	}
 
-	public Accumulator getLoad() {
+	public double getLoad() {
 		return this.load;
 	}
 
-	public void setLoad(Accumulator load) {
+	public void setLoad(double load) {
 		this.load = load;
 	}
 
@@ -120,12 +120,8 @@ public class GISEntry {
 		msg = msg + "GIS[" + "PEs(" + this.getNumPEs() + ", "
 				+ this.getNumFreePEs() + ") " + "AGENTs(" + this.getNumPEs()
 				+ ", " + this.getNumFreeAgents() + ") " + "MIPS("
-				+ this.getTotalMIPS() + ") " + "LOAD(" + "(LAST,"
-				+ this.getLoad().getLast() + "), " + "(MEAN,"
-				+ this.getLoad().getMean() + "), " + "(STD,"
-				+ this.getLoad().getStandardDeviation() + "), " + "(MIN,"
-				+ this.getLoad().getMin() + "), " + "(MAX,"
-				+ this.getLoad().getMax() + ") " + ") " + "SE(" + this.isSE()
+				+ this.getTotalMIPS() + ") " + "LOAD("
+				+ this.getLoad() + ") " + "SE(" + this.isSE()
 				+ ", " + this.getMB_size() + ")" + "]";
 
 		return msg;
