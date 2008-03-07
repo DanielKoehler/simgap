@@ -179,7 +179,7 @@ public class User extends QAGESAUser {
             double ta = (times[0] - QAGESA.getStartTime());
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
-            double perct = dt/60.0;
+            double perct = dt/(12*QAGESA.expansion*1.0);
             QAGESA.outUSER.printf(
                     "CSV\tUSERS_FT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.6f\t%1.4f\n",
                     rep,
@@ -213,7 +213,7 @@ public class User extends QAGESAUser {
             double ta = (times[0] - QAGESA.getStartTime());
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
-            double perct = dt/60.0;
+            double perct = dt/(12*QAGESA.expansion*1.0);
             QAGESA.outUSER.printf(
                     "CSV\tUSERS_ST\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.4f\t%1.4f\n",
                     rep,
@@ -247,7 +247,7 @@ public class User extends QAGESAUser {
             double ta = (times[0] - QAGESA.getStartTime());
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
-            double perct = dt/60.0;
+            double perct = dt/(12*QAGESA.expansion*1.0);
             QAGESA.outUSER.printf(
                     "CSV\tUSERS_RT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.4f\t%1.4f\n",
                     rep,
