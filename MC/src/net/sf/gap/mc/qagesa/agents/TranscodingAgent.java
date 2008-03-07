@@ -191,7 +191,9 @@ public class TranscodingAgent extends GridAgent {
             double delta = replyTime-memoizedAskedTime;
             double neededDelta = (userChunkReply.getRequest().getChunk().getDuration()*0.001) * SN;
             double minQuality = userChunkReply.getRequest().getTranscodeRequest().getMinQuality();
-            double currentQuality = userChunkReply.getRequest().getTranscodeRequest().getQuality();
+            double q = userChunkReply.getRequest().getTranscodeRequest().getQuality();
+            double qmean = userChunkReply.getRequest().getTranscodeRequest().getQualityMean().getMean();
+            double currentQuality = q*(1.0-QAGESA.beta)+qmean*QAGESA.beta;
             double delay=(delta-neededDelta)/neededDelta;
             double updateQuality=predictQuality(delay,minQuality,currentQuality);
             double qualityLoss=currentQuality-updateQuality;

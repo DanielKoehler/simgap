@@ -21,6 +21,7 @@ package net.sf.gap.mc.qagesa.multimedia;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.distributions.Uniform_int;
 
 import com.csvreader.CsvReader;
@@ -123,7 +124,7 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
                             strOperationParameters);
                 }
 
-                int div = 2;
+                int div = QAGESA.div;
                 for (int i = 0; i < div; i++) {
                     int sn = iSequenceNumber * div + i - (div - 1);
                     Chunk chunk = new Chunk(sn, Math.round(iInputSize * (1.0f / div)),
@@ -149,7 +150,7 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
                 currentSequence.getOperation(),
                 currentSequence.getOperationParameters());
         int nc = currentSequence.size();
-        for (int k = 0; k < 5; k++) {
+        for (int k = 0; k < QAGESA.expansion; k++) {
             for (int n = 0; n < nc; n++) {
                 int nsn = k*nc + n + 1;
                 Chunk chunk = currentSequence.get(n).clone();
