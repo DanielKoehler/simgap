@@ -150,7 +150,7 @@ public class GISService extends PlatformService {
                         double MB_size = ge.getTotalStorageCapacity();
                          */
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
-                                        SE, 0, ge.getTotalLoad(),ge.getIOLoad());
+                                        SE, 0, ge.getTotalLoad(),ge.getMeanIOLoad());
 		}
 		this.getGisRepository().setLastRequestTime(super.clock());
                 double delay = rand.sample()*0.1;
@@ -159,9 +159,9 @@ public class GISService extends PlatformService {
 
 	public GISEntry addEntry(int geid, int numPEs, int numFreePEs,
 			int numFreeAgents, int totalMIPS, boolean SE, double MB_size,
-			Accumulator load, Accumulator ioLoad) {
+			Accumulator load, double meanIOLoad) {
 		GISEntry entry = new GISEntry(numPEs, numFreePEs, numFreeAgents,
-				totalMIPS, SE, MB_size, load, ioLoad);
+				totalMIPS, SE, MB_size, load, meanIOLoad);
 		if (this.getGisRepository() == null) {
 			this.setGisRepository(new GISRepository(this.getAgentPlatform()));
 
