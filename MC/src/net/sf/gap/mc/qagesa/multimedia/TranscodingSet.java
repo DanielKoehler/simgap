@@ -113,7 +113,8 @@ public class TranscodingSet extends HashMap<String, ChunksSequence> {
                 String strMsDuration = reader.get("MsDuration");
 
                 int iSequenceNumber = Integer.parseInt(strSequenceNumber);
-                int iInputSize = Integer.parseInt(strInputSize);
+                //int iInputSize = Integer.parseInt(strInputSize);
+                int iInputSize = Integer.parseInt(strOutputSize);
                 int iOutputSize = Integer.parseInt(strOutputSize);
                 int iMsProcessing = Integer.parseInt(strMsProcessing);
                 int iMsDuration = Integer.parseInt(strMsDuration);
