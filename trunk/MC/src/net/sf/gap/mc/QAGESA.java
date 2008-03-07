@@ -53,6 +53,9 @@ public class QAGESA {
     public static boolean repeated;
     public static boolean reuseagents;
     private static double startTime;
+    public static int div;
+    public static int expansion;
+    public static double beta;
     
     public static String getOutputPath() {
         return outputPath;
@@ -134,7 +137,12 @@ public class QAGESA {
         prop = conf.getProperty("requests");
         Integer numRequests;
         numRequests = Integer.parseInt(prop);
-        QAGESA.requests=numRequests;
+        prop = conf.getProperty("div");
+        div = Integer.parseInt(prop);
+        prop = conf.getProperty("expansion");
+        expansion = Integer.parseInt(prop);
+        prop = conf.getProperty("beta");
+        beta = Double.parseDouble(prop);
         prop = conf.getProperty("distribution");
         String distribution = prop;
         if (prop != null) {
