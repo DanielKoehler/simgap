@@ -135,11 +135,11 @@ public class GISService extends PlatformService {
 		this.gisRepository = gisRepository;
 	}
 
-	public void processGIS() {
+        private void updateCEs() {
 		int numCEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumCEs();
 		for (int i = 0; i < numCEs; i++) {
-			AbstractGridElement ge = (AbstractGridElement) this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
+			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
                         int geid = ge.get_id();
                         boolean SE = ge.isSE();
                         int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
@@ -152,6 +152,30 @@ public class GISService extends PlatformService {
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, ge.getTotalLoad(),ge.getMeanIOLoad());
 		}
+        }
+
+        private void updateSEs() {
+		int numSEs = this.getAgentPlatform().getVirtualOrganization()
+				.getNumSEs();
+		for (int i = 0; i < numSEs; i++) {
+			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
+                        int geid = ge.get_id();
+                        boolean SE = ge.isSE();
+                        int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+                        /*
+                        int numPEs = ge.getNumPE();
+                        int numFreePEs = super.getNumFreePE(ge.get_id());
+                        int totalMIPS = ge.getTotalMIPS();
+                        double MB_size = ge.getTotalStorageCapacity();
+                         */
+                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
+                                        SE, 0, ge.getTotalLoad(),ge.getMeanIOLoad());
+		}
+        }
+        
+	public void processGIS() {
+            this.updateCEs();
+            this.updateSEs();
 		this.getGisRepository().setLastRequestTime(super.clock());
                 double delay = rand.sample()*0.1;
                 super.sim_process(delay);
@@ -167,12 +191,12 @@ public class GISService extends PlatformService {
 
 			for (int i = 0; i < this.getAgentPlatform()
 					.getVirtualOrganization().getNumCEs(); i++) {
-				AbstractGridElement ce = (AbstractGridElement) this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
+				AbstractGridElement ce = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
 				this.getGisRepository().addGE(ce);
 			}
 			for (int i = 0; i < this.getAgentPlatform()
 					.getVirtualOrganization().getNumSEs(); i++) {
-				AbstractGridElement se = (AbstractGridElement) this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
+				AbstractGridElement se = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
 				this.getGisRepository().addGE(se);
 			}
 		}
