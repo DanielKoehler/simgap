@@ -142,6 +142,35 @@ public class GISService extends PlatformService {
                         int geid = ge.get_id();
                         boolean SE = ge.isSE();
                         int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+                        double load = this.askLoad(geid);
+                        double inputLoad = this.askInputLoad(geid);
+                        double outputLoad = this.askOutputLoad(geid);
+                        double ioLoad = inputLoad + outputLoad;
+                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
+                                        SE, 0, load, ioLoad);
+		}
+                /*
+		int numSEs = this.getAgentPlatform().getVirtualOrganization()
+				.getNumSEs();
+		for (int i = 0; i < numSEs; i++) {
+			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
+                        int geid = ge.get_id();
+                        boolean SE = ge.isSE();
+                        int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+                        double load = this.askLoad(geid);
+                        double inputLoad = this.askInputLoad(geid);
+                        double outputLoad = this.askOutputLoad(geid);
+                        double ioLoad = inputLoad + outputLoad;
+                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
+                                        SE, 0, load, ioLoad);
+		}
+                 */
+		this.getGisRepository().setLastRequestTime(super.clock());
+                //double delay = rand.sample()*0.1;
+                //super.sim_process(delay);
+	}
+        
+        private double askLoad(int geid) {
                         // Get Resource Dynamic information
                         send(super.output, 0.0, GridSimTags.RESOURCE_DYNAMICS,
                              new IO_data( new Integer(super.get_id()), 4, this.get_id()));
@@ -160,19 +189,58 @@ public class GISService extends PlatformService {
                         catch (Exception e) {
                             load = 0.5;
                         }
-                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
-                                        SE, 0, load);
-		}
-		this.getGisRepository().setLastRequestTime(super.clock());
-                //double delay = rand.sample()*0.1;
-                //super.sim_process(delay);
-	}
+                        return load;
+        }
 
+        private double askInputLoad(int geid) {
+            // Get Resource Dynamic information
+            send(super.output, 0.0, Tags.INPUT_DYNAMICS,
+                 new IO_data( new Integer(super.get_id()), 4, this.get_id()));
+            double load;
+            try
+            {
+                // waiting for a response from system GIS
+                Sim_type_p tag = new Sim_type_p(Tags.INPUT_DYNAMICS);
+
+                // only look for this type of ack
+                Sim_event ev = new Sim_event();
+                super.sim_get_next(tag, ev);
+                 Accumulator accLoad = (Accumulator) ev.get_data();
+                 load = accLoad.getMean();
+            }
+            catch (Exception e) {
+                load = 0.5;
+            }
+            return load;
+        }
+
+        private double askOutputLoad(int geid) {
+            // Get Resource Dynamic information
+            send(super.output, 0.0, Tags.OUTPUT_DYNAMICS,
+                 new IO_data( new Integer(super.get_id()), 4, this.get_id()));
+            double load;
+            try
+            {
+                // waiting for a response from system GIS
+                Sim_type_p tag = new Sim_type_p(Tags.OUTPUT_DYNAMICS);
+
+                // only look for this type of ack
+                Sim_event ev = new Sim_event();
+                super.sim_get_next(tag, ev);
+                 Accumulator accLoad = (Accumulator) ev.get_data();
+                 load = accLoad.getMean();
+            }
+            catch (Exception e) {
+                load = 0.5;
+            }
+            return load;
+        }
+        
 	public GISEntry addEntry(int geid, int numPEs, int numFreePEs,
 			int numFreeAgents, int totalMIPS, boolean SE, double MB_size,
-			double load) {
+			double load, double ioLoad) {
 		GISEntry entry = new GISEntry(numPEs, numFreePEs, numFreeAgents,
-				totalMIPS, SE, MB_size, load);
+				totalMIPS, SE, MB_size, load, ioLoad);
 		if (this.getGisRepository() == null) {
 			this.setGisRepository(new GISRepository(this.getAgentPlatform()));
 

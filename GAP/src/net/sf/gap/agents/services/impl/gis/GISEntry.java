@@ -44,12 +44,13 @@ public class GISEntry {
 	private double MB_size;
 
 	private double load;
+        private double ioLoad;
 
 	/**
 	 * Creates a new instance of GISEntry
 	 */
 	public GISEntry(int numPEs, int numFreePEs, int numFreeAgents,
-			int totalMIPS, boolean SE, double MB_size, double load) {
+			int totalMIPS, boolean SE, double MB_size, double load, double ioLoad) {
 		this.setNumPEs(numPEs);
 		this.setNumFreeAgents(numFreeAgents);
 		this.setNumFreePEs(numFreePEs);
@@ -57,6 +58,7 @@ public class GISEntry {
 		this.setSE(SE);
 		this.setMB_size(MB_size);
 		this.setLoad(load);
+                this.setIoLoad(ioLoad);
 	}
 
 	public int getNumPEs() {
@@ -126,4 +128,12 @@ public class GISEntry {
 
 		return msg;
 	}
+
+    public double getIoLoad() {
+        return ioLoad;
+    }
+
+    public void setIoLoad(double ioLoad) {
+        this.ioLoad = ioLoad;
+    }
 }

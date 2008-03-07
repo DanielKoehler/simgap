@@ -70,6 +70,9 @@ public abstract class AbstractGridElement extends DataGridResource {
 	private boolean SE; // to know if this is an SE or a CE
 
 	private LocalDirectory localDirectory; // Lists of agents running on this
+        
+        private Accumulator inputIO;
+        private Accumulator outputIO;
 
 	// Grid Element (CE/SE)
 
@@ -88,6 +91,8 @@ public abstract class AbstractGridElement extends DataGridResource {
 		this.setExternalLink(link);
 		this.setInternalRouter(grrouter);
 		this.setLocalDirectory(new LocalDirectory(this));
+                this.setInputIO(new Accumulator());
+                this.setOutputIO(new Accumulator());
 	}
 
 	protected void registerOtherEntity() {
@@ -131,6 +136,19 @@ public abstract class AbstractGridElement extends DataGridResource {
 	protected void processOtherEvent(Sim_event ev) {
 		int SIZE = 500;
 		switch (ev.get_tag()) {
+                // Input IO dynamic info inquiry
+                case Tags.INPUT_DYNAMICS:
+                    int src_id = ( (Integer) ev.get_data() ).intValue();
+                    super.send( super.output, 0.0, ev.get_tag(),
+                            new IO_data(this.getInputIO(),
+                                        Accumulator.getByteSize(), src_id) );
+                    break;
+                case Tags.OUTPUT_DYNAMICS:
+                    src_id = ( (Integer) ev.get_data() ).intValue();
+                    super.send( super.output, 0.0, ev.get_tag(),
+                            new IO_data(this.getOutputIO(),
+                                        Accumulator.getByteSize(), src_id) );
+                    break;
 		case Tags.AGENT_KILLAWAIT_REP:
 		case Tags.AGENT_KILL_REP:
 		case Tags.AGENT_MOVE_REP:
@@ -365,4 +383,20 @@ public abstract class AbstractGridElement extends DataGridResource {
 	public void setExternalRouter(RIPRouter externalRouter) {
 		this.externalRouter = externalRouter;
 	}
+
+    public Accumulator getInputIO() {
+        return inputIO;
+    }
+
+    public void setInputIO(Accumulator inputIO) {
+        this.inputIO = inputIO;
+    }
+
+    public Accumulator getOutputIO() {
+        return outputIO;
+    }
+
+    public void setOutputIO(Accumulator outputIO) {
+        this.outputIO = outputIO;
+    }
 }
