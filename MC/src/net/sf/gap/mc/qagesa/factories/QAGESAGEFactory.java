@@ -33,6 +33,7 @@ import java.util.LinkedList;
 
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.factories.ResourceFactory;
+import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 
 /**
@@ -141,9 +142,9 @@ public class QAGESAGEFactory extends ResourceFactory {
 			name = "CE_" + geIndex; // CE name
 		}
 		long seed = 11L * 13 * 17 * 19 * 23 + 1;
-		double peakLoad = 0.0; // the resource load during peak hour
-		double offPeakLoad = 0.0; // the resource load during off-peak hr
-		double holidayLoad = 0.0; // the resource load during holiday
+		double peakLoad = QAGESA.gridload; // the resource load during peak hour
+		double offPeakLoad = QAGESA.gridload; // the resource load during off-peak hr
+		double holidayLoad = QAGESA.gridload; // the resource load during holiday
 		// incorporates weekends so the grid resource is on 7 days a week
 		LinkedList<Integer> Weekends = new LinkedList<Integer>();
 		Weekends.add(new Integer(Calendar.SATURDAY));

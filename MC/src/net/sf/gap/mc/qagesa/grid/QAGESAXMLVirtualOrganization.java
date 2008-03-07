@@ -276,9 +276,9 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                             cost);
                     String geName = geItem.getName();
                     long seed = 11L * 13 * 17 * 19 * 23 + 1;
-                    double peakLoad = 0.0;
-                    double offPeakLoad = 0.0;
-                    double holidayLoad = 0.0;
+                    double peakLoad = QAGESA.gridload;
+                    double offPeakLoad = QAGESA.gridload;
+                    double holidayLoad = QAGESA.gridload;
                     LinkedList<Integer> Weekends =
                             new LinkedList<Integer>();
                     Weekends.add(
