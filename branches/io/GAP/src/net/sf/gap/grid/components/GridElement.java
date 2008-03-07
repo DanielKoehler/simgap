@@ -34,6 +34,7 @@ public class GridElement extends AbstractGridElement {
     private Accumulator inputBytes;
     private Accumulator outputBytes;
     private Accumulator totalBytes;
+    private Accumulator IOLoad;
     protected static final double mbFactor = 0.000001;
     private double baudrate;
         
@@ -70,18 +71,24 @@ public class GridElement extends AbstractGridElement {
         return totalBytes;
     }
 
-    public void incInputBytes(long inc) {
+    public void incInputBytes(long inc, double time) {
         getInputBytes().add(inc*mbFactor);
+        this.incTotalBytes(inc*mbFactor);
+        this.reportIO(time);
     }
     
-    public void incOutputBytes(long inc) {
+    public void incOutputBytes(long inc, double time) {
         getOutputBytes().add(inc*mbFactor);
+        this.incTotalBytes(inc*mbFactor);
+        this.reportIO(time);
     }
     
-    public void incTotalBytes(long inc) {
-        getTotalBytes().add(inc*mbFactor);
+    private void incTotalBytes(double inc) {
+        getTotalBytes().add(inc);
+        //this.updateLoad();
     }
     
+    protected void reportIO(double time) {}
 
     public void setInputBytes(Accumulator inputBytes) {
         this.inputBytes = inputBytes;
@@ -101,5 +108,22 @@ public class GridElement extends AbstractGridElement {
 
     public void setBaudrate(double baudrate) {
         this.baudrate = baudrate;
+    }
+
+    public Accumulator getIOLoad() {
+        return IOLoad;
+    }
+
+    public void updateLoad() {
+        this.getIOLoad().add(this.getLoad());
+    }
+    
+    public void setIOLoad(Accumulator IOLoad) {
+        this.IOLoad = IOLoad;
+    }
+
+    public double getLoad() {
+      double load = (this.getTotalBytes().getMean()*8.0)/(this.getBaudrate()*mbFactor);
+      return load;
     }
 }

@@ -63,9 +63,7 @@ public class QAGESAGridElement extends GridElement {
                     ChunksSequence sequence = this.getTranscodingSet().get(request.getMovieTag());
                     Chunk chunk = sequence.get(request.getSequenceNumber()-1);
                     ChunkReply reply = new ChunkReply(ev.get_tag(), true, request, chunk);
-                    incOutputBytes(chunk.getInputSize());
-                    incTotalBytes(chunk.getInputSize());
-                    this.reportIO(ev.event_time());
+                    incOutputBytes(chunk.getInputSize(),ev.event_time());
                     //super.send(super.output, GridSimTags.SCHEDULE_NOW,
                     //                QAGESATags.GET_CHUNK_REP, new IO_data(reply, SIZE, request.getSrc_ID()));
                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
@@ -77,9 +75,7 @@ public class QAGESAGridElement extends GridElement {
                     ChunksSequence transcodedSequence = cacheRequest.getSequence();
                     String md5 = transcodedSequence.getMessageDigest();
                     this.addSequence(md5,transcodedSequence);
-                    incInputBytes(transcodedSequence.getOutputSize());
-                    incTotalBytes(transcodedSequence.getOutputSize());
-                    this.reportIO(ev.event_time());
+                    incInputBytes(transcodedSequence.getOutputSize(),ev.event_time());
 			break;
 
 		default:
@@ -87,7 +83,8 @@ public class QAGESAGridElement extends GridElement {
 		}
 	}
         
-        private void reportIO(double time) {
+    @Override
+        protected synchronized void reportIO(double time) {
             int rep=QAGESAStat.getReplication();
             int nu = QAGESAStat.getNumUsers();
             int ca=0;
@@ -95,22 +92,41 @@ public class QAGESAGridElement extends GridElement {
                 ca=1;
             }
             int wm = QAGESAStat.getWhichMeasure();
-            QAGESA.outSE_IO.printf
-                    ("CSV\tSE_IO\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
-                    rep,
-                    nu,
-                    ca,
-                    wm,
-                    time,
-                    this.get_name(),
-                    this.getInputBytes().getSum(),
-                    this.getOutputBytes().getSum(),
-                    this.getTotalBytes().getSum(),
-                    this.getInputBytes().getMean(),
-                    this.getOutputBytes().getMean(),
-                    this.getTotalBytes().getMean(),
-                    this.getLoad()
-                    );
+            if (this.isSE()) {
+                QAGESA.outSE_IO.printf
+                        ("CSV\tSE_IO\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
+                        rep,
+                        nu,
+                        ca,
+                        wm,
+                        time,
+                        this.get_name(),
+                        this.getInputBytes().getSum(),
+                        this.getOutputBytes().getSum(),
+                        this.getTotalBytes().getSum(),
+                        this.getInputBytes().getMean(),
+                        this.getOutputBytes().getMean(),
+                        this.getTotalBytes().getMean(),
+                        this.getLoad()
+                        );
+            } else {
+                QAGESA.outCE_IO.printf
+                        ("CSV\tCE_IO\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
+                        rep,
+                        nu,
+                        ca,
+                        wm,
+                        time,
+                        this.get_name(),
+                        this.getInputBytes().getSum(),
+                        this.getOutputBytes().getSum(),
+                        this.getTotalBytes().getSum(),
+                        this.getInputBytes().getMean(),
+                        this.getOutputBytes().getMean(),
+                        this.getTotalBytes().getMean(),
+                        this.getLoad()
+                        );
+            }
         }
 
 	public boolean addSequence(String movieTag, ChunksSequence sequence) {
@@ -142,9 +158,4 @@ public class QAGESAGridElement extends GridElement {
 	public void setTranscodingSet(TranscodingSet transcodingSet) {
 		this.transcodingSet = transcodingSet;
 	}
-
-    public synchronized double getLoad() {
-      double load = (this.getTotalBytes().getMean()*8.0)/(this.getBaudrate()*mbFactor);
-      return load;
-    }
 }
