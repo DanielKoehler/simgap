@@ -293,7 +293,7 @@ public class ReFService extends PlatformService {
                         int seID = eid;
                         GISEntry seGISEntry = this.getGisRepositoryCache().get(seID);
                         double seIOLoad = seGISEntry.getMeanIOLoad();
-                        double load = ceCPULoad*0.318+seIOLoad*0.681;
+                        double load = ceCPULoad*0.2+seIOLoad*0.8;
                         InfoPacket pkt = rttMap.get(seID);
                         double latency = pkt.getTotalResponseTime() / 2.0;
                         ReFTriple triple = new ReFTriple(load, latency + userLatency, ceID, seID);
