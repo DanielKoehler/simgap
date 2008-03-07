@@ -273,7 +273,7 @@ public class ReFService extends PlatformService {
         while (it.hasNext()) {
             int ceID = it.next();
             GISEntry gisEntry = this.getGisRepositoryCache().get(ceID);
-            double load = (gisEntry.getLoad().getMean());
+            double load = (gisEntry.getLoad());
             RTTMap rttMap = this.getNetworkMapCache().get(ceID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);
