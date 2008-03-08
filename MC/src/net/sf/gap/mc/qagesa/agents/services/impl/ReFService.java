@@ -327,7 +327,7 @@ public class ReFService extends PlatformService {
         Iterator<ReFTriple> it;
         it = list.iterator();
         ReFCouple choice = null;
-        while (it.hasNext()) {
+        if (it.hasNext()) {
             ReFTriple triple = it.next();
             choice = triple.getCouple();
             int ceID = choice.getComputingElementID();
