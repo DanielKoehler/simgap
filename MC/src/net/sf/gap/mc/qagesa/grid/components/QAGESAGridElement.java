@@ -96,9 +96,10 @@ public class QAGESAGridElement extends GridElement {
             double meanInputLoad = this.getInputIO().getMean();
             double meanOutputLoad = this.getOutputIO().getMean();
             double meanIOLoad = meanInputLoad + meanOutputLoad;
+            double percIOLoad = (meanIOLoad*8.0)/(this.getBaudrate()*this.mbFactor);
 
                 QAGESA.outIO.printf
-                        ("CSV\tSE_IO\t%2d\t%4d\t%d\t%d\t%6.4f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\n",
+                        ("CSV\tSE_IO\t%2d\t%4d\t%d\t%d\t%6.4f\t%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
                         rep,
                         nu,
                         ca,
@@ -110,7 +111,8 @@ public class QAGESAGridElement extends GridElement {
                         ioLoad,
                         meanInputLoad,
                         meanOutputLoad,
-                        meanIOLoad
+                        meanIOLoad,
+                        percIOLoad
                         );
         }
 

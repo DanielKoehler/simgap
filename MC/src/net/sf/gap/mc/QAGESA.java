@@ -402,7 +402,8 @@ public class QAGESA {
                     "CUMULATIVE IO LOAD\t"+
                     "MEAN INPUT LOAD\t"+
                     "MEAN OUTPUT LOAD\t"+
-                    "MEAN IO LOAD"+
+                    "MEAN IO LOAD\t"+
+                    "RELATIVE IO LOAD"+
                     "\n"
                     );
             outFile = new File(QAGESA.getOutputPath() + "/Fuzzy_QoS.csv");
