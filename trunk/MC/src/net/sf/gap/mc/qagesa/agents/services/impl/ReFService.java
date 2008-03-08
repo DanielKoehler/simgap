@@ -22,10 +22,10 @@ import java.io.*;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.Vector;
+import java.util.HashMap;
 
 import junit.framework.Assert;
-import net.sf.gap.GAP;
 import net.sf.gap.agents.middleware.AbstractAgentPlatform;
 import net.sf.gap.agents.predicates.Predicate;
 import net.sf.gap.agents.services.PlatformService;
@@ -57,12 +57,8 @@ import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
 import net.sf.gap.messages.impl.NetworkMapReply;
 import net.sf.gap.messages.impl.NetworkMapRequest;
-import eduni.simjava.Sim_event;
-import eduni.simjava.Sim_stat;
-import eduni.simjava.Sim_system;
-import gridsim.GridSim;
-import gridsim.GridSimTags;
-import gridsim.IO_data;
+import eduni.simjava.*;
+import gridsim.*;
 import gridsim.net.InfoPacket;
 
 /**
@@ -273,7 +269,9 @@ public class ReFService extends PlatformService {
         while (it.hasNext()) {
             int ceID = it.next();
             GISEntry gisEntry = this.getGisRepositoryCache().get(ceID);
-            double load = (gisEntry.getLoad());
+            double cpuLoad = (gisEntry.getLoad());
+            double ioLoad = gisEntry.getIoLoad();
+            double load = (cpuLoad*0.8+ioLoad*0.2);
             RTTMap rttMap = this.getNetworkMapCache().get(ceID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);
@@ -321,6 +319,50 @@ public class ReFService extends PlatformService {
         super.sim_completed(ev);
     }
 
+        private double askInputLoad(int geid) {
+            // Get Resource Dynamic information
+            send(super.output, 0.0, Tags.INPUT_DYNAMICS,
+                 new IO_data( new Integer(super.get_id()), 4, this.get_id()));
+            double load;
+            try
+            {
+                // waiting for a response from system GIS
+                Sim_type_p tag = new Sim_type_p(Tags.INPUT_DYNAMICS);
+
+                // only look for this type of ack
+                Sim_event ev = new Sim_event();
+                super.sim_get_next(tag, ev);
+                 Accumulator accLoad = (Accumulator) ev.get_data();
+                 load = accLoad.getMean();
+            }
+            catch (Exception e) {
+                load = 0.5;
+            }
+            return load;
+        }
+
+        private double askOutputLoad(int geid) {
+            // Get Resource Dynamic information
+            send(super.output, 0.0, Tags.OUTPUT_DYNAMICS,
+                 new IO_data( new Integer(super.get_id()), 4, this.get_id()));
+            double load;
+            try
+            {
+                // waiting for a response from system GIS
+                Sim_type_p tag = new Sim_type_p(Tags.OUTPUT_DYNAMICS);
+
+                // only look for this type of ack
+                Sim_event ev = new Sim_event();
+                super.sim_get_next(tag, ev);
+                 Accumulator accLoad = (Accumulator) ev.get_data();
+                 load = accLoad.getMean();
+            }
+            catch (Exception e) {
+                load = 0.5;
+            }
+            return load;
+        }
+    
     private ReFCouple heuristicChoice(String movieTag, int userID) {
         ReFProximityList list;
         list = this.computeProximities(userID);
@@ -332,8 +374,39 @@ public class ReFService extends PlatformService {
             choice = triple.getCouple();
             int ceID = choice.getComputingElementID();
             int seID = choice.getStorageElementID();
-            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(seID);
-            boolean haveMovie = se.containsSequence(movieTag);
+            
+            double inputLoad = this.askInputLoad(seID);
+            double outputLoad = this.askOutputLoad(seID);
+            double ioLoad = inputLoad + outputLoad;
+            double seIOLoad = ioLoad;
+            
+            double minIOLoad = 2.0;
+            int minseID = seID;
+            
+            while (it.hasNext()) {
+                ReFTriple aTriple = it.next();
+                int aceID = aTriple.getCouple().getComputingElementID();
+                if (aceID==ceID) {
+                    int aseID = aTriple.getCouple().getStorageElementID();
+                    QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(aseID);
+                    boolean haveMovie = se.containsSequence(movieTag);
+                    if (haveMovie) {
+                        inputLoad = this.askInputLoad(aseID);
+                        outputLoad = this.askOutputLoad(aseID);
+                        ioLoad = inputLoad + outputLoad;
+                        if (ioLoad<minIOLoad) {
+                            minIOLoad = ioLoad;
+                            minseID = aseID;
+                        }
+                    }
+                }
+            }
+            if (minIOLoad>seIOLoad) {
+                minseID = seID;
+                minIOLoad = seIOLoad;
+            }
+
+            choice.setStorageElementID(minseID);
         }
         return choice;
     }
