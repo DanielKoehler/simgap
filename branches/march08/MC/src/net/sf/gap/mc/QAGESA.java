@@ -58,6 +58,7 @@ public class QAGESA {
     public static double beta;
     public static double qosloss;
     public static double gridload;
+    public static double initialCompressionRatio;
     
     public static String getOutputPath() {
         return outputPath;
@@ -143,6 +144,8 @@ public class QAGESA {
         div = Integer.parseInt(prop);
         prop = conf.getProperty("expansion");
         expansion = Integer.parseInt(prop);
+        prop = conf.getProperty("ratio");
+        initialCompressionRatio = Double.parseDouble(prop);
         prop = conf.getProperty("beta");
         beta = Double.parseDouble(prop);
         prop = conf.getProperty("qosloss");

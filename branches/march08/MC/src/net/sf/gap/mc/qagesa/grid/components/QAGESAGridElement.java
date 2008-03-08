@@ -65,7 +65,7 @@ public class QAGESAGridElement extends GridElement {
                     this.incOutputIO(chunk.getInputSize());
                     this.reportIO(ev.event_time());
                     super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, 2*chunk.getOutputSize(), request.getSrc_ID()));
+                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, Math.round(chunk.getInputSize()*QAGESA.initialCompressionRatio), request.getSrc_ID()));
 			break;
 
 		case QAGESATags.CACHE_CHUNKS_REQ:
