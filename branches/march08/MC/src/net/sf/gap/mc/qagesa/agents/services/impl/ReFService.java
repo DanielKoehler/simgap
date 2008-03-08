@@ -375,12 +375,12 @@ public class ReFService extends PlatformService {
         Iterator<ReFTriple> it;
         it = list.iterator();
         ReFCouple choice = null;
-        while (it.hasNext()) {
+        if (it.hasNext()) {
             ReFTriple triple = it.next();
             choice = triple.getCouple();
-            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(choice.getStorageElementID());
-            boolean haveMovie = se.containsSequence(movieTag);
-            if (haveMovie) break;
+            //QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(choice.getStorageElementID());
+            //boolean haveMovie = se.containsSequence(movieTag);
+            //if (haveMovie) break;
         }
         /*
             int geID = choice.getComputingElementID();
@@ -458,7 +458,7 @@ public class ReFService extends PlatformService {
 
     private void processPlayRequest(Sim_event ev) {
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
-        if (playRequest.isRandomSelection()) {
+        if (!playRequest.isRandomSelection()) {
             this.heuristicalSelection(ev);
         } else {
             this.randomSelection(ev);
