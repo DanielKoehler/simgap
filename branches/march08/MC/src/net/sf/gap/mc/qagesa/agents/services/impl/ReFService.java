@@ -459,6 +459,8 @@ public class ReFService extends PlatformService {
     private void processPlayRequest(Sim_event ev) {
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         if (!playRequest.isRandomSelection()) {
+            this.updateGISCache();
+            this.updateNMCache();
             this.heuristicalSelection(ev);
         } else {
             this.randomSelection(ev);
