@@ -131,10 +131,10 @@ public class ReFService extends PlatformService {
         for (int i = 0; i < nd; i++) {
             double[] times = (double[]) data.toArray()[i];
             /*
-             QAGESA.outReF_RT.println(
-             "CSV;ReF_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() 
-             + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() 
-             + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
+            QAGESA.outReF_RT.println(
+            "CSV;ReF_RT;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() 
+            + ";" + QAGESAStat.getWhichMeasure() + ";" + this.get_name() 
+            + ";" + (times[0]-QAGESA.getStartTime()) + ";" + (times[1]-QAGESA.getStartTime()) + ";" + (times[1] - times[0]));
              */
             int rep = QAGESAStat.getReplication();
             int nu = QAGESAStat.getNumUsers();
@@ -200,17 +200,17 @@ public class ReFService extends PlatformService {
             agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
                     ceID,
                     100000);
-        } else if (ce.getLocalDirectory().getFreeAgents()>0) {
+        } else if (ce.getLocalDirectory().getFreeAgents() > 0) {
             agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
                     ceID,
                     100000);
         } else {
             AgentRequest agentRequest = new AgentRequest(this.get_id(), this.get_id(), null,
-                            ceID, -1, QAGESAEntityTypes.SERVER_PROXY, 100000, ceID,
-                            QAGESAEntityTypes.NOBODY);
+                    ceID, -1, QAGESAEntityTypes.SERVER_PROXY, 100000, ceID,
+                    QAGESAEntityTypes.NOBODY);
             agentReply = new AgentReply(QAGESATags.AGENT_RUN_REQ, false, agentRequest);
         }
-        int agentID=0;
+        int agentID = 0;
         if (!agentReply.isOk()) {
             Iterator<Integer> it = this.getAlDirectory().getAceMap().keySet().iterator();
             int npe = ce.getNumPE();
@@ -221,7 +221,7 @@ public class ReFService extends PlatformService {
                 Integer ceid = this.getAlDirectory().getAceMap().get(aid);
                 agentID = aid;
                 if (ceid == ceID) {
-                  na++;
+                    na++;
                 }
                 if ((ceid == ceID) && (na == ai)) {
                     agentReply.setOk(true);
@@ -302,57 +302,80 @@ public class ReFService extends PlatformService {
         return list;
     }
 
-    private void processPlayRequest(Sim_event ev) {
+    private void heuristicalSelection(Sim_event ev) {
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         int playReqrepID = playRequest.getReqrepID();
         int userID = playRequest.getSrc_ID();
         String movieTag = playRequest.getMovieTag();
         GEList seList = this.requestGEList(movieTag).getGelist();
-        int ceID = -1;
-        int seID = -1;
-        AgentReply agentReply = null;
-        boolean doing;
-        int maxRetryCount;
-        int retryCount;
-        if (!playRequest.isRandomSelection()) {
-            this.updateGISCache();
-            this.updateNMCache();
-            ReFProximityList list;
-            list = this.computeProximities(userID);
-            Iterator<ReFTriple> it;
-            it = list.iterator();
-            doing = false;
-            maxRetryCount = 1;
-            retryCount = 0;
-            while (it.hasNext() && (retryCount < maxRetryCount) && !doing) {
-                ReFTriple triple = it.next();
-                ReFCouple couple = triple.getCouple();
-                ceID = couple.getComputingElementID();
-                seID = couple.getStorageElementID();
-                agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
-                doing = agentReply.isOk();
-                retryCount++;
-            }
-        }
-        doing = false;
-        maxRetryCount = 1;
-        retryCount = 0;
-        while ((playRequest.isRandomSelection()) && (retryCount < maxRetryCount) && !doing) {
-            Uniform_int r = new Uniform_int("ReFService_rand");
-            int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
-            int seidx = r.sample(seList.size());
-            ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
-            seID = seList.get(seidx);
-            agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
-            doing = agentReply.isOk();
-            retryCount++;
-        }
+
+        ReFCouple choice = this.heuristicChoice(movieTag, userID);
+        int ceID = choice.getComputingElementID();
+        int seID = choice.getStorageElementID();
+        AgentReply agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
+        
         if ((agentReply == null)) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
         } else if (!agentReply.isOk()) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
         }
         super.sim_completed(ev);
+    }
+
+    private ReFCouple heuristicChoice(String movieTag, int userID) {
+        ReFProximityList list;
+        list = this.computeProximities(userID);
+        Iterator<ReFTriple> it;
+        it = list.iterator();
+        ReFCouple choice = null;
+        while (it.hasNext()) {
+            ReFTriple triple = it.next();
+            choice = triple.getCouple();
+            int ceID = choice.getComputingElementID();
+            int seID = choice.getStorageElementID();
+            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(seID);
+            boolean haveMovie = se.containsSequence(movieTag);
+        }
+        return choice;
+    }
+
+    private void randomSelection(Sim_event ev) {
+        ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
+        int playReqrepID = playRequest.getReqrepID();
+        int userID = playRequest.getSrc_ID();
+        String movieTag = playRequest.getMovieTag();
+
+        ReFCouple choice = this.randomChoice(movieTag);
+        int ceID = choice.getComputingElementID();
+        int seID = choice.getStorageElementID();
+        AgentReply agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
+
+        if ((agentReply == null)) {
+            this.sendPlayStartReply(-1, userID, playRequest, false);
+        } else if (!agentReply.isOk()) {
+            this.sendPlayStartReply(-1, userID, playRequest, false);
+        }
+        super.sim_completed(ev);
+    }
+
+    private ReFCouple randomChoice(String movieTag) {
+        GEList seList = this.requestGEList(movieTag).getGelist();
+        Uniform_int r = new Uniform_int("ReFService_rand");
+        int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
+        int seidx = r.sample(seList.size());
+        int ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
+        int seID = seList.get(seidx);
+        ReFCouple choice = new ReFCouple(ceID, seID);
+        return choice;
+    }
+
+    private void processPlayRequest(Sim_event ev) {
+        ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
+        if (playRequest.isRandomSelection()) {
+            this.heuristicalSelection(ev);
+        } else {
+            this.randomSelection(ev);
+        }
     }
 
     private void sendPlayStartReply(int agentID, int userID, ReFPlayRequest playRequest, boolean flag) {
