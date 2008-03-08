@@ -418,14 +418,16 @@ public class User extends QAGESAUser {
                 long MIPS = chunkRequest.getChunk().getMIPS();
                 int sn = chunkRequest.getChunk().getSequenceNumber();
                 double streamQuality = chunkRequest.getTranscodeRequest().updateQualityMean();
+                int playreqrepID = chunkRequest.getPlayReqrepID();
                 QAGESA.outUSER_QoS.printf(
-                        "CSV\tUSERS_QoS\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
+                        "CSV\tUSERS_QoS\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
                         rep,
                         nu,
                         ca,
                         wm,
                         this.get_name(),
                         time,
+                        playreqrepID,
                         sn,
                         size,
                         MIPS,

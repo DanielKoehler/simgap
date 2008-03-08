@@ -69,6 +69,8 @@ import net.sf.gap.xml.types.MachineType;
 import net.sf.gap.xml.types.PEType;
 import net.sf.gap.xml.types.ScenarioType;
 import net.sf.gap.xml.types.TapeType;
+
+import net.sf.gap.mc.qagesa.constants.QAGESAMeasures;
 /**
  *
  * @author Giovanni Novelli
@@ -85,13 +87,6 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
     private int numUsers;
     
     private boolean cachingEnabled;
-    
-    public static final int RMR = 0;
-    public static final int MR = 1;
-    public static final int RMS = 2;
-    public static final int MS = 3;
-    public static final int RMF = 4;
-    public static final int MF = 5;
     
     private int whichMeasure;
     
@@ -460,7 +455,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                 router = this.getTopology().get(index);
                 //router = (RIPRouter) Sim_system.get_entity("swrm");
                 switch (this.getWhichMeasure()) {
-                    case RMR:
+                    case QAGESAMeasures.RMR:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmrUser = new User("RMRUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
@@ -468,7 +463,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         rmrUser.setVirtualOrganization(this);
                         rmrUser.setUid(i);
                         break;
-                    case  MR:
+                    case QAGESAMeasures.MR:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mruser = new User("MRUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
@@ -476,7 +471,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         mruser.setVirtualOrganization(this);
                         mruser.setUid(i);
                         break;
-                    case RMS:
+                    case QAGESAMeasures.RMS:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmsUser = new User("RMSUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
@@ -484,7 +479,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         rmsUser.setVirtualOrganization(this);
                         rmsUser.setUid(i);
                         break;
-                    case  MS:
+                    case QAGESAMeasures.MS:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User msuser = new User("MSUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
@@ -492,7 +487,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         msuser.setVirtualOrganization(this);
                         msuser.setUid(i);
                         break;
-                    case RMF:
+                    case QAGESAMeasures.RMF:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmfUser = new User("RMFUSER_" + i, link,false,
                                 true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
@@ -500,7 +495,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                         rmfUser.setVirtualOrganization(this);
                         rmfUser.setUid(i);
                         break;
-                    case MF:
+                    case QAGESAMeasures.MF:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mfUser = new User("MFUSER_" + i, link,false,
                                 false,numRequests,repeated, movieTag,User.MEASURE_FIRST);

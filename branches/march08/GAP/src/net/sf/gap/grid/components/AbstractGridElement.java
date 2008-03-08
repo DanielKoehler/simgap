@@ -95,6 +95,8 @@ public abstract class AbstractGridElement extends DataGridResource {
 		this.setLocalDirectory(new LocalDirectory(this));
                 this.setInputIO(new Accumulator());
                 this.setOutputIO(new Accumulator());
+                this.incInputIO(0.0);
+                this.incOutputIO(0.0);
                 this.setBaudrate(link.getBaudRate());
 	}
 
