@@ -149,8 +149,8 @@ public class GISService extends PlatformService {
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, load, ioLoad);
 		}
-                /*
-		int numSEs = this.getAgentPlatform().getVirtualOrganization()
+
+                int numSEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumSEs();
 		for (int i = 0; i < numSEs; i++) {
 			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
@@ -164,8 +164,8 @@ public class GISService extends PlatformService {
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, load, ioLoad);
 		}
-                 */
-		this.getGisRepository().setLastRequestTime(super.clock());
+
+                this.getGisRepository().setLastRequestTime(super.clock());
                 //double delay = rand.sample()*0.1;
                 //super.sim_process(delay);
 	}

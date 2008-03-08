@@ -301,6 +301,7 @@ public class QAGESA {
             out.close();
         }
     }
+    public static PrintStream outIO;
     public static PrintStream outFuzzy_QoS;
     public static PrintStream outQoS;
     public static PrintStream outReF_RT;
@@ -341,6 +342,8 @@ public class QAGESA {
             }
         try {
             File outFile;
+            outFile = new File(QAGESA.getOutputPath() + "/IO.csv");
+            outIO = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/Fuzzy_QoS.csv");
@@ -362,6 +365,7 @@ public class QAGESA {
 
     private static void closeOutput() {
         try {
+            outIO.close();
             outFuzzy_QoS.close();
             outQoS.close();
             outReF_RT.close();

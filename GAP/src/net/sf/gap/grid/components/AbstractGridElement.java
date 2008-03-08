@@ -71,6 +71,8 @@ public abstract class AbstractGridElement extends DataGridResource {
 
 	private LocalDirectory localDirectory; // Lists of agents running on this
         
+        public static final double mbFactor = 0.000001;
+        private double baudrate;
         private Accumulator inputIO;
         private Accumulator outputIO;
 
@@ -93,6 +95,7 @@ public abstract class AbstractGridElement extends DataGridResource {
 		this.setLocalDirectory(new LocalDirectory(this));
                 this.setInputIO(new Accumulator());
                 this.setOutputIO(new Accumulator());
+                this.setBaudrate(link.getBaudRate());
 	}
 
 	protected void registerOtherEntity() {
@@ -388,6 +391,13 @@ public abstract class AbstractGridElement extends DataGridResource {
         return inputIO;
     }
 
+    public void incInputIO(double size) {
+        this.getInputIO().add(size*mbFactor);
+    }
+    public void incOutputIO(double size) {
+        this.getOutputIO().add(size*mbFactor);
+    }
+    
     public void setInputIO(Accumulator inputIO) {
         this.inputIO = inputIO;
     }
@@ -398,5 +408,13 @@ public abstract class AbstractGridElement extends DataGridResource {
 
     public void setOutputIO(Accumulator outputIO) {
         this.outputIO = outputIO;
+    }
+
+    public double getBaudrate() {
+        return baudrate;
+    }
+
+    public void setBaudrate(double baudrate) {
+        this.baudrate = baudrate;
     }
 }

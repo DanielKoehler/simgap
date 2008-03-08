@@ -267,12 +267,18 @@ public class ReFService extends PlatformService {
         double sumUserLatency = 0.0;
         int countedULatencies = 0;
         while (it.hasNext()) {
-            int ceID = it.next();
-            GISEntry gisEntry = this.getGisRepositoryCache().get(ceID);
+            int geID = it.next();
+            GISEntry gisEntry = this.getGisRepositoryCache().get(geID);
             double cpuLoad = (gisEntry.getLoad());
             double ioLoad = gisEntry.getIoLoad();
-            double load = (cpuLoad*0.8+ioLoad*0.2);
-            RTTMap rttMap = this.getNetworkMapCache().get(ceID);
+            QAGESAGridElement ge = (QAGESAGridElement) Sim_system.get_entity(geID);
+            double load;
+            if (!ge.isSE()) {
+              load = cpuLoad;
+            } else {
+              load = ioLoad;
+            }
+            RTTMap rttMap = this.getNetworkMapCache().get(geID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
             InfoPacket userPkt = rttMap.get(userID);
             double userLatency;
@@ -286,12 +292,12 @@ public class ReFService extends PlatformService {
             while (itnm.hasNext()) {
                 int eid = itnm.next();
                 if (Sim_system.get_entity(eid) instanceof QAGESAGridElement) {
-                    QAGESAGridElement ge = (QAGESAGridElement) Sim_system.get_entity(eid);
+                    ge = (QAGESAGridElement) Sim_system.get_entity(eid);
                     if (ge.isSE()) {
                         int seID = eid;
                         InfoPacket pkt = rttMap.get(seID);
                         double latency = pkt.getTotalResponseTime() / 2.0;
-                        ReFTriple triple = new ReFTriple(load, latency + userLatency, ceID, seID);
+                        ReFTriple triple = new ReFTriple(load, latency + userLatency, geID, seID);
                         list.add(triple);
                     }
                 }
@@ -369,45 +375,54 @@ public class ReFService extends PlatformService {
         Iterator<ReFTriple> it;
         it = list.iterator();
         ReFCouple choice = null;
-        if (it.hasNext()) {
+        while (it.hasNext()) {
             ReFTriple triple = it.next();
             choice = triple.getCouple();
-            int ceID = choice.getComputingElementID();
+            QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(choice.getStorageElementID());
+            boolean haveMovie = se.containsSequence(movieTag);
+            if (haveMovie) break;
+        }
+        /*
+            int geID = choice.getComputingElementID();
             int seID = choice.getStorageElementID();
-            
+        }
+
+            double seLoad = triple.getProximity();
+            /*
             double inputLoad = this.askInputLoad(seID);
             double outputLoad = this.askOutputLoad(seID);
             double ioLoad = inputLoad + outputLoad;
             double seIOLoad = ioLoad;
-            
-            double minIOLoad = 2.0;
+             */
+        /*
+            double load = seLoad;
+            double minLoad = seLoad;
             int minseID = seID;
             
             while (it.hasNext()) {
                 ReFTriple aTriple = it.next();
                 int aceID = aTriple.getCouple().getComputingElementID();
-                if (aceID==ceID) {
+                if (aceID==geID) {
                     int aseID = aTriple.getCouple().getStorageElementID();
                     QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(aseID);
                     boolean haveMovie = se.containsSequence(movieTag);
                     if (haveMovie) {
-                        inputLoad = this.askInputLoad(aseID);
-                        outputLoad = this.askOutputLoad(aseID);
-                        ioLoad = inputLoad + outputLoad;
-                        if (ioLoad<minIOLoad) {
-                            minIOLoad = ioLoad;
+                        load = aTriple.getProximity();
+                        if (load<minLoad) {
+                            minLoad = load;
                             minseID = aseID;
                         }
                     }
                 }
             }
-            if (minIOLoad>seIOLoad) {
+            if (minLoad>seLoad) {
                 minseID = seID;
-                minIOLoad = seIOLoad;
+                minLoad = seLoad;
             }
 
             choice.setStorageElementID(minseID);
         }
+         */
         return choice;
     }
 
