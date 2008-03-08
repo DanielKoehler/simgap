@@ -307,7 +307,6 @@ public class ReFService extends PlatformService {
         int playReqrepID = playRequest.getReqrepID();
         int userID = playRequest.getSrc_ID();
         String movieTag = playRequest.getMovieTag();
-        GEList seList = this.requestGEList(movieTag).getGelist();
 
         ReFCouple choice = this.heuristicChoice(movieTag, userID);
         int ceID = choice.getComputingElementID();
