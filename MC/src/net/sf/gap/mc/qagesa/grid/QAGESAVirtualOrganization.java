@@ -37,6 +37,7 @@ import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.grid.components.GridElement;
 import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
+import net.sf.gap.mc.qagesa.constants.QAGESAMeasures;
 import net.sf.gap.mc.qagesa.agents.middleware.QAGESAPlatform;
 import net.sf.gap.mc.qagesa.factories.QAGESAGEFactory;
 import net.sf.gap.mc.qagesa.multimedia.TranscodingSet;
@@ -80,13 +81,6 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
     private int numUsers;
     
     private boolean cachingEnabled;
-    
-    public static final int RMR = 0;
-    public static final int MR = 1;
-    public static final int RMS = 2;
-    public static final int MS = 3;
-    public static final int RMF = 4;
-    public static final int MF = 5;
     
     private int whichMeasure;
     
@@ -296,7 +290,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         for (int i = 0; i < this.getNumUsers(); i++) {
                 index = i % N;
                 switch (this.getWhichMeasure()) {
-                    case RMR:
+                    case QAGESAMeasures.RMR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmrUser = new User("RMRUSER_" + i, link,false,
@@ -305,7 +299,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         rmrUser.setVirtualOrganization(this);
                         rmrUser.setUid(i);
                         break;
-                    case  MR:
+                    case QAGESAMeasures.MR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mruser = new User("MRUSER_" + i, link,false,
@@ -314,7 +308,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         mruser.setVirtualOrganization(this);
                         mruser.setUid(i);
                         break;
-                    case RMS:
+                    case QAGESAMeasures.RMS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmsUser = new User("RMSUSER_" + i, link,false,
@@ -323,7 +317,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         rmsUser.setVirtualOrganization(this);
                         rmsUser.setUid(i);
                         break;
-                    case  MS:
+                    case QAGESAMeasures.MS:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User msuser = new User("MSUSER_" + i, link,false,
@@ -332,7 +326,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         msuser.setVirtualOrganization(this);
                         msuser.setUid(i);
                         break;
-                    case RMF:
+                    case QAGESAMeasures.RMF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmfUser = new User("RMFUSER_" + i, link,false,
@@ -341,7 +335,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
                         rmfUser.setVirtualOrganization(this);
                         rmfUser.setUid(i);
                         break;
-                    case MF:
+                    case QAGESAMeasures.MF:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mfUser = new User("MFUSER_" + i, link,false,

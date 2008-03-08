@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.Properties;
 import java.io.*;
 
-import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
+import net.sf.gap.mc.qagesa.constants.QAGESAMeasures;
 import net.sf.gap.mc.qagesa.simulation.impl.Simulation;
 import net.sf.gap.mc.qagesa.simulation.impl.XMLSimulation;
 import net.sf.gap.mc.qagesa.users.impl.User;
@@ -116,22 +116,22 @@ public class QAGESA {
         usercsvName = "USERS_" + prop + ".csv";
         QAGESA.openOutput();
         if (prop.compareTo("MS") == 0) {
-            whichMeasure = QAGESAVirtualOrganization.MS;
+            whichMeasure = QAGESAMeasures.MS;
         }
         if (prop.compareTo("MF") == 0) {
-            whichMeasure = QAGESAVirtualOrganization.MF;
+            whichMeasure = QAGESAMeasures.MF;
         }
         if (prop.compareTo("MR") == 0) {
-            whichMeasure = QAGESAVirtualOrganization.MR;
+            whichMeasure = QAGESAMeasures.MR;
         }
         if (prop.compareTo("RMS") == 0) {
-            whichMeasure = QAGESAVirtualOrganization.RMS;
+            whichMeasure = QAGESAMeasures.RMS;
         }
         if (prop.compareTo("RMF") == 0) {
-            whichMeasure = QAGESAVirtualOrganization.RMF;
+            whichMeasure = QAGESAMeasures.RMF;
         }
         if (prop.compareTo("RMR") == 0) {
-            whichMeasure = QAGESAVirtualOrganization.RMR;
+            whichMeasure = QAGESAMeasures.RMR;
         }
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);
@@ -342,22 +342,153 @@ public class QAGESA {
             }
         try {
             File outFile;
-            outFile = new File(QAGESA.getOutputPath() + "/IO.csv");
-            outIO = new PrintStream(new FileOutputStream(outFile, true));
             outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
-            outFile = new File(QAGESA.getOutputPath() + "/Fuzzy_QoS.csv");
-            outFuzzy_QoS = new PrintStream(new FileOutputStream(outFile, true));
-            outFile = new File(QAGESA.getOutputPath() + "/QoS.csv");
-            outQoS = new PrintStream(new FileOutputStream(outFile, true));
+            outReF_RT.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "ENTITY\t"+
+                    "REQUEST TIME\t"+
+                    "REPLY TIME\t"+
+                    "RESPONSE TIME"+
+                    "\n"
+                    );
             outFile = new File(QAGESA.getOutputPath() + "/ReF_CR.csv");
             outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
+            outReF_CR.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "TIME\t"+
+                    "CONCURRENT REQUESTS"+
+                    "\n"
+                    );
             outFile = new File(QAGESA.getOutputPath() + "/ReF_PR.csv");
             outReF_PR = new PrintStream(new FileOutputStream(outFile, true));
+            outReF_PR.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "TIME\t"+
+                    "REQUESTS SERVED\t"+
+                    "CONCURRENT REQUESTS\t"+
+                    "WR\t"+
+                    "REQUESTS SERVED PER SECOND"+
+                    "\n"
+                    );
+            outFile = new File(QAGESA.getOutputPath() + "/IO.csv");
+            outIO = new PrintStream(new FileOutputStream(outFile, true));
+            outIO.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "TIME\t"+
+                    "GRID ELEMENT\t"+
+                    "CUMULATIVE INPUT LOAD\t"+
+                    "CUMULATIVE OUTPUT LOAD\t"+
+                    "CUMULATIVE IO LOAD\t"+
+                    "MEAN INPUT LOAD\t"+
+                    "MEAN OUTPUT LOAD\t"+
+                    "MEAN IO LOAD"+
+                    "\n"
+                    );
+            outFile = new File(QAGESA.getOutputPath() + "/Fuzzy_QoS.csv");
+            outFuzzy_QoS = new PrintStream(new FileOutputStream(outFile, true));
+            outFuzzy_QoS.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "TIME\t"+
+                    "AGENT\t"+
+                    "COMPUTED GIGAFLOPS\t"+
+                    "POTENTIAL GIGAFLOPS\t"+
+                    "GRID LOAD\t"+
+                    "GLOBAL QUALITY LOSS\t"+
+                    "ACCEPTABLE QUALITY LOSS\t"+
+                    "USER\t"+
+                    "STREAM ID\t"+
+                    "SEQUENCE NUMBER\t"+
+                    "BYTES\t"+
+                    "GIGAFLOPS\t"+
+                    "CURRENT STREAM QUALITY\t"+
+                    "UPDATED STREAM QUALITY\t"+
+                    "ACCEPTABLE STREAM QUALITY\t"+
+                    "QUALITY LOSS\t"+
+                    "ACCEPTABLE QUALITY LOSS\t"+
+                    "DELAY\t"+
+                    "\n"
+                    );
+            outFile = new File(QAGESA.getOutputPath() + "/QoS.csv");
+            outQoS = new PrintStream(new FileOutputStream(outFile, true));
+            outQoS.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "TIME\t"+
+                    "COMPUTED GIGAFLOPS\t"+
+                    "POTENTIAL GIGAFLOPS\t"+
+                    "GRIDLOAD\t"+
+                    "GLOBAL QUALITYLOSS\t"+
+                    "ACCEPTABLE QUALITYLOSS\t"+
+                    "\n"
+                    );
             outFile = new File(QAGESA.getOutputPath() + "/" + usercsvName);
             outUSER = new PrintStream(new FileOutputStream(outFile, true));
+            outUSER.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "USER\t"+
+                    "REQUEST TIME\t"+
+                    "REPLY TIME\t"+
+                    "SERVICE TIME\t"+
+                    "NORMALIZED SERVICE TIME\t"+
+                    "\n"
+                    );
             outFile = new File(QAGESA.getOutputPath() + "/USERS_QoS.csv");
             outUSER_QoS = new PrintStream(new FileOutputStream(outFile, true));
+            outUSER_QoS.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "TIME\t"+
+                    "USER\t"+
+                    "STREAM ID\t"+
+                    "SEQUENCE NUMBER\t"+
+                    "BYTES\t"+
+                    "GIGAFLOPS\t"+
+                    "CURRENT STREAM QUALITY\t"+
+                    "ACCEPTABLE STREAM QUALITY\t"+
+                    "QUALITY LOSS\t"+
+                    "ACCEPTABLE QUALITY LOSS\t"+
+                    "MEAN STREAM QUALITY" +
+                    "\n"
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }

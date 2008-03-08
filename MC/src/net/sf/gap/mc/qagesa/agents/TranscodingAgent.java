@@ -225,7 +225,7 @@ public class TranscodingAgent extends GridAgent {
             String user = Sim_system.get_entity(userChunkReply.getRequest().getUserID()).get_name();
             int playReqrepid = chunkRequest.getPlayReqrepID();
             QAGESA.outFuzzy_QoS.printf
-                    ("CSV\tFuzzy_QoS\t%2d\t%4d\t%d\t%d\t%6.2f\t%s\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f",
+                    ("CSV\tFuzzy_QoS\t%2d\t%4d\t%d\t%d\t%6.4f\t%s\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f",
                     rep,
                     nu,
                     ca,

@@ -27,6 +27,7 @@ import java.util.Calendar;
 
 import net.sf.gap.GAP;
 import net.sf.gap.mc.qagesa.QAGESA;
+import net.sf.gap.mc.qagesa.constants.QAGESAMeasures;
 import net.sf.gap.mc.qagesa.grid.QAGESAVirtualOrganization;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.simulation.AbstractSimulation;
@@ -150,22 +151,22 @@ public class Simulation extends AbstractSimulation {
 
                         String prefix = "";
                       switch (this.getWhichMeasure()) {
-                          case QAGESAVirtualOrganization.RMR:
+                          case QAGESAMeasures.RMR:
                               prefix = "RMR";
                               break;
-                          case QAGESAVirtualOrganization.MR:
+                          case QAGESAMeasures.MR:
                               prefix = "MR";
                               break;
-                          case QAGESAVirtualOrganization.RMS:
+                          case QAGESAMeasures.RMS:
                               prefix = "RMS";
                               break;
-                          case QAGESAVirtualOrganization.MS:
+                          case QAGESAMeasures.MS:
                               prefix = "MS";
                               break;
-                          case QAGESAVirtualOrganization.RMF:
+                          case QAGESAMeasures.RMF:
                               prefix = "RMF";
                               break;
-                          case QAGESAVirtualOrganization.MF:
+                          case QAGESAMeasures.MF:
                               prefix = "MF";
                               break;
                       }
