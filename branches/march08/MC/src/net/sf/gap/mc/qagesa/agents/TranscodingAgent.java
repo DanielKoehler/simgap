@@ -283,6 +283,11 @@ public class TranscodingAgent extends GridAgent {
                 gotChunkReply.getChunk());
         this.write(msg);
         Chunk gotChunk = gotChunkReply.getChunk();
+        if (!gotChunk.isTranscoded()) {
+            transcodeRequest.getPlayRequest().incFetchedBytes(Math.round(gotChunk.getInputSize()*QAGESA.initialCompressionRatio));
+        } else {
+            transcodeRequest.getPlayRequest().incFetchedBytes(gotChunk.getOutputSize());
+        }
         Chunk transcodedChunk = null;
         transcodedChunk = this.transcode(gotChunk, transcodeRequest.getQuality());
         if (sequenceNumber == 1) {

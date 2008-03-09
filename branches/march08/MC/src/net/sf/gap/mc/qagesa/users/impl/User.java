@@ -278,13 +278,14 @@ public class User extends QAGESAUser {
 
     private void askReF(String movieTag) {
         int SIZE = 500;
-        double evsend_time = 0;
+        double evsend_time = User.clock();
         int userID = this.get_id();
         //double acceptableQualityLoss = rand.sample(69) * 0.01;
         double acceptableQualityLoss =QAGESA.qosloss;
         QAGESAStat.updateAcceptableQualityLoss(acceptableQualityLoss);
         double minQuality = 1.0 - acceptableQualityLoss;
         ReFPlayRequest request = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, minQuality, this.isRandomSelection());
+        request.setRequestTime(evsend_time);
         @SuppressWarnings("unused")
         int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
@@ -303,6 +304,7 @@ public class User extends QAGESAUser {
         playReply.setReplyEv(ev);
         request = playReply.getRequest();
         double evrecv_time = GridSim.clock();
+        request.setReplyTime(evrecv_time);
         if (playReply.isOk()) {
             msg = String.format(
                     "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_START (SUCCESS) %4$d %5$s",
@@ -363,6 +365,7 @@ public class User extends QAGESAUser {
                 chunkRequest.getTranscodeRequest().getPlayRequest().setFcEv(ev);
                 int reqrepID = chunkRequest.getReqrepID();
                 double evrecv_time = GridSim.clock();
+                chunkRequest.getTranscodeRequest().getPlayRequest().setFcTime(evrecv_time);
                 String msg = String.format(
                         "%1$f %2$d %3$s <-- %4$s SENDING_FIRST_CHUNK %5$d %6$d",
                         evrecv_time, reqrepID, this.get_name(),
@@ -379,6 +382,7 @@ public class User extends QAGESAUser {
                 @SuppressWarnings("unused") int playReqrepID = chunkRequest.getPlayReqrepID();
                 reqrepID = chunkRequest.getReqrepID();
                 evrecv_time = GridSim.clock();
+                chunkRequest.getTranscodeRequest().getPlayRequest().setLcTime(evrecv_time);
                 msg = String.format(
                         "%1$f %2$d %3$s <-- %4$s SENT_LAST_CHUNK %5$d",
                         evrecv_time, reqrepID, this.get_name(),
@@ -394,6 +398,7 @@ public class User extends QAGESAUser {
                 chunkRequest = ChunkRequest.get_data(ev);
                 reqrepID = chunkRequest.getReqrepID();
                 evrecv_time = GridSim.clock();
+                chunkRequest.getTranscodeRequest().getPlayRequest().incStreamedBytes(chunkRequest.getChunk().getOutputSize());
                 msg = String.format(
                         "%1$f %2$d %3$s <-- %4$s SEND_CHUNK %5$d %6$d",
                         evrecv_time, reqrepID, this.get_name(),
@@ -445,6 +450,7 @@ public class User extends QAGESAUser {
                  ReFPlayReply playReply = ReFPlayReply.get_data(ev);
                  ReFPlayRequest request = playReply.getRequest();
                 evrecv_time = GridSim.clock();
+                request.setEndTime(evrecv_time);
                 if (playReply.isOk()) {
                     msg = String.format(
                             "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (SUCCESS) %4$d %5$s",
