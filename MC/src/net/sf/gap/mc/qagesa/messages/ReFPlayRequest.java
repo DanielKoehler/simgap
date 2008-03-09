@@ -42,6 +42,15 @@ public class ReFPlayRequest extends Request {
         private TranscodeRequest transcodeRequest;
         
         private double minQuality;
+        
+        private double requestTime; // request time user side
+        private double replyTime;   // request reply time user side
+        private double fcTime;      // first chunk time user side
+        private double lcTime;      // last chunk time user side
+        private double endTime;     // request completion time user side
+        
+        private long fetchedBytes;  // bytes fetched from SE to CE considering caching
+        private long streamedBytes; // bytes streamed to user considering QoS adaptation
 
 	/**
 	 * Creates a new instance of ReFPlayRequest
@@ -55,7 +64,17 @@ public class ReFPlayRequest extends Request {
                 this.replyEv=null;
                 this.fcEv=null;
                 this.setTranscodeRequest(null);
+                
                 this.setMinQuality(acceptableQualityLoss);
+                
+                this.setRequestTime(-1.0);
+                this.setReplyTime(-1.0);
+                this.setFcTime(-1.0);
+                this.setLcTime(-1.0);
+                this.setEndTime(-1.0);
+                
+                this.setFetchedBytes(-1);
+                this.setStreamedBytes(-1);
 	}
 
 	public static ReFPlayRequest get_data(Sim_event ev) {
@@ -70,6 +89,15 @@ public class ReFPlayRequest extends Request {
                 request.setFcEv(this.getFcEv());
                 request.setReplyEv(replyEv);
                 request.setTranscodeRequest(transcodeRequest);
+                
+                request.setRequestTime(this.getRequestTime());
+                request.setReplyTime(this.getReplyTime());
+                request.setFcTime(this.getFcTime());
+                request.setLcTime(this.getLcTime());
+                request.setEndTime(this.getEndTime());
+                
+                request.setFetchedBytes(this.getFetchedBytes());
+                request.setStreamedBytes(this.getStreamedBytes());
                 return request;
 	}
 
@@ -127,5 +155,69 @@ public class ReFPlayRequest extends Request {
 
     public void setMinQuality(double minQuality) {
         this.minQuality = minQuality;
+    }
+
+    public double getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(double requestTime) {
+        this.requestTime = requestTime;
+    }
+
+    public double getReplyTime() {
+        return replyTime;
+    }
+
+    public void setReplyTime(double replyTime) {
+        this.replyTime = replyTime;
+    }
+
+    public double getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(double endTime) {
+        this.endTime = endTime;
+    }
+
+    public double getFcTime() {
+        return fcTime;
+    }
+
+    public void setFcTime(double fcTime) {
+        this.fcTime = fcTime;
+    }
+
+    public double getLcTime() {
+        return lcTime;
+    }
+
+    public void setLcTime(double lcTime) {
+        this.lcTime = lcTime;
+    }
+
+    public long getFetchedBytes() {
+        return fetchedBytes;
+    }
+
+    public void setFetchedBytes(long fetchedBytes) {
+        this.fetchedBytes = fetchedBytes;
+    }
+
+    public long getStreamedBytes() {
+        return streamedBytes;
+    }
+
+    public void setStreamedBytes(long streamedBytes) {
+        this.streamedBytes = streamedBytes;
+    }
+    
+    public long incStreamedBytes(long inc) {
+        return this.streamedBytes += inc;
+    }
+
+    public long incFetchedBytes(long inc) {
+        return this.fetchedBytes += inc;
     }
 }

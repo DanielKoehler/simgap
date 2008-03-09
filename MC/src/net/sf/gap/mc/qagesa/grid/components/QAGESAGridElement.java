@@ -62,10 +62,16 @@ public class QAGESAGridElement extends GridElement {
                     ChunksSequence sequence = this.getTranscodingSet().get(request.getMovieTag());
                     Chunk chunk = sequence.get(request.getSequenceNumber()-1);
                     ChunkReply reply = new ChunkReply(ev.get_tag(), true, request, chunk);
-                    this.incOutputIO(chunk.getInputSize());
                     this.reportIO(ev.event_time());
-                    super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                                    QAGESATags.GET_CHUNK_REP, new IO_data(reply, Math.round(chunk.getInputSize()*QAGESA.initialCompressionRatio), request.getSrc_ID()));
+                    if (!chunk.isTranscoded()) {
+                        this.incOutputIO(chunk.getInputSize()*QAGESA.initialCompressionRatio);
+                        super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                                        QAGESATags.GET_CHUNK_REP, new IO_data(reply, Math.round(chunk.getInputSize()*QAGESA.initialCompressionRatio), request.getSrc_ID()));
+                    } else {
+                        this.incOutputIO(chunk.getOutputSize());
+                        super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                                        QAGESATags.GET_CHUNK_REP, new IO_data(reply, Math.round(chunk.getInputSize()), request.getSrc_ID()));
+                    }
 			break;
 
 		case QAGESATags.CACHE_CHUNKS_REQ:
