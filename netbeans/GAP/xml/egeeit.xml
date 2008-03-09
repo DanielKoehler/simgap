@@ -439,7 +439,6 @@
             <link>l-pd-ce</link>
         </gridElement>
         <gridElement name="pi-ce">
-            <isRB>true</isRB>
             <machineList>
                 <items>
                     <Machine>
@@ -504,6 +503,7 @@
             <link>l-rm-ce</link>
         </gridElement>
         <gridElement name="ct-ce">
+            <isRB>true</isRB>
             <machineList>
                 <items>
                     <Machine>
