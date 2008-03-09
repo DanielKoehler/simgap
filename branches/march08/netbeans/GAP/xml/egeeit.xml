@@ -66,7 +66,7 @@
         <netLinks>
             <netLinkItem name="l-swmi2swbo">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swbo</toEntity>
@@ -74,7 +74,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2swrm">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swrm</toEntity>
@@ -82,7 +82,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2swna">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>swna</toEntity>
@@ -90,7 +90,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2swrm">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>swrm</toEntity>
@@ -98,7 +98,7 @@
             </netLinkItem>
             <netLinkItem name="l-swbo2swna">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swbo</fromEntity>
                 <toEntity>swna</toEntity>
@@ -106,7 +106,7 @@
             </netLinkItem>
             <netLinkItem name="l-swrm2swna">
                 <Baudrate>10000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swrm</fromEntity>
                 <toEntity>swna</toEntity>
@@ -170,7 +170,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ba-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.5</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ba-ce-r</toEntity>
@@ -178,7 +178,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ct-ce-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ct-ce-r</toEntity>
@@ -210,7 +210,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ct-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>4.0</Delay>
+                <Delay>2.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ct-se-r</toEntity>
@@ -218,7 +218,7 @@
             </netLinkItem>
             <netLinkItem name="l-swmi2pd-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>1.5</Delay>
+                <Delay>1.0</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swmi</fromEntity>
                 <toEntity>pd-se-r</toEntity>
@@ -250,7 +250,7 @@
             </netLinkItem>
             <netLinkItem name="l-swna2ba-se-r">
                 <Baudrate>1000000000.0</Baudrate>
-                <Delay>2.0</Delay>
+                <Delay>1.5</Delay>
                 <MTU>1512</MTU>
                 <fromEntity>swna</fromEntity>
                 <toEntity>ba-se-r</toEntity>
