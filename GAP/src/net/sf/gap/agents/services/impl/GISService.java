@@ -137,21 +137,36 @@ public class GISService extends PlatformService {
 	public void processGIS() {
 		int numCEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumCEs();
-                int i = randgis.sample(numCEs);
-			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
-                        int geid = ge.get_id();
-                        boolean SE = ge.isSE();
-                        int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
-                        double load = this.askLoad(geid);
-                        double inputLoad = this.askInputLoad(geid);
-                        double outputLoad = this.askOutputLoad(geid);
-                        double ioLoad = inputLoad + outputLoad;
-                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
+                AbstractGridElement ge;
+                int geid;
+                boolean SE;
+                int numFreeAgents;
+                double load;
+                double inputLoad;
+                double outputLoad;
+                double ioLoad;
+                int i;
+                boolean ne;
+                ne = false;
+                while (!ne) {
+                        i = randgis.sample(numCEs);
+			ge = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
+                        geid = ge.get_id();
+                        SE = ge.isSE();
+                        numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+                        load = this.askLoad(geid);
+                        inputLoad = this.askInputLoad(geid);
+                        outputLoad = this.askOutputLoad(geid);
+                        ioLoad = inputLoad + outputLoad;
+                        ne=this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, load, ioLoad);
+                }
 
                 int numSEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumSEs();
-                i = randgis.sample(numSEs);
+                ne = false;
+                while (!ne) {
+                        i = randgis.sample(numSEs);
 			ge = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
                         geid = ge.get_id();
                         SE = ge.isSE();
@@ -160,8 +175,9 @@ public class GISService extends PlatformService {
                         inputLoad = this.askInputLoad(geid);
                         outputLoad = this.askOutputLoad(geid);
                         ioLoad = inputLoad + outputLoad;
-                        this.addEntry(geid, 0, 0, numFreeAgents, 0,
+                        ne=this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, load, ioLoad);
+                }
 
                 this.getGisRepository().setLastRequestTime(super.clock());
                 //double delay = rand.sample()*0.1;
@@ -234,7 +250,7 @@ public class GISService extends PlatformService {
             return load;
         }
         
-	public GISEntry addEntry(int geid, int numPEs, int numFreePEs,
+	public boolean addEntry(int geid, int numPEs, int numFreePEs,
 			int numFreeAgents, int totalMIPS, boolean SE, double MB_size,
 			double load, double ioLoad) {
 		GISEntry entry = new GISEntry(numPEs, numFreePEs, numFreeAgents,
@@ -253,7 +269,12 @@ public class GISService extends PlatformService {
 				this.getGisRepository().addGE(se);
 			}
 		}
-		return this.getGisRepository().put(geid, entry);
+                if (getGisRepository().containsKey(geid)) {
+		   this.getGisRepository().put(geid, entry);
+                   return true;
+                } else {
+                   return false;
+                }
 	}
 
 	public GISEntry removeEntry(int geid) {
