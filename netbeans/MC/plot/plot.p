@@ -7,9 +7,9 @@ set xlabel "Simulation Time in seconds"
 set yrange[0.0:1.0]
 set terminal png
 set output '../png/QoS.png'
-plot 'QoS.csv' using 7:10 with lines title "Grid Load" linecolor rgb 'red' , \
+plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'red' , \
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'green' , \
-      'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue'  
+      'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue'
 set autoscale
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
@@ -18,7 +18,7 @@ unset yrange
 set yrange[0.0:]
 set terminal png
 set output '../png/QoS_ST.png'
-plot 'QoS.csv' using 7:10 with lines title "Grid Load" linecolor rgb 'red' , \
+plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'red' , \
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'green' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue', \
       'USERS.dat' using 9:11 title "Streaming Time %" with lines linecolor rgb 'black'
