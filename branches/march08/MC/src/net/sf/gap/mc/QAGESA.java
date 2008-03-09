@@ -311,6 +311,7 @@ public class QAGESA {
     public static PrintStream outReF_CR;
     public static PrintStream outReF_PR;
     public static PrintStream outUSER;
+    public static PrintStream outUSER_Streaming;
     public static PrintStream outUSER_QoS;
 
     private static void prepareOutput() {
@@ -449,8 +450,10 @@ public class QAGESA {
                     "WHICH MEASURE\t"+
                     "TIME\t"+
                     "COMPUTED GIGAFLOPS\t"+
-                    "POTENTIAL GIGAFLOPS\t"+
-                    "GRIDLOAD\t"+
+                    "GRID GIGAFLOPS\t"+
+                    "QAGESA GIGAFLOPS\t"+
+                    "GRID LOAD\t"+
+                    "QAGESA LOAD\t"+
                     "GLOBAL QUALITYLOSS\t"+
                     "ACCEPTABLE QUALITYLOSS\t"+
                     "\n"
@@ -490,7 +493,38 @@ public class QAGESA {
                     "ACCEPTABLE STREAM QUALITY\t"+
                     "QUALITY LOSS\t"+
                     "ACCEPTABLE QUALITY LOSS\t"+
-                    "MEAN STREAM QUALITY" +
+                    "MEAN STREAM QUALITY\t" +
+                    "CUMULATIVE FETCHED BYTES\t" +
+                    "CUMULATIVE STREAMED BYTES\t" +
+                    "\n"
+                    );
+            outFile = new File(QAGESA.getOutputPath() + "/USERS_Streaming.csv");
+            outUSER_Streaming = new PrintStream(new FileOutputStream(outFile, true));
+            outUSER_Streaming.printf(
+                    "FORMAT\t"+
+                    "MEASURE\t"+
+                    "REPLICATION\t"+
+                    "USERS\t"+
+                    "CACHING\t"+
+                    "WHICH MEASURE\t"+
+                    "USER\t"+
+                    "TIME\t"+
+                    "STREAM ID\t"+
+                    "ACCEPTABLE STREAM QUALITY\t"+
+                    "REQUEST TIME\t" +
+                    "REPLY TIME\t" +
+                    "TRANSCODED FIRST CHUNK TIME\t" +
+                    "SENT LAST CHUNK TIME\t" +
+                    "END TIME\t" +
+                    "FETCHED BYTES\t" +
+                    "STREAMED BYTES\t" +
+                    "RESPONSE TIME\t" +
+                    "FIRST CHUNK TIME\t" +
+                    "STREAMING TIME\t" +
+                    "NORMALIZED STREAMING TIME\t" +
+                    "DELAY\t" +
+                    "MEAN DELAY\t" +
+                    "NORMALIZED MEAN DELAY\t" +
                     "\n"
                     );
         } catch (IOException e) {
@@ -508,6 +542,7 @@ public class QAGESA {
             outReF_PR.close();
             outUSER.close();
             outUSER_QoS.close();
+            outUSER_Streaming.close();
             File usedConfFile = new File(usedConf);
             QAGESA.copywd(usedConf, getOutputPath() + "/" + usedConfFile.getName());
             QAGESA.copy("sim_graphs.sjg", getOutputPath() + "/sim_graphs.sjg");
