@@ -117,7 +117,6 @@ public class TranscodingAgent extends GridAgent {
             gridlet.setUserID(this.get_id());
             super.gridletSubmit(gridlet, this.getResourceID());
             QAGESAStat.incComputedMIPS(length);
-            double gridGIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime())*0.001;
             double qagesaGIPS = this.getGridMIPS()*(TranscodingAgent.clock()-QAGESA.getStartTime())*0.001*(1.0-QAGESA.gridload);
             double qualityLoss = 1.0 - quality;
             QAGESAStat.updateGlobalQualityLoss(qualityLoss);
@@ -131,28 +130,21 @@ public class TranscodingAgent extends GridAgent {
             double time = this.clock()-QAGESA.getStartTime();
             double cGIPS = QAGESAStat.getComputedMIPS()*0.001;
             double qagesaLoad =1.0;
-            double temp = cGIPS/gridGIPS;
+            double temp = cGIPS/qagesaGIPS;
             if (temp<=1.0) {
                 qagesaLoad= temp;
-            }
-            double gridLoad =1.0;
-            temp+=QAGESA.gridload;
-            if (temp<=1.0) {
-                gridLoad= temp;
             }
             double gQLmean = QAGESAStat.getGlobalQualityLoss().getMean();
             double aQLmean = QAGESAStat.getAcceptableQualityLoss().getMean();
             QAGESA.outQoS.printf
-                    ("CSV\tQoS\t%2d\t%4d\t%d\t%d\t%6.2f\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
+                    ("CSV\tQoS\t%2d\t%4d\t%d\t%d\t%6.2f\t%6.2f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
                     rep,
                     nu,
                     ca,
                     wm,
                     time,
                     cGIPS,
-                    gridGIPS,
                     qagesaGIPS,
-                    gridLoad,
                     qagesaLoad,
                     gQLmean,
                     aQLmean);

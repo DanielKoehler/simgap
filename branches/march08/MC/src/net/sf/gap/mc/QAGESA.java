@@ -450,9 +450,7 @@ public class QAGESA {
                     "WHICH MEASURE\t"+
                     "TIME\t"+
                     "COMPUTED GIGAFLOPS\t"+
-                    "GRID GIGAFLOPS\t"+
                     "QAGESA GIGAFLOPS\t"+
-                    "GRID LOAD\t"+
                     "QAGESA LOAD\t"+
                     "GLOBAL QUALITYLOSS\t"+
                     "ACCEPTABLE QUALITYLOSS\t"+
