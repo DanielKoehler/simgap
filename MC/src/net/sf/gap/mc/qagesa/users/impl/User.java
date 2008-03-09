@@ -424,8 +424,10 @@ public class User extends QAGESAUser {
                 int sn = chunkRequest.getChunk().getSequenceNumber();
                 double streamQuality = chunkRequest.getTranscodeRequest().updateQualityMean();
                 int playreqrepID = chunkRequest.getPlayReqrepID();
+                long fetchedBytes = chunkRequest.getTranscodeRequest().getPlayRequest().getFetchedBytes();
+                long streamedBytes = chunkRequest.getTranscodeRequest().getPlayRequest().getStreamedBytes();
                 QAGESA.outUSER_QoS.printf(
-                        "CSV\tUSERS_QoS\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\n",
+                        "CSV\tUSERS_QoS\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%2d\t%6d\t%4d\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%1.4f\t%12d\t%12d\n",
                         rep,
                         nu,
                         ca,
@@ -440,7 +442,9 @@ public class User extends QAGESAUser {
                         minQuality,
                         qualityLoss,
                         aQL,
-                        streamQuality);
+                        streamQuality,
+                        fetchedBytes,
+                        streamedBytes);
                 
                  ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
                 super.send(super.output, GridSimTags.SCHEDULE_NOW,
@@ -450,7 +454,6 @@ public class User extends QAGESAUser {
                  ReFPlayReply playReply = ReFPlayReply.get_data(ev);
                  ReFPlayRequest request = playReply.getRequest();
                 evrecv_time = GridSim.clock();
-                request.setEndTime(evrecv_time);
                 if (playReply.isOk()) {
                     msg = String.format(
                             "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (SUCCESS) %4$d %5$s",
@@ -466,6 +469,62 @@ public class User extends QAGESAUser {
                 }
                 this.write(msg);
                 asked--;
+                request.setEndTime(evrecv_time);
+                rep = QAGESAStat.getReplication();
+                nu = QAGESAStat.getNumUsers();
+                ca = 0;
+                if (QAGESAStat.isCachingEnabled()) {
+                    ca = 1;
+                }
+                wm = QAGESAStat.getWhichMeasure();
+                time = User.clock();
+                playreqrepID = request.getReqrepID();
+                minQuality = request.getMinQuality();
+                double requestTime = request.getRequestTime();
+                double replyTime = request.getReplyTime();
+                double fcTime = request.getFcTime();
+                double lcTime = request.getLcTime();
+                double endTime = request.getEndTime();
+                
+                double responseTime = replyTime-requestTime;
+                double firstChunkTime = fcTime-requestTime;
+                double streamingTime = endTime-requestTime;
+
+                double duration = request.getTranscodeRequest().getSequence().getDuration()*0.001;
+                double chunkDuration = duration/(request.getTranscodeRequest().getSequence().size()*1.0);
+                double normalizedStreamingTime = streamingTime/duration;
+                
+                double delay=streamingTime-duration;
+                double meanDelay=delay/(request.getTranscodeRequest().getSequence().size()*1.0);
+                double normalizedMeanDelay = meanDelay/chunkDuration;
+                        
+                fetchedBytes = request.getFetchedBytes();
+                streamedBytes = request.getStreamedBytes();
+                QAGESA.outUSER_Streaming.printf(
+                        "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\n",
+                        rep,
+                        nu,
+                        ca,
+                        wm,
+                        this.get_name(),
+                        time,
+                        playreqrepID,
+                        minQuality,
+                        requestTime,
+                        replyTime,
+                        fcTime,
+                        lcTime,
+                        endTime,
+                        fetchedBytes,
+                        streamedBytes,
+                        firstChunkTime,
+                        responseTime,
+                        streamingTime,
+                        normalizedStreamingTime,
+                        delay,
+                        meanDelay,
+                        normalizedMeanDelay
+                        );
                 break;
             default:
                 break;
