@@ -1,0 +1,42 @@
+<project name="MC-redist" default="run" basedir=".">
+    <description>Runs MC redistributable</description>
+
+    <property name="main-class"  value="net.sf.gap.mc.QAGESA"/>
+
+    <target description="Run MC" name="run">
+       <java 
+           dir="."
+           classname="${main-class}"
+           fork="true"
+           failonerror="true"
+           maxmemory="1024m"
+           >
+        <classpath>
+            <pathelement location="./MC.jar"/>
+            <pathelement location="./libs/junit-4.1.jar"/>
+            <pathelement location="./libs/javacsv.jar"/>
+            <pathelement location="./libs/GAP.jar"/>
+            <pathelement location="./libs/GridSim.jar"/>
+            <pathelement location="./libs/simjava2.jar"/>
+        </classpath>
+        </java>
+    </target>  
+    
+
+    <condition property="isUnix">
+    <os family="unix" />
+    </condition>
+    <condition property="isWindows">
+    <os family="windows" />
+    </condition>
+    
+    <target name="generate" depends="cond-if,cond-else"/>
+
+    <target name="cond-if" if="isWindows">
+        <echo message="windows"/>
+    </target>
+
+    <target name="cond-else" if="isUnix">
+        <echo message="unix"/>
+    </target>
+</project>
