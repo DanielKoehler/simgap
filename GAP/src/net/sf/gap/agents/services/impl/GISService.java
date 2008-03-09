@@ -33,9 +33,9 @@ import net.sf.gap.constants.Tags;
 import net.sf.gap.grid.components.AbstractGridElement;
 import net.sf.gap.messages.impl.GISReply;
 import net.sf.gap.messages.impl.GISRequest;
+import net.sf.gap.distributions.Uniform_int;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_system;
-import eduni.simjava.distributions.Sim_random_obj;
 import gridsim.*;
 
 /**
@@ -47,7 +47,7 @@ import gridsim.*;
 public class GISService extends PlatformService {
 
 	private GISRepository gisRepository;
-        private Sim_random_obj rand;
+        private Uniform_int randgis;
 
 	/**
 	 * @param ap
@@ -58,13 +58,13 @@ public class GISService extends PlatformService {
 	public GISService(AbstractAgentPlatform ap, boolean trace_flag)
 			throws Exception {
 		super(ap, "GISService", trace_flag);
-                rand=new Sim_random_obj("GIS_delay");
+                randgis=new Uniform_int("rand_gis");
 	}
 
 	public GISService(AbstractAgentPlatform ap, String name, boolean trace_flag)
 			throws Exception {
 		super(ap, name, trace_flag);
-                rand=new Sim_random_obj("GIS_delay");
+                randgis=new Uniform_int("rand_gis");
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class GISService extends PlatformService {
 	public void processGIS() {
 		int numCEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumCEs();
-		for (int i = 0; i < numCEs; i++) {
+                int i = randgis.sample(numCEs);
 			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getCEs().get(i);
                         int geid = ge.get_id();
                         boolean SE = ge.isSE();
@@ -148,22 +148,20 @@ public class GISService extends PlatformService {
                         double ioLoad = inputLoad + outputLoad;
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, load, ioLoad);
-		}
 
                 int numSEs = this.getAgentPlatform().getVirtualOrganization()
 				.getNumSEs();
-		for (int i = 0; i < numSEs; i++) {
-			AbstractGridElement ge = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
-                        int geid = ge.get_id();
-                        boolean SE = ge.isSE();
-                        int numFreeAgents = ge.getLocalDirectory().getFreeAgents();
-                        double load = this.askLoad(geid);
-                        double inputLoad = this.askInputLoad(geid);
-                        double outputLoad = this.askOutputLoad(geid);
-                        double ioLoad = inputLoad + outputLoad;
+                i = randgis.sample(numSEs);
+			ge = this.getAgentPlatform().getVirtualOrganization().getSEs().get(i);
+                        geid = ge.get_id();
+                        SE = ge.isSE();
+                        numFreeAgents = ge.getLocalDirectory().getFreeAgents();
+                        load = this.askLoad(geid);
+                        inputLoad = this.askInputLoad(geid);
+                        outputLoad = this.askOutputLoad(geid);
+                        ioLoad = inputLoad + outputLoad;
                         this.addEntry(geid, 0, 0, numFreeAgents, 0,
                                         SE, 0, load, ioLoad);
-		}
 
                 this.getGisRepository().setLastRequestTime(super.clock());
                 //double delay = rand.sample()*0.1;

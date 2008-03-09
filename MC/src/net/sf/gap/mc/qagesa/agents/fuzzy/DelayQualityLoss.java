@@ -92,9 +92,9 @@ public class DelayQualityLoss extends AbstractQualityLoss {
         lvQualityLoss.add("LARGE",0.5*aQL,1.0*aQL,1.0*aQL,1.0);
         fuzzyEngine.register(lvQualityLoss);
         String[] rules = {
-            "if delay is NH then qualityloss is DH",
-            "if delay is NL then qualityloss is DL",
-            "if delay is N then qualityloss is D",
+            "if delay is NH then qualityloss is S",
+            "if delay is NL then qualityloss is S",
+            "if delay is N then qualityloss is S",
             "if delay is Z then qualityloss is S",
             "if delay is P then qualityloss is I",
             "if delay is PL then qualityloss is IL",

@@ -43,7 +43,7 @@ public class CELService extends GISService {
 	 * @throws Exception
 	 */
 	public CELService(AbstractAgentPlatform ap, boolean trace_flag) throws Exception {
-		super(ap, "CEL", trace_flag);
+		super(ap, "CELService", trace_flag);
 	}
 
 	@Override

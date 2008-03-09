@@ -488,7 +488,7 @@ public class User extends QAGESAUser {
                 
                 double responseTime = replyTime-requestTime;
                 double firstChunkTime = fcTime-requestTime;
-                double streamingTime = endTime-requestTime;
+                double streamingTime = endTime-fcTime;
 
                 double duration = request.getTranscodeRequest().getSequence().getDuration()*0.001;
                 double chunkDuration = duration/(request.getTranscodeRequest().getSequence().size()*1.0);

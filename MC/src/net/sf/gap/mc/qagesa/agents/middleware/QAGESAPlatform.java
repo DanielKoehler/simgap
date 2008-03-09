@@ -20,6 +20,7 @@ package net.sf.gap.mc.qagesa.agents.middleware;
 
 import net.sf.gap.agents.middleware.AgentPlatform;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
+import net.sf.gap.mc.qagesa.agents.services.impl.CELService;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
 import net.sf.gap.mc.qagesa.agents.services.impl.ReFService;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
@@ -33,6 +34,7 @@ import net.sf.gap.grid.components.AbstractGridElement;
  * @author Giovanni Novelli
  */
 public class QAGESAPlatform extends AgentPlatform {
+    private CELService serviceCEL;
     private MuMService serviceMuM;
     private ReFService serviceReF;
     /** Creates a new instance of QAGESA AgentPlatform */
@@ -44,11 +46,13 @@ public class QAGESAPlatform extends AgentPlatform {
     public void createServices() throws Exception {
         super.createServices();
         this.setServiceMuM(new MuMService(this, false));
-        this.setServiceReF(new ReFService(this, false, 1.0, 0.0));
+        this.setServiceCEL(new CELService(this, false));
+        this.setServiceReF(new ReFService(this, false, 15.0, 0.0));
     }
 
     public void initializeServices() throws Exception {
         this.getServiceMuM().initialize();
+        this.getServiceCEL().initialize();
         this.getServiceReF().initialize();
     }
     
@@ -107,5 +111,13 @@ public class QAGESAPlatform extends AgentPlatform {
             TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity("AGENT_" + i);
             agent.initialize();
         }
+    }
+
+    public CELService getServiceCEL() {
+        return serviceCEL;
+    }
+
+    public void setServiceCEL(CELService serviceCEL) {
+        this.serviceCEL = serviceCEL;
     }
 }
