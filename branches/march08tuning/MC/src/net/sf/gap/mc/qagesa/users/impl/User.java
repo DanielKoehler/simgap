@@ -483,11 +483,11 @@ public class User extends QAGESAUser {
                 time = User.clock() - QAGESA.getStartTime();
                 playreqrepID = request.getReqrepID();
                 minQuality = request.getMinQuality();
-                 double requestTime = request.getRequestTime();
-                 double replyTime = request.getReplyTime();
-                 double fcTime = request.getFcTime();
-                 double lcTime = request.getLcTime();
-                 double endTime = request.getEndTime();
+                 double requestTime = request.getRequestTime() - QAGESA.getStartTime();
+                 double replyTime = request.getReplyTime() - QAGESA.getStartTime();
+                 double fcTime = request.getFcTime() - QAGESA.getStartTime();
+                 double lcTime = request.getLcTime() - QAGESA.getStartTime();
+                 double endTime = request.getEndTime() - QAGESA.getStartTime();
 
                  double responseTime = replyTime - requestTime;
                  double firstChunkTime = fcTime - requestTime;

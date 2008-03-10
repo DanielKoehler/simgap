@@ -255,11 +255,14 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                                     mType.getPeList().
                                     getItems().
                                     get(k);
-                            peList.add(
-                                    new PE(
-                                    k,
-                                    peType.getMIPS()));
-                            np++;
+                            for (int kkk=0;kkk<QAGESA.peExpansion;kkk++) {
+                                int kk = (k*QAGESA.peExpansion)+kkk;
+                                peList.add(
+                                        new PE(
+                                        kk,
+                                        peType.getMIPS()));
+                                np++;
+                            }
                         }
                         mList.add(
                                 new Machine(j, peList));
