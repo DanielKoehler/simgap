@@ -461,7 +461,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case QAGESAMeasures.RMR:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmrUser = new User("RMRUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
+                                QAGESA.randomSelection,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(rmrUser, rmrUser.getUserSched());
                         rmrUser.setVirtualOrganization(this);
                         rmrUser.setUid(i);
@@ -469,7 +469,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case QAGESAMeasures.MR:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mruser = new User("MRUSER_" + i, link,false,
-                                false,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
+                                QAGESA.randomSelection,numRequests,repeated, movieTag,User.MEASURE_RESPONSE);
                         router.attachHost(mruser, mruser.getUserSched());
                         mruser.setVirtualOrganization(this);
                         mruser.setUid(i);
@@ -477,7 +477,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case QAGESAMeasures.RMS:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmsUser = new User("RMSUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
+                                QAGESA.randomSelection,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(rmsUser, rmsUser.getUserSched());
                         rmsUser.setVirtualOrganization(this);
                         rmsUser.setUid(i);
@@ -485,7 +485,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case QAGESAMeasures.MS:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User msuser = new User("MSUSER_" + i, link,false,
-                                false,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
+                                QAGESA.randomSelection,numRequests,repeated, movieTag,User.MEASURE_STREAMING);
                         router.attachHost(msuser, msuser.getUserSched());
                         msuser.setVirtualOrganization(this);
                         msuser.setUid(i);
@@ -493,7 +493,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case QAGESAMeasures.RMF:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User rmfUser = new User("RMFUSER_" + i, link,false,
-                                true,numRequests,repeated, movieTag,User.MEASURE_FIRST);
+                                QAGESA.randomSelection,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(rmfUser, rmfUser.getUserSched());
                         rmfUser.setVirtualOrganization(this);
                         rmfUser.setUid(i);
@@ -501,7 +501,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
                     case QAGESAMeasures.MF:
                         link = LinkFactory.UserLink(baudrate, delay);
                         User mfUser = new User("MFUSER_" + i, link,false,
-                                false,numRequests,repeated, movieTag,User.MEASURE_FIRST);
+                                QAGESA.randomSelection,numRequests,repeated, movieTag,User.MEASURE_FIRST);
                         router.attachHost(mfUser, mfUser.getUserSched());
                         mfUser.setVirtualOrganization(this);
                         mfUser.setUid(i);
