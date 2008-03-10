@@ -54,6 +54,7 @@ public class QAGESA {
     public static boolean reuseagents;
     private static double startTime;
     public static int div;
+    public static int peExpansion;
     public static int expansion;
     public static double beta;
     public static double qosloss;
@@ -148,6 +149,8 @@ public class QAGESA {
         prop = conf.getProperty("requests");
         Integer numRequests;
         numRequests = Integer.parseInt(prop);
+        prop = conf.getProperty("peExpansion");
+        peExpansion = Integer.parseInt(prop);
         prop = conf.getProperty("div");
         div = Integer.parseInt(prop);
         prop = conf.getProperty("expansion");

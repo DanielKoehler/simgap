@@ -143,7 +143,7 @@ public class XMLSimulation extends AbstractSimulation {
                             this.isCaching(), 
                             this.getWhichMeasure(), 
                             this.getNumRequests()));
-                System.out.println("AVAILABLE MIPS: " + this.getVirtualOrganization().getMIPS());
+                System.out.println("AVAILABLE MIPS: " + this.getVirtualOrganization().getMIPS()*net.sf.gap.mc.QAGESA.peExpansion);
 	}
 
 	public void start() {
