@@ -256,7 +256,7 @@ public class GISService extends PlatformService {
 
             // only look for this type of ack
             Sim_event ev = new Sim_event();
-            super.sim_wait_for(tag, this.getGisCacheTime()*0.5, ev);
+            super.sim_get_next(tag, ev);
             if (ev!=null) {
             Accumulator accLoad = (Accumulator) ev.get_data();
             load =
@@ -282,7 +282,7 @@ public class GISService extends PlatformService {
 
             // only look for this type of ack
             Sim_event ev = new Sim_event();
-            super.sim_wait_for(tag, this.getGisCacheTime()*0.5, ev);
+            super.sim_get_next(tag, ev);
             Accumulator accLoad = (Accumulator) ev.get_data();
             load =
                     accLoad.getMean();
