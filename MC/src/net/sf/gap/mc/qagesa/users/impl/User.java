@@ -472,87 +472,90 @@ public class User extends QAGESAUser {
                 this.write(msg);
                 asked--;
                 request.setEndTime(evrecv_time);
-                rep = QAGESAStat.getReplication();
-                nu = QAGESAStat.getNumUsers();
-                ca = 0;
-                if (QAGESAStat.isCachingEnabled()) {
-                    ca = 1;
-                }
-                wm = QAGESAStat.getWhichMeasure();
-                time = User.clock()-QAGESA.getStartTime();
-                playreqrepID = request.getReqrepID();
-                minQuality = request.getMinQuality();
-                double requestTime = request.getRequestTime();
-                double replyTime = request.getReplyTime();
-                double fcTime = request.getFcTime();
-                double lcTime = request.getLcTime();
-                double endTime = request.getEndTime();
                 
-                double responseTime = replyTime-requestTime;
-                double firstChunkTime = fcTime-requestTime;
-                double streamingTime = endTime-fcTime;
-
-                double duration=0.0;
-                int sequenceSize=0;
-                double chunkDuration=0.0;
-                double normalizedStreamingTime=0.0;
-                double meanDelay=0.0;
-                double normalizedMeanDelay=0.0;
-                double delay=0.0;
-                if (playReply.isOk()) {
-                    sequenceSize = request.getTranscodeRequest().getSequence().size();
-                    duration = request.getTranscodeRequest().getSequence().getDuration()*0.001;
-                    chunkDuration = duration/(sequenceSize*1.0);
-                    normalizedStreamingTime = streamingTime/duration;
-                    delay=streamingTime-duration;
-                    meanDelay=delay/(sequenceSize*1.0);
-                    normalizedMeanDelay = meanDelay/chunkDuration;
-                    if (normalizedStreamingTime>QAGESA.normalizedViolationThreeshold) {
-                        QAGESAStat.incViolations(1.0);
-                    } else {
-                        QAGESAStat.incViolations(0.0);
+                if (!request.getTranscodeRequest().isAborted()) {
+                    rep = QAGESAStat.getReplication();
+                    nu = QAGESAStat.getNumUsers();
+                    ca = 0;
+                    if (QAGESAStat.isCachingEnabled()) {
+                        ca = 1;
                     }
+                    wm = QAGESAStat.getWhichMeasure();
+                    time = User.clock()-QAGESA.getStartTime();
+                    playreqrepID = request.getReqrepID();
+                    minQuality = request.getMinQuality();
+                    double requestTime = request.getRequestTime();
+                    double replyTime = request.getReplyTime();
+                    double fcTime = request.getFcTime();
+                    double lcTime = request.getLcTime();
+                    double endTime = request.getEndTime();
+
+                    double responseTime = replyTime-requestTime;
+                    double firstChunkTime = fcTime-requestTime;
+                    double streamingTime = endTime-fcTime;
+
+                    double duration=0.0;
+                    int sequenceSize=0;
+                    double chunkDuration=0.0;
+                    double normalizedStreamingTime=0.0;
+                    double meanDelay=0.0;
+                    double normalizedMeanDelay=0.0;
+                    double delay=0.0;
+                    if (playReply.isOk()) {
+                        sequenceSize = request.getTranscodeRequest().getSequence().size();
+                        duration = request.getTranscodeRequest().getSequence().getDuration()*0.001;
+                        chunkDuration = duration/(sequenceSize*1.0);
+                        normalizedStreamingTime = streamingTime/duration;
+                        delay=streamingTime-duration;
+                        meanDelay=delay/(sequenceSize*1.0);
+                        normalizedMeanDelay = meanDelay/chunkDuration;
+                        if (normalizedStreamingTime>QAGESA.normalizedViolationThreeshold) {
+                            QAGESAStat.incViolations(1.0);
+                        } else {
+                            QAGESAStat.incViolations(0.0);
+                        }
+                    }
+                    double normalizedMeanViolations = QAGESAStat.getViolations().getMean();
+
+                    fetchedBytes = request.getFetchedBytes();
+                    streamedBytes = request.getStreamedBytes();
+
+                    int intimeStreams = QAGESAStat.getIntimeStreams();
+                    int outtimeStreams = QAGESAStat.getOuttimeStreams();
+                    int totalStreams = intimeStreams+outtimeStreams;
+                    double normalizedIntimeStreams = (intimeStreams*1.0)/(totalStreams*1.0);
+                    double normalizedOuttimeStreams = (outtimeStreams*1.0)/(totalStreams*1.0);
+                    QAGESA.outUSER_Streaming.printf(
+                            "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\n",
+                            rep,
+                            nu,
+                            ca,
+                            wm,
+                            this.get_name(),
+                            time,
+                            playreqrepID,
+                            minQuality,
+                            requestTime,
+                            replyTime,
+                            fcTime,
+                            lcTime,
+                            endTime,
+                            fetchedBytes,
+                            streamedBytes,
+                            firstChunkTime,
+                            responseTime,
+                            streamingTime,
+                            normalizedStreamingTime,
+                            delay,
+                            meanDelay,
+                            normalizedMeanDelay,
+                            normalizedMeanViolations,
+                            intimeStreams,
+                            outtimeStreams,
+                            normalizedIntimeStreams,
+                            normalizedOuttimeStreams
+                            );
                 }
-                double normalizedMeanViolations = QAGESAStat.getViolations().getMean();
-                        
-                fetchedBytes = request.getFetchedBytes();
-                streamedBytes = request.getStreamedBytes();
-                
-                int intimeStreams = QAGESAStat.getIntimeStreams();
-                int outtimeStreams = QAGESAStat.getOuttimeStreams();
-                int totalStreams = intimeStreams+outtimeStreams;
-                double normalizedIntimeStreams = (intimeStreams*1.0)/(totalStreams*1.0);
-                double normalizedOuttimeStreams = (outtimeStreams*1.0)/(totalStreams*1.0);
-                QAGESA.outUSER_Streaming.printf(
-                        "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\n",
-                        rep,
-                        nu,
-                        ca,
-                        wm,
-                        this.get_name(),
-                        time,
-                        playreqrepID,
-                        minQuality,
-                        requestTime,
-                        replyTime,
-                        fcTime,
-                        lcTime,
-                        endTime,
-                        fetchedBytes,
-                        streamedBytes,
-                        firstChunkTime,
-                        responseTime,
-                        streamingTime,
-                        normalizedStreamingTime,
-                        delay,
-                        meanDelay,
-                        normalizedMeanDelay,
-                        normalizedMeanViolations,
-                        intimeStreams,
-                        outtimeStreams,
-                        normalizedIntimeStreams,
-                        normalizedOuttimeStreams
-                        );
                 break;
             default:
                 break;
