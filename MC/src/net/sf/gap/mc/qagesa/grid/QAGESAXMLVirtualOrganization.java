@@ -426,7 +426,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         RIPRouter router = null;
         Link link = null;
         for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % N;
+                index = (i+QAGESA.fromRouter) % N;
                 router = this.getTopology().get(index);
                 link = LinkFactory.UserLink(640000, 20);
                 Submitter submitter = new Submitter("SUBMITTER_" + i, link,false);
@@ -450,7 +450,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
         int numRequests = this.getMaxRequests();
         boolean repeated = QAGESA.repeated;
         for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % 4;
+                index = (i+QAGESA.fromRouter) % 4;
                 //index = r.sample(N);
                 router = this.getTopology().get(index);
                 //router = (RIPRouter) Sim_system.get_entity("swrm");

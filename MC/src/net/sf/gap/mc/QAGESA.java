@@ -63,6 +63,7 @@ public class QAGESA {
     public static double abortThreeshold;
     public static double failThreeshold;
     public static double initialCompressionRatio;
+    public static int fromRouter;
     
     public static String getOutputPath() {
         return outputPath;
@@ -140,6 +141,9 @@ public class QAGESA {
         }
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);
+        
+        prop = conf.getProperty("fromRouter");
+        fromRouter = Integer.parseInt(prop);
         
         prop = conf.getProperty("requests");
         Integer numRequests;

@@ -264,7 +264,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         RIPRouter router = null;
         Link link = null;
         for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % N;
+                index = (i+QAGESA.fromRouter) % N;
                 router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
                 link = LinkFactory.UserLink(640000, 20);
                 Submitter submitter = new Submitter("SUBMITTER_" + i, link,false);
@@ -288,7 +288,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
         int numRequests = this.getMaxRequests();
         boolean repeated = QAGESA.repeated;
         for (int i = 0; i < this.getNumUsers(); i++) {
-                index = i % N;
+                index = (i+QAGESA.fromRouter) % N;
                 switch (this.getWhichMeasure()) {
                     case QAGESAMeasures.RMR:
                         router = (RIPRouter) Sim_system.get_entity("ROUTER_"+index);
