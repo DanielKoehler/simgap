@@ -269,7 +269,7 @@ public class GISService extends PlatformService {
 				this.getGisRepository().addGE(se);
 			}
 		}
-                if (getGisRepository().containsKey(geid)) {
+                if (!getGisRepository().containsKey(geid)) {
 		   this.getGisRepository().put(geid, entry);
                    return true;
                 } else {
