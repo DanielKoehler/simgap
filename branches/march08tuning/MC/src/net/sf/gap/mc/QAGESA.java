@@ -65,6 +65,8 @@ public class QAGESA {
     public static double failThreeshold;
     public static double initialCompressionRatio;
     public static int fromRouter;
+
+    public static boolean randomSelection;
     
     public static String getOutputPath() {
         return outputPath;
@@ -124,21 +126,27 @@ public class QAGESA {
         QAGESA.openOutput();
         if (prop.compareTo("MS") == 0) {
             whichMeasure = QAGESAMeasures.MS;
+            randomSelection = false;
         }
         if (prop.compareTo("MF") == 0) {
             whichMeasure = QAGESAMeasures.MF;
+            randomSelection = false;
         }
         if (prop.compareTo("MR") == 0) {
             whichMeasure = QAGESAMeasures.MR;
+            randomSelection = false;
         }
         if (prop.compareTo("RMS") == 0) {
             whichMeasure = QAGESAMeasures.RMS;
+            randomSelection = true;
         }
         if (prop.compareTo("RMF") == 0) {
             whichMeasure = QAGESAMeasures.RMF;
+            randomSelection = true;
         }
         if (prop.compareTo("RMR") == 0) {
             whichMeasure = QAGESAMeasures.RMR;
+            randomSelection = true;
         }
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);
@@ -166,7 +174,7 @@ public class QAGESA {
         prop = conf.getProperty("violations");
         normalizedViolationThreeshold = Double.parseDouble(prop);
         prop = conf.getProperty("abortEnabled");
-        abortEnabled = Boolean.parseBoolean(prop);
+        abortEnabled = Boolean.parseBoolean(prop) && !randomSelection;
         prop = conf.getProperty("abortThreeshold");
         abortThreeshold = Double.parseDouble(prop);
         prop = conf.getProperty("failThreeshold");
