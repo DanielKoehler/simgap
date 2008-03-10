@@ -45,12 +45,15 @@ public class GISEntry {
 
 	private double load;
         private double ioLoad;
+        
+        private double lastUpdateTime;
 
 	/**
 	 * Creates a new instance of GISEntry
 	 */
-	public GISEntry(int numPEs, int numFreePEs, int numFreeAgents,
+	public GISEntry(double lastUpdateTime, int numPEs, int numFreePEs, int numFreeAgents,
 			int totalMIPS, boolean SE, double MB_size, double load, double ioLoad) {
+                this.setLastUpdateTime(lastUpdateTime);
 		this.setNumPEs(numPEs);
 		this.setNumFreeAgents(numFreeAgents);
 		this.setNumFreePEs(numFreePEs);
@@ -135,5 +138,13 @@ public class GISEntry {
 
     public void setIoLoad(double ioLoad) {
         this.ioLoad = ioLoad;
+    }
+
+    public double getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(double lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 }

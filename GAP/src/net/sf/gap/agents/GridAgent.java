@@ -101,6 +101,7 @@ public abstract class GridAgent extends DFAgent {
 			while (super.sim_waiting() > 0) {
 				this.processEvents();
 			}
+                        this.doSomething();
 		}
 
 		// Dispose DFAgent
@@ -117,7 +118,9 @@ public abstract class GridAgent extends DFAgent {
 			this.getReport_().finalWrite();
 		}
 	}
-
+        
+        protected void doSomething() {}
+        
 	/**
 	 * Processes single event related to: - gridlets management - replying to
 	 * requests related to the presence of gridlets - other

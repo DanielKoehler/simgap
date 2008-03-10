@@ -41,6 +41,9 @@ public class QAGESAStat {
         
         private static Accumulator globalQualityLoss;
         private static Accumulator acceptableQualityLoss;
+        private static Accumulator violations;
+        private static int intimeStreams;
+        private static int outtimeStreams;
 
     public static double getComputedMIPS() {
         return computedMIPS;
@@ -77,6 +80,39 @@ public class QAGESAStat {
     public static void setAcceptableQualityLoss(Accumulator aAcceptableQualityLoss) {
         acceptableQualityLoss = aAcceptableQualityLoss;
     }
+
+    public static Accumulator getViolations() {
+        return violations;
+    }
+
+    public static void setViolations(Accumulator aViolations) {
+        violations = aViolations;
+    }
+    
+    public static void incViolations(double value) {
+        violations.add(value);
+        if (value<0.5) {
+            incIntime();
+        } else {
+            incOuttime();
+        }
+    }
+
+    public static int getIntimeStreams() {
+        return intimeStreams;
+    }
+
+    public static void setIntimeStreams(int aIntimeStreams) {
+        intimeStreams = aIntimeStreams;
+    }
+
+    public static int getOuttimeStreams() {
+        return outtimeStreams;
+    }
+
+    public static void setOuttimeStreams(int aOuttimeStreams) {
+        outtimeStreams = aOuttimeStreams;
+    }
     
 	/**
 	 * Creates a new instance of QAGESAStat
@@ -90,7 +126,19 @@ public class QAGESAStat {
                 QAGESAStat.setComputedMIPS(0);
                 QAGESAStat.setGlobalQualityLoss(new Accumulator());
                 QAGESAStat.setAcceptableQualityLoss(new Accumulator());
+                QAGESAStat.setViolations(new Accumulator());
+                QAGESAStat.incViolations(0.0);
+                QAGESAStat.setIntimeStreams(0);
+                QAGESAStat.setOuttimeStreams(0);
 	}
+        
+        private static void incOuttime() {
+            outtimeStreams++;
+        }
+
+        private static void incIntime() {
+            intimeStreams++;
+        }
 
 	public synchronized static void incRequests(double clock) {
 		QAGESAStat.getRequestsHistory().inc(clock);

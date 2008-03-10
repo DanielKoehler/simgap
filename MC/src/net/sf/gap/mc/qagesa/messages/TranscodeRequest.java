@@ -43,6 +43,8 @@ public class TranscodeRequest extends Request {
         
         private Accumulator qualityMean;
         
+        private boolean aborted;
+        
 
 	/**
 	 * Creates a new instance of TranscodeRequest
@@ -54,6 +56,7 @@ public class TranscodeRequest extends Request {
 		this.setStorageElementID(storageElementID);
                 this.setQuality(quality);
                 this.setQualityMean(new Accumulator());
+                this.setAborted(false);
 	}
 
 	public static TranscodeRequest get_data(Sim_event ev) {
@@ -63,8 +66,10 @@ public class TranscodeRequest extends Request {
 
 	@Override
 	public TranscodeRequest clone() {
-		return new TranscodeRequest(this.getSrc_ID(), this.getSrc_resID(), 
+		TranscodeRequest request = new TranscodeRequest(this.getSrc_ID(), this.getSrc_resID(), 
                         this.getPlayRequest(), this.getStorageElementID(), this.getQuality());
+                request.setAborted(this.isAborted());
+                return request;
 	}
 
 	public ChunksSequence getSequence() {
@@ -134,5 +139,13 @@ public class TranscodeRequest extends Request {
     public double updateQualityMean() {
         this.getQualityMean().add(this.getQuality());
         return this.getQualityMean().getMean();
+    }
+
+    public boolean isAborted() {
+        return aborted;
+    }
+
+    public void setAborted(boolean aborted) {
+        this.aborted = aborted;
     }
 }
