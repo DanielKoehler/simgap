@@ -58,6 +58,10 @@ public class QAGESA {
     public static double beta;
     public static double qosloss;
     public static double gridload;
+    public static double normalizedViolationThreeshold;
+    public static boolean abortEnabled;
+    public static double abortThreeshold;
+    public static double failThreeshold;
     public static double initialCompressionRatio;
     
     public static String getOutputPath() {
@@ -152,6 +156,14 @@ public class QAGESA {
         qosloss = Double.parseDouble(prop);
         prop = conf.getProperty("gridload");
         gridload = Double.parseDouble(prop);
+        prop = conf.getProperty("violations");
+        normalizedViolationThreeshold = Double.parseDouble(prop);
+        prop = conf.getProperty("abortEnabled");
+        abortEnabled = Boolean.parseBoolean(prop);
+        prop = conf.getProperty("abortThreeshold");
+        abortThreeshold = Double.parseDouble(prop);
+        prop = conf.getProperty("failThreeshold");
+        failThreeshold = Double.parseDouble(prop);
         prop = conf.getProperty("distribution");
         String distribution = prop;
         if (prop != null) {
@@ -523,6 +535,11 @@ public class QAGESA {
                     "DELAY\t" +
                     "MEAN DELAY\t" +
                     "NORMALIZED MEAN DELAY\t" +
+                    "NORMALIZED VIOLATIONS\t" +
+                    "INTIME STREAMS\t" +
+                    "OUTTIME STREAMS\t" +
+                    "NORMALIZED INTIME STREAMS\t" +
+                    "NORMALIZED OUTTIME STREAMS" +
                     "\n"
                     );
         } catch (IOException e) {

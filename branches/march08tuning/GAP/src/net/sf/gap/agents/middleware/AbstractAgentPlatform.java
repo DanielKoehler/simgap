@@ -73,7 +73,7 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 
 	public void createServices() throws Exception {
 		this.setTestService(new TestService(this, false));
-		this.setGisService(new GISService(this, false));
+		this.setGisService(new GISService(this, false,4.0,8.0));
 		this.setNMService(new NMService(this, false));
 	}
 

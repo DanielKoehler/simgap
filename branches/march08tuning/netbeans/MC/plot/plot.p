@@ -4,12 +4,15 @@ set autoscale
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
 set xlabel "Simulation Time in seconds"
-set yrange[0.0:1.0]
 set terminal png
 set output '../png/QoS.png'
-plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'red' , \
-      'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'green' , \
-      'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue'
+set yrange[0.0:3.0]
+plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'black' , \
+      'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'red' , \
+      'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'orange', \
+      'USERS_Streaming.csv' using 8:21 title "Normalized Streaming Time" linecolor rgb 'green', \
+      'USERS_Streaming.csv' using 8:28 with lines title "Normalized Intime Streams" linecolor rgb 'blue', \
+      'USERS_Streaming.csv' using 8:29 with lines title "Normalized Outtime Streams" linecolor rgb 'violet'
 set autoscale
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
@@ -18,10 +21,10 @@ unset yrange
 set yrange[0.0:]
 set terminal png
 set output '../png/QoS_ST.png'
-plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'red' , \
-      'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'green' , \
-      'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'blue', \
-      'USERS.dat' using 9:11 title "Streaming Time %" with lines linecolor rgb 'black'
+plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'black , \
+      'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'red' , \
+      'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'orange', \
+      'USERS.dat' using 9:11 title "Streaming Time %" linecolor rgb 'green'
 set autoscale
 unset yrange
 set yrange[0.0:]
