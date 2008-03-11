@@ -82,14 +82,16 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
             //QAGESA.outReF_CR.println("CSV;ReF_CR;" + QAGESAStat.getReplication() + ";" + QAGESAStat.getNumUsers() + ";" + QAGESAStat.isCachingEnabled() + ";" + QAGESAStat.getWhichMeasure() + ";" + entry);
             double t = entry.getClock();
             int r = entry.getPlayRequests();
+            double normalizedR = (r*1.0)/(nu*1.0);
             QAGESA.outReF_CR.printf(
-                    "CSV\tReF_CR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\n",
+                    "CSV\tReF_CR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\t%1.4f\n",
                     rep,
                     nu,
                     ca,
                     wm,
                     t,
-                    r);
+                    r,
+                    normalizedR);
         }
         if (success) {
             RequestsHistoryEntry pentry = new RequestsHistoryEntry(clock - QAGESA.getStartTime(), processed);
@@ -100,8 +102,9 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
                 int cr = entry.getPlayRequests();
                 int wr=Math.max(cr-pr,0);
                 double prThroughput = (pr*1.0)/t;
+                double normalizedCR = (cr*1.0)/(nu*1.0);
                 QAGESA.outReF_PR.printf(
-                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\t%d\t%d\t%6.4f\n",
+                        "CSV\tReF_PR\t%2d\t%4d\t%d\t%d\t%6.4f\t%d\t%d\t%d\t%6.4f\t%1.4f\n",
                         rep,
                         nu,
                         ca,
@@ -110,7 +113,8 @@ public class RequestsHistory extends LinkedList<RequestsHistoryEntry> {
                         pr,
                         cr,
                         wr,
-                        prThroughput);
+                        prThroughput,
+                        normalizedCR);
             }
         }
         this.add(entry);

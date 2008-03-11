@@ -401,7 +401,8 @@ public class QAGESA {
                     "CACHING\t"+
                     "WHICH MEASURE\t"+
                     "TIME\t"+
-                    "CONCURRENT REQUESTS"+
+                    "CONCURRENT REQUESTS\t"+
+                    "NORMALIZED CONCURRENT REQUESTS"+
                     "\n"
                     );
             outFile = new File(QAGESA.getOutputPath() + "/ReF_PR.csv");
@@ -417,7 +418,8 @@ public class QAGESA {
                     "REQUESTS SERVED\t"+
                     "CONCURRENT REQUESTS\t"+
                     "WR\t"+
-                    "REQUESTS SERVED PER SECOND"+
+                    "REQUESTS SERVED PER SECOND\t"+
+                    "NORMALIZED CONCURRENT REQUESTS"+
                     "\n"
                     );
             outFile = new File(QAGESA.getOutputPath() + "/IO.csv");
