@@ -53,6 +53,7 @@ public class QAGESA {
     public static boolean caching;
     public static boolean repeated;
     public static boolean reuseagents;
+    public static boolean ceGIS;
     private static double startTime;
     public static int div;
     public static int peExpansion;
@@ -149,6 +150,10 @@ public class QAGESA {
             whichMeasure = QAGESAMeasures.RMR;
             randomSelection = true;
         }
+
+        prop = conf.getProperty("ceGIS");
+        ceGIS = Boolean.parseBoolean(prop) && randomSelection;
+
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);
         
