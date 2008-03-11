@@ -10,7 +10,7 @@ set yrange[0.0:3.0]
 plot 'ReF_CR.csv' using 7:9 with lines title "Normalized Concurrent Requests" linecolor rgb 'black' , \
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'red' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'orange', \
-      'USERS_Streaming.csv' using 8:3 with lines linecolor rgb 'blue', \
+      'USERS_Streaming.csv' using 8:3 title "" with lines linecolor rgb 'blue', \
       'USERS_Streaming.csv' using 8:28 with lines title "Normalized Intime Streams" linecolor rgb 'blue', \
       'USERS_Streaming.csv' using 8:29 with lines title "Normalized Outtime Streams" linecolor rgb 'violet', \
       'USERS_Streaming.csv' using 8:21 title "Normalized Streaming Time" linecolor rgb 'green'
