@@ -461,11 +461,19 @@ public class User extends QAGESAUser {
                             request.getReqrepID(),
                             request.getMovieTag());
                 } else {
-                    msg = String.format(
-                            "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (FAILURE) %4$d %5$s",
-                            evrecv_time, request.getReqrepID(), this.get_name(),
-                            request.getReqrepID(),
-                            request.getMovieTag());
+                    if (request.getTranscodeRequest() == null) {
+                        msg = String.format(
+                                "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (FAILURE) %4$d %5$s",
+                                evrecv_time, request.getReqrepID(), this.get_name(),
+                                request.getReqrepID(),
+                                request.getMovieTag());
+                    } else {
+                        msg = String.format(
+                                "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (ABORTED) %4$d %5$s",
+                                evrecv_time, request.getReqrepID(), this.get_name(),
+                                request.getReqrepID(),
+                                request.getMovieTag());
+                    }
                     //QAGESAStat.incViolations(1.0);
                     QAGESAStat.decRequests(ev.event_time(), false);
                 }
@@ -524,7 +532,7 @@ public class User extends QAGESAUser {
                  int totalStreams = intimeStreams + outtimeStreams;
                  double normalizedIntimeStreams = (intimeStreams * 1.0) / (totalStreams * 1.0);
                  double normalizedOuttimeStreams = (outtimeStreams * 1.0) / (totalStreams * 1.0);
-                 
+
                 if (!request.getTranscodeRequest().isAborted()) {
                     QAGESA.outUSER_Streaming.printf(
                             "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\n",
