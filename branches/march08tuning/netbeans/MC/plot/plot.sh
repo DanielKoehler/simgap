@@ -27,6 +27,6 @@ do
   ROUTER=$(( $ROUTER + 1 ))
 done
 cd $WHERE
-gnuplot  ../$SCRIPTS/plot.p 2> /dev/null
+gnuplot  ../$SCRIPTS/plot.p #2> /dev/null
 
 
