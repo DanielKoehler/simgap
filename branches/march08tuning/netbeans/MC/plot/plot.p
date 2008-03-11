@@ -7,7 +7,7 @@ set xlabel "Simulation Time in seconds"
 set terminal png
 set output '../png/QoS.png'
 set yrange[0.0:3.0]
-plot 'QoS.csv' using 7:10 with lines title "Transcoding Load" linecolor rgb 'black' , \
+plot 'ReF_CR.csv' using 7:9 with lines title "Normalized Concurrent Requests" linecolor rgb 'black' , \
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'red' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'orange', \
       'USERS_Streaming.csv' using 8:3 with lines linecolor rgb 'blue', \
