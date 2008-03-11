@@ -503,10 +503,10 @@ public class ReFService extends PlatformService {
                 TranscodeReply reply = TranscodeReply.get_data(ev);
                 int agentID = reply.getAgentID();
                 ReFPlayReply playReply = new ReFPlayReply(agentID, QAGESATags.REF_PLAY_REQ, reply.isOk(), reply.getRequest().getPlayRequest());
-                /*
-                AgentRequest agentRequest = this.getAlDirectory().removeAgent(reply.getAgentID());
-                this.killAgent(agentRequest);
-                 */
+                if (!QAGESA.reuseagents) {
+                    AgentRequest agentRequest = this.getAlDirectory().removeAgent(reply.getAgentID());
+                    this.killAgent(agentRequest);
+                }
                 this.sendPlayEndReply(playReply);
                 break;
 
