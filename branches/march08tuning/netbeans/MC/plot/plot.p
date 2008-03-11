@@ -1,6 +1,4 @@
 pwd
-reset
-set autoscale
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
 set xlabel "Simulation Time in seconds"
@@ -14,12 +12,10 @@ plot 'ReF_CR.csv' using 7:9 with lines title "Normalized Concurrent Requests" li
       'USERS_Streaming.csv' using 8:28 with lines title "Normalized Intime Streams" linecolor rgb 'blue', \
       'USERS_Streaming.csv' using 8:29 with lines title "Normalized Outtime Streams" linecolor rgb 'violet', \
       'USERS_Streaming.csv' using 8:21 title "Normalized Streaming Time" linecolor rgb 'green'
-set autoscale
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
 set xlabel "Simulation Time in seconds"
 set ylabel "Normalized Streaming Time"
-set autoscale
 unset yrange
 set yrange[0.0:]
 set output '../png/ST.png'
@@ -33,7 +29,6 @@ set boxwidth 1.0 relative
 set style histogram clustered gap 2
 set style data histograms
 set style fill solid 1.0
-set autoscale
 unset yrange
 set yrange[0.0:]
 set output '../png/ST_MEAN.png'

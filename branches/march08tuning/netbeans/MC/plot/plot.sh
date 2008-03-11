@@ -26,7 +26,10 @@ do
   cat $WHERE/USERS_R$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_MEAN.dat
   ROUTER=$(( $ROUTER + 1 ))
 done
+echo "set xrange[$5:$6]" > png/temp.p
+cat $SCRIPTS/plot.p >> png/temp.p 
 cd $WHERE
-gnuplot  ../$SCRIPTS/plot.p #2> /dev/null
+gnuplot  ../png/temp.p #2> /dev/null
+rm ../png/temp.p
 
 

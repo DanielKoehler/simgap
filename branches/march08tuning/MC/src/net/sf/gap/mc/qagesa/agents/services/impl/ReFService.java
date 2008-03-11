@@ -439,7 +439,7 @@ public class ReFService extends PlatformService {
         int userID = playRequest.getSrc_ID();
         String movieTag = playRequest.getMovieTag();
 
-        ReFCouple choice = this.randomChoice(movieTag);
+        ReFCouple choice = this.randomChoice(movieTag, userID);
         int ceID = choice.getComputingElementID();
         int seID = choice.getStorageElementID();
         AgentReply agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
@@ -457,14 +457,23 @@ public class ReFService extends PlatformService {
         return success;
     }
 
-    private ReFCouple randomChoice(String movieTag) {
+    private ReFCouple randomChoice(String movieTag, int userID) {
         GEList seList = this.requestGEList(movieTag).getGelist();
         Uniform_int r = new Uniform_int("ReFService_rand");
-        int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
-        int seidx = r.sample(seList.size());
-        int ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
-        int seID = seList.get(seidx);
-        ReFCouple choice = new ReFCouple(ceID, seID);
+        ReFCouple choice;
+        if (!QAGESA.ceGIS) {
+            int ceidx = r.sample(this.getAgentPlatform().getVirtualOrganization().getNumCEs());
+            int seidx = r.sample(seList.size());
+            int ceID = this.getAgentPlatform().getVirtualOrganization().getCEs().get(ceidx).get_id();
+            int seID = seList.get(seidx);
+            choice = new ReFCouple(ceID, seID);
+        } else {
+            ReFCouple ceChoice = this.heuristicChoice(movieTag, userID);
+            int ceID = ceChoice.getComputingElementID();
+            int seidx = r.sample(seList.size());
+            int seID = seList.get(seidx);
+            choice = new ReFCouple(ceID, seID);
+        }
         return choice;
     }
 
@@ -479,6 +488,10 @@ public class ReFService extends PlatformService {
                 this.updateNMCache();
                 success=this.heuristicalSelection(ev);
             } else {
+                if (QAGESA.ceGIS) {
+                  this.updateGISCache();
+                  this.updateNMCache();
+                }
                 success=this.randomSelection(ev);
             }
         }
