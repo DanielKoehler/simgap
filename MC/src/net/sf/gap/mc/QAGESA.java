@@ -46,6 +46,7 @@ public class QAGESA {
     }
     public static double relaxTime = 200.0;
     public static int requests;
+    public static int retryCount;
     public static double linearDelta=1.0-0.61803398874989484820458683436564;
     public static double thetaU=0.5;
     public static double thetaR=0.25;
@@ -157,6 +158,8 @@ public class QAGESA {
         prop = conf.getProperty("requests");
         Integer numRequests;
         numRequests = Integer.parseInt(prop);
+        prop = conf.getProperty("retryCount");
+        retryCount = Integer.parseInt(prop);
         prop = conf.getProperty("peExpansion");
         peExpansion = Integer.parseInt(prop);
         prop = conf.getProperty("div");
