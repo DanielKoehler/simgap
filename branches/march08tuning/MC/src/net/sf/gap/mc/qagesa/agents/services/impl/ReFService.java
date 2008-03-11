@@ -306,7 +306,8 @@ public class ReFService extends PlatformService {
         return list;
     }
 
-    private void heuristicalSelection(Sim_event ev) {
+    private boolean heuristicalSelection(Sim_event ev) {
+        boolean success = false;
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         int playReqrepID = playRequest.getReqrepID();
         int userID = playRequest.getSrc_ID();
@@ -319,10 +320,15 @@ public class ReFService extends PlatformService {
         
         if ((agentReply == null)) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
+            success = false;
         } else if (!agentReply.isOk()) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
+            success = false;
+        } else {
+            success = true;
         }
         super.sim_completed(ev);
+        return success;
     }
 
         private double askInputLoad(int geid) {
@@ -426,7 +432,8 @@ public class ReFService extends PlatformService {
         return choice;
     }
 
-    private void randomSelection(Sim_event ev) {
+    private boolean randomSelection(Sim_event ev) {
+        boolean success = false;
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         int playReqrepID = playRequest.getReqrepID();
         int userID = playRequest.getSrc_ID();
@@ -439,10 +446,15 @@ public class ReFService extends PlatformService {
 
         if ((agentReply == null)) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
+            success = false;
         } else if (!agentReply.isOk()) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
+            success = false;
+        } else {
+            success = true;
         }
         super.sim_completed(ev);
+        return success;
     }
 
     private ReFCouple randomChoice(String movieTag) {
@@ -458,12 +470,17 @@ public class ReFService extends PlatformService {
 
     private void processPlayRequest(Sim_event ev) {
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
-        if (!playRequest.isRandomSelection()) {
-            this.updateGISCache();
-            this.updateNMCache();
-            this.heuristicalSelection(ev);
-        } else {
-            this.randomSelection(ev);
+        boolean success = false;
+        int count = 0;
+        while (!success && count<QAGESA.retryCount) {
+            count++;
+            if (!playRequest.isRandomSelection()) {
+                this.updateGISCache();
+                this.updateNMCache();
+                success=this.heuristicalSelection(ev);
+            } else {
+                success=this.randomSelection(ev);
+            }
         }
     }
 
