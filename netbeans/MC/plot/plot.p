@@ -6,7 +6,7 @@ unset label                            	# remove any previous labels
 set xlabel "Simulation Time in seconds"
 set terminal png
 set output '../png/QoS.png'
-set yrange[0.0:3.0]
+set yrange[0.0:]
 plot 'ReF_CR.csv' using 7:9 with lines title "Normalized Concurrent Requests" linecolor rgb 'black' , \
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'red' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'orange', \
@@ -21,7 +21,7 @@ set xlabel "Simulation Time in seconds"
 set ylabel "Normalized Streaming Time"
 set autoscale
 unset yrange
-set yrange[0.0:2.0]
+set yrange[0.0:]
 set output '../png/ST.png'
 plot 'USERS_R0.dat' using 2:5 title "R0", \
       'USERS_R1.dat' using 2:5 title "R1", \
@@ -35,7 +35,7 @@ set style data histograms
 set style fill solid 1.0
 set autoscale
 unset yrange
-set yrange[0.0:2.0]
+set yrange[0.0:]
 set output '../png/ST_MEAN.png'
 plot 'USERS_MEAN.dat' using 3:xticlabels(1) linecolor rgb "green" title "Normalized Streaming Time"
 unset output
