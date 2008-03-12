@@ -41,7 +41,7 @@ public class ReFProximityList extends TreeSet<ReFTriple>{
             for (int seID = 1; seID<=10; seID++) {
                 int numFreeAgents = ceID+seID;
                 double latency = (ceID*1.0)/(seID*1.0);
-                ReFTriple triple = new ReFTriple(numFreeAgents, latency, ceID, seID);
+                ReFTriple triple = new ReFTriple(numFreeAgents, latency, ceID, seID, 0.5, 0.5);
                 list.add(triple);
             }
         }
