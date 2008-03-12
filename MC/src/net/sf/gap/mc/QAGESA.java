@@ -178,10 +178,9 @@ public class QAGESA {
         initialCompressionRatio = Double.parseDouble(prop);
         prop = conf.getProperty("beta");
         beta = Double.parseDouble(prop);
-        prop = conf.getProperty("alfaLoad");
-        alfaLoad = Double.parseDouble(prop);
         prop = conf.getProperty("betaLatency");
         betaLatency = Double.parseDouble(prop);
+        alfaLoad = 1.0 - betaLatency;
         prop = conf.getProperty("qosloss");
         qosloss = Double.parseDouble(prop);
         prop = conf.getProperty("gridload");
