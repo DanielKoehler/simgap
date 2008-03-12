@@ -250,7 +250,7 @@ public abstract class AbstractAgent extends DataGridUser {
 	/**
 	 * @return agent grid element
 	 */
-	protected int getResourceID() {
+	public int getResourceID() {
 		return this.resourceID;
 	}
 
