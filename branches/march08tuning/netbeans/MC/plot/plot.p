@@ -17,12 +17,9 @@ unset label                            	# remove any previous labels
 set xlabel "Simulation Time in seconds"
 set ylabel "Normalized Streaming Time"
 unset yrange
-set yrange[0.0:]
+set yrange[0.0:3.0]
 set output '../png/ST.png'
-plot 'USERS_R0.dat' using 2:5 title "R0", \
-      'USERS_R1.dat' using 2:5 title "R1", \
-      'USERS_R2.dat' using 2:5 title "R2", \
-      'USERS_R3.dat' using 2:5 title "R3"
+plot 'USERS.dat' using 9:11 with lines smooth sbezier title "Normalized Streaming Time" linecolor rgb 'green'
 set xlabel "Attached to router"
 set ylabel "Normalized Streaming Time"
 set boxwidth 1.0 relative
