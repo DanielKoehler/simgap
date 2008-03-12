@@ -11,15 +11,9 @@ plot 'ReF_CR.csv' using 7:9 with lines title "Normalized Concurrent Requests" li
       'USERS_Streaming.csv' using 8:3 title "" with lines linecolor rgb 'blue', \
       'USERS_Streaming.csv' using 8:28 with lines title "Normalized Intime Streams" linecolor rgb 'blue', \
       'USERS_Streaming.csv' using 8:29 with lines title "Normalized Outtime Streams" linecolor rgb 'violet', \
-      'USERS_Streaming.csv' using 8:21 title "Normalized Streaming Time" linecolor rgb 'green'
+      'USERS_Streaming.csv' using 8:21 with lines smooth sbezier title "Normalized Streaming Time" linecolor rgb 'green'
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
-set xlabel "Simulation Time in seconds"
-set ylabel "Normalized Streaming Time"
-unset yrange
-set yrange[0.0:3.0]
-set output '../png/ST.png'
-plot 'USERS.dat' using 9:11 with lines smooth sbezier title "Normalized Streaming Time" linecolor rgb 'green'
 set xlabel "Attached to router"
 set ylabel "Normalized Streaming Time"
 set boxwidth 1.0 relative
