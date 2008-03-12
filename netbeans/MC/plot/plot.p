@@ -10,10 +10,8 @@ plot 'ReF_CR.csv' using 7:9 with lines title "Normalized Concurrent Requests" li
       'QoS.csv' using 7:11 with lines title "Quality Loss" linecolor rgb 'red' , \
       'QoS.csv' using 7:12 with lines title "Quality Loss Threeshold" linecolor rgb 'orange', \
       'USERS_Streaming.csv' using 8:3 title "" with lines linecolor rgb 'blue', \
-      'USERS_Streaming.csv' using 8:28 with lines title "Normalized Intime Streams" linecolor rgb 'blue', \
-      'USERS_Streaming.csv' using 8:29 with lines title "Normalized Outtime Streams" linecolor rgb 'violet', \
-      'USERS_Streaming.csv' using 8:18 with lines smooth sbezier title "Response Time" linecolor rgb 'red', \
-      'USERS_Streaming.csv' using 8:19 with lines smooth sbezier title "First Chunk Time" linecolor rgb 'orange', \
+      'USERS_Streaming.csv' using 8:18 with lines smooth sbezier title "Response Time" linecolor rgb 'cyan', \
+      'USERS_Streaming.csv' using 8:19 with lines smooth sbezier title "First Chunk Time" linecolor rgb 'violet', \
       'USERS_Streaming.csv' using 8:21 with lines smooth sbezier title "Normalized Streaming Time" linecolor rgb 'green'
 unset log                              	# remove any log-scaling
 unset label                            	# remove any previous labels
