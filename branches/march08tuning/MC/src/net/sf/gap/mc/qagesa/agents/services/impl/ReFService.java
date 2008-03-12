@@ -97,13 +97,17 @@ public class ReFService extends PlatformService {
      */
     public ReFService(AbstractAgentPlatform ap, boolean trace_flag,
             double celCacheLifetime, double nmCacheLifetime) throws Exception {
-        super(ap, "ReF", trace_flag);
+        this(ap, "ReF", trace_flag, celCacheLifetime, nmCacheLifetime);
+    }
+
+    public ReFService(AbstractAgentPlatform ap, String name, boolean trace_flag,
+            double celCacheLifetime, double nmCacheLifetime) throws Exception {
+        super(ap, name, trace_flag);
         this.setupStatPlayStart();
         this.setGISCacheLifetime(celCacheLifetime);
         this.setNMCacheLifetime(nmCacheLifetime);
         rand = new Uniform_int("prop_as");
-    }
-
+    }    
     private void setupStatPlayStart() {
         Sim_stat stat = new Sim_stat();
         int[] tags = {QAGESATags.REF_PLAY_REQ};
