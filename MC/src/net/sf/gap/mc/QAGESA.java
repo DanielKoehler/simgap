@@ -67,6 +67,9 @@ public class QAGESA {
     public static double failThreeshold;
     public static double initialCompressionRatio;
     public static int fromRouter;
+    
+    public static double alfaLoad;
+    public static double betaLatency;
 
     public static boolean randomSelection;
     
@@ -175,6 +178,10 @@ public class QAGESA {
         initialCompressionRatio = Double.parseDouble(prop);
         prop = conf.getProperty("beta");
         beta = Double.parseDouble(prop);
+        prop = conf.getProperty("alfaLoad");
+        alfaLoad = Double.parseDouble(prop);
+        prop = conf.getProperty("betaLatency");
+        betaLatency = Double.parseDouble(prop);
         prop = conf.getProperty("qosloss");
         qosloss = Double.parseDouble(prop);
         prop = conf.getProperty("gridload");

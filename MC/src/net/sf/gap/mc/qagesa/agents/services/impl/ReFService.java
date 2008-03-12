@@ -300,7 +300,13 @@ public class ReFService extends PlatformService {
                         int seID = eid;
                         InfoPacket pkt = rttMap.get(seID);
                         double latency = pkt.getTotalResponseTime() / 2.0;
-                        ReFTriple triple = new ReFTriple(load, latency + userLatency, geID, seID);
+                        ReFTriple triple = 
+                                new ReFTriple(
+                                load, latency + userLatency, 
+                                geID, seID, 
+                                QAGESA.alfaLoad,
+                                QAGESA.betaLatency
+                                );
                         list.add(triple);
                     }
                 }

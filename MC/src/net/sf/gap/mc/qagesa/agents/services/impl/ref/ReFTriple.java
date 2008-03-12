@@ -36,8 +36,8 @@ public class ReFTriple implements Comparator, Comparable<ReFTriple> {
        this.setCouple(couple);
     }
 
-    public ReFTriple(double load, double latency, int ceID, int seID) {
-        double aproximity = load * 0.5 + latency * 0.5;
+    public ReFTriple(double load, double latency, int ceID, int seID, double alfaLoad, double betaLatency) {
+        double aproximity = load * alfaLoad + latency * betaLatency;
         Double aDistance = new Double(aproximity);
         ReFCouple aCouple = new ReFCouple(ceID,seID);
         this.setProximity(aDistance);
