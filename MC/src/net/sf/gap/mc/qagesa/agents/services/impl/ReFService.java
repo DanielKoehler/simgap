@@ -36,6 +36,7 @@ import net.sf.gap.agents.services.impl.nm.RTTMap;
 import net.sf.gap.constants.Tags;
 import net.sf.gap.distributions.Uniform_int;
 import net.sf.gap.mc.QAGESA;
+import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.services.impl.al.AgentsLocatorDirectory;
 import net.sf.gap.mc.qagesa.agents.services.impl.mum.GEList;
 import net.sf.gap.mc.qagesa.agents.services.impl.ref.ReFCouple;
@@ -236,10 +237,12 @@ public class ReFService extends PlatformService {
             }
             this.getAlDirectory().addAgent(agentID, agentReply.getRequest());
             this.getAlDirectory().addAgent(agentID, ceID);
-        TranscodeRequest transcodeRequest = new TranscodeRequest(
-                this.get_id(),
-                this.get_id(),
-                playRequest, seID, 1.0);
+        }
+        if (agentReply.isOk()) {
+            TranscodeRequest transcodeRequest = new TranscodeRequest(
+                    this.get_id(),
+                    this.get_id(),
+                    playRequest, seID, 1.0);
             @SuppressWarnings("unused")
             int requestID = transcodeRequest.getRequestID();
             int reqrepID = transcodeRequest.getReqrepID();
@@ -274,9 +277,9 @@ public class ReFService extends PlatformService {
             QAGESAGridElement ge = (QAGESAGridElement) Sim_system.get_entity(geID);
             double load;
             if (!ge.isSE()) {
-              load = cpuLoad;
+                load = cpuLoad;
             } else {
-              load = ioLoad;
+                load = ioLoad;
             }
             RTTMap rttMap = this.getNetworkMapCache().get(geID);
             Iterator<Integer> itnm = rttMap.keySet().iterator();
@@ -317,7 +320,7 @@ public class ReFService extends PlatformService {
         int ceID = choice.getComputingElementID();
         int seID = choice.getStorageElementID();
         AgentReply agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
-        
+
         if ((agentReply == null)) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
             success = false;
@@ -331,50 +334,46 @@ public class ReFService extends PlatformService {
         return success;
     }
 
-        private double askInputLoad(int geid) {
-            // Get Resource Dynamic information
-            send(super.output, 0.0, Tags.INPUT_DYNAMICS,
-                 new IO_data( new Integer(super.get_id()), 4, this.get_id()));
-            double load;
-            try
-            {
-                // waiting for a response from system GIS
-                Sim_type_p tag = new Sim_type_p(Tags.INPUT_DYNAMICS);
+    private double askInputLoad(int geid) {
+        // Get Resource Dynamic information
+        send(super.output, 0.0, Tags.INPUT_DYNAMICS,
+                new IO_data(new Integer(super.get_id()), 4, this.get_id()));
+        double load;
+        try {
+            // waiting for a response from system GIS
+            Sim_type_p tag = new Sim_type_p(Tags.INPUT_DYNAMICS);
 
-                // only look for this type of ack
-                Sim_event ev = new Sim_event();
-                super.sim_get_next(tag, ev);
-                 Accumulator accLoad = (Accumulator) ev.get_data();
-                 load = accLoad.getMean();
-            }
-            catch (Exception e) {
-                load = 0.5;
-            }
-            return load;
+            // only look for this type of ack
+            Sim_event ev = new Sim_event();
+            super.sim_get_next(tag, ev);
+            Accumulator accLoad = (Accumulator) ev.get_data();
+            load = accLoad.getMean();
+        } catch (Exception e) {
+            load = 0.5;
         }
+        return load;
+    }
 
-        private double askOutputLoad(int geid) {
-            // Get Resource Dynamic information
-            send(super.output, 0.0, Tags.OUTPUT_DYNAMICS,
-                 new IO_data( new Integer(super.get_id()), 4, this.get_id()));
-            double load;
-            try
-            {
-                // waiting for a response from system GIS
-                Sim_type_p tag = new Sim_type_p(Tags.OUTPUT_DYNAMICS);
+    private double askOutputLoad(int geid) {
+        // Get Resource Dynamic information
+        send(super.output, 0.0, Tags.OUTPUT_DYNAMICS,
+                new IO_data(new Integer(super.get_id()), 4, this.get_id()));
+        double load;
+        try {
+            // waiting for a response from system GIS
+            Sim_type_p tag = new Sim_type_p(Tags.OUTPUT_DYNAMICS);
 
-                // only look for this type of ack
-                Sim_event ev = new Sim_event();
-                super.sim_get_next(tag, ev);
-                 Accumulator accLoad = (Accumulator) ev.get_data();
-                 load = accLoad.getMean();
-            }
-            catch (Exception e) {
-                load = 0.5;
-            }
-            return load;
+            // only look for this type of ack
+            Sim_event ev = new Sim_event();
+            super.sim_get_next(tag, ev);
+            Accumulator accLoad = (Accumulator) ev.get_data();
+            load = accLoad.getMean();
+        } catch (Exception e) {
+            load = 0.5;
         }
-    
+        return load;
+    }
+
     private ReFCouple heuristicChoice(String movieTag, int userID) {
         ReFProximityList list;
         list = this.computeProximities(userID);
@@ -384,49 +383,46 @@ public class ReFService extends PlatformService {
         if (it.hasNext()) {
             ReFTriple triple = it.next();
             choice = triple.getCouple();
-            //QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(choice.getStorageElementID());
-            //boolean haveMovie = se.containsSequence(movieTag);
-            //if (haveMovie) break;
+        //QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(choice.getStorageElementID());
+        //boolean haveMovie = se.containsSequence(movieTag);
+        //if (haveMovie) break;
         }
         /*
-            int geID = choice.getComputingElementID();
-            int seID = choice.getStorageElementID();
+        int geID = choice.getComputingElementID();
+        int seID = choice.getStorageElementID();
         }
-
-            double seLoad = triple.getProximity();
-            /*
-            double inputLoad = this.askInputLoad(seID);
-            double outputLoad = this.askOutputLoad(seID);
-            double ioLoad = inputLoad + outputLoad;
-            double seIOLoad = ioLoad;
-             */
+        double seLoad = triple.getProximity();
         /*
-            double load = seLoad;
-            double minLoad = seLoad;
-            int minseID = seID;
-            
-            while (it.hasNext()) {
-                ReFTriple aTriple = it.next();
-                int aceID = aTriple.getCouple().getComputingElementID();
-                if (aceID==geID) {
-                    int aseID = aTriple.getCouple().getStorageElementID();
-                    QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(aseID);
-                    boolean haveMovie = se.containsSequence(movieTag);
-                    if (haveMovie) {
-                        load = aTriple.getProximity();
-                        if (load<minLoad) {
-                            minLoad = load;
-                            minseID = aseID;
-                        }
-                    }
-                }
-            }
-            if (minLoad>seLoad) {
-                minseID = seID;
-                minLoad = seLoad;
-            }
-
-            choice.setStorageElementID(minseID);
+        double inputLoad = this.askInputLoad(seID);
+        double outputLoad = this.askOutputLoad(seID);
+        double ioLoad = inputLoad + outputLoad;
+        double seIOLoad = ioLoad;
+         */
+        /*
+        double load = seLoad;
+        double minLoad = seLoad;
+        int minseID = seID;
+        while (it.hasNext()) {
+        ReFTriple aTriple = it.next();
+        int aceID = aTriple.getCouple().getComputingElementID();
+        if (aceID==geID) {
+        int aseID = aTriple.getCouple().getStorageElementID();
+        QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(aseID);
+        boolean haveMovie = se.containsSequence(movieTag);
+        if (haveMovie) {
+        load = aTriple.getProximity();
+        if (load<minLoad) {
+        minLoad = load;
+        minseID = aseID;
+        }
+        }
+        }
+        }
+        if (minLoad>seLoad) {
+        minseID = seID;
+        minLoad = seLoad;
+        }
+        choice.setStorageElementID(minseID);
         }
          */
         return choice;
@@ -481,18 +477,18 @@ public class ReFService extends PlatformService {
         ReFPlayRequest playRequest = ReFPlayRequest.get_data(ev);
         boolean success = false;
         int count = 0;
-        while (!success && count<QAGESA.retryCount) {
+        while (!success && count < QAGESA.retryCount) {
             count++;
             if (!playRequest.isRandomSelection()) {
                 this.updateGISCache();
                 this.updateNMCache();
-                success=this.heuristicalSelection(ev);
+                success = this.heuristicalSelection(ev);
             } else {
                 if (QAGESA.ceGIS) {
-                  this.updateGISCache();
-                  this.updateNMCache();
+                    this.updateGISCache();
+                    this.updateNMCache();
                 }
-                success=this.randomSelection(ev);
+                success = this.randomSelection(ev);
             }
         }
     }
@@ -533,6 +529,9 @@ public class ReFService extends PlatformService {
                 TranscodeReply reply = TranscodeReply.get_data(ev);
                 int agentID = reply.getAgentID();
                 ReFPlayReply playReply = new ReFPlayReply(agentID, QAGESATags.REF_PLAY_REQ, reply.isOk(), reply.getRequest().getPlayRequest());
+                TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity(agentID);
+                QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(agent.getResourceID());
+                //if (!QAGESA.reuseagents || (ce.getLocalDirectory().getFreeAgents() > 0)) {
                 if (!QAGESA.reuseagents) {
                     AgentRequest agentRequest = this.getAlDirectory().removeAgent(reply.getAgentID());
                     this.killAgent(agentRequest);
