@@ -44,6 +44,10 @@ public class QAGESA {
     public static void setStartTime(double aStartTime) {
         startTime = aStartTime;
     }
+    
+    public static double gisCacheTime = 1.0;
+    public static double gisEntryCacheTime = 2.0;
+    
     public static double relaxTime = 200.0;
     public static int requests;
     public static int retryCount;
@@ -240,6 +244,12 @@ public class QAGESA {
         repeated = Boolean.parseBoolean(prop);
         prop = conf.getProperty("reuseagents");
         reuseagents = Boolean.parseBoolean(prop);
+        
+        prop = conf.getProperty("gisCacheTime");
+        gisCacheTime = Double.parseDouble(prop);
+        prop = conf.getProperty("gisEntryCacheTime");
+        gisEntryCacheTime = Double.parseDouble(prop);
+        
         try {
             if (swing) {
                 java.awt.EventQueue.invokeAndWait(new Runnable() {

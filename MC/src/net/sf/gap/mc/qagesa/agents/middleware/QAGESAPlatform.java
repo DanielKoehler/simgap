@@ -43,8 +43,8 @@ public class QAGESAPlatform extends AgentPlatform {
     }
 
     @Override
-    public void createServices() throws Exception {
-        super.createServices();
+    public void createServices(double gisCacheTime, double gisEntryCacheTime) throws Exception {
+        super.createServices(gisCacheTime, gisEntryCacheTime);
         this.setServiceMuM(new MuMService(this, false));
         this.setServiceCEL(new CELService(this, false));
         this.setServiceReF(new ReFService(this, false, 0.0, 0.0));
