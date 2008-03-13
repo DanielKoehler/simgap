@@ -193,10 +193,9 @@ public class ReFService extends PlatformService {
         }
     }
 
-    private AgentReply activateAgents(Sim_event ev, ReFPlayRequest playRequest, int playReqrepID, int userID, String movieTag, int ceID, int seID) {
+    private AgentReply activateAgents(ReFPlayRequest playRequest, int userID, String movieTag, int ceID, int seID) {
         AgentReply agentReply;
         QAGESAGridElement ce = (QAGESAGridElement) Sim_system.get_entity(ceID);
-        double beforeSubmit = super.clock();
         if (!QAGESA.reuseagents) {
             agentReply = this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
                     ceID,
@@ -248,7 +247,6 @@ public class ReFService extends PlatformService {
                     this.get_id(),
                     playRequest, seID, 1.0);
             @SuppressWarnings("unused")
-            int requestID = transcodeRequest.getRequestID();
             int reqrepID = transcodeRequest.getReqrepID();
             int SIZE = 500;
             playRequest.setTranscodeRequest(transcodeRequest);
@@ -329,7 +327,7 @@ public class ReFService extends PlatformService {
         ReFCouple choice = this.heuristicChoice(movieTag, userID);
         int ceID = choice.getComputingElementID();
         int seID = choice.getStorageElementID();
-        AgentReply agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
+        AgentReply agentReply = this.activateAgents(playRequest, userID, movieTag, ceID, seID);
 
         if ((agentReply == null)) {
             this.sendPlayStartReply(-1, userID, playRequest, false);
@@ -448,7 +446,7 @@ public class ReFService extends PlatformService {
         ReFCouple choice = this.randomChoice(movieTag, userID);
         int ceID = choice.getComputingElementID();
         int seID = choice.getStorageElementID();
-        AgentReply agentReply = this.activateAgents(ev, playRequest, playReqrepID, userID, movieTag, ceID, seID);
+        AgentReply agentReply = this.activateAgents(playRequest, userID, movieTag, ceID, seID);
 
         if ((agentReply == null)) {
             this.sendPlayStartReply(-1, userID, playRequest, false);

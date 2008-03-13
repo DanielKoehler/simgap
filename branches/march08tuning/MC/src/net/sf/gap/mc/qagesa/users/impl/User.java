@@ -20,13 +20,21 @@ package net.sf.gap.mc.qagesa.users.impl;
 
 import java.util.List;
 
+import junit.framework.Assert;
 import net.sf.gap.GAP;
 import net.sf.gap.agents.predicates.Predicate;
+import net.sf.gap.messages.impl.AgentReply;
+import net.sf.gap.messages.impl.AgentRequest;
 import net.sf.gap.mc.QAGESA;
+import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
+import net.sf.gap.mc.qagesa.agents.services.impl.mum.*;
+import net.sf.gap.mc.qagesa.agents.services.impl.ref.*;
 import net.sf.gap.mc.qagesa.constants.QAGESAEntityTypes;
 import net.sf.gap.mc.qagesa.constants.QAGESATags;
+import net.sf.gap.mc.qagesa.grid.components.QAGESAGridElement;
 import net.sf.gap.mc.qagesa.messages.*;
+import net.sf.gap.mc.qagesa.multimedia.*;
 import net.sf.gap.mc.qagesa.stats.QAGESAStat;
 import net.sf.gap.mc.qagesa.users.QAGESAUser;
 import eduni.simjava.Sim_event;
@@ -338,12 +346,105 @@ public class User extends QAGESAUser {
     }
 
     protected void playRequest(String movieTag) {
-        askReF(movieTag);
+        if (!QAGESA.directSubmit) {
+            askReF(movieTag);
+        } else {
+            runMovie(movieTag);
+        }
+    }
+    
+    private void runMovie(String movieTag) {
+        double requestTime = User.clock();
+        ReFCouple choice = this.randomChoice(movieTag);
+        int ceID = choice.getComputingElementID();
+        int seID = choice.getStorageElementID();
+        AgentReply agentReply = 
+                this.submitAgent(QAGESAEntityTypes.SERVER_PROXY,
+                ceID,
+                100000);
+        double replyTime = User.clock();
+        if (agentReply.isOk()) {
+            int userID = this.get_id();
+            //double acceptableQualityLoss = rand.sample(69) * 0.01;
+            double acceptableQualityLoss = QAGESA.qosloss;
+            QAGESAStat.updateAcceptableQualityLoss(acceptableQualityLoss);
+            double minQuality = 1.0 - acceptableQualityLoss;
+            ReFPlayRequest playRequest = new ReFPlayRequest(this.get_id(), this.get_id(), userID, movieTag, minQuality, this.isRandomSelection());
+            playRequest.setRequestTime(requestTime);
+            playRequest.setReplyTime(replyTime);
+            TranscodeRequest transcodeRequest = new TranscodeRequest(
+                    this.get_id(),
+                    this.get_id(),
+                    playRequest, seID, 1.0);
+            @SuppressWarnings("unused")
+            int reqrepID = transcodeRequest.getReqrepID();
+            int SIZE = 500;
+            playRequest.setTranscodeRequest(transcodeRequest);
+            int agentID = agentReply.getRequest().getDst_agentID();
+            super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    QAGESATags.TRANSCODE_CHUNKS_REQ, new IO_data(transcodeRequest, SIZE, agentID));
+            double evsend_time = GridSim.clock();
+            String msg = String.format(
+                    "%1$f %2$d %3$s --> %4$s TRANSCODE_CHUNKS_REQUEST %5$d %6$s",
+                    evsend_time,
+                    reqrepID,
+                    this.get_name(),
+                    Sim_system.get_entity(agentID).get_name(),
+                    userID,
+                    movieTag);
+            this.write(msg);
+            ChunkRequest askChunkRequest =
+                    new ChunkRequest(
+                    this.get_id(),
+                    this.get_id(),
+                    playRequest.getReqrepID(),
+                    this.get_id(),
+                    playRequest.getMovieTag(),
+                    1,
+                    playRequest.getTranscodeRequest().getStorageElementID(),
+                    playRequest.getTranscodeRequest(),
+                    this.clock());
+            super.send(super.output, GridSimTags.SCHEDULE_NOW,
+                    QAGESATags.ASK_CHUNK_REQ, new IO_data(askChunkRequest, 32, agentID));
+        } else {
+            asked--;
+            QAGESAStat.decRequests(User.clock(), false);
+        }
     }
 
+    private ReFCouple randomChoice(String movieTag) {
+        GEList seList = this.requestGEList(movieTag).getGelist();
+        Uniform_int r = new Uniform_int("ReFService_rand");
+        ReFCouple choice;
+        int ceidx = r.sample(this.getVirtualOrganization().getNumCEs());
+        int seidx = r.sample(seList.size());
+        int ceID = this.getVirtualOrganization().getCEs().get(ceidx).get_id();
+        int seID = seList.get(seidx);
+        choice = new ReFCouple(ceID, seID);
+        return choice;
+    }
+    
     @Override
     public void processOtherEvent(Sim_event ev) {
         switch (ev.get_tag()) {
+            case QAGESATags.TRANSCODE_CHUNKS_REP:
+                TranscodeReply reply = TranscodeReply.get_data(ev);
+                int agentID = reply.getAgentID();
+                TranscodingAgent agent = (TranscodingAgent) Sim_system.get_entity(agentID);
+                AgentRequest agentRequest = 
+                        new AgentRequest(
+                        this.get_id(),
+                        this.get_id(),
+                        agent.getAgentHistory(),
+                        agent.getResourceID(),
+                        agent.get_id(),
+                        agent.getEntityType(),
+                        agent.getAgentSizeInBytes(),
+                        agent.getResourceID(),
+                        agent.getAID());
+                this.managePlayEnd(reply.getRequest());
+                this.killAgent(agentRequest);
+                break;
             case QAGESATags.TRANSCODED_FIRST_CHUNK_REP:
                 ChunkRequest chunkRequest = ChunkRequest.get_data(ev);
                 int treqrepID = chunkRequest.getReqrepID();
@@ -389,7 +490,7 @@ public class User extends QAGESAUser {
                         Sim_system.get_entity(chunkRequest.getSrc_ID()).get_name(),
                         chunkRequest.getPlayReqrepID());
                 this.write(msg);
-                if (this.getSelectedMeasure() == User.MEASURE_STREAMING) {
+                if ((this.getSelectedMeasure() == User.MEASURE_STREAMING) && (!QAGESA.directSubmit)) {
                     sim_completed(chunkRequest.getTranscodeRequest().getPlayRequest().getReplyEv());
                 }
                 QAGESAStat.decRequests(ev.event_time(), true);
@@ -453,7 +554,123 @@ public class User extends QAGESAUser {
             case QAGESATags.REF_PLAY_REP_END:
                  ReFPlayReply playReply = ReFPlayReply.get_data(ev);
                  ReFPlayRequest request = playReply.getRequest();
-                evrecv_time = GridSim.clock();
+                 this.managePlayReplyEnd(ev, playReply, request);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void managePlayEnd(TranscodeRequest request) {
+                double evrecv_time = GridSim.clock();
+                String msg;
+                if (!request.isAborted()) {
+                    msg = String.format(
+                            "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (SUCCESS) %4$d %5$s",
+                            evrecv_time, request.getReqrepID(), this.get_name(),
+                            request.getReqrepID(),
+                            request.getMovieTag());
+                } else {
+                        msg = String.format(
+                                "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (ABORTED) %4$d %5$s",
+                                evrecv_time, request.getReqrepID(), this.get_name(),
+                                request.getReqrepID(),
+                                request.getMovieTag());
+                    //QAGESAStat.incViolations(1.0);
+                    QAGESAStat.decRequests(evrecv_time, false);
+                }
+                this.write(msg);
+                asked--;
+                request.getPlayRequest().setEndTime(evrecv_time);
+
+                int rep = QAGESAStat.getReplication();
+                int nu = QAGESAStat.getNumUsers();
+                int ca = 0;
+                if (QAGESAStat.isCachingEnabled()) {
+                    ca = 1;
+                }
+                int wm = QAGESAStat.getWhichMeasure();
+                double time = User.clock() - QAGESA.getStartTime();
+                int playreqrepID = request.getReqrepID();
+                double minQuality = request.getMinQuality();
+                 double requestTime = request.getPlayRequest().getRequestTime() - QAGESA.getStartTime();
+                 double replyTime = request.getPlayRequest().getReplyTime() - QAGESA.getStartTime();
+                 double fcTime = request.getPlayRequest().getFcTime() - QAGESA.getStartTime();
+                 double lcTime = request.getPlayRequest().getLcTime() - QAGESA.getStartTime();
+                 double endTime = request.getPlayRequest().getEndTime() - QAGESA.getStartTime();
+
+                 double responseTime = replyTime - requestTime;
+                 double firstChunkTime = fcTime - requestTime;
+                 double streamingTime = endTime - fcTime;
+
+                 double duration = 0.0;
+                 int sequenceSize = 0;
+                 double chunkDuration = 0.0;
+                 double normalizedStreamingTime = 0.0;
+                 double meanDelay = 0.0;
+                 double normalizedMeanDelay = 0.0;
+                 double delay = 0.0;
+                if (!request.isAborted()) {
+                    sequenceSize = request.getSequence().size();
+                    duration = request.getSequence().getDuration() * 0.001;
+                    chunkDuration = duration / (sequenceSize * 1.0);
+                    normalizedStreamingTime = streamingTime / duration;
+                    delay = streamingTime - duration;
+                    meanDelay = delay / (sequenceSize * 1.0);
+                    normalizedMeanDelay = meanDelay / chunkDuration;
+                    if (normalizedStreamingTime > QAGESA.normalizedViolationThreeshold) {
+                        QAGESAStat.incViolations(1.0);
+                    } else {
+                        QAGESAStat.incViolations(0.0);
+                    }
+                }
+                 double normalizedMeanViolations = QAGESAStat.getViolations().getMean();
+
+                long fetchedBytes = request.getPlayRequest().getFetchedBytes();
+                long streamedBytes = request.getPlayRequest().getStreamedBytes();
+
+                 int intimeStreams = QAGESAStat.getIntimeStreams();
+                 int outtimeStreams = QAGESAStat.getOuttimeStreams();
+                 int totalStreams = intimeStreams + outtimeStreams;
+                 double normalizedIntimeStreams = (intimeStreams * 1.0) / (totalStreams * 1.0);
+                 double normalizedOuttimeStreams = (outtimeStreams * 1.0) / (totalStreams * 1.0);
+
+                if (!request.isAborted()) {
+                    QAGESA.outUSER_Streaming.printf(
+                            "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\n",
+                            rep,
+                            nu,
+                            ca,
+                            wm,
+                            this.get_name(),
+                            time,
+                            playreqrepID,
+                            minQuality,
+                            requestTime,
+                            replyTime,
+                            fcTime,
+                            lcTime,
+                            endTime,
+                            fetchedBytes,
+                            streamedBytes,
+                            firstChunkTime,
+                            responseTime,
+                            streamingTime,
+                            normalizedStreamingTime,
+                            delay,
+                            meanDelay,
+                            normalizedMeanDelay,
+                            normalizedMeanViolations,
+                            intimeStreams,
+                            outtimeStreams,
+                            normalizedIntimeStreams,
+                            normalizedOuttimeStreams);
+                }
+    }
+    
+    private void managePlayReplyEnd(Sim_event ev, ReFPlayReply playReply, ReFPlayRequest request) {
+                double evrecv_time = GridSim.clock();
+                String msg;
                 if (playReply.isOk()) {
                     msg = String.format(
                             "%1$f %2$d %3$s <-- ReF REF_PLAY_REPLY_END (SUCCESS) %4$d %5$s",
@@ -481,16 +698,16 @@ public class User extends QAGESAUser {
                 asked--;
                 request.setEndTime(evrecv_time);
 
-                rep = QAGESAStat.getReplication();
-                nu = QAGESAStat.getNumUsers();
-                ca = 0;
+                int rep = QAGESAStat.getReplication();
+                int nu = QAGESAStat.getNumUsers();
+                int ca = 0;
                 if (QAGESAStat.isCachingEnabled()) {
                     ca = 1;
                 }
-                wm = QAGESAStat.getWhichMeasure();
-                time = User.clock() - QAGESA.getStartTime();
-                playreqrepID = request.getReqrepID();
-                minQuality = request.getMinQuality();
+                int wm = QAGESAStat.getWhichMeasure();
+                double time = User.clock() - QAGESA.getStartTime();
+                int playreqrepID = request.getReqrepID();
+                double minQuality = request.getMinQuality();
                  double requestTime = request.getRequestTime() - QAGESA.getStartTime();
                  double replyTime = request.getReplyTime() - QAGESA.getStartTime();
                  double fcTime = request.getFcTime() - QAGESA.getStartTime();
@@ -524,8 +741,8 @@ public class User extends QAGESAUser {
                 }
                  double normalizedMeanViolations = QAGESAStat.getViolations().getMean();
 
-                fetchedBytes = request.getFetchedBytes();
-                streamedBytes = request.getStreamedBytes();
+                long fetchedBytes = request.getFetchedBytes();
+                long streamedBytes = request.getStreamedBytes();
 
                  int intimeStreams = QAGESAStat.getIntimeStreams();
                  int outtimeStreams = QAGESAStat.getOuttimeStreams();
@@ -564,10 +781,6 @@ public class User extends QAGESAUser {
                             normalizedIntimeStreams,
                             normalizedOuttimeStreams);
                 }
-                break;
-            default:
-                break;
-        }
     }
     static double[] probsUsers;
     static double[] probsRequests;

@@ -54,6 +54,7 @@ public class QAGESA {
     public static boolean repeated;
     public static boolean reuseagents;
     public static boolean ceGIS;
+    public static boolean directSubmit;
     private static double startTime;
     public static int div;
     public static int peExpansion;
@@ -72,6 +73,8 @@ public class QAGESA {
     public static double betaLatency;
 
     public static boolean randomSelection;
+    
+    public static boolean p2p;
     
     public static String getOutputPath() {
         return outputPath;
@@ -154,8 +157,14 @@ public class QAGESA {
             randomSelection = true;
         }
 
+        prop = conf.getProperty("p2p");
+        p2p = Boolean.parseBoolean(prop);
+        
         prop = conf.getProperty("ceGIS");
         ceGIS = Boolean.parseBoolean(prop) && randomSelection;
+
+        prop = conf.getProperty("directSubmit");
+        directSubmit = Boolean.parseBoolean(prop) && randomSelection;
 
         prop = conf.getProperty("users");
         Integer numUsers = Integer.parseInt(prop);

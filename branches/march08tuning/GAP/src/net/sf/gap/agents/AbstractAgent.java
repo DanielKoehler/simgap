@@ -222,7 +222,7 @@ public abstract class AbstractAgent extends DataGridUser {
 	/**
 	 * @return agent size in bytes
 	 */
-	protected int getAgentSizeInBytes() {
+	public int getAgentSizeInBytes() {
 		return this.agentSizeInBytes;
 	}
 
@@ -236,7 +236,7 @@ public abstract class AbstractAgent extends DataGridUser {
 	/**
 	 * @return agent entity type
 	 */
-	protected int getEntityType() {
+	public int getEntityType() {
 		return this.entityType;
 	}
 
@@ -328,7 +328,7 @@ public abstract class AbstractAgent extends DataGridUser {
 	 * 
 	 * @return AID
 	 */
-	protected int getAID() {
+	public int getAID() {
 		return this.AID;
 	}
 
@@ -344,7 +344,7 @@ public abstract class AbstractAgent extends DataGridUser {
 	 * 
 	 * @return Agent's History
 	 */
-	protected AgentHistory getAgentHistory() {
+	public AgentHistory getAgentHistory() {
 		return this.agentHistory;
 	}
 
