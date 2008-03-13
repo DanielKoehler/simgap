@@ -399,7 +399,7 @@ public class QAGESAXMLVirtualOrganization extends AbstractVirtualOrganization {
             }
         }
         
-        agent.createServices();
+        agent.createServices(QAGESA.gisCacheTime, QAGESA.gisEntryCacheTime);
     }
     
     public void createAndAttachAgents() throws Exception {
