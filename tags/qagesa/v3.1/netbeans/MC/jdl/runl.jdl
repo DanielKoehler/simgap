@@ -1,0 +1,10 @@
+Type = "Job";
+JobType = "Normal";
+Executable = "/bin/sh";
+StdOutput = "output.txt";
+StdError = "error.txt";
+InputSandbox = {"buildenv.sh","../MC.zip","QAGESA.conf","jre.txt"};
+OutputSandbox = {"results.tar.bz2"};
+Arguments = "buildenv.sh jre.txt ../QAGESA.conf 1536 1536";
+Requirements =  ( RegExp("-long",other.GlueCEUniqueId));
+RetryCount = 10;

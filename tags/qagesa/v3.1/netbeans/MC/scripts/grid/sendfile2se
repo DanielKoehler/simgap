@@ -1,0 +1,32 @@
+#!/bin/sh
+LFC_HOST=infn-se-01.ct.pi2s2.it
+USER_DIR=/dpm/ct.pi2s2.it/home/cometa/gap
+CURRENT_VO=cometa 
+FILE_TO_SUBMIT=$1
+LOCAL_NAME=$2
+function submitFileToSE() {
+    if ! lfc-ls $USER_DIR &>/dev/null
+    then
+        echo "INFO:  Creating directory $USER_DIR"
+        lfc-mkdir $USER_DIR &> /dev/null 
+    fi
+    FNAME=$(basename $FILE_TO_SUBMIT)
+    REMOTENAME="$USER_DIR/$FNAME"
+    if  lcg-lr lfn:$USER_DIR/$FNAME &> /dev/null
+    then
+        echo "INFO:  File $FILE_TO_SUBMIT is on LFC catalog at lfn:$USERDIR/$FNAME with LFC_HOST=$LFC_HOST"
+    else
+        echo "INFO:  Sending file $FILE_TO_SUBMIT to LFC catalog at lfn:$USERDIR/$FNAME with LFC_HOST=$LFC_HOST" 
+        if [ ! -f "$FILE_TO_SUBMIT" ]
+        then
+        echo "ERROR: Attempt to send not existent file "$FILE_TO_SUBMIT""
+        fi
+        echo "INFO:  Executing: lcg-cr -l $REMOTENAME --vo $CURRENT_VO file://$FILE_TO_SUBMIT" 
+        OUTFILE=$(lcg-cr -l $REMOTENAME --vo $CURRENT_VO file://$FILE_TO_SUBMIT)
+        echo "$REMOTENAME" > $LOCAL_NAME
+        echo "INFO:  File submitted: $(cat $LOCAL_NAME)"
+   fi
+}
+
+submitFileToSE
+
