@@ -1,0 +1,832 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<!--
+    Document   : egeeit.xml
+    Created on : 4 February 2008, 13.55
+    Author     : Giovanni Novelli
+    Description:
+        EGEE scenario based on
+            svn://scm.gforge.inria.fr/svn/simgrid/contrib/trunk/platform_manager/platforms/Egee.xml
+-->
+
+<scenario  name="egee" trace="false" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="scenario.xsd"
+           xsi:type="SimulationScenarioType">
+    <topology>
+        <routers>
+            <!-- Routers to which GEs are attached to -->
+            <routerItem name="to-ce-r"/>
+            <routerItem name="pi-ce-r"/>
+            <routerItem name="bo-ce-r"/>
+            <routerItem name="fi-ce-r"/>
+            <routerItem name="rm-ce-r"/>
+            <routerItem name="ct-ce-r"/>
+            <routerItem name="pg-ce-r"/>
+            <routerItem name="ba-ce-r"/>
+            <routerItem name="pd-ce-r"/>
+            
+            <routerItem name="to-se-r"/>
+            <routerItem name="pi-se-r"/>
+            <routerItem name="bo-se-r"/>
+            <routerItem name="ct-se-r"/>
+            <routerItem name="fi-se-r"/>
+            <routerItem name="rm-se-r"/>
+            <routerItem name="pg-se-r"/>
+            <routerItem name="ba-se-r"/>
+            <routerItem name="pd-se-r"/>
+            
+            <!-- Backbones & switches -->
+            <routerItem name="swmi"/>
+            <routerItem name="swbo"/>
+            <routerItem name="swrm"/>
+            <routerItem name="swna"/>
+        </routers>
+        <ges>
+            <geItem name="to-ce"/>
+            <geItem name="pi-ce"/>
+            <geItem name="bo-ce"/>
+            <geItem name="fi-ce"/>
+            <geItem name="rm-ce"/>
+            <geItem name="ct-ce"/>
+            <geItem name="pg-ce"/>
+            <geItem name="ba-ce"/>
+            <geItem name="pd-ce"/>
+            
+            <geItem name="to-se"/>
+            <geItem name="pi-se"/>
+            <geItem name="bo-se"/>
+            <geItem name="ct-se"/>
+            <geItem name="fi-se"/>
+            <geItem name="rm-se"/>
+            <geItem name="pg-se"/>
+            <geItem name="ba-se"/>
+            <geItem name="pd-se"/>
+        </ges>
+        <netLinks>
+            <netLinkItem name="l-swmi2swbo">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swbo</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2swrm">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swrm</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2swna">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>swna</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2swrm">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>swrm</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2swna">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>swna</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2swna">
+                <Baudrate>10000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>swna</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2pd-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>pd-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2to-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>to-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2bo-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>bo-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2pi-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>pi-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2fi-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>fi-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2rm-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>rm-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2pg-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>pg-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swna2ba-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swna</fromEntity>
+                <toEntity>ba-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swna2ct-ce-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>2.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swna</fromEntity>
+                <toEntity>ct-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2to-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>to-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2pi-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>pi-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2bo-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>bo-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swna2ct-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>2.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swna</fromEntity>
+                <toEntity>ct-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swmi2pd-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swmi</fromEntity>
+                <toEntity>pd-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swbo2fi-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swbo</fromEntity>
+                <toEntity>fi-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2rm-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>rm-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swrm2pg-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swrm</fromEntity>
+                <toEntity>pg-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+            <netLinkItem name="l-swna2ba-se-r">
+                <Baudrate>1000000000.0</Baudrate>
+                <Delay>1.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>swna</fromEntity>
+                <toEntity>ba-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </netLinkItem>
+        </netLinks>
+        <geLinks>
+            <geLinkItem name="l-to-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>to-ce</fromEntity>
+                <toEntity>to-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pi-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.8</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pi-ce</fromEntity>
+                <toEntity>pi-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-bo-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.2</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>bo-ce</fromEntity>
+                <toEntity>bo-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-fi-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.9</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>fi-ce</fromEntity>
+                <toEntity>fi-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-rm-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>rm-ce</fromEntity>
+                <toEntity>rm-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-ct-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.25</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>ct-ce</fromEntity>
+                <toEntity>ct-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pg-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pg-ce</fromEntity>
+                <toEntity>pg-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-ba-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>ba-ce</fromEntity>
+                <toEntity>ba-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pd-ce">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pd-ce</fromEntity>
+                <toEntity>pd-ce-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            
+            <geLinkItem name="l-to-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>to-se</fromEntity>
+                <toEntity>to-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pi-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.8</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pi-se</fromEntity>
+                <toEntity>pi-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-bo-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>bo-se</fromEntity>
+                <toEntity>bo-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-ct-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.25</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>ct-se</fromEntity>
+                <toEntity>ct-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-fi-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.8</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>fi-se</fromEntity>
+                <toEntity>fi-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-rm-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.8</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>rm-se</fromEntity>
+                <toEntity>rm-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pg-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.0</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pg-se</fromEntity>
+                <toEntity>pg-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-ba-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>0.5</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>ba-se</fromEntity>
+                <toEntity>ba-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+            <geLinkItem name="l-pd-se">
+                <Baudrate>155000000.0</Baudrate>
+                <Delay>1.2</Delay>
+                <MTU>1512</MTU>
+                <fromEntity>pd-se</fromEntity>
+                <toEntity>pd-se-r</toEntity>
+                <bidirectional>true</bidirectional>
+            </geLinkItem>
+        </geLinks>
+    </topology>
+    <grid>
+        <gridElement name="to-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>6</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-to-ce</link>
+        </gridElement>
+        <gridElement name="pd-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>4000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>2</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-pd-ce</link>
+        </gridElement>
+        <gridElement name="pi-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>6</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-pi-ce</link>
+        </gridElement>
+        <gridElement name="bo-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>3000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>3</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-bo-ce</link>
+        </gridElement>
+        <gridElement name="fi-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>2000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>1</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-fi-ce</link>
+        </gridElement>
+        <gridElement name="rm-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>8000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>1</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-rm-ce</link>
+        </gridElement>
+        <gridElement name="ct-ce">
+            <isRB>true</isRB>
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>3000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>5</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-ct-ce</link>
+        </gridElement>
+        <gridElement name="pg-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>6000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>2</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-pg-ce</link>
+        </gridElement>
+        <gridElement name="ba-ce">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>2</count>
+                            </PE>
+                        </peList>
+                        <repeatMachine>9</repeatMachine>
+                    </Machine>
+                </items>
+            </machineList>
+            <link>l-ba-ce</link>
+        </gridElement>
+
+        <gridElement name="to-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-to-se"/>
+                <hdList>
+                    <hdItem name="HD-1-to-se">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-to-se">
+                        <Capacity>1000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-to-se</link>
+        </gridElement>
+        <gridElement name="pi-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-pi-se"/>
+                <hdList>
+                    <hdItem name="HD-1-pi-se">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-pi-se">
+                        <Capacity>2000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-pi-se</link>
+        </gridElement>
+        <gridElement name="bo-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-bo-se"/>
+                <hdList>
+                    <hdItem name="HD-1-bo-se">
+                        <Capacity>70.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-bo-se</link>
+        </gridElement>
+        <gridElement name="ct-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-ct-se"/>
+                <hdList>
+                    <hdItem name="HD-1-ct-se">
+                        <Capacity>8000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-ct-se">
+                        <Capacity>8000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-ct-se</link>
+        </gridElement>
+        <gridElement name="pd-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-pd-se"/>
+                <hdList>
+                    <hdItem name="HD-1-pd-se">
+                        <Capacity>4000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-pd-se">
+                        <Capacity>4000.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-pd-se</link>
+        </gridElement>
+        <gridElement name="fi-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-fi-se"/>
+                <hdList>
+                    <hdItem name="HD-1-fi-se">
+                        <Capacity>350.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-fi-se">
+                        <Capacity>350.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-fi-se</link>
+        </gridElement>
+        <gridElement name="rm-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-rm-se"/>
+                <hdList>
+                    <hdItem name="HD-1-rm-se">
+                        <Capacity>50.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-rm-se">
+                        <Capacity>50.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-rm-se</link>
+        </gridElement>
+        <gridElement name="pg-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-pg-se"/>
+                <hdList>
+                    <hdItem name="HD-1-pg-se">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                    <hdItem name="HD-2-pg-se">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-pg-se</link>
+        </gridElement>
+        <gridElement name="ba-se">
+            <machineList>
+                <items>
+                    <Machine>
+                        <peList>
+                            <PE>
+                                <MIPS>1000</MIPS>
+                                <count>1</count>
+                            </PE>
+                        </peList>
+                    </Machine>
+                </items>
+            </machineList>
+            <storage>
+                <RM name="RM-ba-se"/>
+                <hdList>
+                    <hdItem name="HD-0-ba-se">
+                        <Capacity>100.0</Capacity>
+                        <Latency>4.17</Latency>
+                        <AvgSeekTime>9.0</AvgSeekTime>
+                        <MaxTransferRate>133.0</MaxTransferRate>
+                    </hdItem>
+                </hdList>
+            </storage>
+            <link>l-ba-se</link>
+        </gridElement>
+    </grid>
+</scenario>
