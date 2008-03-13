@@ -43,11 +43,11 @@ public class QAGESAPlatform extends AgentPlatform {
     }
 
     @Override
-    public void createServices(double gisCacheTime, double gisEntryCacheTime) throws Exception {
-        super.createServices(gisCacheTime, gisEntryCacheTime);
+    public void createServices(double gisCacheTime, double gisEntryCacheTime, double nmCacheTime) throws Exception {
+        super.createServices(gisCacheTime, gisEntryCacheTime, nmCacheTime);
         this.setServiceMuM(new MuMService(this, false));
         this.setServiceCEL(new CELService(this, false));
-        this.setServiceReF(new ReFService(this, false, 0.0, 0.0));
+        this.setServiceReF(new ReFService(this, false, gisCacheTime, nmCacheTime));
     }
 
     public void initializeServices() throws Exception {
@@ -56,23 +56,8 @@ public class QAGESAPlatform extends AgentPlatform {
         this.getServiceReF().initialize();
     }
     
-    private void asyncProcessNetworkMap() {
-        this.getNetworkMonitor().asyncProcessNetworkMap();
-    }
-    
-    private void asyncProcessNetworkMap(AbstractGridElement ge1) {
-        this.getNetworkMonitor().asyncProcessNetworkMap(ge1);
-    }
-    
     public void preprocess() {
         QAGESAStat.reset(this.getVirtualOrganization().getNumCEs());
-        Iterator<AbstractGridElement> it1 = this.getGisService().getGisRepository().getListGEs().iterator();
-        while (it1.hasNext()) {
-                AbstractGridElement ge1 = it1.next();
-                super.gridSimHold(2.0);
-                this.asyncProcessNetworkMap(ge1);
-                super.gridSimHold(2.0);
-        }
     }
     public void postprocess() {
     }

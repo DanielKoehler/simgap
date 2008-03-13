@@ -107,7 +107,8 @@ public class ReFService extends PlatformService {
         this.setGISCacheLifetime(celCacheLifetime);
         this.setNMCacheLifetime(nmCacheLifetime);
         rand = new Uniform_int("prop_as");
-    }    
+    }
+
     private void setupStatPlayStart() {
         Sim_stat stat = new Sim_stat();
         int[] tags = {QAGESATags.REF_PLAY_REQ};
@@ -284,32 +285,33 @@ public class ReFService extends PlatformService {
                 load = ioLoad;
             }
             RTTMap rttMap = this.getNetworkMapCache().get(geID);
-            Iterator<Integer> itnm = rttMap.keySet().iterator();
-            InfoPacket userPkt = rttMap.get(userID);
-            double userLatency;
-            countedULatencies++;
-            if (userPkt != null) {
-                userLatency = userPkt.getTotalResponseTime() / 2.0;
-                sumUserLatency += userLatency;
-            } else {
-                userLatency = sumUserLatency / countedULatencies;
-            }
-            while (itnm.hasNext()) {
-                int eid = itnm.next();
-                if (Sim_system.get_entity(eid) instanceof QAGESAGridElement) {
-                    ge = (QAGESAGridElement) Sim_system.get_entity(eid);
-                    if (ge.isSE()) {
-                        int seID = eid;
-                        InfoPacket pkt = rttMap.get(seID);
-                        double latency = pkt.getTotalResponseTime() / 2.0;
-                        ReFTriple triple = 
-                                new ReFTriple(
-                                load, latency + userLatency, 
-                                geID, seID, 
-                                QAGESA.alfaLoad,
-                                QAGESA.betaLatency
-                                );
-                        list.add(triple);
+            if (rttMap != null) {
+                Iterator<Integer> itnm = rttMap.keySet().iterator();
+                InfoPacket userPkt = rttMap.get(userID);
+                double userLatency;
+                countedULatencies++;
+                if (userPkt != null) {
+                    userLatency = userPkt.getTotalResponseTime() / 2.0;
+                    sumUserLatency += userLatency;
+                } else {
+                    userLatency = sumUserLatency / countedULatencies;
+                }
+                while (itnm.hasNext()) {
+                    int eid = itnm.next();
+                    if (Sim_system.get_entity(eid) instanceof QAGESAGridElement) {
+                        ge = (QAGESAGridElement) Sim_system.get_entity(eid);
+                        if (ge.isSE()) {
+                            int seID = eid;
+                            InfoPacket pkt = rttMap.get(seID);
+                            double latency = pkt.getTotalResponseTime() / 2.0;
+                            ReFTriple triple =
+                                    new ReFTriple(
+                                    load, latency + userLatency,
+                                    geID, seID,
+                                    QAGESA.alfaLoad,
+                                    QAGESA.betaLatency);
+                            list.add(triple);
+                        }
                     }
                 }
             }
@@ -394,6 +396,8 @@ public class ReFService extends PlatformService {
         //QAGESAGridElement se = (QAGESAGridElement) Sim_system.get_entity(choice.getStorageElementID());
         //boolean haveMovie = se.containsSequence(movieTag);
         //if (haveMovie) break;
+        } else {
+            return this.randomChoice(movieTag, userID);
         }
         /*
         int geID = choice.getComputingElementID();
@@ -622,7 +626,7 @@ public class ReFService extends PlatformService {
         int requestID = request.getRequestID();
         int reqrepID = request.getReqrepID();
         super.send(super.output, GridSimTags.SCHEDULE_NOW,
-                Tags.NM_NETWORKMAP_REQ, new IO_data(request, SIZE, this.getAgentPlatform().get_id()));
+                Tags.NM_NETWORKMAP_REQ, new IO_data(request, SIZE, Sim_system.get_entity_id("NMService")));
         evsend_time = GridSim.clock();
         String msg = String.format("%1$f %2$d %3$s --> NM NM_NETWORKMAP_REQ",
                 evsend_time, reqrepID, this.get_name());

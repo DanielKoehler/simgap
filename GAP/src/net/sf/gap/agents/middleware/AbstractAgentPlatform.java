@@ -27,7 +27,6 @@ package net.sf.gap.agents.middleware;
 import net.sf.gap.agents.AbstractAgent;
 import net.sf.gap.agents.services.ServicesList;
 import net.sf.gap.agents.services.hardcoded.DirectoryFacilitator;
-import net.sf.gap.agents.services.hardcoded.NetworkMonitor;
 import net.sf.gap.agents.services.impl.GISService;
 import net.sf.gap.agents.services.impl.NMService;
 import net.sf.gap.agents.services.impl.TestService;
@@ -50,8 +49,6 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 
 	private ServicesList servicesList; // list of services
 
-	private NetworkMonitor networkMonitor; // Network monitor
-
 	private DirectoryFacilitator directoryFacilitator; // Directory Facilitator
 
 	private GISService gisService; // GISService instance of GISService
@@ -71,10 +68,10 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 		this.setPlatform(true);
 	}
 
-	public void createServices(double gisCacheTime, double gisEntryCacheTime) throws Exception {
+	public void createServices(double gisCacheTime, double gisEntryCacheTime, double nmCacheTime) throws Exception {
 		this.setTestService(new TestService(this, false));
 		this.setGisService(new GISService(this, false,gisCacheTime,gisEntryCacheTime));
-		this.setNMService(new NMService(this, false));
+		this.setNMService(new NMService(this, false,nmCacheTime));
 	}
 
 	public void addAgent(AbstractAgent agent, AbstractGridElement ge) {
@@ -107,10 +104,6 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 			this.getDirectoryFacilitator().processEvent(ev);
 			break;
 
-		case Tags.NM_NETWORKMAP_REQ:
-			this.getNetworkMonitor().processEvent(ev);
-			break;
-
 		default:
 			this.processOtherEvent(ev);
 			break;
@@ -118,7 +111,6 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 	}
 
 	public void initPlatform() throws Exception {
-		this.setNetworkMonitor(new NetworkMonitor(this));
 		this.setDirectoryFacilitator(new DirectoryFacilitator(this));
 
 		this.setServicesList(new ServicesList());
@@ -138,14 +130,6 @@ public abstract class AbstractAgentPlatform extends AgentMiddleware {
 
 	public void setServicesList(ServicesList servicesList) {
 		this.servicesList = servicesList;
-	}
-
-	public NetworkMonitor getNetworkMonitor() {
-		return networkMonitor;
-	}
-
-	public void setNetworkMonitor(NetworkMonitor networkMonitor) {
-		this.networkMonitor = networkMonitor;
 	}
 
 	public DirectoryFacilitator getDirectoryFacilitator() {

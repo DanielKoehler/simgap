@@ -34,8 +34,8 @@ public class ExperimentsPlatform extends AgentPlatform {
     }
 
     @Override
-    public void createServices(double gisCacheTime, double gisEntryCacheTime) throws Exception {
-        super.createServices(gisCacheTime, gisEntryCacheTime);
+    public void createServices(double gisCacheTime, double gisEntryCacheTime, double nmCacheTime) throws Exception {
+        super.createServices(gisCacheTime, gisEntryCacheTime, nmCacheTime);
     }
 
     public void initializeServices() throws Exception {

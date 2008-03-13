@@ -20,11 +20,10 @@ package net.sf.gap.mc.qagesa.users.impl;
 
 import java.util.List;
 
-import junit.framework.Assert;
 import net.sf.gap.GAP;
+import net.sf.gap.constants.Tags;
 import net.sf.gap.agents.predicates.Predicate;
-import net.sf.gap.messages.impl.AgentReply;
-import net.sf.gap.messages.impl.AgentRequest;
+import net.sf.gap.messages.impl.*;
 import net.sf.gap.mc.QAGESA;
 import net.sf.gap.mc.qagesa.agents.TranscodingAgent;
 import net.sf.gap.mc.qagesa.agents.services.impl.MuMService;
@@ -949,10 +948,17 @@ public class User extends QAGESAUser {
     private void pingCEs() {
         for (int i = 0; i < this.getVirtualOrganization().getNumCEs(); i++) {
             int ceID = this.getVirtualOrganization().getCEs().get(i).get_id();
-            InfoPacket pkt = super.pingBlockingCall(ceID,
-                    50);
+            PingRequest request = new PingRequest(this.get_id(), this.get_id(),
+                    this.get_id(), ceID);
+            InfoPacket pkt = super.pingBlockingCall(request.getPing_dst_ID(), 50);
+            PingReply reply = new PingReply(Tags.PING_REQ, true, request, pkt);
             if (pkt != null) {
-                this.getVirtualOrganization().getPlatform().getNetworkMonitor().getNetworkMap().addRTT(ceID, this.get_id(), pkt);
+                    super.send(super.output, GridSimTags.SCHEDULE_NOW, Tags.PING_REP,
+                                    new IO_data(reply, 10, Sim_system.get_entity_id("NMService")));
+            } else {
+                    reply.setOk(false);
+                    super.send(super.output, GridSimTags.SCHEDULE_NOW, Tags.PING_REP,
+                                    new IO_data(reply, 10, Sim_system.get_entity_id("NMService")));
             }
         }
     }

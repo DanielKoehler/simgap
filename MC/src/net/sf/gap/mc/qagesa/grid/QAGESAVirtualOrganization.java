@@ -238,7 +238,7 @@ public class QAGESAVirtualOrganization extends AbstractVirtualOrganization {
             ce.setAgentPlatform(agent);
         }
         
-        agent.createServices(QAGESA.gisCacheTime, QAGESA.gisEntryCacheTime);
+        agent.createServices(QAGESA.gisCacheTime, QAGESA.gisEntryCacheTime, QAGESA.nmCacheTime);
     }
     
     public void createAndAttachAgents() throws Exception {

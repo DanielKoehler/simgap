@@ -81,7 +81,7 @@ public class ExperimentsVirtualOrganization extends VirtualOrganization {
             ce.setAgentPlatform(agent);
         }
         
-        agent.createServices(1.0,2.0);
+        agent.createServices(1.0,2.0,1.0);
     }
     
     public void createAndAttachAgents() throws Exception {

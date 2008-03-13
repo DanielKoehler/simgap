@@ -47,6 +47,7 @@ public class QAGESA {
     
     public static double gisCacheTime = 1.0;
     public static double gisEntryCacheTime = 2.0;
+    public static double nmCacheTime = 1.0;
     
     public static double relaxTime = 200.0;
     public static int requests;
@@ -249,6 +250,8 @@ public class QAGESA {
         gisCacheTime = Double.parseDouble(prop);
         prop = conf.getProperty("gisEntryCacheTime");
         gisEntryCacheTime = Double.parseDouble(prop);
+        prop = conf.getProperty("nmCacheTime");
+        nmCacheTime = Double.parseDouble(prop);
         
         try {
             if (swing) {
