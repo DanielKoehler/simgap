@@ -93,11 +93,12 @@ public class QAGESAConfigurator {
                                 name = name + "_" + measure;
                                 File outFile = new File(confDir+"QAGESA_"+name+".conf");
                                 PrintStream outConf = new PrintStream(new FileOutputStream(outFile, false));
-                                outConf.println("ui             = false");
+                                outConf.println("p2p            = false");
                                 outConf.println("output         = results");
                                 if (iXML==1) {
                                 outConf.println("xml            = xml/egeeit.xml");
                                 outConf.println("xsd            = xml/scenario.xsd");
+                                outConf.println("peExpansion    = 1");
                                 } else {
                                 outConf.println("ces            = 4");
                                 outConf.println("machines       = 16");
@@ -107,26 +108,50 @@ public class QAGESAConfigurator {
                                 }
                                 outConf.println("measure        = " + measure);
                                 outConf.println("users          = " + users[iUsers]);
+                                outConf.println("fromRouter     = 0");
                                 outConf.println("requests       = " + requests[iRequests]);
+                                outConf.println("start          = 1000");
+                                outConf.println("end            = 2000");
+                                outConf.println("relax          = 400");
+
+                                outConf.println("directSubmit   = false");
+                                outConf.println("ceGIS          = false");
+
+                                outConf.println("caching        = " + ca[iCA]);
+                                outConf.println("repeated       = " + re[iRE]);
+                                outConf.println("reuseagents    = " + ra[iRA]);
+
+                                outConf.println("abortEnabled   = false");
+
+                                outConf.println("betaLatency    = 0.5");
+                                
+                                outConf.println("div            = 10");
+                                outConf.println("expansion      = 5");
+                                outConf.println("retryCount     = 2");
+                                
+                                outConf.println("violations     = 1.05");
+                                outConf.println("abortThreeshold= 0.99");
+                                outConf.println("failThreeshold = 0.1");
+                                
+                                outConf.println("# Initial compression ratio");
+                                outConf.println("ratio          = 0.10");
+                                outConf.println("beta           = 0.318");
+                                outConf.println("qosloss        = 0.5");
+                                outConf.println("gridload       = 0.0");
+
                                 outConf.println("distribution   = " + distribution[iDistribution]);
                                 if (distribution[iDistribution].compareTo("zipf")==0) {
                                 outConf.println("thetaU         = 0.5");
                                 outConf.println("thetaR         = 0.25");
                                 }
                                 if (distribution[iDistribution].compareTo("scaled")==0) {
-                                outConf.println("linearDelta    = 0.318");
+                                outConf.println("linearDelta    = 0.5");
                                 }
-                                outConf.println("caching        = " + ca[iCA]);
-                                outConf.println("repeated       = " + re[iRE]);
-                                outConf.println("reuseagents    = " + ra[iRA]);
-
                                 outConf.println("replications   = 1");
                                 outConf.println("confidence     = 0.95");
                                 outConf.println("accuracy       = 0.10");
 
-                                outConf.println("start          = 1000");
-                                outConf.println("end            = 2000");
-                                outConf.println("relax          = 400");
+                                outConf.println("ui             = false");
                                 /*
                                 int seconds = users[iUsers] * requests[iRequests] * 60;
                                 int relax   = seconds - 100;
