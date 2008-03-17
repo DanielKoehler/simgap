@@ -2,19 +2,23 @@
 #!/bin/sh
 SCRIPTS=$1
 WHERE=$2
-SUFFIX=$3
-FILE=USERS_$SUFFIX
+FILE=USERS_Streaming
 FNAMECSV=$WHERE/$FILE.csv
 FNAME=$2/USERS.dat
-NROUTERS=$4
+NROUTERS=$3
 
-cat $FNAMECSV | sort -n -k 8 > $FNAME
+NL=$(cat $FNAMECSV | wc | awk '{print $1 "-1"}' | bc) 
+cat $FNAMECSV | tail -n $NL > $FNAME
 
 ROUTER=0
 while [ $ROUTER -ne $NROUTERS ]
 do
-	FINAL=$WHERE/USERS_R$ROUTER.dat
-	cat $FNAME | awk '{print $3 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}' | awk -F "_" '{print $1 "\t" $2}' | awk '{print $3 % 4 "\t" $4 "\t" $5 "\t" $6 "\t" $7}'  | grep "^$ROUTER"  > $FINAL
+	FT=$WHERE/USERS_FT_R$ROUTER.dat
+	RT=$WHERE/USERS_RT_R$ROUTER.dat
+	ST=$WHERE/USERS_ST_R$ROUTER.dat
+	cat $FNAME | awk '{print $7 "\t" $11 "\t" $13 "\t" $19 "\t" $19}' | awk -F "_" '{print $1 "\t" $2}' | awk '{print $2 % 4 "\t" $3 "\t" $4 "\t" $5 "\t" $6}'  | grep "^$ROUTER"  > $FT
+	cat $FNAME | awk '{print $7 "\t" $11 "\t" $12 "\t" $18 "\t" $18}' | awk -F "_" '{print $1 "\t" $2}' | awk '{print $2 % 4 "\t" $3 "\t" $4 "\t" $5 "\t" $6}'  | grep "^$ROUTER"  > $RT
+	cat $FNAME | awk '{print $7 "\t" $13 "\t" $14 "\t" $20 "\t" $21}' | awk -F "_" '{print $1 "\t" $2}' | awk '{print $2 % 4 "\t" $3 "\t" $4 "\t" $5 "\t" $6}'  | grep "^$ROUTER"  > $ST
         ROUTER=$(( $ROUTER + 1 ))
 done
 
@@ -23,7 +27,9 @@ rm $WHERE/USERS_MEAN.dat &> /dev/null
 ROUTER=0
 while [ $ROUTER -ne $NROUTERS ]
 do
-  cat $WHERE/USERS_R$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_MEAN.dat
+  cat $WHERE/USERS_ST_R$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_ST_MEAN.dat
+  cat $WHERE/USERS_RT_R$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_RT_MEAN.dat
+  cat $WHERE/USERS_FT_R$ROUTER.dat | awk -f $SCRIPTS/USERS_AVG.awk >> $WHERE/USERS_FT_MEAN.dat
   ROUTER=$(( $ROUTER + 1 ))
 done
 echo "set xrange[$5:$6]" > png/temp.p
