@@ -188,6 +188,7 @@ public class User extends QAGESAUser {
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
             double perct = dt / (12 * QAGESA.expansion * 1.0);
+            /*
             QAGESA.outUSER.printf(
                     "CSV\tUSERS_FT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.6f\t%1.4f\n",
                     rep,
@@ -199,6 +200,7 @@ public class User extends QAGESAUser {
                     tb,
                     dt,
                     perct);
+             */
         }
     }
 
@@ -222,6 +224,7 @@ public class User extends QAGESAUser {
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
             double perct = dt / (12 * QAGESA.expansion * 1.0);
+            /*
             QAGESA.outUSER.printf(
                     "CSV\tUSERS_ST\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.4f\t%1.4f\n",
                     rep,
@@ -233,6 +236,7 @@ public class User extends QAGESAUser {
                     tb,
                     dt,
                     perct);
+             */
         }
     }
 
@@ -256,6 +260,7 @@ public class User extends QAGESAUser {
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
             double perct = dt / (12 * QAGESA.expansion * 1.0);
+            /*
             QAGESA.outUSER.printf(
                     "CSV\tUSERS_RT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.4f\t%1.4f\n",
                     rep,
@@ -267,6 +272,7 @@ public class User extends QAGESAUser {
                     tb,
                     dt,
                     perct);
+             */
         }
     }
 
@@ -507,7 +513,8 @@ public class User extends QAGESAUser {
                         chunkRequest.getPlayReqrepID(),
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
-
+                
+                /*
                  int rep = QAGESAStat.getReplication();
                  int nu = QAGESAStat.getNumUsers();
                  int ca = 0;
@@ -546,6 +553,7 @@ public class User extends QAGESAUser {
                         streamQuality,
                         fetchedBytes,
                         streamedBytes);
+                 */
 
                  ChunkReply chunkReply = new ChunkReply(QAGESATags.SEND_CHUNK_REP, true, chunkRequest, chunkRequest.getChunk());
                 super.send(super.output, GridSimTags.SCHEDULE_NOW,
@@ -634,10 +642,11 @@ public class User extends QAGESAUser {
                  int totalStreams = intimeStreams + outtimeStreams;
                  double normalizedIntimeStreams = (intimeStreams * 1.0) / (totalStreams * 1.0);
                  double normalizedOuttimeStreams = (outtimeStreams * 1.0) / (totalStreams * 1.0);
+                 double streamQuality = request.getCurrentQualityMean();
 
                 if (!request.isAborted()) {
                     QAGESA.outUSER_Streaming.printf(
-                            "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\n",
+                            "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\t%1.4f\n",
                             rep,
                             nu,
                             ca,
@@ -664,7 +673,8 @@ public class User extends QAGESAUser {
                             intimeStreams,
                             outtimeStreams,
                             normalizedIntimeStreams,
-                            normalizedOuttimeStreams);
+                            normalizedOuttimeStreams,
+                            streamQuality);
                 }
     }
     

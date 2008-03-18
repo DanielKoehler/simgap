@@ -147,6 +147,7 @@ public class ReFService extends PlatformService {
             double ta = (times[0] - QAGESA.getStartTime());
             double tb = (times[1] - QAGESA.getStartTime());
             double dt = (times[1] - times[0]);
+            /*
             QAGESA.outReF_RT.printf(
                     "CSV\tReF_RT\t%2d\t%4d\t%d\t%d\t%s\t%6.4f\t%6.4f\t%6.4f\n",
                     rep,
@@ -157,8 +158,10 @@ public class ReFService extends PlatformService {
                     ta,
                     tb,
                     dt);
+             */
         }
-        QAGESA.outReF_RT.flush();
+        //QAGESA.outReF_RT.flush();
+         
     }
 
     @Override

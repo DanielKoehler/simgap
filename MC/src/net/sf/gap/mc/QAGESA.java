@@ -357,14 +357,14 @@ public class QAGESA {
         }
     }
     public static PrintStream outIO;
-    public static PrintStream outFuzzy_QoS;
+    //public static PrintStream outFuzzy_QoS;
     public static PrintStream outQoS;
-    public static PrintStream outReF_RT;
+    //public static PrintStream outReF_RT;
     public static PrintStream outReF_CR;
     public static PrintStream outReF_PR;
-    public static PrintStream outUSER;
+    //public static PrintStream outUSER;
     public static PrintStream outUSER_Streaming;
-    public static PrintStream outUSER_QoS;
+    //public static PrintStream outUSER_QoS;
 
     private static void prepareOutput() {
         // Create a directory; all non-existent ancestor directories are
@@ -398,6 +398,7 @@ public class QAGESA {
             }
         try {
             File outFile;
+            /*
             outFile = new File(QAGESA.getOutputPath() + "/ReF_RT.csv");
             outReF_RT = new PrintStream(new FileOutputStream(outFile, true));
             outReF_RT.printf(
@@ -413,6 +414,7 @@ public class QAGESA {
                     "RESPONSE TIME"+
                     "\n"
                     );
+             */
             outFile = new File(QAGESA.getOutputPath() + "/ReF_CR.csv");
             outReF_CR = new PrintStream(new FileOutputStream(outFile, true));
             outReF_CR.printf(
@@ -464,6 +466,7 @@ public class QAGESA {
                     "RELATIVE IO LOAD"+
                     "\n"
                     );
+            /*
             outFile = new File(QAGESA.getOutputPath() + "/Fuzzy_QoS.csv");
             outFuzzy_QoS = new PrintStream(new FileOutputStream(outFile, true));
             outFuzzy_QoS.printf(
@@ -493,6 +496,7 @@ public class QAGESA {
                     "DELAY\t"+
                     "\n"
                     );
+             */
             outFile = new File(QAGESA.getOutputPath() + "/QoS.csv");
             outQoS = new PrintStream(new FileOutputStream(outFile, true));
             outQoS.printf(
@@ -510,6 +514,7 @@ public class QAGESA {
                     "ACCEPTABLE QUALITYLOSS\t"+
                     "\n"
                     );
+            /*
             outFile = new File(QAGESA.getOutputPath() + "/" + usercsvName);
             outUSER = new PrintStream(new FileOutputStream(outFile, true));
             outUSER.printf(
@@ -550,6 +555,7 @@ public class QAGESA {
                     "CUMULATIVE STREAMED BYTES\t" +
                     "\n"
                     );
+             */
             outFile = new File(QAGESA.getOutputPath() + "/USERS_Streaming.csv");
             outUSER_Streaming = new PrintStream(new FileOutputStream(outFile, true));
             outUSER_Streaming.printf(
@@ -581,7 +587,8 @@ public class QAGESA {
                     "INTIME STREAMS\t" +
                     "OUTTIME STREAMS\t" +
                     "NORMALIZED INTIME STREAMS\t" +
-                    "NORMALIZED OUTTIME STREAMS" +
+                    "NORMALIZED OUTTIME STREAMS\t" +
+                    "MEAN STREAM QUALITY" +
                     "\n"
                     );
         } catch (IOException e) {
@@ -592,13 +599,13 @@ public class QAGESA {
     private static void closeOutput() {
         try {
             outIO.close();
-            outFuzzy_QoS.close();
+            //outFuzzy_QoS.close();
             outQoS.close();
-            outReF_RT.close();
+            //outReF_RT.close();
             outReF_CR.close();
             outReF_PR.close();
-            outUSER.close();
-            outUSER_QoS.close();
+            //outUSER.close();
+            //outUSER_QoS.close();
             outUSER_Streaming.close();
             File usedConfFile = new File(usedConf);
             QAGESA.copywd(usedConf, getOutputPath() + "/" + usedConfFile.getName());

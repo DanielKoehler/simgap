@@ -132,6 +132,10 @@ public class TranscodeRequest extends Request {
         return qualityMean;
     }
 
+    public double getCurrentQualityMean() {
+        return qualityMean.getMean();
+    }
+    
     public void setQualityMean(Accumulator qualityMean) {
         this.qualityMean = qualityMean;
     }
