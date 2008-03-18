@@ -74,7 +74,7 @@ public class QAGESA {
 
     public static boolean randomSelection;
     
-    public static boolean p2p;
+    public static boolean p2p=false;
     
     public static String getOutputPath() {
         return outputPath;
@@ -158,7 +158,9 @@ public class QAGESA {
         }
 
         prop = conf.getProperty("p2p");
-        p2p = Boolean.parseBoolean(prop);
+        if (prop!=null) {
+            p2p = Boolean.parseBoolean(prop);
+        }
         
         prop = conf.getProperty("ceGIS");
         ceGIS = Boolean.parseBoolean(prop) && randomSelection;
