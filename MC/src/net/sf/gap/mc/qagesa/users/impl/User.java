@@ -513,6 +513,7 @@ public class User extends QAGESAUser {
                         chunkRequest.getPlayReqrepID(),
                         chunkRequest.getSequenceNumber());
                 this.write(msg);
+                 double streamQuality = chunkRequest.getTranscodeRequest().updateQualityMean();
                 
                 /*
                  int rep = QAGESAStat.getReplication();
@@ -735,7 +736,9 @@ public class User extends QAGESAUser {
                  double meanDelay = 0.0;
                  double normalizedMeanDelay = 0.0;
                  double delay = 0.0;
+                 double streamQuality = 1.0;
                 if (playReply.isOk()) {
+                    streamQuality = request.getTranscodeRequest().getCurrentQualityMean();
                     sequenceSize = request.getTranscodeRequest().getSequence().size();
                     duration = request.getTranscodeRequest().getSequence().getDuration() * 0.001;
                     chunkDuration = duration / (sequenceSize * 1.0);
@@ -762,7 +765,7 @@ public class User extends QAGESAUser {
 
                 if (!request.getTranscodeRequest().isAborted()) {
                     QAGESA.outUSER_Streaming.printf(
-                            "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\n",
+                            "CSV\tUSERS_Streaming\t%2d\t%4d\t%1d\t%1d\t%12s\t%6.4f\t%12d\t%1.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%12d\t%12d\t%6.4f\t%6.4f\t%6.4f\t%1.4f\t%6.4f\t%6.4f\t%1.4f\t%1.4f\t%12d\t%12d\t%1.4f\t%1.4f\t%1.4f\n",
                             rep,
                             nu,
                             ca,
@@ -789,7 +792,8 @@ public class User extends QAGESAUser {
                             intimeStreams,
                             outtimeStreams,
                             normalizedIntimeStreams,
-                            normalizedOuttimeStreams);
+                            normalizedOuttimeStreams,
+                            streamQuality);
                 }
     }
     static double[] probsUsers;
