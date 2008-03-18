@@ -7,6 +7,8 @@ FNAMECSV=$WHERE/$FILE.csv
 FNAME=$2/USERS.dat
 NROUTERS=$3
 
+rm $2/*.dat
+
 NL=$(cat $FNAMECSV | wc | awk '{print $1 "-1"}' | bc) 
 cat $FNAMECSV | tail -n $NL > $FNAME
 
